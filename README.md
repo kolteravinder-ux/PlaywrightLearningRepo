@@ -107,3 +107,7 @@ Add a license file if you plan to publish this repository publicly (e.g., MIT).
 If you want, I can:
 - add a sample `package.json` with useful scripts, or
 - create a `launch.json` in `.vscode/` for convenient debugging.
+
+## Recent edits
+
+- 2026-05-11: Updated `Day09_ArrayPractice/01_ArrayCreation` to include an `Array.from` example that generates numbers 10 through 20 using `Array.from({ length: 11 }, (_, i) => i + 10)`.
