@@ -21,8 +21,13 @@ let sub=arr4.slice(2,5)
 console.log(sub)
 
 // What's the difference between splice() and slice()? Demonstrate with code.
+//Splice() is used to modify the array at specific given index
+//Example for splice() to add the element between element 3 and 4
+let arr5=[1,2,3,4,5,6,7,8,9]
+arr5.splice(4,0,40)
+console.log(arr5)
+//Slice() is used to access the substring of array for given indexes
+let arr6=[1,2,3,4,5,6,7,8,9]
 
-
-
-
+console.log(arr6.slice(2,6))
 
