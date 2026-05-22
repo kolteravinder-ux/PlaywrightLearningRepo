@@ -8,6 +8,7 @@ console.log(grade)  //[ 'Fail', 'Pass', 'Pass', 'Fail', 'Pass' ]
 
 let arrFilter=a.filter(x => x>15)
 console.log(arrFilter)  //[ 20, 25, 30 ]
+console.log(a)
 
 //reduce - accumalates to a single value, reduce complete array to single value
 let total=a.reduce((sum,s) => sum+s)

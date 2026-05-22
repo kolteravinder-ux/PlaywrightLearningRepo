@@ -1,6 +1,17 @@
 /*
-write a java program that calculates and displays the letter grade for a given
-number score: A:90-100, B:80-89, C:70-79, D:60-69, F:0-59
+### Question 2 — Student Grade Calculator
+
+Problem: Take marks (0–100) and print the grade based on these rules:
+
+- 90 and above → A
+
+- 80–89 → B
+
+- 70–79 → C
+
+- 60–69 → D
+
+- Below 60 → Fail
 */
 
 let a=10;
@@ -30,6 +41,3 @@ else
 {
     console.log("Score can not be more than 100, kindly re calculate.")
 }
-
-
-

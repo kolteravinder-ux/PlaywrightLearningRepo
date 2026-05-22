@@ -1,0 +1,532 @@
+=====================================================
+JAVASCRIPT ARRAY PRACTICE QUESTIONS
+50 Questions for Playwright & Big Tech Interviews
+=====================================================
+
+Created for: Interview Preparation
+Focus: Playwright/Automation + Big Tech Companies
+Difficulty: Beginner to Advanced
+
+
+=====================================================
+SECTION 1: ARRAY BASICS (Questions 1-10)
+=====================================================
+
+Q1. Create an array of 5 test case names and print each one.
+Expected Output: "Test Case 1: Login", "Test Case 2: Signup", etc.
+
+---
+
+Q2. Given an array of test results: ["pass", "fail", "pass", "skip", "pass"]
+Count how many tests passed.
+Expected Output: 3
+
+---
+
+Q3. Create an array with 10 elements and access:
+   a) First element
+   b) Last element
+   c) Middle element
+Write the code.
+
+---
+
+Q4. Given: let locators = ['#username', '#password', '.submit-btn']
+Access the second locator using index.
+Expected Output: "#password"
+
+---
+
+Q5. Create an array of page URLs and add a new URL at the end using push().
+URLs: ['/home', '/about', '/contact']
+Add: '/login'
+Print the updated array.
+
+---
+
+Q6. Remove the last element from this array: ['Chrome', 'Firefox', 'Safari', 'Edge']
+Use pop() and print both the removed element and remaining array.
+
+---
+
+Q7. Add 'Mobile' at the beginning of this array: ['Desktop', 'Tablet']
+Use unshift() and print the result.
+
+---
+
+Q8. Remove the first element from: ['staging', 'production', 'development']
+Use shift() and print both removed element and remaining array.
+
+---
+
+Q9. Given: let testData = [10, 20, 30, 40, 50]
+Extract elements from index 1 to 3 (inclusive) using slice().
+Expected Output: [20, 30, 40]
+
+---
+
+Q10. Replace the element at index 2 with 'UPDATED' in this array:
+['step1', 'step2', 'step3', 'step4']
+Expected Output: ['step1', 'step2', 'UPDATED', 'step4']
+
+
+=====================================================
+SECTION 2: ARRAY SEARCH METHODS (Questions 11-20)
+=====================================================
+
+Q11. Check if 'login' exists in this array: ['home', 'login', 'dashboard', 'profile']
+Use includes() method.
+Expected Output: true
+
+---
+
+Q12. Find the index of 'Firefox' in: ['Chrome', 'Edge', 'Firefox', 'Safari']
+Use indexOf() method.
+Expected Output: 2
+
+---
+
+Q13. Given: let statuses = ['pass', 'fail', 'pass', 'skip', 'fail', 'pass']
+Find the LAST occurrence of 'fail' using lastIndexOf().
+Expected Output: 4
+
+---
+
+Q14. Find the first test result that is NOT "pass":
+let results = ['pass', 'pass', 'fail', 'pass', 'skip']
+Use find() method.
+Expected Output: "fail"
+
+---
+
+Q15. Find the index of the first failed test:
+let testResults = [
+  { id: 1, status: 'pass' },
+  { id: 2, status: 'pass' },
+  { id: 3, status: 'fail' },
+  { id: 4, status: 'pass' }
+]
+Use findIndex() and return the index.
+Expected Output: 2
+
+---
+
+Q16. PLAYWRIGHT SCENARIO:
+You have an array of locators: ['#btn1', '.btn2', '#btn3', '.btn4']
+Find all locators that start with '#' (ID selectors).
+Use filter() method.
+Expected Output: ['#btn1', '#btn3']
+
+---
+
+Q17. Find if ANY test failed in this array:
+['pass', 'pass', 'pass', 'fail', 'pass']
+Use includes() and return boolean.
+
+---
+
+Q18. REAL INTERVIEW QUESTION (Amazon):
+Given array: [1, 2, 3, 4, 5, 2, 3, 2]
+Find ALL indices where value 2 appears.
+Write a function findAllIndices(arr, value).
+Expected Output: [1, 5, 7]
+
+---
+
+Q19. Find the first browser that supports a specific feature:
+let browsers = [
+  { name: 'IE', supportsES6: false },
+  { name: 'Chrome', supportsES6: true },
+  { name: 'Firefox', supportsES6: true }
+]
+Use find() to get the first browser with supportsES6: true.
+Expected Output: { name: 'Chrome', supportsES6: true }
+
+---
+
+Q20. Check if all tests passed:
+let results = ['pass', 'pass', 'pass']
+Write a function using a loop or method.
+Return true if all are 'pass', false otherwise.
+
+
+=====================================================
+SECTION 3: ARRAY TRANSFORMATION (Questions 21-30)
+=====================================================
+
+Q21. Convert all test names to uppercase:
+['login test', 'signup test', 'checkout test']
+Use map() method.
+Expected Output: ['LOGIN TEST', 'SIGNUP TEST', 'CHECKOUT TEST']
+
+---
+
+Q22. PLAYWRIGHT SCENARIO:
+You have locators: ['#username', '#password', '#submit']
+Add 'await page.click()' to each locator.
+Use map() to create: ['await page.click("#username")', ...]
+
+---
+
+Q23. Extract only usernames from user objects:
+let users = [
+  { username: 'admin', role: 'admin' },
+  { username: 'user1', role: 'user' },
+  { username: 'user2', role: 'user' }
+]
+Use map() to get: ['admin', 'user1', 'user2']
+
+---
+
+Q24. Filter out failed tests:
+let results = [
+  { test: 'Login', status: 'pass' },
+  { test: 'Signup', status: 'fail' },
+  { test: 'Checkout', status: 'pass' }
+]
+Use filter() to get only passed tests.
+Expected Output: Array with 2 objects (Login and Checkout)
+
+---
+
+Q25. Get only even numbers from: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+Use filter() method.
+Expected Output: [2, 4, 6, 8, 10]
+
+---
+
+Q26. Calculate total execution time:
+let times = [120, 340, 180, 260, 150]; // milliseconds
+Use reduce() to get sum.
+Expected Output: 1050
+
+---
+
+Q27. GOOGLE INTERVIEW QUESTION:
+Find the maximum value in array: [45, 78, 23, 90, 56, 12]
+Use reduce() method (not Math.max).
+
+---
+
+Q28. Count test results by status:
+let results = ['pass', 'fail', 'pass', 'pass', 'skip', 'fail', 'pass']
+Use reduce() to create: { pass: 4, fail: 2, skip: 1 }
+
+---
+
+Q29. Chain multiple operations:
+Given: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+- Filter even numbers
+- Square each number
+- Sum them all
+Use filter() → map() → reduce()
+Expected Output: 220 (4+16+36+64+100)
+
+---
+
+Q30. PLAYWRIGHT SCENARIO:
+Transform test data for data-driven testing:
+let rawData = [
+  'user1:pass1',
+  'user2:pass2',
+  'user3:pass3'
+]
+Use map() to convert to:
+[
+  { username: 'user1', password: 'pass1' },
+  { username: 'user2', password: 'pass2' },
+  { username: 'user3', password: 'pass3' }
+]
+
+
+=====================================================
+SECTION 4: ARRAY SORTING (Questions 31-35)
+=====================================================
+
+Q31. Sort test execution times in ascending order:
+[450, 230, 890, 120, 670]
+Use sort() with compare function.
+Expected Output: [120, 230, 450, 670, 890]
+
+---
+
+Q32. Sort browsers alphabetically:
+['Firefox', 'Chrome', 'Safari', 'Edge']
+Already sorted? Sort in reverse alphabetical order.
+Expected Output: ['Safari', 'Firefox', 'Edge', 'Chrome']
+
+---
+
+Q33. Sort test results by priority (high to low):
+let tests = [
+  { name: 'Test1', priority: 2 },
+  { name: 'Test2', priority: 1 },
+  { name: 'Test3', priority: 3 }
+]
+Use sort() to order by priority (1 = highest).
+Expected Output: Test2, Test1, Test3
+
+---
+
+Q34. MICROSOFT INTERVIEW:
+Sort an array of objects by multiple criteria:
+First by status (failed first), then by execution time.
+let results = [
+  { test: 'A', status: 'pass', time: 100 },
+  { test: 'B', status: 'fail', time: 200 },
+  { test: 'C', status: 'pass', time: 50 },
+  { test: 'D', status: 'fail', time: 150 }
+]
+
+---
+
+Q35. Reverse this array WITHOUT using reverse():
+[1, 2, 3, 4, 5]
+Write a manual solution.
+Expected Output: [5, 4, 3, 2, 1]
+
+
+=====================================================
+SECTION 5: LOOPS & ITERATION (Questions 36-40)
+=====================================================
+
+Q36. Use forEach() to log each test name with its index:
+let tests = ['Login Test', 'Signup Test', 'Dashboard Test']
+Expected Output:
+"0: Login Test"
+"1: Signup Test"
+"2: Dashboard Test"
+
+---
+
+Q37. Use for...of loop to calculate total of:
+[100, 200, 300, 400, 500]
+Print the sum.
+
+---
+
+Q38. Use traditional for loop to find first occurrence of 'fail':
+['pass', 'pass', 'fail', 'pass', 'skip']
+Break the loop when found and print index.
+
+---
+
+Q39. PLAYWRIGHT SCENARIO:
+Loop through test URLs and create test data:
+let pages = ['/home', '/login', '/dashboard']
+Use for...of to create:
+[
+  { url: '/home', visited: false },
+  { url: '/login', visited: false },
+  { url: '/dashboard', visited: false }
+]
+
+---
+
+Q40. Compare for loop vs forEach:
+Which one can you break early? Demonstrate with code.
+Array: [1, 2, 3, 4, 5]
+Task: Stop when you find a number > 3
+
+
+=====================================================
+SECTION 6: ADVANCED SCENARIOS (Questions 41-50)
+=====================================================
+
+Q41. FACEBOOK INTERVIEW:
+Remove duplicates from: [1, 2, 2, 3, 4, 4, 5, 1, 6]
+Use Set or filter().
+Expected Output: [1, 2, 3, 4, 5, 6]
+
+---
+
+Q42. Flatten nested array:
+[[1, 2], [3, 4], [5, 6]]
+Use reduce() or flat().
+Expected Output: [1, 2, 3, 4, 5, 6]
+
+---
+
+Q43. PLAYWRIGHT REAL SCENARIO:
+Merge test results from multiple browsers:
+let chrome = [{ test: 'Login', status: 'pass' }]
+let firefox = [{ test: 'Login', status: 'fail' }]
+let safari = [{ test: 'Login', status: 'pass' }]
+Combine into single array with browser name added.
+Expected Output:
+[
+  { test: 'Login', status: 'pass', browser: 'chrome' },
+  { test: 'Login', status: 'fail', browser: 'firefox' },
+  { test: 'Login', status: 'pass', browser: 'safari' }
+]
+
+---
+
+Q44. AMAZON INTERVIEW:
+Find the second largest number in:
+[45, 78, 23, 90, 56, 12, 90]
+Don't use sort(). Handle duplicates.
+Expected Output: 78
+
+---
+
+Q45. Chunk array into smaller arrays:
+Input: [1, 2, 3, 4, 5, 6, 7, 8], chunkSize: 3
+Output: [[1, 2, 3], [4, 5, 6], [7, 8]]
+Write a function.
+
+---
+
+Q46. GOOGLE INTERVIEW - Two Sum Problem:
+Given: [2, 7, 11, 15], target: 9
+Find two numbers that add up to target.
+Return their indices.
+Expected Output: [0, 1] (because 2 + 7 = 9)
+
+---
+
+Q47. PLAYWRIGHT SCENARIO - Parallel Test Execution:
+Split test cases into N batches for parallel execution:
+tests = ['test1', 'test2', 'test3', 'test4', 'test5', 'test6']
+batches = 3
+Output:
+[
+  ['test1', 'test2'],
+  ['test3', 'test4'],
+  ['test5', 'test6']
+]
+
+---
+
+Q48. Deep clone array with nested objects:
+let suite1 = [
+  { name: 'Test1', data: { user: 'admin', pass: '123' } }
+]
+Create suite2 as true deep copy.
+Modify suite2 without affecting suite1.
+Show 3 different methods.
+
+---
+
+Q49. MICROSOFT INTERVIEW:
+Rotate array to the right by K positions:
+Input: [1, 2, 3, 4, 5], k = 2
+Output: [4, 5, 1, 2, 3]
+Write efficient solution.
+
+---
+
+Q50. REAL PLAYWRIGHT PROJECT SCENARIO:
+You have test execution data:
+let results = [
+  { suite: 'Auth', test: 'Login', duration: 1200, status: 'pass' },
+  { suite: 'Auth', test: 'Signup', duration: 1500, status: 'fail' },
+  { suite: 'Cart', test: 'Add Item', duration: 800, status: 'pass' },
+  { suite: 'Cart', test: 'Checkout', duration: 2000, status: 'pass' },
+  { suite: 'Auth', test: 'Logout', duration: 500, status: 'pass' }
+]
+
+Generate a summary report:
+{
+  totalTests: 5,
+  passed: 4,
+  failed: 1,
+  totalDuration: 6000,
+  suites: {
+    'Auth': { tests: 3, passed: 2, failed: 1, duration: 3200 },
+    'Cart': { tests: 2, passed: 2, failed: 0, duration: 2800 }
+  }
+}
+
+Use reduce(), filter(), map() combinations.
+
+
+=====================================================
+BONUS SECTION: COMMON INTERVIEW PATTERNS
+=====================================================
+
+PATTERN 1: Find Missing Number
+Array: [1, 2, 4, 5, 6] (3 is missing)
+Find the missing number.
+
+---
+
+PATTERN 2: Move Zeros to End
+Input: [0, 1, 0, 3, 12]
+Output: [1, 3, 12, 0, 0]
+Don't use filter/sort.
+
+---
+
+PATTERN 3: Array Intersection
+arr1 = [1, 2, 3, 4]
+arr2 = [3, 4, 5, 6]
+Find common elements: [3, 4]
+
+---
+
+PATTERN 4: Merge Sorted Arrays
+arr1 = [1, 3, 5]
+arr2 = [2, 4, 6]
+Merge into: [1, 2, 3, 4, 5, 6]
+
+---
+
+PATTERN 5: Find Duplicates
+[1, 2, 3, 2, 4, 5, 3]
+Return duplicates: [2, 3]
+
+
+=====================================================
+DIFFICULTY BREAKDOWN
+=====================================================
+
+Beginner (Q1-Q10): Array basics, access, push/pop
+Easy (Q11-Q25): Search methods, basic transformations
+Medium (Q26-Q40): reduce(), sorting, loops, chaining
+Hard (Q41-Q50): Complex scenarios, optimization, real projects
+
+=====================================================
+COMPANY-WISE FOCUS
+=====================================================
+
+GOOGLE: Q27, Q46 (algorithms, optimization)
+AMAZON: Q18, Q44 (array manipulation, edge cases)
+MICROSOFT: Q34, Q49 (multi-criteria, rotations)
+FACEBOOK: Q41 (sets, deduplication)
+PLAYWRIGHT: Q22, Q30, Q43, Q47, Q50 (real automation scenarios)
+
+=====================================================
+PRACTICE TIPS
+=====================================================
+
+1. Start with Section 1-2 (basics)
+2. Master map/filter/reduce (Section 3)
+3. Practice chaining methods
+4. Focus on Playwright scenarios (marked)
+5. Time yourself on Hard questions (15-20 min each)
+6. Write code WITHOUT looking at answers first
+7. Test your solutions with console.log()
+8. Optimize after getting it working
+
+=====================================================
+NEXT STEPS
+=====================================================
+
+1. Solve 5 questions per day
+2. Write actual code for each
+3. Test in browser console or Node.js
+4. Explain solution out loud (interview practice)
+5. Review wrong answers
+6. Revisit hard questions after 1 week
+
+Good luck with your interviews! 🚀
+
+=====================================================
+END OF PRACTICE QUESTIONS
+=====================================================
+
+Created by: Claude
+For: Playwright & Big Tech Interview Preparation
+Total Questions: 50 + 5 Bonus Patterns
+Focus: Practical, Interview-Ready, Real Scenarios

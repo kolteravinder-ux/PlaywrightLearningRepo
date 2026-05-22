@@ -3,10 +3,10 @@ let arr=[10,20,30];
 
 //Array Constructor
 let arr2= new Array(3); // new Memory allocation is happening
-console.log(arr2)
+console.log(arr2) //[ <3 empty items> ]
 
 let arr3=new Array(1,2,3);
-console.log(arr3)
+console.log(arr3) //[ 1, 2, 3 ]
 
 let arr4= Array.of(1,2,3,4,5)  // created through function 
 console.log(arr4)

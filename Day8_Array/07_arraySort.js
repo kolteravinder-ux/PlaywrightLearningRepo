@@ -12,3 +12,5 @@ console.log(aintAsc.sort((a,b)=> a-b))
 // But if we want to do the descending sorting then
 let aintDec=[10,20,25,5,30]
 console.log(aintDec.sort((a,b)=> b-a))
+
+
