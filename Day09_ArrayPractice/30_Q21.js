@@ -4,3 +4,9 @@ Q21. Convert all test names to uppercase:
 Use map() method.
 Expected Output: ['LOGIN TEST', 'SIGNUP TEST', 'CHECKOUT TEST']
 */
+
+let ele= ['login test', 'signup test', 'checkout test']
+
+let ans=ele.map(x=>x.toUpperCase())
+
+console.log(ans)

@@ -4,3 +4,5 @@ let times = [120,340,180,260,150]; // milliseconds
 Use reduce() to get sum.
 Expected Output: 1050
 */
+let times = [120,340,180,260,150]
+console.log(times.reduce((a,b)=> a+b))
