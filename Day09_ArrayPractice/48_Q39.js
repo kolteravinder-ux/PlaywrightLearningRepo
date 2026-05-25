@@ -9,3 +9,13 @@ Use for...of to create:
 	{ url: '/dashboard', visited: false }
 ]
 */
+let pages = ['/home','/login','/dashboard']
+let testdata = new Array()
+pages.forEach((e,i)=>{
+
+testdata.push({
+	url:`${e}`,
+	visited: false
+})
+})
+console.log(testdata)

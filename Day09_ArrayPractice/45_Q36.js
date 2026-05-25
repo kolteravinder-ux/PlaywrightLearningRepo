@@ -6,3 +6,11 @@ Expected Output:
 "1: Signup Test"
 "2: Dashboard Test"
 */
+let tests = ['Login Test','Signup Test','Dashboard Test']
+
+tests.forEach((e,i)=>{
+
+    console.log(`${i}: ${e}`)
+
+
+})

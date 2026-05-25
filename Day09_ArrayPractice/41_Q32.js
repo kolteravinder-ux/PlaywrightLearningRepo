@@ -4,3 +4,10 @@ Q32. Sort browsers alphabetically:
 Already sorted? Sort in reverse alphabetical order.
 Expected Output: ['Safari','Firefox','Edge','Chrome']
 */
+let alphab = ['Firefox','Chrome','Safari','Edge']
+
+
+console.log(alphab.sort().reverse())
+
+
+
