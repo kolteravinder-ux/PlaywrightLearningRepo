@@ -1,5 +1,15 @@
 {
+  "name": "playwright-learning-repo",
+  "version": "1.0.0",
+  "scripts": {
+    "orchestrator:smoke": "node orchestrator/orchestrator.js --workflow=smoke",
+    "orchestrator:full": "node orchestrator/orchestrator.js --workflow=full",
+    "test": "npx playwright test"
+  },
   "dependencies": {
     "playwright": "^1.59.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
   }
 }
