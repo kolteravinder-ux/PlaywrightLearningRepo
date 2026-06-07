@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Learning Journal — Day 4</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --card: #1a1a1a;
+    --border: #2a2a2a;
+    --accent: #f0c040;
+    --accent2: #4fc3f7;
+    --accent3: #a5d6a7;
+    --accent4: #ef9a9a;
+    --text: #e8e8e8;
+    --muted: #888;
+    --code-bg: #111;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #111 0%, #1a1200 50%, #111 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: 'JS';
+    position: absolute;
+    right: -20px; top: -20px;
+    font-size: 220px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    color: rgba(240,192,64,0.04);
+    pointer-events: none;
+    line-height: 1;
+  }
+  .header-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 900; color: #fff; line-height: 1.1;
+  }
+  .header h1 span { color: var(--accent); }
+  .header-sub { margin-top: 12px; color: var(--muted); font-size: 15px; }
+  .badges { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+  .badge {
+    padding: 4px 12px; border-radius: 20px;
+    font-size: 12px; font-family: 'JetBrains Mono', monospace; border: 1px solid;
+  }
+  .badge-yellow { color: var(--accent); border-color: rgba(240,192,64,0.3); background: rgba(240,192,64,0.05); }
+  .badge-blue   { color: var(--accent2); border-color: rgba(79,195,247,0.3); background: rgba(79,195,247,0.05); }
+  .badge-green  { color: var(--accent3); border-color: rgba(165,214,167,0.3); background: rgba(165,214,167,0.05); }
+  .badge-red    { color: var(--accent4); border-color: rgba(239,154,154,0.3); background: rgba(239,154,154,0.05); }
+
+  .progress-bar { height: 3px; background: var(--border); position: relative; }
+  .progress-fill {
+    height: 100%; width: 60%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2)); position: relative;
+  }
+  .progress-fill::after {
+    content: 'Day 4 of ~30';
+    position: absolute; right: 0; top: 8px;
+    font-size: 11px; color: var(--muted);
+    font-family: 'JetBrains Mono', monospace; white-space: nowrap;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 48px 24px; }
+  .section { margin-bottom: 48px; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; font-weight: 700; color: #fff;
+    margin-bottom: 6px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-title .icon { font-size: 22px; }
+  .section-desc { color: var(--muted); font-size: 14px; margin-bottom: 20px; padding-left: 34px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: #3a3a3a; }
+  .card-accent-left  { border-left: 3px solid var(--accent); }
+  .card-accent-blue  { border-left: 3px solid var(--accent2); }
+  .card-accent-green { border-left: 3px solid var(--accent3); }
+  .card-accent-red   { border-left: 3px solid var(--accent4); }
+
+  .card h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 10px;
+  }
+  .card-blue h3  { color: var(--accent2); }
+  .card-green h3 { color: var(--accent3); }
+  .card-red h3   { color: var(--accent4); }
+
+  .card p { font-size: 14px; color: #ccc; margin-bottom: 10px; line-height: 1.8; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul { margin: 10px 0; padding-left: 20px; }
+  .card li { font-size: 14px; color: #ccc; line-height: 1.8; margin-bottom: 6px; }
+
+  pre {
+    background: var(--code-bg); border: 1px solid #222;
+    border-radius: 8px; padding: 16px; overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; line-height: 1.7; margin-top: 12px; color: #ccc;
+  }
+  .kw  { color: #c792ea; }
+  .fn  { color: #82aaff; }
+  .str { color: #c3e88d; }
+  .num { color: #f78c6c; }
+  .cm  { color: #546e7a; font-style: italic; }
+  .op  { color: var(--accent); }
+
+  .table-wrap { overflow-x: auto; margin-top: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    background: #111; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1px;
+    padding: 10px 14px; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid #1e1e1e; color: #ccc; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .tick { color: var(--accent3); }
+  .cross { color: var(--accent4); }
+
+  .callout {
+    border-radius: 10px; padding: 16px 20px;
+    margin-top: 16px; font-size: 14px; color: #ddd;
+    background: rgba(240,192,64,0.05);
+    border: 1px solid rgba(240,192,64,0.2);
+    line-height: 1.8;
+  }
+  .callout strong { color: var(--accent); }
+  .callout code {
+    background: rgba(0,0,0,0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .callout-blue { background: rgba(79,195,247,0.05); border-color: rgba(79,195,247,0.2); }
+  .callout-blue strong { color: var(--accent2); }
+  .callout-green { background: rgba(165,214,167,0.05); border-color: rgba(165,214,167,0.2); }
+  .callout-green strong { color: var(--accent3); }
+  .callout-red { background: rgba(239,154,154,0.05); border-color: rgba(239,154,154,0.2); }
+  .callout-red strong { color: var(--accent4); }
+
+  .flow-box {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-left: 3px solid var(--accent2);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 12px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 2;
+    color: #bbb;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .comparison-card {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .comparison-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .interview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px; margin-top: 16px;
+  }
+  .interview-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    border-radius: 10px; padding: 18px;
+  }
+  .interview-card .q {
+    font-size: 13px; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace; margin-bottom: 8px;
+  }
+  .interview-card .a { font-size: 13px; color: #bbb; line-height: 1.6; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  .toc {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; margin-bottom: 48px;
+  }
+  .toc h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 16px;
+  }
+  .toc-list {
+    list-style: none;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;
+  }
+  .toc-list li a {
+    color: #ccc; text-decoration: none; font-size: 14px;
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 0; transition: color 0.2s;
+  }
+  .toc-list li a:hover { color: var(--accent); }
+  .toc-list li a .tnum {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent); min-width: 20px;
+  }
+
+  .footer {
+    text-align: center; padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 13px;
+  }
+  .footer span { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-tag">📓 Learning Journal</div>
+  <h1>JavaScript <span>Notes</span><br>Day 4</h1>
+  <p class="header-sub">Conditional Statements & Loops · Control your code flow</p>
+  <div class="badges">
+    <span class="badge badge-yellow">if-else</span>
+    <span class="badge badge-blue">switch</span>
+    <span class="badge badge-green">for loop</span>
+    <span class="badge badge-green">while loop</span>
+    <span class="badge badge-red">do-while loop</span>
+  </div>
+</div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h3>Contents</h3>
+    <ul class="toc-list">
+      <li><a href="#if-else"><span class="tnum">01</span> if-else Statement</a></li>
+      <li><a href="#else-if"><span class="tnum">02</span> else-if Ladder</a></li>
+      <li><a href="#ternary"><span class="tnum">03</span> Ternary Operator</a></li>
+      <li><a href="#switch"><span class="tnum">04</span> Switch Statement</a></li>
+      <li><a href="#for-loop"><span class="tnum">05</span> for Loop</a></li>
+      <li><a href="#while-loop"><span class="tnum">06</span> while Loop</a></li>
+      <li><a href="#do-while"><span class="tnum">07</span> do-while Loop</a></li>
+      <li><a href="#loop-control"><span class="tnum">08</span> break & continue</a></li>
+      <li><a href="#engines"><span class="tnum">09</span> Browser vs Rendering Engine</a></li>
+      <li><a href="#interview"><span class="tnum">10</span> Interview Q&amp;A</a></li>
+    </ul>
+  </div>
+
+  <!-- 01 if-else -->
+  <div class="section" id="if-else">
+    <div class="section-label">Topic 01</div>
+    <div class="section-title"><span class="icon">🔀</span> if-else Statement</div>
+    <div class="section-desc">Execute code based on conditions — the most basic decision-making</div>
+
+    <div class="card card-accent-left">
+      <h3>SYNTAX</h3>
+      <pre><span class="kw">if</span> (condition) {
+  <span class="cm">// code runs if condition is TRUE</span>
+} <span class="kw">else</span> {
+  <span class="cm">// code runs if condition is FALSE</span>
+}</pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>BASIC EXAMPLE</h3>
+      <pre><span class="kw">let</span> age = <span class="num">20</span>;
+
+<span class="kw">if</span> (age >= <span class="num">18</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"You are an adult"</span>);
+} <span class="kw">else</span> {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"You are a minor"</span>);
+}
+<span class="cm">// Output: "You are an adult"</span></pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>FLOWCHART</h3>
+      <div class="flow-box">
+Start
+  ↓
+Check condition (age >= 18)
+  ↓
+TRUE? ────→ Execute if block → "You are an adult"
+  │
+FALSE? ───→ Execute else block → "You are a minor"
+  ↓
+End</div>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>if WITHOUT else</h3>
+      <pre><span class="cm">// else is optional</span>
+<span class="kw">let</span> score = <span class="num">85</span>;
+
+<span class="kw">if</span> (score >= <span class="num">90</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Excellent!"</span>);
+}
+<span class="cm">// Nothing happens if condition is false</span></pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>NESTED if-else</h3>
+      <pre><span class="kw">let</span> temperature = <span class="num">30</span>;
+
+<span class="kw">if</span> (temperature > <span class="num">35</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Very hot"</span>);
+} <span class="kw">else</span> {
+  <span class="kw">if</span> (temperature > <span class="num">25</span>) {
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Warm"</span>);
+  } <span class="kw">else</span> {
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Cool"</span>);
+  }
+}
+<span class="cm">// Output: "Warm"</span></pre>
+    </div>
+
+    <div class="callout">
+      <strong>Key Point:</strong> Condition must be a boolean (true/false). JavaScript converts values to boolean — 0, "", null, undefined, NaN are <strong>falsy</strong>. Everything else is <strong>truthy</strong>.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 02 else-if -->
+  <div class="section" id="else-if">
+    <div class="section-label">Topic 02</div>
+    <div class="section-title"><span class="icon">🪜</span> else-if Ladder</div>
+    <div class="section-desc">Check multiple conditions in sequence</div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>SYNTAX</h3>
+      <pre><span class="kw">if</span> (condition1) {
+  <span class="cm">// runs if condition1 is TRUE</span>
+} <span class="kw">else if</span> (condition2) {
+  <span class="cm">// runs if condition1 is FALSE and condition2 is TRUE</span>
+} <span class="kw">else if</span> (condition3) {
+  <span class="cm">// runs if condition1 and condition2 are FALSE, condition3 is TRUE</span>
+} <span class="kw">else</span> {
+  <span class="cm">// runs if ALL conditions are FALSE</span>
+}</pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>EXAMPLE — GRADE CALCULATOR</h3>
+      <pre><span class="kw">let</span> marks = <span class="num">75</span>;
+
+<span class="kw">if</span> (marks >= <span class="num">90</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Grade: A+"</span>);
+} <span class="kw">else if</span> (marks >= <span class="num">80</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Grade: A"</span>);
+} <span class="kw">else if</span> (marks >= <span class="num">70</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Grade: B"</span>);
+} <span class="kw">else if</span> (marks >= <span class="num">60</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Grade: C"</span>);
+} <span class="kw">else</span> {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Grade: Fail"</span>);
+}
+<span class="cm">// Output: "Grade: B"</span></pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>HOW IT WORKS</h3>
+      <p>JavaScript checks conditions <strong>from top to bottom</strong> and executes the FIRST true block, then exits. Remaining conditions are NOT checked.</p>
+      <pre><span class="kw">let</span> x = <span class="num">15</span>;
+
+<span class="kw">if</span> (x > <span class="num">10</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"A"</span>);  <span class="cm">← TRUE, prints "A", STOPS HERE</span>
+} <span class="kw">else if</span> (x > <span class="num">5</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"B"</span>);  <span class="cm">← NOT checked (already found TRUE above)</span>
+} <span class="kw">else</span> {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"C"</span>);  <span class="cm">← NOT checked</span>
+}
+<span class="cm">// Output: "A"</span></pre>
+    </div>
+
+    <div class="callout callout-blue">
+      <strong>Important:</strong> Once a condition is true, the rest are skipped. Order matters!
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 03 Ternary -->
+  <div class="section" id="ternary">
+    <div class="section-label">Topic 03</div>
+    <div class="section-title"><span class="icon">❓</span> Ternary Operator</div>
+    <div class="section-desc">Shorthand for simple if-else — one line conditional</div>
+
+    <div class="card card-accent-green card-green">
+      <h3>SYNTAX</h3>
+      <pre><span class="cm">// condition ? valueIfTrue : valueIfFalse</span>
+<span class="kw">let</span> result = condition ? value1 : value2;</pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>EXAMPLE</h3>
+      <pre><span class="cm">// Traditional if-else:</span>
+<span class="kw">let</span> age = <span class="num">20</span>;
+<span class="kw">let</span> status;
+<span class="kw">if</span> (age >= <span class="num">18</span>) {
+  status = <span class="str">"Adult"</span>;
+} <span class="kw">else</span> {
+  status = <span class="str">"Minor"</span>;
+}
+
+<span class="cm">// Ternary (same thing, one line):</span>
+<span class="kw">let</span> status = age >= <span class="num">18</span> ? <span class="str">"Adult"</span> : <span class="str">"Minor"</span>;
+<span class="cm">// Output: "Adult"</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>MORE EXAMPLES</h3>
+      <pre><span class="cm">// 1. Even or Odd</span>
+<span class="kw">let</span> num = <span class="num">5</span>;
+<span class="kw">let</span> result = num % <span class="num">2</span> === <span class="num">0</span> ? <span class="str">"Even"</span> : <span class="str">"Odd"</span>;
+<span class="cm">// result = "Odd"</span>
+
+<span class="cm">// 2. Max of two numbers</span>
+<span class="kw">let</span> a = <span class="num">10</span>, b = <span class="num">20</span>;
+<span class="kw">let</span> max = a > b ? a : b;
+<span class="cm">// max = 20</span>
+
+<span class="cm">// 3. Direct use in console.log</span>
+<span class="kw">let</span> score = <span class="num">85</span>;
+<span class="fn">console</span>.<span class="fn">log</span>(score >= <span class="num">50</span> ? <span class="str">"Pass"</span> : <span class="str">"Fail"</span>);
+<span class="cm">// Output: "Pass"</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>NESTED TERNARY (NOT RECOMMENDED)</h3>
+      <pre><span class="cm">// Works but hard to read — avoid this</span>
+<span class="kw">let</span> marks = <span class="num">75</span>;
+<span class="kw">let</span> grade = marks >= <span class="num">90</span> ? <span class="str">"A"</span> :
+            marks >= <span class="num">80</span> ? <span class="str">"B"</span> :
+            marks >= <span class="num">70</span> ? <span class="str">"C"</span> : <span class="str">"Fail"</span>;
+
+<span class="cm">// Better to use if-else for multiple conditions</span></pre>
+    </div>
+
+    <div class="callout callout-green">
+      <strong>When to use:</strong> Use ternary for simple, single conditions. For complex logic, stick with if-else for readability.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 04 Switch -->
+  <div class="section" id="switch">
+    <div class="section-label">Topic 04</div>
+    <div class="section-title"><span class="icon">🔄</span> Switch Statement</div>
+    <div class="section-desc">Check one value against multiple cases — cleaner than many if-else</div>
+
+    <div class="card card-accent-red">
+      <h3>SYNTAX</h3>
+      <pre><span class="kw">switch</span> (expression) {
+  <span class="kw">case</span> value1:
+    <span class="cm">// code if expression === value1</span>
+    <span class="kw">break</span>;
+  <span class="kw">case</span> value2:
+    <span class="cm">// code if expression === value2</span>
+    <span class="kw">break</span>;
+  <span class="kw">default</span>:
+    <span class="cm">// code if no case matches</span>
+}</pre>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>EXAMPLE — DAY OF WEEK</h3>
+      <pre><span class="kw">let</span> day = <span class="num">3</span>;
+
+<span class="kw">switch</span> (day) {
+  <span class="kw">case</span> <span class="num">1</span>:
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Monday"</span>);
+    <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">2</span>:
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Tuesday"</span>);
+    <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">3</span>:
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Wednesday"</span>);
+    <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">4</span>:
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Thursday"</span>);
+    <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">5</span>:
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Friday"</span>);
+    <span class="kw">break</span>;
+  <span class="kw">default</span>:
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Weekend"</span>);
+}
+<span class="cm">// Output: "Wednesday"</span></pre>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>⚠️ BREAK IS CRITICAL!</h3>
+      <p>Without <code>break</code>, execution "falls through" to next cases:</p>
+      <pre><span class="kw">let</span> x = <span class="num">2</span>;
+
+<span class="kw">switch</span> (x) {
+  <span class="kw">case</span> <span class="num">1</span>:
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"One"</span>);
+    <span class="cm">// NO break!</span>
+  <span class="kw">case</span> <span class="num">2</span>:
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Two"</span>);
+    <span class="cm">// NO break!</span>
+  <span class="kw">case</span> <span class="num">3</span>:
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Three"</span>);
+    <span class="kw">break</span>;
+}
+<span class="cm">// Output:</span>
+<span class="cm">// "Two"</span>
+<span class="cm">// "Three"  ← falls through!</span></pre>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>GROUPING CASES</h3>
+      <pre><span class="kw">let</span> fruit = <span class="str">"apple"</span>;
+
+<span class="kw">switch</span> (fruit) {
+  <span class="kw">case</span> <span class="str">"apple"</span>:
+  <span class="kw">case</span> <span class="str">"banana"</span>:
+  <span class="kw">case</span> <span class="str">"orange"</span>:
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Common fruit"</span>);
+    <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="str">"mango"</span>:
+  <span class="kw">case</span> <span class="str">"lychee"</span>:
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Tropical fruit"</span>);
+    <span class="kw">break</span>;
+  <span class="kw">default</span>:
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Unknown fruit"</span>);
+}
+<span class="cm">// Output: "Common fruit"</span></pre>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>switch vs if-else</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Feature</th><th>switch</th><th>if-else</th></tr>
+          <tr><td>Use case</td><td>Check one value against many options</td><td>Complex conditions</td></tr>
+          <tr><td>Comparison</td><td>Uses === (strict equality)</td><td>Can use any boolean expression</td></tr>
+          <tr><td>Readability</td><td>Cleaner for many cases</td><td>Better for ranges/complex logic</td></tr>
+          <tr><td>Performance</td><td>Slightly faster for many cases</td><td>Same for few cases</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout callout-red">
+      <strong>Remember:</strong> switch uses <code>===</code> (strict equality). <code>switch(1)</code> will NOT match <code>case "1"</code>.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 05 for loop -->
+  <div class="section" id="for-loop">
+    <div class="section-label">Topic 05</div>
+    <div class="section-title"><span class="icon">🔁</span> for Loop</div>
+    <div class="section-desc">Repeat code a specific number of times</div>
+
+    <div class="card card-accent-green card-green">
+      <h3>SYNTAX</h3>
+      <pre><span class="kw">for</span> (initialization; condition; increment) {
+  <span class="cm">// code to repeat</span>
+}</pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>PARTS EXPLAINED</h3>
+      <pre><span class="kw">for</span> (<span class="op">let i = 0</span>; <span class="op">i < 5</span>; <span class="op">i++</span>) {
+     <span class="cm">↑           ↑        ↑</span>
+     <span class="cm">│           │        └─ Increment (runs after each loop)</span>
+     <span class="cm">│           └─ Condition (checked before each loop)</span>
+     <span class="cm">└─ Initialization (runs once at start)</span>
+  <span class="fn">console</span>.<span class="fn">log</span>(i);
+}</pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>BASIC EXAMPLE</h3>
+      <pre><span class="cm">// Print 1 to 5</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i <= <span class="num">5</span>; i++) {
+  <span class="fn">console</span>.<span class="fn">log</span>(i);
+}
+<span class="cm">// Output: 1 2 3 4 5</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>EXECUTION FLOW</h3>
+      <div class="flow-box">
+Step 1: let i = 0           (initialization — once)
+Step 2: Check i < 5         (true → continue)
+Step 3: Execute loop body
+Step 4: i++                 (increment)
+Step 5: Check i < 5         (true → continue)
+Step 6: Execute loop body
+Step 7: i++
+...repeat until condition is false...</div>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>COMMON PATTERNS</h3>
+      <pre><span class="cm">// 1. Count backwards</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">5</span>; i >= <span class="num">1</span>; i--) {
+  <span class="fn">console</span>.<span class="fn">log</span>(i);
+}
+<span class="cm">// Output: 5 4 3 2 1</span>
+
+<span class="cm">// 2. Skip numbers (increment by 2)</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i <= <span class="num">10</span>; i += <span class="num">2</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(i);
+}
+<span class="cm">// Output: 0 2 4 6 8 10</span>
+
+<span class="cm">// 3. Loop through array</span>
+<span class="kw">let</span> fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"orange"</span>];
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < fruits.length; i++) {
+  <span class="fn">console</span>.<span class="fn">log</span>(fruits[i]);
+}
+<span class="cm">// Output: apple banana orange</span>
+
+<span class="cm">// 4. Nested loop (multiplication table)</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i <= <span class="num">3</span>; i++) {
+  <span class="kw">for</span> (<span class="kw">let</span> j = <span class="num">1</span>; j <= <span class="num">3</span>; j++) {
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`${i} x ${j} = ${i * j}`</span>);
+  }
+}</pre>
+    </div>
+
+    <div class="callout callout-green">
+      <strong>When to use for:</strong> When you know exactly how many times to loop (e.g., array length, fixed number).
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 06 while -->
+  <div class="section" id="while-loop">
+    <div class="section-label">Topic 06</div>
+    <div class="section-title"><span class="icon">🔄</span> while Loop</div>
+    <div class="section-desc">Repeat while condition is true — when you don't know iteration count</div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>SYNTAX</h3>
+      <pre><span class="kw">while</span> (condition) {
+  <span class="cm">// code repeats while condition is TRUE</span>
+}</pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>BASIC EXAMPLE</h3>
+      <pre><span class="kw">let</span> i = <span class="num">1</span>;
+
+<span class="kw">while</span> (i <= <span class="num">5</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(i);
+  i++;  <span class="cm">← IMPORTANT: update counter or loop runs forever!</span>
+}
+<span class="cm">// Output: 1 2 3 4 5</span></pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>EXECUTION FLOW</h3>
+      <div class="flow-box">
+Step 1: Check condition (i <= 5)
+Step 2: If TRUE → execute body
+Step 3: Repeat from Step 1
+Step 4: If FALSE → exit loop</div>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>PRACTICAL EXAMPLES</h3>
+      <pre><span class="cm">// 1. User input validation (keep asking until valid)</span>
+<span class="kw">let</span> password = <span class="str">""</span>;
+<span class="kw">while</span> (password !== <span class="str">"secret"</span>) {
+  password = <span class="fn">prompt</span>(<span class="str">"Enter password:"</span>);
+}
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Access granted!"</span>);
+
+<span class="cm">// 2. Sum until reaching target</span>
+<span class="kw">let</span> sum = <span class="num">0</span>;
+<span class="kw">let</span> num = <span class="num">1</span>;
+<span class="kw">while</span> (sum < <span class="num">100</span>) {
+  sum += num;
+  num++;
+}
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`Sum: ${sum}, Numbers added: ${num - 1}`</span>);
+
+<span class="cm">// 3. Process array (similar to for)</span>
+<span class="kw">let</span> arr = [<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>];
+<span class="kw">let</span> index = <span class="num">0</span>;
+<span class="kw">while</span> (index < arr.length) {
+  <span class="fn">console</span>.<span class="fn">log</span>(arr[index]);
+  index++;
+}</pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>⚠️ INFINITE LOOP WARNING</h3>
+      <pre><span class="cm">// ❌ WRONG — infinite loop (never stops!)</span>
+<span class="kw">let</span> x = <span class="num">1</span>;
+<span class="kw">while</span> (x <= <span class="num">5</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(x);
+  <span class="cm">// Forgot to increment x — loops forever!</span>
+}
+
+<span class="cm">// ✅ CORRECT — loop ends</span>
+<span class="kw">let</span> x = <span class="num">1</span>;
+<span class="kw">while</span> (x <= <span class="num">5</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(x);
+  x++;  <span class="cm">← MUST update counter!</span>
+}</pre>
+    </div>
+
+    <div class="callout callout-blue">
+      <strong>When to use while:</strong> When you don't know how many iterations needed (e.g., user input, searching, waiting for condition).
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 07 do-while -->
+  <div class="section" id="do-while">
+    <div class="section-label">Topic 07</div>
+    <div class="section-title"><span class="icon">🔁</span> do-while Loop</div>
+    <div class="section-desc">Execute at least once, then repeat while condition is true</div>
+
+    <div class="card card-accent-left">
+      <h3>SYNTAX</h3>
+      <pre><span class="kw">do</span> {
+  <span class="cm">// code runs at least ONCE</span>
+} <span class="kw">while</span> (condition);</pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>KEY DIFFERENCE FROM while</h3>
+      <div class="comparison-grid">
+        <div class="comparison-card">
+          <div class="comparison-title">while Loop</div>
+          <pre><span class="kw">let</span> x = <span class="num">10</span>;
+<span class="kw">while</span> (x < <span class="num">5</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(x);
+}
+<span class="cm">// Runs 0 times</span>
+<span class="cm">// (condition false at start)</span></pre>
+        </div>
+        <div class="comparison-card">
+          <div class="comparison-title">do-while Loop</div>
+          <pre><span class="kw">let</span> x = <span class="num">10</span>;
+<span class="kw">do</span> {
+  <span class="fn">console</span>.<span class="fn">log</span>(x);
+} <span class="kw">while</span> (x < <span class="num">5</span>);
+<span class="cm">// Runs 1 time</span>
+<span class="cm">// (executes before checking)</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>EXECUTION FLOW</h3>
+      <div class="flow-box">
+Step 1: Execute body (ALWAYS runs once)
+Step 2: Check condition
+Step 3: If TRUE → go to Step 1
+Step 4: If FALSE → exit loop</div>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>PRACTICAL EXAMPLE</h3>
+      <pre><span class="cm">// Perfect for menu systems — show menu at least once</span>
+<span class="kw">let</span> choice;
+<span class="kw">do</span> {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"1. Start Game"</span>);
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"2. Settings"</span>);
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"3. Exit"</span>);
+  choice = <span class="fn">parseInt</span>(<span class="fn">prompt</span>(<span class="str">"Enter choice:"</span>));
+} <span class="kw">while</span> (choice < <span class="num">1</span> || choice > <span class="num">3</span>);
+
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`You selected option ${choice}`</span>);</pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>MORE EXAMPLES</h3>
+      <pre><span class="cm">// 1. Print 1 to 5</span>
+<span class="kw">let</span> i = <span class="num">1</span>;
+<span class="kw">do</span> {
+  <span class="fn">console</span>.<span class="fn">log</span>(i);
+  i++;
+} <span class="kw">while</span> (i <= <span class="num">5</span>);
+<span class="cm">// Output: 1 2 3 4 5</span>
+
+<span class="cm">// 2. Dice roll until 6</span>
+<span class="kw">let</span> dice;
+<span class="kw">do</span> {
+  dice = <span class="fn">Math</span>.<span class="fn">floor</span>(<span class="fn">Math</span>.<span class="fn">random</span>() * <span class="num">6</span>) + <span class="num">1</span>;
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`Rolled: ${dice}`</span>);
+} <span class="kw">while</span> (dice !== <span class="num">6</span>);
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Got a 6!"</span>);</pre>
+    </div>
+
+    <div class="callout">
+      <strong>When to use do-while:</strong> When you need to execute the loop body AT LEAST ONCE (e.g., show menu, input validation, game loops).
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 08 break & continue -->
+  <div class="section" id="loop-control">
+    <div class="section-label">Topic 08</div>
+    <div class="section-title"><span class="icon">⏸️</span> break & continue</div>
+    <div class="section-desc">Control loop execution — exit early or skip iterations</div>
+
+    <div class="card card-accent-red">
+      <h3>break — EXIT THE LOOP</h3>
+      <p><code>break</code> immediately exits the loop completely.</p>
+      <pre><span class="cm">// Stop when finding target number</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i <= <span class="num">10</span>; i++) {
+  <span class="kw">if</span> (i === <span class="num">5</span>) {
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Found 5! Exiting..."</span>);
+    <span class="kw">break</span>;  <span class="cm">← exits loop immediately</span>
+  }
+  <span class="fn">console</span>.<span class="fn">log</span>(i);
+}
+<span class="cm">// Output: 1 2 3 4 "Found 5! Exiting..."</span></pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>continue — SKIP CURRENT ITERATION</h3>
+      <p><code>continue</code> skips the rest of current iteration and moves to next.</p>
+      <pre><span class="cm">// Print only odd numbers</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i <= <span class="num">10</span>; i++) {
+  <span class="kw">if</span> (i % <span class="num">2</span> === <span class="num">0</span>) {
+    <span class="kw">continue</span>;  <span class="cm">← skip even numbers</span>
+  }
+  <span class="fn">console</span>.<span class="fn">log</span>(i);
+}
+<span class="cm">// Output: 1 3 5 7 9</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>COMPARISON</h3>
+      <div class="comparison-grid">
+        <div class="comparison-card">
+          <div class="comparison-title">break</div>
+          <pre><span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i <= <span class="num">5</span>; i++) {
+  <span class="kw">if</span> (i === <span class="num">3</span>) <span class="kw">break</span>;
+  <span class="fn">console</span>.<span class="fn">log</span>(i);
+}
+<span class="cm">// Output: 1 2</span>
+<span class="cm">// (exits at 3)</span></pre>
+        </div>
+        <div class="comparison-card">
+          <div class="comparison-title">continue</div>
+          <pre><span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i <= <span class="num">5</span>; i++) {
+  <span class="kw">if</span> (i === <span class="num">3</span>) <span class="kw">continue</span>;
+  <span class="fn">console</span>.<span class="fn">log</span>(i);
+}
+<span class="cm">// Output: 1 2 4 5</span>
+<span class="cm">// (skips 3)</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>PRACTICAL EXAMPLES</h3>
+      <pre><span class="cm">// 1. Search in array (break)</span>
+<span class="kw">let</span> users = [<span class="str">"Alice"</span>, <span class="str">"Bob"</span>, <span class="str">"Charlie"</span>];
+<span class="kw">let</span> found = <span class="kw">false</span>;
+
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < users.length; i++) {
+  <span class="kw">if</span> (users[i] === <span class="str">"Bob"</span>) {
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"User found!"</span>);
+    found = <span class="kw">true</span>;
+    <span class="kw">break</span>;  <span class="cm">← no need to check remaining</span>
+  }
+}
+
+<span class="cm">// 2. Skip invalid data (continue)</span>
+<span class="kw">let</span> scores = [<span class="num">85</span>, -<span class="num">5</span>, <span class="num">92</span>, <span class="num">0</span>, <span class="num">78</span>];
+<span class="kw">let</span> total = <span class="num">0</span>;
+
+<span class="kw">for</span> (<span class="kw">let</span> score <span class="kw">of</span> scores) {
+  <span class="kw">if</span> (score < <span class="num">0</span> || score > <span class="num">100</span>) {
+    <span class="kw">continue</span>;  <span class="cm">← skip invalid scores</span>
+  }
+  total += score;
+}
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`Total: ${total}`</span>); <span class="cm">// 255</span></pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>WITH NESTED LOOPS</h3>
+      <pre><span class="cm">// break only exits innermost loop</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i <= <span class="num">3</span>; i++) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`Outer: ${i}`</span>);
+  <span class="kw">for</span> (<span class="kw">let</span> j = <span class="num">1</span>; j <= <span class="num">3</span>; j++) {
+    <span class="kw">if</span> (j === <span class="num">2</span>) <span class="kw">break</span>;  <span class="cm">← breaks inner loop only</span>
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`  Inner: ${j}`</span>);
+  }
+}
+<span class="cm">// Output:</span>
+<span class="cm">// Outer: 1</span>
+<span class="cm">//   Inner: 1</span>
+<span class="cm">// Outer: 2</span>
+<span class="cm">//   Inner: 1</span>
+<span class="cm">// Outer: 3</span>
+<span class="cm">//   Inner: 1</span></pre>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 09 Browser vs Rendering Engine -->
+  <div class="section" id="engines">
+    <div class="section-label">Bonus Topic</div>
+    <div class="section-title"><span class="icon">🌐</span> Browser Engine vs Rendering Engine</div>
+    <div class="section-desc">Understanding the difference — important for interviews!</div>
+
+    <div class="card card-accent-left">
+      <h3>QUICK COMPARISON</h3>
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Aspect</th>
+            <th>Browser Engine</th>
+            <th>Rendering Engine</th>
+          </tr>
+          <tr>
+            <td>What it is</td>
+            <td>The ENTIRE browser software</td>
+            <td>Component that displays web pages</td>
+          </tr>
+          <tr>
+            <td>Scope</td>
+            <td>Full browser (UI, tabs, security, networking)</td>
+            <td>Just the page rendering part</td>
+          </tr>
+          <tr>
+            <td>Examples</td>
+            <td>Chrome, Firefox, Safari, Edge</td>
+            <td>Blink, Gecko, WebKit</td>
+          </tr>
+          <tr>
+            <td>What it does</td>
+            <td>Manages everything in browser</td>
+            <td>Converts HTML/CSS → pixels on screen</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>BROWSER ENGINE (The Complete Application)</h3>
+      <p>The Browser Engine is the ENTIRE browser — everything you see and interact with.</p>
+      
+      <pre><span class="cm">// Components of Browser Engine:</span>
+Browser Engine (Full Application)
+│
+├── User Interface (tabs, address bar, bookmarks)
+├── Browser Process (main control)
+├── Networking (downloads, HTTP requests)
+├── Security (HTTPS, permissions, sandboxing)
+├── Storage (cookies, localStorage, cache)
+├── Extensions/Plugins
+└── <span class="op">Rendering Engine</span> ← One component inside!
+      └── <span class="op">JavaScript Engine</span> ← Another component!</pre>
+
+      <p style="margin-top: 16px;"><strong>Examples of Browser Engines:</strong></p>
+      <ul>
+        <li>Google Chrome (entire browser)</li>
+        <li>Mozilla Firefox (entire browser)</li>
+        <li>Safari (entire browser)</li>
+        <li>Microsoft Edge (entire browser)</li>
+      </ul>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>RENDERING ENGINE (The Display Component)</h3>
+      <p>The Rendering Engine is a COMPONENT inside the browser that takes HTML, CSS, JavaScript and displays the webpage.</p>
+
+      <pre><span class="cm">// Rendering Engine Pipeline:</span>
+HTML/CSS/JS files
+      ↓
+<span class="op">Rendering Engine</span>
+      ↓
+<span class="num">1.</span> Parse HTML → DOM Tree
+<span class="num">2.</span> Parse CSS  → CSSOM Tree
+<span class="num">3.</span> Combine    → Render Tree
+<span class="num">4.</span> Layout     → Calculate positions
+<span class="num">5.</span> Paint      → Draw pixels
+      ↓
+Webpage appears on screen!</pre>
+
+      <p style="margin-top: 16px;"><strong>Major Rendering Engines (2024):</strong></p>
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Rendering Engine</th>
+            <th>Used By</th>
+            <th>JavaScript Engine</th>
+          </tr>
+          <tr>
+            <td>Blink</td>
+            <td>Chrome, Edge, Opera, Brave</td>
+            <td>V8</td>
+          </tr>
+          <tr>
+            <td>WebKit</td>
+            <td>Safari (macOS, iOS)</td>
+            <td>JavaScriptCore</td>
+          </tr>
+          <tr>
+            <td>Gecko</td>
+            <td>Firefox</td>
+            <td>SpiderMonkey</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>REAL-LIFE ANALOGY</h3>
+      <div class="comparison-grid">
+        <div class="comparison-card">
+          <div class="comparison-title">Browser Engine = Entire Car</div>
+          <div style="font-size: 13px; color: #bbb; line-height: 1.8; margin-top: 8px;">
+            • Engine<br>
+            • Wheels<br>
+            • Dashboard<br>
+            • Seats<br>
+            • Air conditioning<br>
+            • Radio<br>
+            • Everything!
+          </div>
+        </div>
+        <div class="comparison-card">
+          <div class="comparison-title">Rendering Engine = Just the Engine</div>
+          <div style="font-size: 13px; color: #bbb; line-height: 1.8; margin-top: 8px;">
+            • The part that makes the car move<br>
+            • One critical component among many<br>
+            • Works with other parts to make car function
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>COMPLETE ARCHITECTURE</h3>
+      <pre><span class="cm">┌─────────────────────────────────────────┐</span>
+<span class="cm">│    BROWSER ENGINE (Chrome)              │</span>
+<span class="cm">│  ┌───────────────────────────────────┐  │</span>
+<span class="cm">│  │  User Interface                   │  │</span>
+<span class="cm">│  │  (tabs, address bar, menus)       │  │</span>
+<span class="cm">│  └───────────────────────────────────┘  │</span>
+<span class="cm">│  ┌───────────────────────────────────┐  │</span>
+<span class="cm">│  │  </span><span class="op">Rendering Engine (Blink)</span><span class="cm">         │  │</span>
+<span class="cm">│  │  - Parses HTML → DOM              │  │</span>
+<span class="cm">│  │  - Parses CSS → CSSOM             │  │</span>
+<span class="cm">│  │  - Layout & Paint                 │  │</span>
+<span class="cm">│  └───────────────────────────────────┘  │</span>
+<span class="cm">│  ┌───────────────────────────────────┐  │</span>
+<span class="cm">│  │  </span><span class="op">JavaScript Engine (V8)</span><span class="cm">           │  │</span>
+<span class="cm">│  │  - Executes JS code               │  │</span>
+<span class="cm">│  └───────────────────────────────────┘  │</span>
+<span class="cm">│  ┌───────────────────────────────────┐  │</span>
+<span class="cm">│  │  Networking                        │  │</span>
+<span class="cm">│  │  - HTTP requests, downloads       │  │</span>
+<span class="cm">│  └───────────────────────────────────┘  │</span>
+<span class="cm">│  ┌───────────────────────────────────┐  │</span>
+<span class="cm">│  │  Storage                           │  │</span>
+<span class="cm">│  │  - Cookies, cache, localStorage   │  │</span>
+<span class="cm">│  └───────────────────────────────────┘  │</span>
+<span class="cm">└─────────────────────────────────────────┘</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>HOW THEY WORK TOGETHER</h3>
+      <p><strong>When you visit a website:</strong></p>
+
+      <div style="margin-top: 16px;">
+        <h4 style="color: var(--accent3); font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-bottom: 8px;">STEP 1: Browser Engine Processes Request</h4>
+        <pre style="margin-top: 8px;">User types <span class="str">"google.com"</span>
+   ↓
+Browser Engine processes request
+   ↓
+Networking component fetches HTML/CSS/JS</pre>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <h4 style="color: var(--accent3); font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-bottom: 8px;">STEP 2: Rendering Engine Displays Page</h4>
+        <pre style="margin-top: 8px;">HTML/CSS files received
+   ↓
+Rendering Engine (Blink/WebKit/Gecko)
+   ↓
+Parses → Layouts → Paints
+   ↓
+Page appears on screen</pre>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <h4 style="color: var(--accent3); font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-bottom: 8px;">STEP 3: JavaScript Engine Runs Code</h4>
+        <pre style="margin-top: 8px;">JavaScript files received
+   ↓
+JavaScript Engine (V8/SpiderMonkey)
+   ↓
+Executes code → Updates page dynamically</pre>
+      </div>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>COMMON CONFUSION ⚠️</h3>
+      <p>People often say:</p>
+      <pre><span class="cm">// ❌ INCOMPLETE:</span>
+<span class="str">"Chrome uses the V8 engine"</span>
+
+<span class="cm">// ✅ CORRECT:</span>
+<span class="str">"Chrome uses:"</span>
+  • <span class="op">Blink</span>  → Rendering Engine (displays pages)
+  • <span class="op">V8</span>     → JavaScript Engine (runs JS code)
+  • <span class="op">Chrome</span> → Browser Engine (the whole application)</pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>KEY FORMULA TO REMEMBER</h3>
+      <pre style="font-size: 13px;"><span class="op">Browser Engine</span> = 
+    <span class="fn">Rendering Engine</span> +
+    <span class="fn">JavaScript Engine</span> +
+    <span class="fn">User Interface</span> +
+    <span class="fn">Networking</span> +
+    <span class="fn">Storage</span> +
+    <span class="fn">Security</span> +
+    <span class="fn">Everything Else</span></pre>
+    </div>
+
+    <div class="callout">
+      <strong>Interview Answer Template:</strong><br><br>
+      "The <strong>browser engine</strong> is the complete browser application including UI, networking, security, and all features. The <strong>rendering engine</strong> is a component within the browser that specifically handles converting HTML and CSS into the visual webpage you see on screen. For example, Chrome (browser engine) uses Blink (rendering engine) to display pages and V8 (JavaScript engine) to execute JavaScript."
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 10 Interview -->
+  <div class="section" id="interview">
+    <div class="section-label">Topic 10</div>
+    <div class="section-title"><span class="icon">🎯</span> Interview Q&amp;A</div>
+    <div class="section-desc">Common questions on conditionals and loops</div>
+
+    <div class="interview-grid">
+
+      <div class="interview-card">
+        <div class="q">Q: Difference between if-else and switch?</div>
+        <div class="a">if-else can handle complex conditions and ranges. switch is cleaner for checking one value against multiple exact matches. switch uses === (strict equality).</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What happens if you forget break in switch?</div>
+        <div class="a">Fall-through occurs — execution continues to next case even if it doesn't match. This is usually a bug unless intentional for grouping cases.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Difference between for and while?</div>
+        <div class="a">for is best when you know iteration count (e.g., loop 10 times). while is for unknown iterations (e.g., until user enters valid input). Both can do the same thing.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Difference between while and do-while?</div>
+        <div class="a">while checks condition BEFORE executing (may run 0 times). do-while executes FIRST, then checks (runs at least once). Use do-while for menus, prompts.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What does break do?</div>
+        <div class="a">Immediately exits the current loop completely. Commonly used to stop searching once target is found or when condition is met early.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What does continue do?</div>
+        <div class="a">Skips the rest of current iteration and jumps to next iteration. Used to skip invalid data, even numbers, or unwanted cases.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Can you use break in if statement?</div>
+        <div class="a">No. break only works inside loops (for, while, do-while) and switch statements. Using it in if alone causes error.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What's the ternary operator?</div>
+        <div class="a">Shorthand for if-else: condition ? valueIfTrue : valueIfFalse. Example: let status = age >= 18 ? "Adult" : "Minor". Use for simple conditions only.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Infinite loop — what is it?</div>
+        <div class="a">A loop that never ends because the condition never becomes false. Usually caused by forgetting to update the counter. Must force-quit program.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Can you nest loops?</div>
+        <div class="a">Yes. Common for 2D arrays, patterns, multiplication tables. Outer loop runs once, inner loop runs completely each time. Time complexity becomes O(n²).</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>📓 JavaScript Learning Journal &nbsp;·&nbsp; <span>Day 4 Complete</span> &nbsp;·&nbsp; Continue tomorrow →</p>
+  <p style="margin-top:8px; font-size:12px; color:#555;">if-else · switch · for · while · do-while · break · continue · Conditional Logic · Loops</p>
+</div>
+
+</body>
+</html>

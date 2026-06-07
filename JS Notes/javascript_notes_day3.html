@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Learning Journal — Day 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --card: #1a1a1a;
+    --border: #2a2a2a;
+    --accent: #f0c040;
+    --accent2: #4fc3f7;
+    --accent3: #a5d6a7;
+    --accent4: #ef9a9a;
+    --text: #e8e8e8;
+    --muted: #888;
+    --code-bg: #111;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #111 0%, #1a1200 50%, #111 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: 'JS';
+    position: absolute;
+    right: -20px; top: -20px;
+    font-size: 220px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    color: rgba(240,192,64,0.04);
+    pointer-events: none;
+    line-height: 1;
+  }
+  .header-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 900; color: #fff; line-height: 1.1;
+  }
+  .header h1 span { color: var(--accent); }
+  .header-sub { margin-top: 12px; color: var(--muted); font-size: 15px; }
+  .badges { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+  .badge {
+    padding: 4px 12px; border-radius: 20px;
+    font-size: 12px; font-family: 'JetBrains Mono', monospace; border: 1px solid;
+  }
+  .badge-yellow { color: var(--accent); border-color: rgba(240,192,64,0.3); background: rgba(240,192,64,0.05); }
+  .badge-blue   { color: var(--accent2); border-color: rgba(79,195,247,0.3); background: rgba(79,195,247,0.05); }
+  .badge-green  { color: var(--accent3); border-color: rgba(165,214,167,0.3); background: rgba(165,214,167,0.05); }
+  .badge-red    { color: var(--accent4); border-color: rgba(239,154,154,0.3); background: rgba(239,154,154,0.05); }
+
+  .progress-bar { height: 3px; background: var(--border); position: relative; }
+  .progress-fill {
+    height: 100%; width: 45%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2)); position: relative;
+  }
+  .progress-fill::after {
+    content: 'Day 3 of ~30';
+    position: absolute; right: 0; top: 8px;
+    font-size: 11px; color: var(--muted);
+    font-family: 'JetBrains Mono', monospace; white-space: nowrap;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 48px 24px; }
+  .section { margin-bottom: 48px; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; font-weight: 700; color: #fff;
+    margin-bottom: 6px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-title .icon { font-size: 22px; }
+  .section-desc { color: var(--muted); font-size: 14px; margin-bottom: 20px; padding-left: 34px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: #3a3a3a; }
+  .card-accent-left  { border-left: 3px solid var(--accent); }
+  .card-accent-blue  { border-left: 3px solid var(--accent2); }
+  .card-accent-green { border-left: 3px solid var(--accent3); }
+  .card-accent-red   { border-left: 3px solid var(--accent4); }
+
+  .card h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 10px;
+  }
+  .card-blue h3  { color: var(--accent2); }
+  .card-green h3 { color: var(--accent3); }
+  .card-red h3   { color: var(--accent4); }
+
+  .card p { font-size: 14px; color: #ccc; margin-bottom: 10px; line-height: 1.8; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul { margin: 10px 0; padding-left: 20px; }
+  .card li { font-size: 14px; color: #ccc; line-height: 1.8; margin-bottom: 6px; }
+
+  pre {
+    background: var(--code-bg); border: 1px solid #222;
+    border-radius: 8px; padding: 16px; overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; line-height: 1.7; margin-top: 12px; color: #ccc;
+  }
+  .kw  { color: #c792ea; }
+  .fn  { color: #82aaff; }
+  .str { color: #c3e88d; }
+  .num { color: #f78c6c; }
+  .cm  { color: #546e7a; font-style: italic; }
+  .op  { color: var(--accent); }
+
+  .table-wrap { overflow-x: auto; margin-top: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    background: #111; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1px;
+    padding: 10px 14px; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid #1e1e1e; color: #ccc; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .tick { color: var(--accent3); }
+  .cross { color: var(--accent4); }
+
+  .callout {
+    border-radius: 10px; padding: 16px 20px;
+    margin-top: 16px; font-size: 14px; color: #ddd;
+    background: rgba(240,192,64,0.05);
+    border: 1px solid rgba(240,192,64,0.2);
+    line-height: 1.8;
+  }
+  .callout strong { color: var(--accent); }
+  .callout code {
+    background: rgba(0,0,0,0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .callout-blue { background: rgba(79,195,247,0.05); border-color: rgba(79,195,247,0.2); }
+  .callout-blue strong { color: var(--accent2); }
+  .callout-green { background: rgba(165,214,167,0.05); border-color: rgba(165,214,167,0.2); }
+  .callout-green strong { color: var(--accent3); }
+  .callout-red { background: rgba(239,154,154,0.05); border-color: rgba(239,154,154,0.2); }
+  .callout-red strong { color: var(--accent4); }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .mini-card {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .mini-card-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .mini-card-content {
+    font-size: 13px;
+    color: #bbb;
+    line-height: 1.7;
+  }
+
+  .interview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px; margin-top: 16px;
+  }
+  .interview-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    border-radius: 10px; padding: 18px;
+  }
+  .interview-card .q {
+    font-size: 13px; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace; margin-bottom: 8px;
+  }
+  .interview-card .a { font-size: 13px; color: #bbb; line-height: 1.6; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  .toc {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; margin-bottom: 48px;
+  }
+  .toc h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 16px;
+  }
+  .toc-list {
+    list-style: none;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;
+  }
+  .toc-list li a {
+    color: #ccc; text-decoration: none; font-size: 14px;
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 0; transition: color 0.2s;
+  }
+  .toc-list li a:hover { color: var(--accent); }
+  .toc-list li a .tnum {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent); min-width: 20px;
+  }
+
+  .footer {
+    text-align: center; padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 13px;
+  }
+  .footer span { color: var(--accent); }
+
+  .operator-box {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-left: 3px solid var(--accent2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 8px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .operator-box .op-name {
+    color: var(--accent2);
+    margin-bottom: 6px;
+  }
+  .operator-box .op-example {
+    color: #999;
+  }
+
+  .keyword-tag {
+    display: inline-block;
+    background: rgba(199,146,234,0.1);
+    border: 1px solid rgba(199,146,234,0.3);
+    color: #c792ea;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    margin: 3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-tag">📓 Learning Journal</div>
+  <h1>JavaScript <span>Notes</span><br>Day 3</h1>
+  <p class="header-sub">Identifiers · Literals · Operators · Keywords · Building blocks of JS</p>
+  <div class="badges">
+    <span class="badge badge-yellow">Identifiers</span>
+    <span class="badge badge-blue">Literals</span>
+    <span class="badge badge-green">Operators</span>
+    <span class="badge badge-red">Keywords</span>
+  </div>
+</div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h3>Contents</h3>
+    <ul class="toc-list">
+      <li><a href="#identifiers"><span class="tnum">01</span> Identifiers</a></li>
+      <li><a href="#literals"><span class="tnum">02</span> Literals</a></li>
+      <li><a href="#operators"><span class="tnum">03</span> Operators</a></li>
+      <li><a href="#keywords"><span class="tnum">04</span> Keywords & Reserved Words</a></li>
+      <li><a href="#equality"><span class="tnum">05</span> == vs === (Deep Dive)</a></li>
+      <li><a href="#coding"><span class="tnum">06</span> Coding Problems</a></li>
+      <li><a href="#interview"><span class="tnum">07</span> Interview Q&amp;A</a></li>
+    </ul>
+  </div>
+
+  <!-- 01 Identifiers -->
+  <div class="section" id="identifiers">
+    <div class="section-label">Topic 01</div>
+    <div class="section-title"><span class="icon">🏷️</span> Identifiers</div>
+    <div class="section-desc">Names you give to variables, functions, classes, etc.</div>
+
+    <div class="card card-accent-left">
+      <h3>WHAT ARE IDENTIFIERS?</h3>
+      <p>Identifiers are <strong>names</strong> you create to identify variables, functions, classes, objects, or any other user-defined items in your code.</p>
+      <div class="callout">
+        <strong>Simple definition:</strong> An identifier is any name YOU choose in your program (not a keyword reserved by JavaScript).
+      </div>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>EXAMPLES OF IDENTIFIERS</h3>
+      <pre><span class="cm">// Variable identifiers</span>
+<span class="kw">let</span> <span class="op">userName</span> = <span class="str">"Ravi"</span>;     <span class="cm">← userName is an identifier</span>
+<span class="kw">const</span> <span class="op">MAX_SIZE</span> = <span class="num">100</span>;    <span class="cm">← MAX_SIZE is an identifier</span>
+<span class="kw">var</span> <span class="op">_privateVar</span> = <span class="num">42</span>;    <span class="cm">← _privateVar is an identifier</span>
+
+<span class="cm">// Function identifiers</span>
+<span class="kw">function</span> <span class="op">calculateTotal</span>() { } <span class="cm">← calculateTotal is an identifier</span>
+
+<span class="cm">// Class identifiers</span>
+<span class="kw">class</span> <span class="op">User</span> { }                <span class="cm">← User is an identifier</span>
+
+<span class="cm">// Object property identifiers</span>
+<span class="kw">const</span> person = {
+  <span class="op">firstName</span>: <span class="str">"Ravi"</span>,       <span class="cm">← firstName is an identifier</span>
+  <span class="op">age</span>: <span class="num">25</span>                 <span class="cm">← age is an identifier</span>
+};</pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>NAMING RULES FOR IDENTIFIERS</h3>
+      <p><strong>✅ MUST follow these rules:</strong></p>
+      <ul>
+        <li>Can contain: letters (a-z, A-Z), digits (0-9), underscore (_), dollar sign ($)</li>
+        <li>MUST start with: letter, underscore (_), or dollar sign ($)</li>
+        <li>CANNOT start with: a digit</li>
+        <li>CANNOT be: a reserved keyword (like let, const, if, for, etc.)</li>
+        <li>Case-sensitive: <code>userName</code> ≠ <code>username</code> ≠ <code>UserName</code></li>
+      </ul>
+
+      <pre><span class="cm">// ✅ VALID identifiers</span>
+<span class="kw">let</span> name;
+<span class="kw">let</span> firstName;
+<span class="kw">let</span> first_name;
+<span class="kw">let</span> firstName1;
+<span class="kw">let</span> $price;
+<span class="kw">let</span> _private;
+<span class="kw">let</span> MAX_VALUE;
+
+<span class="cm">// ❌ INVALID identifiers</span>
+<span class="kw">let</span> 1name;        <span class="cm">← cannot start with digit</span>
+<span class="kw">let</span> first-name;  <span class="cm">← hyphen not allowed</span>
+<span class="kw">let</span> first name;  <span class="cm">← space not allowed</span>
+<span class="kw">let</span> class;       <span class="cm">← reserved keyword</span>
+<span class="kw">let</span> for;         <span class="cm">← reserved keyword</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>NAMING CONVENTIONS (BEST PRACTICES)</h3>
+      <div class="grid-2">
+        <div class="mini-card">
+          <div class="mini-card-title">camelCase</div>
+          <div class="mini-card-content">
+            For variables and functions<br>
+            <code>userName, calculateTotal, getData</code>
+          </div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-title">PascalCase</div>
+          <div class="mini-card-content">
+            For classes and constructors<br>
+            <code>User, ShoppingCart, PaymentService</code>
+          </div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-title">UPPER_SNAKE_CASE</div>
+          <div class="mini-card-content">
+            For constants<br>
+            <code>MAX_SIZE, API_URL, PI</code>
+          </div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card-title">_leading underscore</div>
+          <div class="mini-card-content">
+            For private/internal (convention)<br>
+            <code>_privateMethod, _internalValue</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-green">
+      <strong>Pro tip:</strong> Choose meaningful, descriptive names. <code>getUserById</code> is better than <code>gubi</code>. Code is read more often than it's written!
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 02 Literals -->
+  <div class="section" id="literals">
+    <div class="section-label">Topic 02</div>
+    <div class="section-title"><span class="icon">💎</span> Literals</div>
+    <div class="section-desc">Fixed values written directly in code</div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>WHAT ARE LITERALS?</h3>
+      <p>Literals are <strong>fixed values</strong> that you write directly in your code. They represent actual data — not variables or expressions.</p>
+      <div class="callout callout-blue">
+        <strong>Simple explanation:</strong> A literal is the actual value itself, not a name pointing to a value.
+      </div>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>TYPES OF LITERALS</h3>
+
+      <h4 style="color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 12px; margin: 20px 0 10px 0;">1. NUMBER LITERALS</h4>
+      <pre><span class="cm">// Integer literals</span>
+<span class="num">42</span>
+<span class="num">100</span>
+<span class="num">-15</span>
+
+<span class="cm">// Decimal literals</span>
+<span class="num">3.14</span>
+<span class="num">-0.5</span>
+<span class="num">2.5e3</span>        <span class="cm">← scientific notation (2500)</span>
+
+<span class="cm">// Binary literal (prefix 0b)</span>
+<span class="num">0b1010</span>       <span class="cm">← 10 in decimal</span>
+
+<span class="cm">// Octal literal (prefix 0o)</span>
+<span class="num">0o755</span>        <span class="cm">← 493 in decimal</span>
+
+<span class="cm">// Hexadecimal literal (prefix 0x)</span>
+<span class="num">0xFF</span>         <span class="cm">← 255 in decimal</span>
+
+<span class="cm">// BigInt literal (suffix n)</span>
+<span class="num">123456789012345678901234567890n</span></pre>
+
+      <h4 style="color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 12px; margin: 20px 0 10px 0;">2. STRING LITERALS</h4>
+      <pre><span class="cm">// Single quotes</span>
+<span class="str">'Hello'</span>
+<span class="str">'Ravi'</span>
+
+<span class="cm">// Double quotes</span>
+<span class="str">"Hello World"</span>
+
+<span class="cm">// Template literals (backticks)</span>
+<span class="str">`Hello ${name}`</span>    <span class="cm">← allows expressions inside</span>
+<span class="str">`Multi-line
+string`</span>
+
+<span class="cm">// Escape sequences</span>
+<span class="str">"Line 1\nLine 2"</span>   <span class="cm">← \n = newline</span>
+<span class="str">"Tab\there"</span>        <span class="cm">← \t = tab</span>
+<span class="str">"Quote: \"Hi\""</span>    <span class="cm">← \" = escaped quote</span></pre>
+
+      <h4 style="color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 12px; margin: 20px 0 10px 0;">3. BOOLEAN LITERALS</h4>
+      <pre><span class="kw">true</span>
+<span class="kw">false</span></pre>
+
+      <h4 style="color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 12px; margin: 20px 0 10px 0;">4. NULL LITERAL</h4>
+      <pre><span class="kw">null</span>            <span class="cm">← intentional absence of value</span></pre>
+
+      <h4 style="color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 12px; margin: 20px 0 10px 0;">5. UNDEFINED LITERAL</h4>
+      <pre><span class="kw">undefined</span>       <span class="cm">← uninitialized variable value</span></pre>
+
+      <h4 style="color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 12px; margin: 20px 0 10px 0;">6. ARRAY LITERALS</h4>
+      <pre>[<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]
+[<span class="str">'a'</span>, <span class="str">'b'</span>, <span class="str">'c'</span>]
+[]                <span class="cm">← empty array</span></pre>
+
+      <h4 style="color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 12px; margin: 20px 0 10px 0;">7. OBJECT LITERALS</h4>
+      <pre>{ name: <span class="str">'Ravi'</span>, age: <span class="num">25</span> }
+{ x: <span class="num">10</span>, y: <span class="num">20</span> }
+{}                <span class="cm">← empty object</span></pre>
+
+      <h4 style="color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 12px; margin: 20px 0 10px 0;">8. REGULAR EXPRESSION LITERALS</h4>
+      <pre><span class="str">/abc/</span>           <span class="cm">← regex pattern</span>
+<span class="str">/[0-9]+/g</span>      <span class="cm">← with flags</span></pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>LITERAL vs IDENTIFIER — KEY DIFFERENCE</h3>
+      <pre><span class="cm">// Literals (actual values)</span>
+<span class="num">42</span>              <span class="cm">← number literal</span>
+<span class="str">"Hello"</span>         <span class="cm">← string literal</span>
+<span class="kw">true</span>            <span class="cm">← boolean literal</span>
+
+<span class="cm">// Identifiers (names for values)</span>
+<span class="kw">let</span> age = <span class="num">42</span>;         <span class="cm">← 'age' is identifier, 42 is literal</span>
+<span class="kw">let</span> message = <span class="str">"Hello"</span>; <span class="cm">← 'message' is identifier, "Hello" is literal</span>
+<span class="kw">let</span> isActive = <span class="kw">true</span>;   <span class="cm">← 'isActive' is identifier, true is literal</span></pre>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 03 Operators -->
+  <div class="section" id="operators">
+    <div class="section-label">Topic 03</div>
+    <div class="section-title"><span class="icon">➕</span> Operators</div>
+    <div class="section-desc">Symbols that perform operations on values</div>
+
+    <div class="card card-accent-green card-green">
+      <h3>WHAT ARE OPERATORS?</h3>
+      <p>Operators are <strong>symbols</strong> that tell JavaScript to perform specific operations on values (called operands).</p>
+      <div class="callout callout-green">
+        <strong>Formula:</strong> <code>operand1 operator operand2</code><br>
+        Example: <code>5 + 3</code> → 5 and 3 are operands, + is the operator
+      </div>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>1. ARITHMETIC OPERATORS</h3>
+      <p>Perform mathematical calculations</p>
+      <div class="operator-box">
+        <div class="op-name">+ (Addition)</div>
+        <div class="op-example">5 + 3 → 8</div>
+      </div>
+      <div class="operator-box">
+        <div class="op-name">- (Subtraction)</div>
+        <div class="op-example">5 - 3 → 2</div>
+      </div>
+      <div class="operator-box">
+        <div class="op-name">* (Multiplication)</div>
+        <div class="op-example">5 * 3 → 15</div>
+      </div>
+      <div class="operator-box">
+        <div class="op-name">/ (Division)</div>
+        <div class="op-example">6 / 3 → 2</div>
+      </div>
+      <div class="operator-box">
+        <div class="op-name">% (Modulus/Remainder)</div>
+        <div class="op-example">7 % 3 → 1 (remainder)</div>
+      </div>
+      <div class="operator-box">
+        <div class="op-name">** (Exponentiation)</div>
+        <div class="op-example">2 ** 3 → 8 (2³)</div>
+      </div>
+      <div class="operator-box">
+        <div class="op-name">++ (Increment)</div>
+        <div class="op-example">x++ → x = x + 1</div>
+      </div>
+      <div class="operator-box">
+        <div class="op-name">-- (Decrement)</div>
+        <div class="op-example">x-- → x = x - 1</div>
+      </div>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>2. ASSIGNMENT OPERATORS</h3>
+      <p>Assign values to variables</p>
+      <pre><span class="kw">let</span> x = <span class="num">10</span>;      <span class="cm">← = (basic assignment)</span>
+x += <span class="num">5</span>;         <span class="cm">← same as: x = x + 5</span>
+x -= <span class="num">3</span>;         <span class="cm">← same as: x = x - 3</span>
+x *= <span class="num">2</span>;         <span class="cm">← same as: x = x * 2</span>
+x /= <span class="num">2</span>;         <span class="cm">← same as: x = x / 2</span>
+x %= <span class="num">3</span>;         <span class="cm">← same as: x = x % 3</span>
+x **= <span class="num">2</span>;        <span class="cm">← same as: x = x ** 2</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>3. COMPARISON OPERATORS</h3>
+      <p>Compare two values and return true/false</p>
+      <pre><span class="num">5</span> == <span class="num">5</span>          <span class="cm">→ true (equal value)</span>
+<span class="num">5</span> === <span class="num">5</span>         <span class="cm">→ true (equal value AND type)</span>
+<span class="num">5</span> === <span class="str">"5"</span>       <span class="cm">→ false (different types)</span>
+<span class="num">5</span> != <span class="num">3</span>          <span class="cm">→ true (not equal)</span>
+<span class="num">5</span> !== <span class="str">"5"</span>       <span class="cm">→ true (different type or value)</span>
+<span class="num">5</span> > <span class="num">3</span>           <span class="cm">→ true (greater than)</span>
+<span class="num">5</span> < <span class="num">3</span>           <span class="cm">→ false (less than)</span>
+<span class="num">5</span> >= <span class="num">5</span>          <span class="cm">→ true (greater than or equal)</span>
+<span class="num">3</span> <= <span class="num">5</span>          <span class="cm">→ true (less than or equal)</span></pre>
+      <div class="callout callout-green" style="margin-top:12px">
+        <strong>Important:</strong> Always use <code>===</code> (strict equality) instead of <code>==</code>. It checks both value AND type, preventing bugs.
+      </div>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>4. LOGICAL OPERATORS</h3>
+      <p>Combine boolean values</p>
+      <pre><span class="cm">// && (AND) — both must be true</span>
+<span class="kw">true</span> && <span class="kw">true</span>    <span class="cm">→ true</span>
+<span class="kw">true</span> && <span class="kw">false</span>   <span class="cm">→ false</span>
+
+<span class="cm">// || (OR) — at least one must be true</span>
+<span class="kw">true</span> || <span class="kw">false</span>   <span class="cm">→ true</span>
+<span class="kw">false</span> || <span class="kw">false</span>  <span class="cm">→ false</span>
+
+<span class="cm">// ! (NOT) — inverts boolean</span>
+!<span class="kw">true</span>           <span class="cm">→ false</span>
+!<span class="kw">false</span>          <span class="cm">→ true</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>5. STRING OPERATORS</h3>
+      <pre><span class="cm">// + (concatenation)</span>
+<span class="str">"Hello"</span> + <span class="str">" "</span> + <span class="str">"World"</span>  <span class="cm">→ "Hello World"</span>
+<span class="str">"Age: "</span> + <span class="num">25</span>             <span class="cm">→ "Age: 25"</span>
+
+<span class="cm">// += (append)</span>
+<span class="kw">let</span> msg = <span class="str">"Hello"</span>;
+msg += <span class="str">" World"</span>;        <span class="cm">→ msg is now "Hello World"</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>6. TERNARY OPERATOR (CONDITIONAL)</h3>
+      <pre><span class="cm">// condition ? valueIfTrue : valueIfFalse</span>
+<span class="kw">let</span> age = <span class="num">20</span>;
+<span class="kw">let</span> status = age >= <span class="num">18</span> ? <span class="str">"Adult"</span> : <span class="str">"Minor"</span>;
+<span class="cm">// status = "Adult"</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>7. TYPE OPERATORS</h3>
+      <pre><span class="cm">// typeof — returns type of value</span>
+<span class="kw">typeof</span> <span class="num">42</span>              <span class="cm">→ "number"</span>
+<span class="kw">typeof</span> <span class="str">"Hello"</span>         <span class="cm">→ "string"</span>
+<span class="kw">typeof</span> <span class="kw">true</span>            <span class="cm">→ "boolean"</span>
+<span class="kw">typeof</span> <span class="kw">undefined</span>       <span class="cm">→ "undefined"</span>
+<span class="kw">typeof</span> <span class="kw">null</span>            <span class="cm">→ "object" (quirk!)</span>
+
+<span class="cm">// instanceof — checks if object is instance of class</span>
+[] <span class="kw">instanceof</span> Array   <span class="cm">→ true</span>
+{} <span class="kw">instanceof</span> Object  <span class="cm">→ true</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>8. OTHER OPERATORS</h3>
+      <pre><span class="cm">// Spread operator (...)</span>
+<span class="kw">let</span> arr1 = [<span class="num">1</span>, <span class="num">2</span>];
+<span class="kw">let</span> arr2 = [...arr1, <span class="num">3</span>, <span class="num">4</span>];  <span class="cm">→ [1, 2, 3, 4]</span>
+
+<span class="cm">// Optional chaining (?.)</span>
+obj?.property         <span class="cm">→ safe access, returns undefined if obj is null</span>
+
+<span class="cm">// Nullish coalescing (??)</span>
+<span class="kw">let</span> x = <span class="kw">null</span> ?? <span class="num">10</span>;    <span class="cm">→ 10 (use 10 if null/undefined)</span></pre>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 04 Keywords -->
+  <div class="section" id="keywords">
+    <div class="section-label">Topic 04</div>
+    <div class="section-title"><span class="icon">🔐</span> Keywords & Reserved Words</div>
+    <div class="section-desc">Special words reserved by JavaScript — cannot be used as identifiers</div>
+
+    <div class="card card-accent-red">
+      <h3>WHAT ARE KEYWORDS?</h3>
+      <p>Keywords are <strong>reserved words</strong> that have special meaning in JavaScript. You CANNOT use them as identifiers (variable names, function names, etc.).</p>
+      <div class="callout callout-red">
+        <strong>Critical rule:</strong> Never use keywords as names. JavaScript will throw a syntax error.
+      </div>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>ALL JAVASCRIPT KEYWORDS</h3>
+      <p style="margin-bottom: 16px;">These words are reserved and have specific purposes:</p>
+      
+      <span class="keyword-tag">break</span>
+      <span class="keyword-tag">case</span>
+      <span class="keyword-tag">catch</span>
+      <span class="keyword-tag">class</span>
+      <span class="keyword-tag">const</span>
+      <span class="keyword-tag">continue</span>
+      <span class="keyword-tag">debugger</span>
+      <span class="keyword-tag">default</span>
+      <span class="keyword-tag">delete</span>
+      <span class="keyword-tag">do</span>
+      <span class="keyword-tag">else</span>
+      <span class="keyword-tag">export</span>
+      <span class="keyword-tag">extends</span>
+      <span class="keyword-tag">finally</span>
+      <span class="keyword-tag">for</span>
+      <span class="keyword-tag">function</span>
+      <span class="keyword-tag">if</span>
+      <span class="keyword-tag">import</span>
+      <span class="keyword-tag">in</span>
+      <span class="keyword-tag">instanceof</span>
+      <span class="keyword-tag">let</span>
+      <span class="keyword-tag">new</span>
+      <span class="keyword-tag">return</span>
+      <span class="keyword-tag">super</span>
+      <span class="keyword-tag">switch</span>
+      <span class="keyword-tag">this</span>
+      <span class="keyword-tag">throw</span>
+      <span class="keyword-tag">try</span>
+      <span class="keyword-tag">typeof</span>
+      <span class="keyword-tag">var</span>
+      <span class="keyword-tag">void</span>
+      <span class="keyword-tag">while</span>
+      <span class="keyword-tag">with</span>
+      <span class="keyword-tag">yield</span>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>FUTURE RESERVED WORDS</h3>
+      <p>These might become keywords in future JavaScript versions — avoid using them:</p>
+      <p style="margin-top: 12px; font-size: 13px; line-height: 1.8;">
+        <code>enum</code>, <code>implements</code>, <code>interface</code>, <code>package</code>, 
+        <code>private</code>, <code>protected</code>, <code>public</code>, <code>static</code>, 
+        <code>await</code> (inside async functions)
+      </p>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>SPECIAL VALUES (NOT KEYWORDS BUT RESERVED)</h3>
+      <pre><span class="kw">true</span>           <span class="cm">← boolean literal</span>
+<span class="kw">false</span>          <span class="cm">← boolean literal</span>
+<span class="kw">null</span>           <span class="cm">← null literal</span>
+<span class="kw">undefined</span>      <span class="cm">← undefined literal</span>
+<span class="kw">NaN</span>            <span class="cm">← Not a Number</span>
+<span class="kw">Infinity</span>       <span class="cm">← Infinite number</span></pre>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>KEYWORDS BY CATEGORY</h3>
+      
+      <h4 style="color: var(--accent4); font-family: 'JetBrains Mono', monospace; font-size: 11px; margin: 16px 0 8px 0;">VARIABLE DECLARATION</h4>
+      <pre><span class="kw">var</span>, <span class="kw">let</span>, <span class="kw">const</span></pre>
+
+      <h4 style="color: var(--accent4); font-family: 'JetBrains Mono', monospace; font-size: 11px; margin: 16px 0 8px 0;">CONTROL FLOW</h4>
+      <pre><span class="kw">if</span>, <span class="kw">else</span>, <span class="kw">switch</span>, <span class="kw">case</span>, <span class="kw">default</span></pre>
+
+      <h4 style="color: var(--accent4); font-family: 'JetBrains Mono', monospace; font-size: 11px; margin: 16px 0 8px 0;">LOOPS</h4>
+      <pre><span class="kw">for</span>, <span class="kw">while</span>, <span class="kw">do</span>, <span class="kw">break</span>, <span class="kw">continue</span></pre>
+
+      <h4 style="color: var(--accent4); font-family: 'JetBrains Mono', monospace; font-size: 11px; margin: 16px 0 8px 0;">FUNCTIONS</h4>
+      <pre><span class="kw">function</span>, <span class="kw">return</span>, <span class="kw">yield</span></pre>
+
+      <h4 style="color: var(--accent4); font-family: 'JetBrains Mono', monospace; font-size: 11px; margin: 16px 0 8px 0;">ERROR HANDLING</h4>
+      <pre><span class="kw">try</span>, <span class="kw">catch</span>, <span class="kw">finally</span>, <span class="kw">throw</span></pre>
+
+      <h4 style="color: var(--accent4); font-family: 'JetBrains Mono', monospace; font-size: 11px; margin: 16px 0 8px 0;">CLASSES & OBJECTS</h4>
+      <pre><span class="kw">class</span>, <span class="kw">extends</span>, <span class="kw">super</span>, <span class="kw">this</span>, <span class="kw">new</span></pre>
+
+      <h4 style="color: var(--accent4); font-family: 'JetBrains Mono', monospace; font-size: 11px; margin: 16px 0 8px 0;">MODULES</h4>
+      <pre><span class="kw">import</span>, <span class="kw">export</span></pre>
+
+      <h4 style="color: var(--accent4); font-family: 'JetBrains Mono', monospace; font-size: 11px; margin: 16px 0 8px 0;">OPERATORS AS KEYWORDS</h4>
+      <pre><span class="kw">typeof</span>, <span class="kw">instanceof</span>, <span class="kw">delete</span>, <span class="kw">void</span>, <span class="kw">in</span></pre>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>COMMON MISTAKES</h3>
+      <pre><span class="cm">// ❌ WRONG — using keyword as identifier</span>
+<span class="kw">let</span> class = <span class="str">"Math"</span>;     <span class="cm">← SyntaxError!</span>
+<span class="kw">let</span> function = <span class="num">5</span>;      <span class="cm">← SyntaxError!</span>
+<span class="kw">let</span> if = <span class="kw">true</span>;          <span class="cm">← SyntaxError!</span>
+
+<span class="cm">// ✅ CORRECT — use different names</span>
+<span class="kw">let</span> className = <span class="str">"Math"</span>;
+<span class="kw">let</span> func = <span class="num">5</span>;
+<span class="kw">let</span> condition = <span class="kw">true</span>;</pre>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 05 == vs === -->
+  <div class="section" id="equality">
+    <div class="section-label">Topic 05</div>
+    <div class="section-title"><span class="icon">⚖️</span> Loose Equality (==) vs Strict Equality (===)</div>
+    <div class="section-desc">The most important comparison operators — understand the difference!</div>
+
+    <div class="card card-accent-left">
+      <h3>THE KEY DIFFERENCE</h3>
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Operator</th>
+            <th>Name</th>
+            <th>Checks Value?</th>
+            <th>Checks Type?</th>
+            <th>Type Coercion?</th>
+          </tr>
+          <tr>
+            <td><code>==</code></td>
+            <td>Loose Equality</td>
+            <td class="tick">✅ Yes</td>
+            <td class="cross">❌ No</td>
+            <td class="tick">✅ Yes (converts types)</td>
+          </tr>
+          <tr>
+            <td><code>===</code></td>
+            <td>Strict Equality</td>
+            <td class="tick">✅ Yes</td>
+            <td class="tick">✅ Yes</td>
+            <td class="cross">❌ No (no conversion)</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>BASIC EXAMPLES</h3>
+      <pre><span class="cm">// == (Loose Equality) — converts types then compares</span>
+<span class="num">5</span> == <span class="num">5</span>           <span class="cm">→ true (same value, same type)</span>
+<span class="num">5</span> == <span class="str">"5"</span>         <span class="cm">→ true (converts "5" to number 5, then compares)</span>
+<span class="num">0</span> == <span class="kw">false</span>       <span class="cm">→ true (false converts to 0)</span>
+<span class="num">1</span> == <span class="kw">true</span>        <span class="cm">→ true (true converts to 1)</span>
+<span class="str">""</span> == <span class="kw">false</span>      <span class="cm">→ true (empty string converts to 0)</span>
+<span class="kw">null</span> == <span class="kw">undefined</span> <span class="cm">→ true (special case)</span>
+
+<span class="cm">// === (Strict Equality) — no conversion, checks value AND type</span>
+<span class="num">5</span> === <span class="num">5</span>          <span class="cm">→ true (same value, same type)</span>
+<span class="num">5</span> === <span class="str">"5"</span>        <span class="cm">→ false (different types: number vs string)</span>
+<span class="num">0</span> === <span class="kw">false</span>      <span class="cm">→ false (different types: number vs boolean)</span>
+<span class="num">1</span> === <span class="kw">true</span>       <span class="cm">→ false (different types: number vs boolean)</span>
+<span class="str">""</span> === <span class="kw">false</span>     <span class="cm">→ false (different types: string vs boolean)</span>
+<span class="kw">null</span> === <span class="kw">undefined</span> <span class="cm">→ false (different types)</span></pre>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>TRICKY INTERVIEW CASES</h3>
+      <pre><span class="cm">// Case 1: Arrays and Objects</span>
+[] == []          <span class="cm">→ false (different objects in memory)</span>
+[] === []         <span class="cm">→ false (same reason)</span>
+{} == {}          <span class="cm">→ false (different objects)</span>
+{} === {}         <span class="cm">→ false (same reason)</span>
+
+<span class="cm">// Case 2: NaN is never equal to anything (even itself!)</span>
+<span class="kw">NaN</span> == <span class="kw">NaN</span>       <span class="cm">→ false ⚠️</span>
+<span class="kw">NaN</span> === <span class="kw">NaN</span>      <span class="cm">→ false ⚠️</span>
+<span class="fn">isNaN</span>(<span class="kw">NaN</span>)       <span class="cm">→ true (use this to check NaN)</span>
+
+<span class="cm">// Case 3: null and undefined</span>
+<span class="kw">null</span> == <span class="kw">undefined</span>  <span class="cm">→ true (special rule in ==)</span>
+<span class="kw">null</span> === <span class="kw">undefined</span> <span class="cm">→ false (different types)</span>
+<span class="kw">null</span> == <span class="num">0</span>         <span class="cm">→ false</span>
+<span class="kw">undefined</span> == <span class="num">0</span>    <span class="cm">→ false</span>
+
+<span class="cm">// Case 4: String to Number conversion</span>
+<span class="str">"10"</span> == <span class="num">10</span>       <span class="cm">→ true (string "10" converts to number)</span>
+<span class="str">"10"</span> === <span class="num">10</span>      <span class="cm">→ false (different types)</span>
+<span class="str">" "</span> == <span class="num">0</span>        <span class="cm">→ true (space converts to 0)</span>
+<span class="str">"\n"</span> == <span class="num">0</span>       <span class="cm">→ true (newline converts to 0)</span>
+
+<span class="cm">// Case 5: Boolean conversion</span>
+<span class="kw">true</span> == <span class="num">1</span>        <span class="cm">→ true (true converts to 1)</span>
+<span class="kw">true</span> === <span class="num">1</span>       <span class="cm">→ false (different types)</span>
+<span class="kw">false</span> == <span class="num">0</span>       <span class="cm">→ true (false converts to 0)</span>
+<span class="kw">false</span> === <span class="num">0</span>      <span class="cm">→ false (different types)</span>
+
+<span class="cm">// Case 6: Empty array/object coercion</span>
+[] == <span class="num">0</span>           <span class="cm">→ true ([] converts to ""  → 0)</span>
+[] == <span class="kw">false</span>       <span class="cm">→ true (same conversion)</span>
+[] === <span class="num">0</span>          <span class="cm">→ false (different types)</span>
+
+<span class="cm">// Case 7: Weird but true!</span>
+<span class="str">"0"</span> == <span class="kw">false</span>     <span class="cm">→ true ("0" → 0, false → 0)</span>
+<span class="str">"0"</span> === <span class="kw">false</span>    <span class="cm">→ false (different types)</span>
+<span class="str">""</span> == <span class="str">"0"</span>        <span class="cm">→ false (both strings, different values)</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>TYPE COERCION RULES FOR ==</h3>
+      <p>When using <code>==</code>, JavaScript converts types following these rules:</p>
+      <ul>
+        <li><strong>String + Number:</strong> String converts to Number</li>
+        <li><strong>Boolean + Anything:</strong> Boolean converts to Number (true→1, false→0)</li>
+        <li><strong>null == undefined:</strong> Always true (special case)</li>
+        <li><strong>Object + Primitive:</strong> Object converts to Primitive (valueOf/toString)</li>
+        <li><strong>null/undefined + Anything else:</strong> Always false (except null==undefined)</li>
+      </ul>
+
+      <pre><span class="cm">// Examples of coercion:</span>
+<span class="str">"5"</span> == <span class="num">5</span>         <span class="cm">→ "5" becomes 5 → 5 == 5 → true</span>
+<span class="kw">true</span> == <span class="num">1</span>        <span class="cm">→ true becomes 1 → 1 == 1 → true</span>
+<span class="str">""</span> == <span class="num">0</span>          <span class="cm">→ "" becomes 0 → 0 == 0 → true</span>
+[] == <span class="str">""</span>          <span class="cm">→ [] becomes "" → "" == "" → true</span>
+[<span class="num">5</span>] == <span class="num">5</span>         <span class="cm">→ [5] becomes "5" → "5" becomes 5 → 5 == 5 → true</span></pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>REAL INTERVIEW QUESTIONS</h3>
+      
+      <div class="example-box">
+        <div class="example-title">QUESTION 1: Predict Output</div>
+        <pre><span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"1"</span> + <span class="num">1</span>);         <span class="cm">// ?</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"1"</span> - <span class="num">1</span>);         <span class="cm">// ?</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">true</span> + <span class="kw">true</span>);      <span class="cm">// ?</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">true</span> + <span class="str">"1"</span>);      <span class="cm">// ?</span>
+
+<span class="cm">// Answer:</span>
+<span class="cm">// "11"  ← + with string = concatenation</span>
+<span class="cm">// 0     ← - forces number conversion</span>
+<span class="cm">// 2     ← true + true = 1 + 1 = 2</span>
+<span class="cm">// "true1" ← + with string = concatenation</span></pre>
+      </div>
+
+      <div class="example-box" style="margin-top:12px">
+        <div class="example-title">QUESTION 2: What prints?</div>
+        <pre><span class="fn">console</span>.<span class="fn">log</span>([] == ![]);    <span class="cm">// ?</span>
+
+<span class="cm">// Answer: true</span>
+<span class="cm">// Step 1: ![] → false (any object is truthy, ! inverts it)</span>
+<span class="cm">// Step 2: [] == false</span>
+<span class="cm">// Step 3: [] converts to "" → 0</span>
+<span class="cm">// Step 4: false converts to 0</span>
+<span class="cm">// Step 5: 0 == 0 → true</span></pre>
+      </div>
+
+      <div class="example-box" style="margin-top:12px">
+        <div class="example-title">QUESTION 3: Fix the Bug</div>
+        <pre><span class="cm">// Buggy code:</span>
+<span class="kw">if</span> (userInput == <span class="kw">null</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"No input"</span>);
+}
+
+<span class="cm">// Problem: This catches BOTH null and undefined!</span>
+<span class="cm">// Because null == undefined is true</span>
+
+<span class="cm">// Fix 1: Use === for exact check</span>
+<span class="kw">if</span> (userInput === <span class="kw">null</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Exactly null"</span>);
+}
+
+<span class="cm">// Fix 2: Check both null and undefined explicitly</span>
+<span class="kw">if</span> (userInput == <span class="kw">null</span>) {  <span class="cm">← intentional ==</span>
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"null or undefined"</span>);
+}</pre>
+      </div>
+    </div>
+
+    <div class="callout callout-red">
+      <strong>Best Practice:</strong> ALWAYS use <code>===</code> (strict equality) unless you have a specific reason to use <code>==</code>. The only acceptable use of <code>==</code> is checking <code>value == null</code> to catch both null and undefined.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 06 Coding Problems -->
+  <div class="section" id="coding">
+    <div class="section-label">Topic 06</div>
+    <div class="section-title"><span class="icon">💻</span> Coding Problems</div>
+    <div class="section-desc">Practice JavaScript problems asked in top companies</div>
+
+    <div class="card card-accent-green card-green">
+      <h3>PROBLEM 1: Reverse a String</h3>
+      <p><strong>Asked by:</strong> Google, Amazon, Microsoft</p>
+      <p><strong>Problem:</strong> Write a function to reverse a string without using built-in reverse().</p>
+
+      <pre><span class="cm">// Solution 1: For loop</span>
+<span class="kw">function</span> <span class="fn">reverseString</span>(str) {
+  <span class="kw">let</span> result = <span class="str">""</span>;
+  <span class="kw">for</span> (<span class="kw">let</span> i = str.length - <span class="num">1</span>; i >= <span class="num">0</span>; i--) {
+    result += str[i];
+  }
+  <span class="kw">return</span> result;
+}
+
+<span class="cm">// Solution 2: Array methods</span>
+<span class="kw">function</span> <span class="fn">reverseString</span>(str) {
+  <span class="kw">return</span> str.<span class="fn">split</span>(<span class="str">""</span>).<span class="fn">reverse</span>().<span class="fn">join</span>(<span class="str">""</span>);
+}
+
+<span class="cm">// Solution 3: Recursion</span>
+<span class="kw">function</span> <span class="fn">reverseString</span>(str) {
+  <span class="kw">if</span> (str === <span class="str">""</span>) <span class="kw">return</span> <span class="str">""</span>;
+  <span class="kw">return</span> <span class="fn">reverseString</span>(str.<span class="fn">substr</span>(<span class="num">1</span>)) + str[<span class="num">0</span>];
+}
+
+<span class="cm">// Test:</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">reverseString</span>(<span class="str">"hello"</span>)); <span class="cm">// "olleh"</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>PROBLEM 2: Check Palindrome</h3>
+      <p><strong>Asked by:</strong> Facebook, Amazon</p>
+      <p><strong>Problem:</strong> Check if a string is a palindrome (reads same forwards and backwards).</p>
+
+      <pre><span class="cm">// Solution 1: Two pointers</span>
+<span class="kw">function</span> <span class="fn">isPalindrome</span>(str) {
+  <span class="kw">let</span> left = <span class="num">0</span>;
+  <span class="kw">let</span> right = str.length - <span class="num">1</span>;
+  
+  <span class="kw">while</span> (left < right) {
+    <span class="kw">if</span> (str[left] !== str[right]) {
+      <span class="kw">return</span> <span class="kw">false</span>;
+    }
+    left++;
+    right--;
+  }
+  <span class="kw">return</span> <span class="kw">true</span>;
+}
+
+<span class="cm">// Solution 2: Reverse and compare</span>
+<span class="kw">function</span> <span class="fn">isPalindrome</span>(str) {
+  <span class="kw">const</span> reversed = str.<span class="fn">split</span>(<span class="str">""</span>).<span class="fn">reverse</span>().<span class="fn">join</span>(<span class="str">""</span>);
+  <span class="kw">return</span> str === reversed;
+}
+
+<span class="cm">// Test:</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">isPalindrome</span>(<span class="str">"racecar"</span>)); <span class="cm">// true</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">isPalindrome</span>(<span class="str">"hello"</span>));   <span class="cm">// false</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>PROBLEM 3: FizzBuzz</h3>
+      <p><strong>Asked by:</strong> Almost every company!</p>
+      <p><strong>Problem:</strong> Print numbers 1 to n, but for multiples of 3 print "Fizz", for multiples of 5 print "Buzz", for both print "FizzBuzz".</p>
+
+      <pre><span class="kw">function</span> <span class="fn">fizzBuzz</span>(n) {
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i <= n; i++) {
+    <span class="kw">if</span> (i % <span class="num">15</span> === <span class="num">0</span>) {
+      <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"FizzBuzz"</span>);
+    } <span class="kw">else if</span> (i % <span class="num">3</span> === <span class="num">0</span>) {
+      <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Fizz"</span>);
+    } <span class="kw">else if</span> (i % <span class="num">5</span> === <span class="num">0</span>) {
+      <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Buzz"</span>);
+    } <span class="kw">else</span> {
+      <span class="fn">console</span>.<span class="fn">log</span>(i);
+    }
+  }
+}
+
+<span class="cm">// Cleaner version:</span>
+<span class="kw">function</span> <span class="fn">fizzBuzz</span>(n) {
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i <= n; i++) {
+    <span class="kw">let</span> output = <span class="str">""</span>;
+    <span class="kw">if</span> (i % <span class="num">3</span> === <span class="num">0</span>) output += <span class="str">"Fizz"</span>;
+    <span class="kw">if</span> (i % <span class="num">5</span> === <span class="num">0</span>) output += <span class="str">"Buzz"</span>;
+    <span class="fn">console</span>.<span class="fn">log</span>(output || i);
+  }
+}
+
+<span class="fn">fizzBuzz</span>(<span class="num">15</span>);
+<span class="cm">// Output: 1 2 Fizz 4 Buzz Fizz 7 8 Fizz Buzz 11 Fizz 13 14 FizzBuzz</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>PROBLEM 4: Find Duplicate in Array</h3>
+      <p><strong>Asked by:</strong> Amazon, Google</p>
+      <p><strong>Problem:</strong> Find the first duplicate value in an array.</p>
+
+      <pre><span class="cm">// Solution 1: Using Set</span>
+<span class="kw">function</span> <span class="fn">findDuplicate</span>(arr) {
+  <span class="kw">const</span> seen = <span class="kw">new</span> <span class="fn">Set</span>();
+  
+  <span class="kw">for</span> (<span class="kw">let</span> num <span class="kw">of</span> arr) {
+    <span class="kw">if</span> (seen.<span class="fn">has</span>(num)) {
+      <span class="kw">return</span> num;
+    }
+    seen.<span class="fn">add</span>(num);
+  }
+  <span class="kw">return</span> <span class="kw">null</span>;
+}
+
+<span class="cm">// Solution 2: Using Object</span>
+<span class="kw">function</span> <span class="fn">findDuplicate</span>(arr) {
+  <span class="kw">const</span> count = {};
+  
+  <span class="kw">for</span> (<span class="kw">let</span> num <span class="kw">of</span> arr) {
+    <span class="kw">if</span> (count[num]) {
+      <span class="kw">return</span> num;
+    }
+    count[num] = <span class="kw">true</span>;
+  }
+  <span class="kw">return</span> <span class="kw">null</span>;
+}
+
+<span class="cm">// Test:</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">findDuplicate</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">2</span>, <span class="num">4</span>])); <span class="cm">// 2</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>PROBLEM 5: Sum of Array</h3>
+      <p><strong>Asked by:</strong> Microsoft, Apple</p>
+      <p><strong>Problem:</strong> Calculate sum of all numbers in array.</p>
+
+      <pre><span class="cm">// Solution 1: For loop</span>
+<span class="kw">function</span> <span class="fn">sumArray</span>(arr) {
+  <span class="kw">let</span> sum = <span class="num">0</span>;
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  <span class="kw">return</span> sum;
+}
+
+<span class="cm">// Solution 2: reduce()</span>
+<span class="kw">function</span> <span class="fn">sumArray</span>(arr) {
+  <span class="kw">return</span> arr.<span class="fn">reduce</span>((sum, num) => sum + num, <span class="num">0</span>);
+}
+
+<span class="cm">// Test:</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">sumArray</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>])); <span class="cm">// 15</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>PROBLEM 6: Count Vowels</h3>
+      <p><strong>Asked by:</strong> TCS, Infosys, Wipro</p>
+      <p><strong>Problem:</strong> Count the number of vowels in a string.</p>
+
+      <pre><span class="kw">function</span> <span class="fn">countVowels</span>(str) {
+  <span class="kw">const</span> vowels = <span class="str">"aeiouAEIOU"</span>;
+  <span class="kw">let</span> count = <span class="num">0</span>;
+  
+  <span class="kw">for</span> (<span class="kw">let</span> char <span class="kw">of</span> str) {
+    <span class="kw">if</span> (vowels.<span class="fn">includes</span>(char)) {
+      count++;
+    }
+  }
+  <span class="kw">return</span> count;
+}
+
+<span class="cm">// Alternative with regex:</span>
+<span class="kw">function</span> <span class="fn">countVowels</span>(str) {
+  <span class="kw">const</span> matches = str.<span class="fn">match</span>(<span class="str">/[aeiou]/gi</span>);
+  <span class="kw">return</span> matches ? matches.length : <span class="num">0</span>;
+}
+
+<span class="cm">// Test:</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">countVowels</span>(<span class="str">"Hello World"</span>)); <span class="cm">// 3</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>PROBLEM 7: Factorial</h3>
+      <p><strong>Asked by:</strong> Amazon, Accenture</p>
+      <p><strong>Problem:</strong> Calculate factorial of a number (5! = 5×4×3×2×1).</p>
+
+      <pre><span class="cm">// Solution 1: Iterative</span>
+<span class="kw">function</span> <span class="fn">factorial</span>(n) {
+  <span class="kw">let</span> result = <span class="num">1</span>;
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">2</span>; i <= n; i++) {
+    result *= i;
+  }
+  <span class="kw">return</span> result;
+}
+
+<span class="cm">// Solution 2: Recursive</span>
+<span class="kw">function</span> <span class="fn">factorial</span>(n) {
+  <span class="kw">if</span> (n <= <span class="num">1</span>) <span class="kw">return</span> <span class="num">1</span>;
+  <span class="kw">return</span> n * <span class="fn">factorial</span>(n - <span class="num">1</span>);
+}
+
+<span class="cm">// Test:</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">factorial</span>(<span class="num">5</span>)); <span class="cm">// 120</span></pre>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 07 Interview -->
+  <div class="section" id="interview">
+    <div class="section-label">Topic 07</div>
+    <div class="section-title"><span class="icon">🎯</span> Interview Q&amp;A</div>
+    <div class="section-desc">Master these answers for your interview!</div>
+
+    <div class="interview-grid">
+
+      <div class="interview-card">
+        <div class="q">Q: What are identifiers?</div>
+        <div class="a">Names you give to variables, functions, classes, etc. Must start with letter/underscore/dollar sign, cannot be keywords, and are case-sensitive.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Difference between identifier and literal?</div>
+        <div class="a">Identifier is a NAME (variable, function). Literal is the ACTUAL VALUE (42, "hello", true). Example: let age = 25 → age is identifier, 25 is literal.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Can identifier start with a number?</div>
+        <div class="a">No. Identifiers must start with letter, underscore (_), or dollar sign ($). "1name" is invalid, but "name1" is valid.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What are the naming conventions?</div>
+        <div class="a">camelCase for variables/functions (userName). PascalCase for classes (UserService). UPPER_SNAKE_CASE for constants (MAX_SIZE). _underscore for private (convention).</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What are JavaScript literals?</div>
+        <div class="a">Fixed values written directly in code. Types: Number (42), String ("hello"), Boolean (true/false), null, undefined, Array ([1,2]), Object ({x:1}), RegEx (/abc/).</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Difference between == and ===?</div>
+        <div class="a">== checks value only (type coercion). === checks value AND type (strict). Example: 5 == "5" → true, but 5 === "5" → false. Always prefer ===.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What does typeof null return?</div>
+        <div class="a">"object" — this is a known JavaScript quirk/bug from early days. null is NOT actually an object, it's a primitive type.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What are keywords?</div>
+        <div class="a">Reserved words with special meaning in JavaScript. Cannot be used as identifiers. Examples: let, const, if, for, function, class, return, etc.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Can you use "class" as variable name?</div>
+        <div class="a">No. "class" is a reserved keyword. Using it as identifier causes SyntaxError. Use "className" or similar instead.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What is the ternary operator?</div>
+        <div class="a">Shorthand for if-else: condition ? valueIfTrue : valueIfFalse. Example: let status = age >= 18 ? "Adult" : "Minor";</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Difference between & and &&?</div>
+        <div class="a">& is bitwise AND (operates on bits). && is logical AND (operates on boolean values). Use && for conditions: if (a && b).</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What is the spread operator?</div>
+        <div class="a">... (three dots) expands an array/object. Example: let arr2 = [...arr1, 4, 5] copies arr1 and adds new elements. Also works for objects.</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>📓 JavaScript Learning Journal &nbsp;·&nbsp; <span>Day 3 Complete</span> &nbsp;·&nbsp; Continue tomorrow →</p>
+  <p style="margin-top:8px; font-size:12px; color:#555;">Identifiers · Literals · Operators · Keywords · Reserved Words · Naming Conventions</p>
+</div>
+
+</body>
+</html>

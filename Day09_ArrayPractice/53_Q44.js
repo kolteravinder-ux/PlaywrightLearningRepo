@@ -21,7 +21,7 @@ if (unique.length < 2) return null;
     
     for (let num of unique) {
         if (num > first) {
-            second = first;
+            second = first;   
             first = num;
         } else if (num > second) {
             second = num;

@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JS Fundamentals — Identifiers, Literals, Operators & Keywords</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --card: #1e1e1e;
+      --border: #2e2e2e;
+      --accent: #f0c040;
+      --accent2: #4af0a0;
+      --accent3: #f05080;
+      --accent4: #60b0ff;
+      --text: #e8e8e8;
+      --muted: #888;
+      --code-bg: #111;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      padding: 60px 40px 40px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: 'JS';
+      position: absolute;
+      right: -20px;
+      top: -30px;
+      font-size: 240px;
+      font-weight: 800;
+      color: rgba(240,192,64,0.04);
+      font-family: 'Space Mono', monospace;
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #000;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 2px;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+    header h1 {
+      font-size: clamp(28px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.1;
+      max-width: 700px;
+    }
+    header h1 span { color: var(--accent); }
+    header p {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 500px;
+      line-height: 1.6;
+    }
+
+    /* Nav pills */
+    nav {
+      display: flex;
+      gap: 10px;
+      padding: 20px 40px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    nav a {
+      text-decoration: none;
+      font-size: 13px;
+      font-family: 'Space Mono', monospace;
+      color: var(--muted);
+      padding: 6px 16px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    nav a:hover, nav a.active {
+      color: #000;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* Main layout */
+    main {
+      padding: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+    }
+
+    /* Section */
+    section { scroll-margin-top: 20px; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .section-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+    .section-title {
+      font-size: 26px;
+      font-weight: 800;
+    }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Cards grid */
+    .grid { display: grid; gap: 16px; }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 24px;
+      position: relative;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .card-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    .card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* Color accents per section */
+    .s1 .card:hover { border-color: var(--accent); }
+    .s2 .card:hover { border-color: var(--accent2); }
+    .s3 .card:hover { border-color: var(--accent3); }
+    .s4 .card:hover { border-color: var(--accent4); }
+
+    .s1 .section-number { color: var(--accent); border-color: var(--accent); }
+    .s2 .section-number { color: var(--accent2); border-color: var(--accent2); }
+    .s3 .section-number { color: var(--accent3); border-color: var(--accent3); }
+    .s4 .section-number { color: var(--accent4); border-color: var(--accent4); }
+
+    /* Code block */
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px 24px;
+      overflow-x: auto;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      margin-top: 20px;
+    }
+    .kw  { color: #c792ea; }
+    .str { color: #c3e88d; }
+    .num { color: #f78c6c; }
+    .op  { color: #89ddff; }
+    .cmt { color: #546e7a; font-style: italic; }
+    .id  { color: #82aaff; }
+    .bool { color: #ff5370; }
+
+    /* Rules list */
+    .rules {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-top: 20px;
+    }
+    .rules li {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--text);
+      list-style: none;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.5;
+    }
+    .rules li:last-child { border-bottom: none; }
+    .rules .ok  { color: var(--accent2); }
+    .rules .bad { color: var(--accent3); }
+
+    /* Operator table */
+    .op-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+    .op-table th {
+      background: #111;
+      color: var(--muted);
+      font-weight: 700;
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--border);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+    .op-table td {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: top;
+    }
+    .op-table tr:hover td { background: rgba(255,255,255,0.03); }
+    .op-table code {
+      background: #111;
+      padding: 2px 7px;
+      border-radius: 3px;
+      color: var(--accent3);
+      font-size: 12px;
+    }
+
+    /* Keywords grid */
+    .kw-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .kw-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 3px;
+      border: 1px solid;
+      cursor: default;
+      transition: transform 0.15s;
+    }
+    .kw-tag:hover { transform: scale(1.05); }
+    .kw-decl  { color: #c792ea; border-color: #c792ea44; background: #c792ea11; }
+    .kw-ctrl  { color: #89ddff; border-color: #89ddff44; background: #89ddff11; }
+    .kw-func  { color: #c3e88d; border-color: #c3e88d44; background: #c3e88d11; }
+    .kw-class { color: #f78c6c; border-color: #f78c6c44; background: #f78c6c11; }
+    .kw-async { color: #f0c040; border-color: #f0c04044; background: #f0c04011; }
+    .kw-misc  { color: #ff5370; border-color: #ff537044; background: #ff537011; }
+
+    .legend {
+      display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px;
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--muted); font-family: 'Space Mono', monospace;
+    }
+    .legend-dot {
+      width: 10px; height: 10px; border-radius: 2px;
+    }
+
+    /* Summary callout */
+    .callout {
+      background: linear-gradient(135deg, #1e1e1e, #161616);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 24px 28px;
+      margin-top: 60px;
+    }
+    .callout h2 { font-size: 20px; margin-bottom: 10px; }
+    .callout p { color: var(--muted); font-size: 14px; line-height: 1.7; }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      font-size: 12px;
+      font-family: 'Space Mono', monospace;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 600px) {
+      header, nav, main { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="badge">JAVASCRIPT FUNDAMENTALS</div>
+  <h1>Identifiers, Literals,<br/><span>Operators & Keywords</span></h1>
+  <p>A comprehensive reference guide covering the building blocks of JavaScript syntax — the atomic units every JS developer must know.</p>
+</header>
+
+<nav>
+  <a href="#identifiers" class="active">Identifiers</a>
+  <a href="#literals">Literals</a>
+  <a href="#operators">Operators</a>
+  <a href="#keywords">Keywords</a>
+</nav>
+
+<main>
+
+  <!-- ─── IDENTIFIERS ─────────────────────────────────────── -->
+  <section id="identifiers" class="s1">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">Identifiers</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-label">Definition</div>
+        <h3>What is an Identifier?</h3>
+        <p>An identifier is a name given to a variable, function, class, or label. It acts as a unique tag that lets JavaScript reference a value or block of code by name.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Naming Conventions</div>
+        <h3>Common Styles</h3>
+        <p><strong>camelCase</strong> — variables &amp; functions<br/>
+           <strong>PascalCase</strong> — classes &amp; constructors<br/>
+           <strong>UPPER_SNAKE_CASE</strong> — constants<br/>
+           <strong>_prefix</strong> — private/internal convention</p>
+      </div>
+    </div>
+
+    <ul class="rules">
+      <li><span class="ok">✔</span> Must start with a letter, underscore <code>_</code>, or dollar sign <code>$</code></li>
+      <li><span class="ok">✔</span> Can contain letters, digits, underscores, and dollar signs</li>
+      <li><span class="bad">✘</span> Cannot start with a digit — <code>1name</code> is invalid</li>
+      <li><span class="bad">✘</span> Cannot contain spaces or special characters (except <code>_</code> and <code>$</code>)</li>
+      <li><span class="bad">✘</span> Cannot be a reserved keyword — e.g. <code>let</code>, <code>class</code>, <code>return</code></li>
+      <li><span class="ok">✔</span> Case-sensitive: <code>myVar</code> ≠ <code>MyVar</code> ≠ <code>MYVAR</code></li>
+    </ul>
+
+    <pre><span class="cmt">// ✔ Valid identifiers</span>
+<span class="kw">let</span> <span class="id">userName</span> = <span class="str">"Alice"</span>;
+<span class="kw">const</span> <span class="id">_privateVal</span> = <span class="num">42</span>;
+<span class="kw">let</span> <span class="id">$price</span> = <span class="num">9.99</span>;
+<span class="kw">function</span> <span class="id">calculateTotal</span>() {}
+
+<span class="cmt">// ✘ Invalid identifiers</span>
+<span class="cmt">// let 1stPlace = "gold";   → starts with digit</span>
+<span class="cmt">// let my-name = "Bob";     → contains hyphen</span>
+<span class="cmt">// let class = "JS";        → reserved keyword</span></pre>
+  </section>
+
+  <!-- ─── LITERALS ─────────────────────────────────────────── -->
+  <section id="literals" class="s2">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">Literals</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="card-label">Number</div>
+        <h3>Numeric Literal</h3>
+        <p>Integer, float, hex, octal, binary, BigInt. Examples: <code>42</code>, <code>3.14</code>, <code>0xFF</code>, <code>0b1010</code>, <code>9n</code></p>
+      </div>
+      <div class="card">
+        <div class="card-label">String</div>
+        <h3>String Literal</h3>
+        <p>Sequence of characters in single <code>'</code>, double <code>"</code>, or backtick quotes. Backtick enables template literals.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Boolean</div>
+        <h3>Boolean Literal</h3>
+        <p>Only two values: <code>true</code> or <code>false</code>. Used in conditions and logical expressions.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Null / Undefined</div>
+        <h3>Null & Undefined</h3>
+        <p><code>null</code> — intentional absence of a value.<br/><code>undefined</code> — variable declared but not assigned.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Object / Array</div>
+        <h3>Object &amp; Array Literal</h3>
+        <p>Inline object: <code>{}</code> or <code>{ key: value }</code>.<br/>Inline array: <code>[]</code> or <code>[1, 2, 3]</code>.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">RegExp</div>
+        <h3>RegExp Literal</h3>
+        <p>Pattern between slashes for matching strings. Example: <code>/\d+/g</code> matches one or more digits globally.</p>
+      </div>
+    </div>
+
+    <pre><span class="cmt">// Number literals</span>
+<span class="kw">let</span> <span class="id">age</span>  = <span class="num">25</span>;
+<span class="kw">let</span> <span class="id">pi</span>   = <span class="num">3.14159</span>;
+<span class="kw">let</span> <span class="id">hex</span>  = <span class="num">0xFF</span>;       <span class="cmt">// 255</span>
+<span class="kw">let</span> <span class="id">bin</span>  = <span class="num">0b1010</span>;    <span class="cmt">// 10</span>
+<span class="kw">let</span> <span class="id">big</span>  = <span class="num">9007199254740991n</span>;
+
+<span class="cmt">// String literals</span>
+<span class="kw">let</span> <span class="id">name</span> = <span class="str">'Alice'</span>;
+<span class="kw">let</span> <span class="id">msg</span>  = <span class="str">`Hello, <span class="op">${<span class="id">name</span>}</span>!`</span>;   <span class="cmt">// Template literal</span>
+
+<span class="cmt">// Boolean literal</span>
+<span class="kw">let</span> <span class="id">isActive</span> = <span class="bool">true</span>;
+
+<span class="cmt">// Null / Undefined</span>
+<span class="kw">let</span> <span class="id">x</span> = <span class="bool">null</span>;
+<span class="kw">let</span> <span class="id">y</span>;             <span class="cmt">// undefined</span>
+
+<span class="cmt">// Object & Array</span>
+<span class="kw">const</span> <span class="id">user</span>   = { <span class="id">name</span>: <span class="str">"Bob"</span>, <span class="id">age</span>: <span class="num">30</span> };
+<span class="kw">const</span> <span class="id">colors</span> = [<span class="str">"red"</span>, <span class="str">"green"</span>, <span class="str">"blue"</span>];
+
+<span class="cmt">// RegExp literal</span>
+<span class="kw">const</span> <span class="id">pattern</span> = <span class="num">/\d+/g</span>;</pre>
+  </section>
+
+  <!-- ─── OPERATORS ─────────────────────────────────────────── -->
+  <section id="operators" class="s3">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">Operators</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <table class="op-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Operators</th>
+          <th>Example</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Arithmetic</td><td><code>+</code> <code>-</code> <code>*</code> <code>/</code> <code>%</code> <code>**</code></td><td><code>10 % 3</code></td><td>1</td></tr>
+        <tr><td>Assignment</td><td><code>=</code> <code>+=</code> <code>-=</code> <code>*=</code> <code>/=</code> <code>%=</code> <code>**=</code></td><td><code>x += 5</code></td><td>x = x + 5</td></tr>
+        <tr><td>Loose Equality</td><td><code>==</code> <code>!=</code></td><td><code>5 == "5"</code></td><td>true (coercion)</td></tr>
+        <tr><td>Strict Equality</td><td><code>===</code> <code>!==</code></td><td><code>5 === "5"</code></td><td>false (no coercion)</td></tr>
+        <tr><td>Relational</td><td><code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code></td><td><code>10 &gt;= 10</code></td><td>true</td></tr>
+        <tr><td>Logical</td><td><code>&amp;&amp;</code> <code>||</code> <code>!</code> <code>??</code></td><td><code>null ?? "default"</code></td><td>"default"</td></tr>
+        <tr><td>Bitwise</td><td><code>&amp;</code> <code>|</code> <code>^</code> <code>~</code> <code>&lt;&lt;</code> <code>&gt;&gt;</code> <code>&gt;&gt;&gt;</code></td><td><code>5 &amp; 3</code></td><td>1</td></tr>
+        <tr><td>Ternary</td><td><code>? :</code></td><td><code>age &gt;= 18 ? "adult" : "minor"</code></td><td>"adult"</td></tr>
+        <tr><td>Unary</td><td><code>typeof</code> <code>void</code> <code>delete</code> <code>!</code> <code>+</code> <code>-</code> <code>++</code> <code>--</code></td><td><code>typeof 42</code></td><td>"number"</td></tr>
+        <tr><td>Spread / Rest</td><td><code>...</code></td><td><code>[...arr1, ...arr2]</code></td><td>merged array</td></tr>
+        <tr><td>instanceof / in</td><td><code>instanceof</code> <code>in</code></td><td><code>"name" in user</code></td><td>true</td></tr>
+        <tr><td>Optional Chain</td><td><code>?.</code></td><td><code>user?.address?.city</code></td><td>undefined (no error)</td></tr>
+        <tr><td>Logical Assignment</td><td><code>&amp;&amp;=</code> <code>||=</code> <code>??=</code></td><td><code>x ??= "default"</code></td><td>assigns if x is null/undefined</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Sub-section: Loose vs Strict -->
+    <div style="margin-top:36px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent3);border:1px solid var(--accent3);padding:3px 10px;border-radius:2px;">DEEP DIVE</span>
+        <h3 style="font-size:19px;font-weight:800;">Loose ( == ) vs Strict ( === ) Comparison</h3>
+      </div>
+      <div class="grid grid-2" style="margin-bottom:16px;">
+        <div class="card" style="border-color:#f0508033;">
+          <div class="card-label" style="color:var(--accent3);">Loose Equality ==</div>
+          <h3>Type Coercion Happens</h3>
+          <p>JavaScript converts operands to the same type before comparing. Leads to surprising results — generally <strong>avoid</strong> in production code.</p>
+        </div>
+        <div class="card" style="border-color:#4af0a033;">
+          <div class="card-label" style="color:var(--accent2);">Strict Equality ===</div>
+          <h3>No Type Coercion</h3>
+          <p>Compares both <strong>value AND type</strong>. No conversion happens. This is the recommended approach in all modern JS code.</p>
+        </div>
+      </div>
+
+      <pre><span class="cmt">// ─── LOOSE EQUALITY ( == ) — type coercion examples ───────────</span>
+<span class="num">5</span>         <span class="op">==</span>  <span class="str">"5"</span>          <span class="cmt">// true  — number "5" coerced to number 5</span>
+<span class="num">0</span>         <span class="op">==</span>  <span class="bool">false</span>        <span class="cmt">// true  — false coerced to 0</span>
+<span class="num">1</span>         <span class="op">==</span>  <span class="bool">true</span>         <span class="cmt">// true  — true coerced to 1</span>
+<span class="str">""</span>        <span class="op">==</span>  <span class="bool">false</span>        <span class="cmt">// true  — empty string is falsy → 0</span>
+<span class="str">"0"</span>       <span class="op">==</span>  <span class="bool">false</span>        <span class="cmt">// true  — "0" → 0, false → 0</span>
+<span class="bool">null</span>      <span class="op">==</span>  <span class="bool">undefined</span>    <span class="cmt">// true  — special rule, only these two</span>
+<span class="bool">null</span>      <span class="op">==</span>  <span class="num">0</span>            <span class="cmt">// false — null only == undefined</span>
+<span class="bool">NaN</span>       <span class="op">==</span>  <span class="bool">NaN</span>          <span class="cmt">// false — NaN is never equal to itself</span>
+[]        <span class="op">==</span>  <span class="bool">false</span>        <span class="cmt">// true  — [] → "" → 0, false → 0</span>
+[]        <span class="op">==</span>  <span class="num">0</span>            <span class="cmt">// true  — [] → "" → 0</span>
+[<span class="num">1</span>]       <span class="op">==</span>  <span class="num">1</span>            <span class="cmt">// true  — [1] → "1" → 1</span>
+
+<span class="cmt">// ─── STRICT EQUALITY ( === ) — no coercion ────────────────────</span>
+<span class="num">5</span>         <span class="op">===</span> <span class="str">"5"</span>          <span class="cmt">// false — different types (number vs string)</span>
+<span class="num">0</span>         <span class="op">===</span> <span class="bool">false</span>        <span class="cmt">// false — different types (number vs boolean)</span>
+<span class="num">1</span>         <span class="op">===</span> <span class="bool">true</span>         <span class="cmt">// false — different types</span>
+<span class="str">""</span>        <span class="op">===</span> <span class="bool">false</span>        <span class="cmt">// false — different types</span>
+<span class="bool">null</span>      <span class="op">===</span> <span class="bool">undefined</span>    <span class="cmt">// false — different types</span>
+<span class="bool">null</span>      <span class="op">===</span> <span class="bool">null</span>         <span class="cmt">// true  — same type and value</span>
+<span class="bool">undefined</span> <span class="op">===</span> <span class="bool">undefined</span>    <span class="cmt">// true</span>
+<span class="num">5</span>         <span class="op">===</span> <span class="num">5</span>            <span class="cmt">// true  — same type and value</span>
+<span class="str">"hello"</span>   <span class="op">===</span> <span class="str">"hello"</span>      <span class="cmt">// true</span>
+<span class="bool">NaN</span>       <span class="op">===</span> <span class="bool">NaN</span>          <span class="cmt">// false — NaN is never equal (use Number.isNaN)</span>
+
+<span class="cmt">// ─── LOOSE INEQUALITY ( != ) vs STRICT ( !== ) ────────────────</span>
+<span class="num">5</span>  <span class="op">!=</span>  <span class="str">"5"</span>   <span class="cmt">// false — they ARE loosely equal</span>
+<span class="num">5</span>  <span class="op">!==</span> <span class="str">"5"</span>   <span class="cmt">// true  — different types, strictly NOT equal</span></pre>
+    </div>
+
+    <!-- Sub-section: All Operators Examples -->
+    <div style="margin-top:36px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent3);border:1px solid var(--accent3);padding:3px 10px;border-radius:2px;">EXAMPLES</span>
+        <h3 style="font-size:19px;font-weight:800;">All Operator Categories with Examples</h3>
+      </div>
+
+      <pre><span class="cmt">// ─── ARITHMETIC ───────────────────────────────────────────────</span>
+<span class="num">10</span> <span class="op">+</span> <span class="num">3</span>    <span class="cmt">// 13  — addition</span>
+<span class="num">10</span> <span class="op">-</span> <span class="num">3</span>    <span class="cmt">// 7   — subtraction</span>
+<span class="num">10</span> <span class="op">*</span> <span class="num">3</span>    <span class="cmt">// 30  — multiplication</span>
+<span class="num">10</span> <span class="op">/</span> <span class="num">3</span>    <span class="cmt">// 3.333… — division</span>
+<span class="num">10</span> <span class="op">%</span> <span class="num">3</span>    <span class="cmt">// 1   — modulus (remainder)</span>
+<span class="num">2</span>  <span class="op">**</span> <span class="num">8</span>   <span class="cmt">// 256 — exponentiation</span>
+<span class="str">"Hi"</span> <span class="op">+</span> <span class="str">" JS"</span>  <span class="cmt">// "Hi JS" — string concatenation with +</span>
+
+<span class="cmt">// ─── ASSIGNMENT ───────────────────────────────────────────────</span>
+<span class="kw">let</span> <span class="id">x</span> = <span class="num">10</span>;
+<span class="id">x</span> <span class="op">+=</span> <span class="num">5</span>;   <span class="cmt">// x = 15</span>
+<span class="id">x</span> <span class="op">-=</span> <span class="num">3</span>;   <span class="cmt">// x = 12</span>
+<span class="id">x</span> <span class="op">*=</span> <span class="num">2</span>;   <span class="cmt">// x = 24</span>
+<span class="id">x</span> <span class="op">/=</span> <span class="num">4</span>;   <span class="cmt">// x = 6</span>
+<span class="id">x</span> <span class="op">%=</span> <span class="num">4</span>;   <span class="cmt">// x = 2</span>
+<span class="id">x</span> <span class="op">**=</span> <span class="num">3</span>;  <span class="cmt">// x = 8</span>
+
+<span class="cmt">// ─── RELATIONAL ───────────────────────────────────────────────</span>
+<span class="num">5</span> <span class="op">&gt;</span>  <span class="num">3</span>    <span class="cmt">// true</span>
+<span class="num">5</span> <span class="op">&lt;</span>  <span class="num">3</span>    <span class="cmt">// false</span>
+<span class="num">5</span> <span class="op">&gt;=</span> <span class="num">5</span>    <span class="cmt">// true</span>
+<span class="num">5</span> <span class="op">&lt;=</span> <span class="num">4</span>    <span class="cmt">// false</span>
+
+<span class="cmt">// ─── LOGICAL ──────────────────────────────────────────────────</span>
+<span class="bool">true</span>  <span class="op">&amp;&amp;</span> <span class="bool">false</span>        <span class="cmt">// false — AND: both must be true</span>
+<span class="bool">true</span>  <span class="op">||</span> <span class="bool">false</span>        <span class="cmt">// true  — OR: at least one true</span>
+<span class="op">!</span><span class="bool">true</span>                  <span class="cmt">// false — NOT: inverts boolean</span>
+<span class="bool">null</span>  <span class="op">??</span> <span class="str">"default"</span>   <span class="cmt">// "default" — nullish coalescing</span>
+<span class="num">0</span>     <span class="op">??</span> <span class="str">"default"</span>   <span class="cmt">// 0 — 0 is NOT null/undefined</span>
+<span class="num">0</span>     <span class="op">||</span> <span class="str">"default"</span>   <span class="cmt">// "default" — 0 is falsy, || triggers</span>
+
+<span class="cmt">// ─── UNARY ────────────────────────────────────────────────────</span>
+<span class="kw">typeof</span> <span class="num">42</span>           <span class="cmt">// "number"</span>
+<span class="kw">typeof</span> <span class="str">"hello"</span>      <span class="cmt">// "string"</span>
+<span class="kw">typeof</span> <span class="bool">true</span>         <span class="cmt">// "boolean"</span>
+<span class="kw">typeof</span> <span class="bool">undefined</span>    <span class="cmt">// "undefined"</span>
+<span class="kw">typeof</span> <span class="bool">null</span>         <span class="cmt">// "object" ← famous JS quirk!</span>
+<span class="kw">typeof</span> {}           <span class="cmt">// "object"</span>
+<span class="kw">typeof</span> []           <span class="cmt">// "object" ← arrays are objects</span>
+<span class="kw">typeof</span> <span class="kw">function</span>(){} <span class="cmt">// "function"</span>
+
+<span class="kw">let</span> <span class="id">n</span> = <span class="num">5</span>;
+<span class="id">n</span><span class="op">++</span>;  <span class="cmt">// post-increment → n = 6</span>
+<span class="op">++</span><span class="id">n</span>;  <span class="cmt">// pre-increment  → n = 7</span>
+<span class="id">n</span><span class="op">--</span>;  <span class="cmt">// post-decrement → n = 6</span>
+<span class="op">-</span><span class="id">n</span>;   <span class="cmt">// unary minus    → -6</span>
+<span class="op">+</span><span class="str">"42"</span>;  <span class="cmt">// 42 — converts string to number</span>
+
+<span class="cmt">// ─── BITWISE ──────────────────────────────────────────────────</span>
+<span class="num">5</span> <span class="op">&amp;</span>  <span class="num">3</span>   <span class="cmt">// 1   — AND  (0101 & 0011 = 0001)</span>
+<span class="num">5</span> <span class="op">|</span>  <span class="num">3</span>   <span class="cmt">// 7   — OR   (0101 | 0011 = 0111)</span>
+<span class="num">5</span> <span class="op">^</span>  <span class="num">3</span>   <span class="cmt">// 6   — XOR  (0101 ^ 0011 = 0110)</span>
+<span class="op">~</span><span class="num">5</span>       <span class="cmt">// -6  — NOT  (bitwise complement)</span>
+<span class="num">5</span> <span class="op">&lt;&lt;</span> <span class="num">1</span>  <span class="cmt">// 10  — left shift (5 * 2)</span>
+<span class="num">5</span> <span class="op">&gt;&gt;</span> <span class="num">1</span>  <span class="cmt">// 2   — right shift (5 / 2)</span>
+
+<span class="cmt">// ─── TERNARY ──────────────────────────────────────────────────</span>
+<span class="kw">const</span> <span class="id">age</span> = <span class="num">20</span>;
+<span class="kw">const</span> <span class="id">status</span> = <span class="id">age</span> <span class="op">&gt;=</span> <span class="num">18</span> <span class="op">?</span> <span class="str">"adult"</span> <span class="op">:</span> <span class="str">"minor"</span>;  <span class="cmt">// "adult"</span>
+<span class="kw">const</span> <span class="id">score</span> = <span class="num">45</span>;
+<span class="kw">const</span> <span class="id">grade</span> = <span class="id">score</span> <span class="op">&gt;=</span> <span class="num">90</span> <span class="op">?</span> <span class="str">"A"</span> <span class="op">:</span> <span class="id">score</span> <span class="op">&gt;=</span> <span class="num">60</span> <span class="op">?</span> <span class="str">"B"</span> <span class="op">:</span> <span class="str">"F"</span>; <span class="cmt">// "F"</span>
+
+<span class="cmt">// ─── SPREAD & REST ────────────────────────────────────────────</span>
+<span class="kw">const</span> <span class="id">a</span> = [<span class="num">1</span>, <span class="num">2</span>], <span class="id">b</span> = [<span class="num">3</span>, <span class="num">4</span>];
+<span class="kw">const</span> <span class="id">merged</span> = [<span class="op">...</span><span class="id">a</span>, <span class="op">...</span><span class="id">b</span>];          <span class="cmt">// [1, 2, 3, 4]</span>
+<span class="kw">const</span> <span class="id">copy</span>   = { <span class="op">...</span>{ <span class="id">x</span>:<span class="num">1</span> }, <span class="id">y</span>:<span class="num">2</span> };  <span class="cmt">// { x:1, y:2 }</span>
+<span class="kw">function</span> <span class="id">sum</span>(<span class="op">...</span><span class="id">nums</span>) {              <span class="cmt">// rest param</span>
+  <span class="kw">return</span> <span class="id">nums</span>.<span class="id">reduce</span>((<span class="id">a</span>,<span class="id">b</span>) <span class="op">=&gt;</span> <span class="id">a</span><span class="op">+</span><span class="id">b</span>, <span class="num">0</span>);
+}
+<span class="id">sum</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>);   <span class="cmt">// 10</span>
+
+<span class="cmt">// ─── instanceof / in ──────────────────────────────────────────</span>
+<span class="kw">const</span> <span class="id">arr</span> = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+<span class="id">arr</span> <span class="kw">instanceof</span> Array   <span class="cmt">// true</span>
+<span class="id">arr</span> <span class="kw">instanceof</span> Object  <span class="cmt">// true — arrays are objects</span>
+<span class="str">"name"</span> <span class="kw">in</span> { <span class="id">name</span>: <span class="str">"Alice"</span> }  <span class="cmt">// true</span>
+<span class="num">0</span> <span class="kw">in</span> [<span class="str">"a"</span>, <span class="str">"b"</span>]             <span class="cmt">// true — index 0 exists</span>
+
+<span class="cmt">// ─── OPTIONAL CHAINING & NULLISH ASSIGNMENT ───────────────────</span>
+<span class="kw">const</span> <span class="id">user</span> = { <span class="id">profile</span>: { <span class="id">city</span>: <span class="str">"Pune"</span> } };
+<span class="id">user</span><span class="op">?.</span><span class="id">profile</span><span class="op">?.</span><span class="id">city</span>    <span class="cmt">// "Pune"</span>
+<span class="id">user</span><span class="op">?.</span><span class="id">address</span><span class="op">?.</span><span class="id">city</span>   <span class="cmt">// undefined (no error thrown)</span>
+
+<span class="kw">let</span> <span class="id">config</span> = <span class="bool">null</span>;
+<span class="id">config</span> <span class="op">??=</span> <span class="str">"default"</span>;  <span class="cmt">// config = "default" (was null)</span>
+<span class="kw">let</span> <span class="id">flag</span> = <span class="bool">false</span>;
+<span class="id">flag</span> <span class="op">||=</span> <span class="bool">true</span>;          <span class="cmt">// flag = true (was falsy)</span>
+<span class="kw">let</span> <span class="id">val</span> = <span class="bool">true</span>;
+<span class="id">val</span> <span class="op">&amp;&amp;=</span> <span class="bool">false</span>;           <span class="cmt">// val = false (was truthy)</span></pre>
+    </div>
+  </section>
+
+  <!-- ─── KEYWORDS ─────────────────────────────────────────── -->
+  <section id="keywords" class="s4">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">Keywords</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <p style="color:var(--muted);font-size:14px;margin-bottom:16px;">Reserved words that have special meaning in JavaScript and cannot be used as identifiers.</p>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#c792ea"></div>Declaration</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#89ddff"></div>Control Flow</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#c3e88d"></div>Function</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f78c6c"></div>Class / OOP</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f0c040"></div>Async</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#ff5370"></div>Misc</div>
+    </div>
+
+    <div class="kw-grid">
+      <span class="kw-tag kw-decl">var</span>
+      <span class="kw-tag kw-decl">let</span>
+      <span class="kw-tag kw-decl">const</span>
+      <span class="kw-tag kw-ctrl">if</span>
+      <span class="kw-tag kw-ctrl">else</span>
+      <span class="kw-tag kw-ctrl">switch</span>
+      <span class="kw-tag kw-ctrl">case</span>
+      <span class="kw-tag kw-ctrl">default</span>
+      <span class="kw-tag kw-ctrl">for</span>
+      <span class="kw-tag kw-ctrl">while</span>
+      <span class="kw-tag kw-ctrl">do</span>
+      <span class="kw-tag kw-ctrl">break</span>
+      <span class="kw-tag kw-ctrl">continue</span>
+      <span class="kw-tag kw-ctrl">return</span>
+      <span class="kw-tag kw-ctrl">try</span>
+      <span class="kw-tag kw-ctrl">catch</span>
+      <span class="kw-tag kw-ctrl">finally</span>
+      <span class="kw-tag kw-ctrl">throw</span>
+      <span class="kw-tag kw-func">function</span>
+      <span class="kw-tag kw-func">arguments</span>
+      <span class="kw-tag kw-func">yield</span>
+      <span class="kw-tag kw-class">class</span>
+      <span class="kw-tag kw-class">extends</span>
+      <span class="kw-tag kw-class">super</span>
+      <span class="kw-tag kw-class">this</span>
+      <span class="kw-tag kw-class">new</span>
+      <span class="kw-tag kw-class">static</span>
+      <span class="kw-tag kw-async">async</span>
+      <span class="kw-tag kw-async">await</span>
+      <span class="kw-tag kw-misc">import</span>
+      <span class="kw-tag kw-misc">export</span>
+      <span class="kw-tag kw-misc">from</span>
+      <span class="kw-tag kw-misc">typeof</span>
+      <span class="kw-tag kw-misc">instanceof</span>
+      <span class="kw-tag kw-misc">in</span>
+      <span class="kw-tag kw-misc">of</span>
+      <span class="kw-tag kw-misc">delete</span>
+      <span class="kw-tag kw-misc">void</span>
+      <span class="kw-tag kw-misc">debugger</span>
+      <span class="kw-tag kw-misc">with</span>
+    </div>
+
+    <!-- Declaration keywords -->
+    <div style="margin-top:36px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:#c792ea;border:1px solid #c792ea;padding:3px 10px;border-radius:2px;">DECLARATION</span>
+        <h3 style="font-size:17px;font-weight:800;">var · let · const</h3>
+      </div>
+      <pre><span class="cmt">// var — function-scoped, hoisted to top of function</span>
+<span class="kw">var</span> <span class="id">count</span> = <span class="num">0</span>;
+<span class="kw">if</span> (<span class="bool">true</span>) { <span class="kw">var</span> <span class="id">count</span> = <span class="num">99</span>; }  <span class="cmt">// same variable! leaks out of block</span>
+<span class="id">console</span>.<span class="id">log</span>(<span class="id">count</span>);               <span class="cmt">// 99</span>
+
+<span class="cmt">// let — block-scoped, not re-declarable in same scope</span>
+<span class="kw">let</span> <span class="id">score</span> = <span class="num">10</span>;
+<span class="kw">if</span> (<span class="bool">true</span>) { <span class="kw">let</span> <span class="id">score</span> = <span class="num">99</span>; }   <span class="cmt">// different variable inside block</span>
+<span class="id">console</span>.<span class="id">log</span>(<span class="id">score</span>);               <span class="cmt">// 10 — outer unchanged</span>
+
+<span class="cmt">// const — block-scoped, must be initialized, cannot be reassigned</span>
+<span class="kw">const</span> <span class="id">PI</span> = <span class="num">3.14159</span>;
+<span class="cmt">// PI = 3; → TypeError: Assignment to constant variable</span>
+<span class="kw">const</span> <span class="id">user</span> = { <span class="id">name</span>: <span class="str">"Alice"</span> };
+<span class="id">user</span>.<span class="id">name</span> = <span class="str">"Bob"</span>;               <span class="cmt">// ✔ object properties CAN change</span>
+<span class="cmt">// user = {}; → TypeError: re-assignment blocked</span></pre>
+    </div>
+
+    <!-- Control Flow -->
+    <div style="margin-top:36px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:#89ddff;border:1px solid #89ddff;padding:3px 10px;border-radius:2px;">CONTROL FLOW</span>
+        <h3 style="font-size:17px;font-weight:800;">if · else · switch · for · while · do · break · continue · return · try · catch · finally · throw</h3>
+      </div>
+      <pre><span class="cmt">// if / else</span>
+<span class="kw">const</span> <span class="id">age</span> = <span class="num">18</span>;
+<span class="kw">if</span> (<span class="id">age</span> <span class="op">&gt;=</span> <span class="num">18</span>) {
+  <span class="id">console</span>.<span class="id">log</span>(<span class="str">"Adult"</span>);
+} <span class="kw">else if</span> (<span class="id">age</span> <span class="op">&gt;=</span> <span class="num">13</span>) {
+  <span class="id">console</span>.<span class="id">log</span>(<span class="str">"Teen"</span>);
+} <span class="kw">else</span> {
+  <span class="id">console</span>.<span class="id">log</span>(<span class="str">"Child"</span>);
+}
+
+<span class="cmt">// switch / case / default / break</span>
+<span class="kw">const</span> <span class="id">day</span> = <span class="str">"Mon"</span>;
+<span class="kw">switch</span> (<span class="id">day</span>) {
+  <span class="kw">case</span> <span class="str">"Mon"</span>: <span class="id">console</span>.<span class="id">log</span>(<span class="str">"Monday"</span>); <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="str">"Fri"</span>: <span class="id">console</span>.<span class="id">log</span>(<span class="str">"Friday"</span>); <span class="kw">break</span>;
+  <span class="kw">default</span>:   <span class="id">console</span>.<span class="id">log</span>(<span class="str">"Other day"</span>);
+}
+
+<span class="cmt">// for loop / break / continue</span>
+<span class="kw">for</span> (<span class="kw">let</span> <span class="id">i</span> = <span class="num">0</span>; <span class="id">i</span> <span class="op">&lt;</span> <span class="num">5</span>; <span class="id">i</span><span class="op">++</span>) {
+  <span class="kw">if</span> (<span class="id">i</span> <span class="op">===</span> <span class="num">2</span>) <span class="kw">continue</span>;  <span class="cmt">// skip 2</span>
+  <span class="kw">if</span> (<span class="id">i</span> <span class="op">===</span> <span class="num">4</span>) <span class="kw">break</span>;     <span class="cmt">// stop at 4</span>
+  <span class="id">console</span>.<span class="id">log</span>(<span class="id">i</span>);           <span class="cmt">// 0, 1, 3</span>
+}
+
+<span class="cmt">// for...of (iterates values)</span>
+<span class="kw">const</span> <span class="id">fruits</span> = [<span class="str">"apple"</span>, <span class="str">"mango"</span>, <span class="str">"banana"</span>];
+<span class="kw">for</span> (<span class="kw">const</span> <span class="id">fruit</span> <span class="kw">of</span> <span class="id">fruits</span>) { <span class="id">console</span>.<span class="id">log</span>(<span class="id">fruit</span>); }
+
+<span class="cmt">// for...in (iterates keys)</span>
+<span class="kw">const</span> <span class="id">obj</span> = { <span class="id">a</span>:<span class="num">1</span>, <span class="id">b</span>:<span class="num">2</span> };
+<span class="kw">for</span> (<span class="kw">const</span> <span class="id">key</span> <span class="kw">in</span> <span class="id">obj</span>) { <span class="id">console</span>.<span class="id">log</span>(<span class="id">key</span>, <span class="id">obj</span>[<span class="id">key</span>]); }
+
+<span class="cmt">// while / do...while</span>
+<span class="kw">let</span> <span class="id">n</span> = <span class="num">0</span>;
+<span class="kw">while</span> (<span class="id">n</span> <span class="op">&lt;</span> <span class="num">3</span>) { <span class="id">console</span>.<span class="id">log</span>(<span class="id">n</span><span class="op">++</span>); }   <span class="cmt">// 0 1 2</span>
+<span class="kw">do</span> { <span class="id">console</span>.<span class="id">log</span>(<span class="id">n</span><span class="op">++</span>); } <span class="kw">while</span> (<span class="id">n</span> <span class="op">&lt;</span> <span class="num">1</span>);  <span class="cmt">// runs at least once</span>
+
+<span class="cmt">// try / catch / finally / throw</span>
+<span class="kw">try</span> {
+  <span class="kw">throw</span> <span class="kw">new</span> <span class="id">Error</span>(<span class="str">"Something went wrong!"</span>);
+} <span class="kw">catch</span> (<span class="id">err</span>) {
+  <span class="id">console</span>.<span class="id">log</span>(<span class="id">err</span>.<span class="id">message</span>);  <span class="cmt">// "Something went wrong!"</span>
+} <span class="kw">finally</span> {
+  <span class="id">console</span>.<span class="id">log</span>(<span class="str">"Always runs"</span>);
+}
+
+<span class="cmt">// return — exits function and sends value back</span>
+<span class="kw">function</span> <span class="id">add</span>(<span class="id">a</span>, <span class="id">b</span>) { <span class="kw">return</span> <span class="id">a</span> <span class="op">+</span> <span class="id">b</span>; }
+<span class="id">add</span>(<span class="num">3</span>, <span class="num">4</span>);  <span class="cmt">// 7</span></pre>
+    </div>
+
+    <!-- Function keywords -->
+    <div style="margin-top:36px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:#c3e88d;border:1px solid #c3e88d;padding:3px 10px;border-radius:2px;">FUNCTION</span>
+        <h3 style="font-size:17px;font-weight:800;">function · arguments · yield</h3>
+      </div>
+      <pre><span class="cmt">// function declaration</span>
+<span class="kw">function</span> <span class="id">greet</span>(<span class="id">name</span>) { <span class="kw">return</span> <span class="str">`Hello, <span class="op">${<span class="id">name</span>}</span>`</span>; }
+
+<span class="cmt">// function expression</span>
+<span class="kw">const</span> <span class="id">square</span> = <span class="kw">function</span>(<span class="id">n</span>) { <span class="kw">return</span> <span class="id">n</span> <span class="op">*</span> <span class="id">n</span>; };
+
+<span class="cmt">// arrow function (no own `arguments` or `this`)</span>
+<span class="kw">const</span> <span class="id">double</span> = (<span class="id">n</span>) <span class="op">=&gt;</span> <span class="id">n</span> <span class="op">*</span> <span class="num">2</span>;
+
+<span class="cmt">// arguments — array-like object inside regular functions</span>
+<span class="kw">function</span> <span class="id">showArgs</span>() {
+  <span class="id">console</span>.<span class="id">log</span>(<span class="id">arguments</span>[<span class="num">0</span>], <span class="id">arguments</span>.<span class="id">length</span>);
+}
+<span class="id">showArgs</span>(<span class="str">"a"</span>, <span class="str">"b"</span>, <span class="str">"c"</span>);  <span class="cmt">// "a", 3</span>
+
+<span class="cmt">// yield — pauses a generator function</span>
+<span class="kw">function</span><span class="op">*</span> <span class="id">counter</span>() {
+  <span class="kw">yield</span> <span class="num">1</span>;
+  <span class="kw">yield</span> <span class="num">2</span>;
+  <span class="kw">yield</span> <span class="num">3</span>;
+}
+<span class="kw">const</span> <span class="id">gen</span> = <span class="id">counter</span>();
+<span class="id">gen</span>.<span class="id">next</span>().<span class="id">value</span>;  <span class="cmt">// 1</span>
+<span class="id">gen</span>.<span class="id">next</span>().<span class="id">value</span>;  <span class="cmt">// 2</span></pre>
+    </div>
+
+    <!-- Class / OOP -->
+    <div style="margin-top:36px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:#f78c6c;border:1px solid #f78c6c;padding:3px 10px;border-radius:2px;">CLASS / OOP</span>
+        <h3 style="font-size:17px;font-weight:800;">class · extends · super · this · new · static</h3>
+      </div>
+      <pre><span class="cmt">// class · constructor · this · new</span>
+<span class="kw">class</span> <span class="id">Animal</span> {
+  <span class="kw">constructor</span>(<span class="id">name</span>) {
+    <span class="kw">this</span>.<span class="id">name</span> = <span class="id">name</span>;    <span class="cmt">// `this` refers to the instance</span>
+  }
+  <span class="id">speak</span>() {
+    <span class="kw">return</span> <span class="str">`<span class="op">${<span class="kw">this</span>.<span class="id">name</span>}</span> makes a sound.`</span>;
+  }
+  <span class="kw">static</span> <span class="id">kingdom</span>() { <span class="kw">return</span> <span class="str">"Animalia"</span>; }  <span class="cmt">// static — no instance needed</span>
+}
+
+<span class="cmt">// extends · super</span>
+<span class="kw">class</span> <span class="id">Dog</span> <span class="kw">extends</span> <span class="id">Animal</span> {
+  <span class="kw">constructor</span>(<span class="id">name</span>, <span class="id">breed</span>) {
+    <span class="kw">super</span>(<span class="id">name</span>);          <span class="cmt">// calls Animal's constructor</span>
+    <span class="kw">this</span>.<span class="id">breed</span> = <span class="id">breed</span>;
+  }
+  <span class="id">speak</span>() {
+    <span class="kw">return</span> <span class="str">`<span class="op">${<span class="kw">this</span>.<span class="id">name</span>}</span> barks!`</span>;
+  }
+}
+
+<span class="kw">const</span> <span class="id">d</span> = <span class="kw">new</span> <span class="id">Dog</span>(<span class="str">"Rex"</span>, <span class="str">"Labrador"</span>);
+<span class="id">d</span>.<span class="id">speak</span>();             <span class="cmt">// "Rex barks!"</span>
+<span class="id">Animal</span>.<span class="id">kingdom</span>();      <span class="cmt">// "Animalia" — static method</span></pre>
+    </div>
+
+    <!-- Async -->
+    <div style="margin-top:36px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:#f0c040;border:1px solid #f0c040;padding:3px 10px;border-radius:2px;">ASYNC</span>
+        <h3 style="font-size:17px;font-weight:800;">async · await</h3>
+      </div>
+      <pre><span class="cmt">// async — marks a function as asynchronous (returns a Promise)</span>
+<span class="kw">async function</span> <span class="id">getUser</span>(<span class="id">id</span>) {
+  <span class="cmt">// await — pauses execution until the Promise resolves</span>
+  <span class="kw">const</span> <span class="id">res</span>  = <span class="kw">await</span> <span class="id">fetch</span>(<span class="str">`/api/users/<span class="op">${<span class="id">id</span>}</span>`</span>);
+  <span class="kw">const</span> <span class="id">data</span> = <span class="kw">await</span> <span class="id">res</span>.<span class="id">json</span>();
+  <span class="kw">return</span> <span class="id">data</span>;
+}
+
+<span class="cmt">// async arrow function</span>
+<span class="kw">const</span> <span class="id">fetchPosts</span> = <span class="kw">async</span> () <span class="op">=&gt;</span> {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> <span class="id">res</span> = <span class="kw">await</span> <span class="id">fetch</span>(<span class="str">"/api/posts"</span>);
+    <span class="kw">return</span> <span class="kw">await</span> <span class="id">res</span>.<span class="id">json</span>();
+  } <span class="kw">catch</span> (<span class="id">err</span>) {
+    <span class="id">console</span>.<span class="id">error</span>(<span class="str">"Fetch failed:"</span>, <span class="id">err</span>);
+  }
+};
+
+<span class="cmt">// async always returns a Promise</span>
+<span class="kw">async function</span> <span class="id">hello</span>() { <span class="kw">return</span> <span class="str">"world"</span>; }
+<span class="id">hello</span>().<span class="id">then</span>(<span class="id">console</span>.<span class="id">log</span>);  <span class="cmt">// "world"</span></pre>
+    </div>
+
+    <!-- Misc keywords -->
+    <div style="margin-top:36px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:#ff5370;border:1px solid #ff5370;padding:3px 10px;border-radius:2px;">MISC</span>
+        <h3 style="font-size:17px;font-weight:800;">import · export · typeof · instanceof · in · of · delete · void · debugger</h3>
+      </div>
+      <pre><span class="cmt">// import / export / from — ES Modules</span>
+<span class="cmt">// math.js</span>
+<span class="kw">export const</span> <span class="id">PI</span> = <span class="num">3.14</span>;
+<span class="kw">export function</span> <span class="id">add</span>(<span class="id">a</span>, <span class="id">b</span>) { <span class="kw">return</span> <span class="id">a</span> <span class="op">+</span> <span class="id">b</span>; }
+<span class="kw">export default function</span> <span class="id">multiply</span>(<span class="id">a</span>, <span class="id">b</span>) { <span class="kw">return</span> <span class="id">a</span> <span class="op">*</span> <span class="id">b</span>; }
+
+<span class="cmt">// main.js</span>
+<span class="kw">import</span> <span class="id">multiply</span>, { <span class="id">PI</span>, <span class="id">add</span> } <span class="kw">from</span> <span class="str">"./math.js"</span>;
+<span class="kw">import</span> <span class="op">*</span> <span class="kw">as</span> <span class="id">Math</span> <span class="kw">from</span> <span class="str">"./math.js"</span>;  <span class="cmt">// import everything</span>
+
+<span class="cmt">// typeof — returns a string describing the type</span>
+<span class="kw">typeof</span> <span class="num">42</span>           <span class="cmt">// "number"</span>
+<span class="kw">typeof</span> <span class="str">"hello"</span>      <span class="cmt">// "string"</span>
+<span class="kw">typeof</span> <span class="bool">true</span>         <span class="cmt">// "boolean"</span>
+<span class="kw">typeof</span> <span class="bool">undefined</span>    <span class="cmt">// "undefined"</span>
+<span class="kw">typeof</span> <span class="bool">null</span>         <span class="cmt">// "object" ← historic JS bug</span>
+<span class="kw">typeof</span> {}           <span class="cmt">// "object"</span>
+<span class="kw">typeof</span> <span class="kw">function</span>(){} <span class="cmt">// "function"</span>
+<span class="kw">typeof</span> <span class="id">Symbol</span>()     <span class="cmt">// "symbol"</span>
+<span class="kw">typeof</span> <span class="num">9n</span>           <span class="cmt">// "bigint"</span>
+
+<span class="cmt">// instanceof — checks prototype chain</span>
+[] <span class="kw">instanceof</span> Array    <span class="cmt">// true</span>
+[] <span class="kw">instanceof</span> Object   <span class="cmt">// true</span>
+<span class="str">"hi"</span> <span class="kw">instanceof</span> String <span class="cmt">// false — primitives aren't instances</span>
+
+<span class="cmt">// in — checks if a property exists in an object</span>
+<span class="str">"name"</span> <span class="kw">in</span> { <span class="id">name</span>: <span class="str">"Alice"</span> }   <span class="cmt">// true</span>
+<span class="str">"age"</span>  <span class="kw">in</span> { <span class="id">name</span>: <span class="str">"Alice"</span> }   <span class="cmt">// false</span>
+<span class="num">0</span>      <span class="kw">in</span> [<span class="str">"a"</span>, <span class="str">"b"</span>]           <span class="cmt">// true — index 0 exists</span>
+
+<span class="cmt">// of — used in for...of to iterate values</span>
+<span class="kw">for</span> (<span class="kw">const</span> <span class="id">ch</span> <span class="kw">of</span> <span class="str">"JS"</span>) { <span class="id">console</span>.<span class="id">log</span>(<span class="id">ch</span>); }  <span class="cmt">// "J" "S"</span>
+<span class="kw">for</span> (<span class="kw">const</span> [<span class="id">k</span>, <span class="id">v</span>] <span class="kw">of</span> <span class="id">Object</span>.<span class="id">entries</span>({ <span class="id">a</span>:<span class="num">1</span> })) { <span class="id">console</span>.<span class="id">log</span>(<span class="id">k</span>, <span class="id">v</span>); }
+
+<span class="cmt">// delete — removes a property from an object</span>
+<span class="kw">const</span> <span class="id">person</span> = { <span class="id">name</span>: <span class="str">"Bob"</span>, <span class="id">age</span>: <span class="num">30</span> };
+<span class="kw">delete</span> <span class="id">person</span>.<span class="id">age</span>;
+<span class="id">console</span>.<span class="id">log</span>(<span class="id">person</span>);  <span class="cmt">// { name: "Bob" }</span>
+
+<span class="cmt">// void — evaluates expression and returns undefined</span>
+<span class="kw">void</span> <span class="num">0</span>              <span class="cmt">// undefined</span>
+<span class="kw">void</span> <span class="id">console</span>.<span class="id">log</span>(<span class="str">"hi"</span>)  <span class="cmt">// logs "hi", returns undefined</span>
+
+<span class="cmt">// debugger — pauses code in browser devtools</span>
+<span class="kw">function</span> <span class="id">buggy</span>() {
+  <span class="kw">debugger</span>;  <span class="cmt">// execution pauses here in DevTools</span>
+  <span class="kw">return</span> <span class="num">42</span>;
+}</pre>
+    </div>
+  </section>
+
+  <!-- Summary callout -->
+  <div class="callout">
+    <h2>🧩 Quick Summary</h2>
+    <p>
+      <strong>Identifiers</strong> are names you create — follow the rules and naming conventions.<br/>
+      <strong>Literals</strong> are raw, fixed values written directly in code — numbers, strings, arrays, objects, and more.<br/>
+      <strong>Operators</strong> perform actions on values — arithmetic, comparison, logical, and modern additions like <code>??</code> and <code>?.</code>.<br/>
+      <strong>Keywords</strong> are reserved words with built-in meaning — you cannot use them as identifiers.
+    </p>
+  </div>
+
+</main>
+
+<footer>
+  JavaScript Fundamentals Reference &nbsp;·&nbsp; Topics: Identifiers · Literals · Operators · Keywords
+</footer>
+
+</body>
+</html>

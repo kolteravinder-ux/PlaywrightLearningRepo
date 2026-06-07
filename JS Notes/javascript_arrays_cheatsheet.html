@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Arrays — Complete Cheatsheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --card: #1a1a1a;
+    --border: #2a2a2a;
+    --accent: #f0c040;
+    --accent2: #4fc3f7;
+    --accent3: #a5d6a7;
+    --accent4: #ef9a9a;
+    --text: #e8e8e8;
+    --muted: #888;
+    --code-bg: #111;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #111 0%, #1a1200 50%, #111 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '[]';
+    position: absolute;
+    right: -20px; top: -20px;
+    font-size: 220px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 900;
+    color: rgba(240,192,64,0.04);
+    pointer-events: none;
+    line-height: 1;
+  }
+  .header-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 900; color: #fff; line-height: 1.1;
+  }
+  .header h1 span { color: var(--accent); }
+  .header-sub { margin-top: 12px; color: var(--muted); font-size: 15px; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+  .section { margin-bottom: 48px; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; font-weight: 700; color: #fff;
+    margin-bottom: 6px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-title .icon { font-size: 22px; }
+  .section-desc { color: var(--muted); font-size: 14px; margin-bottom: 20px; padding-left: 34px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: #3a3a3a; }
+  .card-accent-left  { border-left: 3px solid var(--accent); }
+  .card-accent-blue  { border-left: 3px solid var(--accent2); }
+  .card-accent-green { border-left: 3px solid var(--accent3); }
+  .card-accent-red   { border-left: 3px solid var(--accent4); }
+
+  .card h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 10px;
+  }
+  .card-blue h3  { color: var(--accent2); }
+  .card-green h3 { color: var(--accent3); }
+  .card-red h3   { color: var(--accent4); }
+
+  .card p { font-size: 14px; color: #ccc; margin-bottom: 10px; line-height: 1.8; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul { margin: 10px 0; padding-left: 20px; }
+  .card li { font-size: 14px; color: #ccc; line-height: 1.8; margin-bottom: 6px; }
+
+  pre {
+    background: var(--code-bg); border: 1px solid #222;
+    border-radius: 8px; padding: 16px; overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; line-height: 1.7; margin-top: 12px; color: #ccc;
+  }
+  .kw  { color: #c792ea; }
+  .fn  { color: #82aaff; }
+  .str { color: #c3e88d; }
+  .num { color: #f78c6c; }
+  .cm  { color: #546e7a; font-style: italic; }
+  .op  { color: var(--accent); }
+
+  .table-wrap { overflow-x: auto; margin-top: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    background: #111; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1px;
+    padding: 10px 14px; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid #1e1e1e; color: #ccc; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .callout {
+    border-radius: 10px; padding: 16px 20px;
+    margin-top: 16px; font-size: 14px; color: #ddd;
+    background: rgba(240,192,64,0.05);
+    border: 1px solid rgba(240,192,64,0.2);
+    line-height: 1.8;
+  }
+  .callout strong { color: var(--accent); }
+  .callout code {
+    background: rgba(0,0,0,0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .callout-blue { background: rgba(79,195,247,0.05); border-color: rgba(79,195,247,0.2); }
+  .callout-blue strong { color: var(--accent2); }
+  .callout-green { background: rgba(165,214,167,0.05); border-color: rgba(165,214,167,0.2); }
+  .callout-green strong { color: var(--accent3); }
+
+  .method-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .method-card {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .method-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent2);
+    margin-bottom: 8px;
+  }
+  .method-desc {
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+  .method-example {
+    background: var(--code-bg);
+    padding: 10px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    line-height: 1.6;
+    color: #999;
+  }
+
+  .practice-section {
+    background: rgba(240,192,64,0.03);
+    border: 1px solid rgba(240,192,64,0.15);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 24px;
+  }
+  .practice-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .practice-q {
+    background: #0a0a0a;
+    border-left: 3px solid var(--accent);
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+  }
+  .practice-q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .practice-q-text {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.7;
+  }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  .toc {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; margin-bottom: 48px;
+  }
+  .toc h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 16px;
+  }
+  .toc-list {
+    list-style: none;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 8px;
+  }
+  .toc-list li a {
+    color: #ccc; text-decoration: none; font-size: 14px;
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 0; transition: color 0.2s;
+  }
+  .toc-list li a:hover { color: var(--accent); }
+  .toc-list li a .tnum {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent); min-width: 20px;
+  }
+
+  .footer {
+    text-align: center; padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 13px;
+  }
+  .footer span { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-tag">🗂️ Complete Cheatsheet</div>
+  <h1>JavaScript <span>Arrays</span></h1>
+  <p class="header-sub">Everything you need to know about arrays — from basics to advanced</p>
+</div>
+
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h3>Contents</h3>
+    <ul class="toc-list">
+      <li><a href="#creation"><span class="tnum">01</span> Array Creation & Declaration</a></li>
+      <li><a href="#access"><span class="tnum">02</span> Accessing Array Elements</a></li>
+      <li><a href="#basic-methods"><span class="tnum">03</span> Basic Array Methods</a></li>
+      <li><a href="#search-methods"><span class="tnum">04</span> Search & Find Methods</a></li>
+      <li><a href="#loops"><span class="tnum">05</span> Looping Through Arrays</a></li>
+      <li><a href="#transform"><span class="tnum">06</span> Transform Methods (map, filter, reduce)</a></li>
+      <li><a href="#sorting"><span class="tnum">07</span> Array Sorting</a></li>
+    </ul>
+  </div>
+
+  <!-- 01 Creation -->
+  <div class="section" id="creation">
+    <div class="section-label">Topic 01</div>
+    <div class="section-title"><span class="icon">📦</span> Array Creation & Declaration</div>
+    <div class="section-desc">Different ways to create arrays in JavaScript</div>
+
+    <div class="card card-accent-left">
+      <h3>METHOD 1: ARRAY LITERAL (MOST COMMON)</h3>
+      <pre><span class="cm">// Empty array</span>
+<span class="kw">let</span> arr = [];
+
+<span class="cm">// Array with values</span>
+<span class="kw">let</span> numbers = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>];
+<span class="kw">let</span> fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"orange"</span>];
+
+<span class="cm">// Mixed types (not recommended but possible)</span>
+<span class="kw">let</span> mixed = [<span class="num">1</span>, <span class="str">"hello"</span>, <span class="kw">true</span>, <span class="kw">null</span>, {name: <span class="str">"Ravi"</span>}];</pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>METHOD 2: ARRAY CONSTRUCTOR</h3>
+      <pre><span class="cm">// Empty array</span>
+<span class="kw">let</span> arr = <span class="kw">new</span> <span class="fn">Array</span>();
+
+<span class="cm">// Array with size (creates empty slots)</span>
+<span class="kw">let</span> arr = <span class="kw">new</span> <span class="fn">Array</span>(<span class="num">5</span>);  <span class="cm">// [empty × 5]</span>
+
+<span class="cm">// Array with values</span>
+<span class="kw">let</span> arr = <span class="kw">new</span> <span class="fn">Array</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>);  <span class="cm">// [1, 2, 3]</span></pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>METHOD 3: Array.of()</h3>
+      <pre><span class="cm">// Creates array from arguments</span>
+<span class="kw">let</span> arr = <span class="fn">Array</span>.<span class="fn">of</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>);  <span class="cm">// [1, 2, 3]</span>
+<span class="kw">let</span> arr = <span class="fn">Array</span>.<span class="fn">of</span>(<span class="num">5</span>);        <span class="cm">// [5] (unlike new Array(5))</span></pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>METHOD 4: Array.from()</h3>
+      <pre><span class="cm">// From string</span>
+<span class="kw">let</span> arr = <span class="fn">Array</span>.<span class="fn">from</span>(<span class="str">"hello"</span>);  <span class="cm">// ['h','e','l','l','o']</span>
+
+<span class="cm">// From range (1 to 5)</span>
+<span class="kw">let</span> arr = <span class="fn">Array</span>.<span class="fn">from</span>({length: <span class="num">5</span>}, (_, i) => i + <span class="num">1</span>);  <span class="cm">// [1,2,3,4,5]</span>
+
+<span class="cm">// From Set</span>
+<span class="kw">let</span> set = <span class="kw">new</span> <span class="fn">Set</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">2</span>, <span class="num">3</span>]);
+<span class="kw">let</span> arr = <span class="fn">Array</span>.<span class="fn">from</span>(set);  <span class="cm">// [1, 2, 3]</span></pre>
+    </div>
+
+    <div class="callout">
+      <strong>Best Practice:</strong> Use <code>[]</code> (array literal) for most cases. It's clearest and most efficient.
+    </div>
+
+    <div class="practice-section">
+      <div class="practice-title">🎯 Practice Questions — Array Creation</div>
+      
+      <div class="practice-q">
+        <div class="practice-q-num">Question 1</div>
+        <div class="practice-q-text">Create an array of your 5 favorite movies using array literal syntax.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 2</div>
+        <div class="practice-q-text">Use Array.from() to create an array of numbers from 10 to 20.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 3</div>
+        <div class="practice-q-text">Create an empty array and then add 3 elements to it using different methods.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 4</div>
+        <div class="practice-q-text">Convert the string "JavaScript" into an array of characters.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 5</div>
+        <div class="practice-q-text">What's the difference between <code>new Array(5)</code> and <code>Array.of(5)</code>? Create both and log them.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 02 Access -->
+  <div class="section" id="access">
+    <div class="section-label">Topic 02</div>
+    <div class="section-title"><span class="icon">🔍</span> Accessing Array Elements</div>
+    <div class="section-desc">How to read and modify array elements</div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>BASIC ACCESS WITH INDEX</h3>
+      <pre><span class="kw">let</span> fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"orange"</span>, <span class="str">"mango"</span>];
+
+<span class="cm">// Access by index (starts at 0)</span>
+<span class="fn">console</span>.<span class="fn">log</span>(fruits[<span class="num">0</span>]);  <span class="cm">// "apple"</span>
+<span class="fn">console</span>.<span class="fn">log</span>(fruits[<span class="num">2</span>]);  <span class="cm">// "orange"</span>
+
+<span class="cm">// Last element</span>
+<span class="fn">console</span>.<span class="fn">log</span>(fruits[fruits.length - <span class="num">1</span>]);  <span class="cm">// "mango"</span>
+
+<span class="cm">// Negative indices don't work (unlike Python)</span>
+<span class="fn">console</span>.<span class="fn">log</span>(fruits[-<span class="num">1</span>]);  <span class="cm">// undefined (NOT "mango")</span></pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>MODIFY ELEMENTS</h3>
+      <pre><span class="kw">let</span> nums = [<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>];
+
+<span class="cm">// Change value at index</span>
+nums[<span class="num">1</span>] = <span class="num">99</span>;
+<span class="fn">console</span>.<span class="fn">log</span>(nums);  <span class="cm">// [10, 99, 30]</span>
+
+<span class="cm">// Add element beyond length (creates gaps)</span>
+nums[<span class="num">5</span>] = <span class="num">50</span>;
+<span class="fn">console</span>.<span class="fn">log</span>(nums);  <span class="cm">// [10, 99, 30, empty × 2, 50]</span></pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>ARRAY PROPERTIES</h3>
+      <pre><span class="kw">let</span> arr = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>];
+
+<span class="cm">// length — number of elements</span>
+<span class="fn">console</span>.<span class="fn">log</span>(arr.length);  <span class="cm">// 5</span>
+
+<span class="cm">// First element</span>
+<span class="fn">console</span>.<span class="fn">log</span>(arr[<span class="num">0</span>]);  <span class="cm">// 1</span>
+
+<span class="cm">// Last element (using length)</span>
+<span class="fn">console</span>.<span class="fn">log</span>(arr[arr.length - <span class="num">1</span>]);  <span class="cm">// 5</span></pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>at() METHOD (Modern ES2022)</h3>
+      <pre><span class="kw">let</span> fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"orange"</span>];
+
+<span class="cm">// Positive index</span>
+<span class="fn">console</span>.<span class="fn">log</span>(fruits.<span class="fn">at</span>(<span class="num">0</span>));   <span class="cm">// "apple"</span>
+
+<span class="cm">// Negative index (counts from end!)</span>
+<span class="fn">console</span>.<span class="fn">log</span>(fruits.<span class="fn">at</span>(-<span class="num">1</span>));  <span class="cm">// "orange" ✅</span>
+<span class="fn">console</span>.<span class="fn">log</span>(fruits.<span class="fn">at</span>(-<span class="num">2</span>));  <span class="cm">// "banana"</span></pre>
+    </div>
+
+    <div class="practice-section">
+      <div class="practice-title">🎯 Practice Questions — Accessing Elements</div>
+      
+      <div class="practice-q">
+        <div class="practice-q-num">Question 1</div>
+        <div class="practice-q-text">Given array <code>let colors = ['red', 'green', 'blue', 'yellow']</code>, access the second and last elements.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 2</div>
+        <div class="practice-q-text">Change the first element of <code>[10, 20, 30]</code> to 100 and log the result.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 3</div>
+        <div class="practice-q-text">Access the last element of an array WITHOUT using a hardcoded index number.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 4</div>
+        <div class="practice-q-text">Use the at() method to get the second-to-last element of <code>['a', 'b', 'c', 'd', 'e']</code>.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 5</div>
+        <div class="practice-q-text">What happens when you try to access <code>arr[100]</code> in an array of length 5? Test and explain.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 03 Basic Methods -->
+  <div class="section" id="basic-methods">
+    <div class="section-label">Topic 03</div>
+    <div class="section-title"><span class="icon">🔧</span> Basic Array Methods</div>
+    <div class="section-desc">Essential methods for adding, removing, and manipulating arrays</div>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="method-name">push()</div>
+        <div class="method-desc">Add element(s) to END. Returns new length.</div>
+        <div class="method-example">let arr = [1, 2];<br>arr.push(3);  // [1, 2, 3]<br>arr.push(4, 5);  // [1,2,3,4,5]</div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-name">pop()</div>
+        <div class="method-desc">Remove last element. Returns removed element.</div>
+        <div class="method-example">let arr = [1, 2, 3];<br>let last = arr.pop();<br>// arr = [1, 2], last = 3</div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-name">unshift()</div>
+        <div class="method-desc">Add element(s) to START. Returns new length.</div>
+        <div class="method-example">let arr = [2, 3];<br>arr.unshift(1);<br>// arr = [1, 2, 3]</div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-name">shift()</div>
+        <div class="method-desc">Remove first element. Returns removed element.</div>
+        <div class="method-example">let arr = [1, 2, 3];<br>let first = arr.shift();<br>// arr = [2, 3], first = 1</div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-name">splice()</div>
+        <div class="method-desc">Add/remove elements anywhere. Modifies original array.</div>
+        <div class="method-example">let arr = [1,2,3,4,5];<br>arr.splice(2, 1, 99);<br>// [1,2,99,4,5]<br>// (start, deleteCount, items...)</div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-name">slice()</div>
+        <div class="method-desc">Extract portion. Returns NEW array. Original unchanged.</div>
+        <div class="method-example">let arr = [1,2,3,4,5];<br>let sub = arr.slice(1, 3);<br>// sub = [2, 3]<br>// arr still [1,2,3,4,5]</div>
+      </div>
+    </div>
+
+    <div class="card card-accent-green card-green" style="margin-top: 16px;">
+      <h3>SPLICE() — DETAILED EXAMPLES</h3>
+      <pre><span class="kw">let</span> arr = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>];
+
+<span class="cm">// Remove 2 elements starting at index 1</span>
+arr.<span class="fn">splice</span>(<span class="num">1</span>, <span class="num">2</span>);  <span class="cm">// arr = [1, 4, 5]</span>
+
+<span class="cm">// Insert elements at index 2 (delete 0)</span>
+arr = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>];
+arr.<span class="fn">splice</span>(<span class="num">2</span>, <span class="num">0</span>, <span class="num">99</span>, <span class="num">100</span>);  <span class="cm">// [1, 2, 99, 100, 3, 4, 5]</span>
+
+<span class="cm">// Replace elements (delete 2, add 2)</span>
+arr = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>];
+arr.<span class="fn">splice</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="str">'a'</span>, <span class="str">'b'</span>);  <span class="cm">// [1, 'a', 'b', 4, 5]</span>
+
+<span class="cm">// Remove everything from index 2 onwards</span>
+arr = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>];
+arr.<span class="fn">splice</span>(<span class="num">2</span>);  <span class="cm">// arr = [1, 2]</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>COMPARISON TABLE</h3>
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Method</th>
+            <th>Adds Where?</th>
+            <th>Removes From?</th>
+            <th>Modifies Original?</th>
+            <th>Returns</th>
+          </tr>
+          <tr>
+            <td>push()</td>
+            <td>End</td>
+            <td>—</td>
+            <td>Yes</td>
+            <td>New length</td>
+          </tr>
+          <tr>
+            <td>pop()</td>
+            <td>—</td>
+            <td>End</td>
+            <td>Yes</td>
+            <td>Removed element</td>
+          </tr>
+          <tr>
+            <td>unshift()</td>
+            <td>Start</td>
+            <td>—</td>
+            <td>Yes</td>
+            <td>New length</td>
+          </tr>
+          <tr>
+            <td>shift()</td>
+            <td>—</td>
+            <td>Start</td>
+            <td>Yes</td>
+            <td>Removed element</td>
+          </tr>
+          <tr>
+            <td>splice()</td>
+            <td>Anywhere</td>
+            <td>Anywhere</td>
+            <td>Yes</td>
+            <td>Removed elements</td>
+          </tr>
+          <tr>
+            <td>slice()</td>
+            <td>—</td>
+            <td>—</td>
+            <td>No</td>
+            <td>New array</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="practice-section">
+      <div class="practice-title">🎯 Practice Questions — Basic Methods</div>
+      
+      <div class="practice-q">
+        <div class="practice-q-num">Question 1</div>
+        <div class="practice-q-text">Given <code>let stack = []</code>, add 5 elements using push() and then remove the last 2 using pop().</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 2</div>
+        <div class="practice-q-text">Use splice() to remove the 3rd element from <code>[10, 20, 30, 40, 50]</code>.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 3</div>
+        <div class="practice-q-text">Use splice() to insert "X" and "Y" between index 1 and 2 in <code>['a', 'b', 'c']</code> without deleting anything.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 4</div>
+        <div class="practice-q-text">Extract elements from index 2 to 4 (inclusive) from <code>[1, 2, 3, 4, 5, 6]</code> using slice().</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 5</div>
+        <div class="practice-q-text">What's the difference between splice() and slice()? Demonstrate with code.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 04 Search Methods -->
+  <div class="section" id="search-methods">
+    <div class="section-label">Topic 04</div>
+    <div class="section-title"><span class="icon">🔎</span> Search & Find Methods</div>
+    <div class="section-desc">Methods to search for elements in arrays</div>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="method-name">indexOf()</div>
+        <div class="method-desc">Find first index of element. Returns -1 if not found.</div>
+        <div class="method-example">let arr = [1,2,3,2,1];<br>arr.indexOf(2);  // 1<br>arr.indexOf(99); // -1</div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-name">lastIndexOf()</div>
+        <div class="method-desc">Find last index of element. Returns -1 if not found.</div>
+        <div class="method-example">let arr = [1,2,3,2,1];<br>arr.lastIndexOf(2); // 3<br>arr.lastIndexOf(99); // -1</div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-name">includes()</div>
+        <div class="method-desc">Check if element exists. Returns true/false.</div>
+        <div class="method-example">let arr = [1, 2, 3];<br>arr.includes(2);  // true<br>arr.includes(99); // false</div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-name">find()</div>
+        <div class="method-desc">Find first element matching condition. Returns element or undefined.</div>
+        <div class="method-example">let arr = [5, 12, 8, 130];<br>arr.find(x => x > 10);<br>// 12 (first > 10)</div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-name">findIndex()</div>
+        <div class="method-desc">Find index of first match. Returns -1 if not found.</div>
+        <div class="method-example">let arr = [5, 12, 8, 130];<br>arr.findIndex(x => x > 10);<br>// 1 (index of 12)</div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-name">findLast()</div>
+        <div class="method-desc">Find LAST element matching condition. (ES2023)</div>
+        <div class="method-example">let arr = [5, 12, 8, 130];<br>arr.findLast(x => x > 10);<br>// 130 (last > 10)</div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-name">findLastIndex()</div>
+        <div class="method-desc">Find index of LAST match. (ES2023)</div>
+        <div class="method-example">let arr = [5, 12, 8, 130];<br>arr.findLastIndex(x > 10);<br>// 3 (index of 130)</div>
+      </div>
+    </div>
+
+    <div class="card card-accent-blue card-blue" style="margin-top: 16px;">
+      <h3>DETAILED EXAMPLES</h3>
+      <pre><span class="kw">let</span> numbers = [<span class="num">5</span>, <span class="num">12</span>, <span class="num">8</span>, <span class="num">130</span>, <span class="num">44</span>];
+
+<span class="cm">// indexOf() — simple search</span>
+numbers.<span class="fn">indexOf</span>(<span class="num">8</span>);  <span class="cm">// 2</span>
+numbers.<span class="fn">indexOf</span>(<span class="num">99</span>); <span class="cm">// -1 (not found)</span>
+
+<span class="cm">// includes() — existence check</span>
+numbers.<span class="fn">includes</span>(<span class="num">12</span>);  <span class="cm">// true</span>
+numbers.<span class="fn">includes</span>(<span class="num">99</span>);  <span class="cm">// false</span>
+
+<span class="cm">// find() — with condition</span>
+<span class="kw">let</span> result = numbers.<span class="fn">find</span>(num => num > <span class="num">10</span>);
+<span class="fn">console</span>.<span class="fn">log</span>(result);  <span class="cm">// 12 (first element > 10)</span>
+
+<span class="cm">// findIndex() — get index with condition</span>
+<span class="kw">let</span> index = numbers.<span class="fn">findIndex</span>(num => num > <span class="num">100</span>);
+<span class="fn">console</span>.<span class="fn">log</span>(index);  <span class="cm">// 3 (index of 130)</span>
+
+<span class="cm">// Find in array of objects</span>
+<span class="kw">let</span> users = [
+  { id: <span class="num">1</span>, name: <span class="str">"Ravi"</span> },
+  { id: <span class="num">2</span>, name: <span class="str">"Priya"</span> },
+  { id: <span class="num">3</span>, name: <span class="str">"Amit"</span> }
+];
+
+<span class="kw">let</span> user = users.<span class="fn">find</span>(u => u.id === <span class="num">2</span>);
+<span class="fn">console</span>.<span class="fn">log</span>(user);  <span class="cm">// { id: 2, name: "Priya" }</span></pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>WHEN TO USE WHICH?</h3>
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Use Case</th>
+            <th>Method</th>
+            <th>Example</th>
+          </tr>
+          <tr>
+            <td>Check if value exists</td>
+            <td>includes()</td>
+            <td>arr.includes(5)</td>
+          </tr>
+          <tr>
+            <td>Get index of value</td>
+            <td>indexOf()</td>
+            <td>arr.indexOf(5)</td>
+          </tr>
+          <tr>
+            <td>Find with complex condition</td>
+            <td>find()</td>
+            <td>arr.find(x => x > 10)</td>
+          </tr>
+          <tr>
+            <td>Get index with condition</td>
+            <td>findIndex()</td>
+            <td>arr.findIndex(x => x > 10)</td>
+          </tr>
+          <tr>
+            <td>Find object in array</td>
+            <td>find()</td>
+            <td>users.find(u => u.id === 2)</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="practice-section">
+      <div class="practice-title">🎯 Practice Questions — Search Methods</div>
+      
+      <div class="practice-q">
+        <div class="practice-q-num">Question 1</div>
+        <div class="practice-q-text">Given <code>[10, 20, 30, 20, 10]</code>, find both the first and last index of 20.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 2</div>
+        <div class="practice-q-text">Check if the array <code>[1, 2, 3, 4, 5]</code> includes the number 3. Then check for 10.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 3</div>
+        <div class="practice-q-text">Find the first number greater than 50 in <code>[10, 25, 80, 35, 100]</code> using find().</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 4</div>
+        <div class="practice-q-text">Given an array of users with {id, name, age}, find the user with age > 25 using find().</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 5</div>
+        <div class="practice-q-text">What's the difference between indexOf() and findIndex()? When would you use each?</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 05 Loops -->
+  <div class="section" id="loops">
+    <div class="section-label">Topic 05</div>
+    <div class="section-title"><span class="icon">🔁</span> Looping Through Arrays</div>
+    <div class="section-desc">Different ways to iterate over array elements</div>
+
+    <div class="card card-accent-green card-green">
+      <h3>1. TRADITIONAL for LOOP</h3>
+      <pre><span class="kw">let</span> fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"orange"</span>];
+
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < fruits.length; i++) {
+  <span class="fn">console</span>.<span class="fn">log</span>(fruits[i]);
+}
+<span class="cm">// Output: apple, banana, orange</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>2. forEach() METHOD</h3>
+      <pre><span class="kw">let</span> fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"orange"</span>];
+
+<span class="cm">// forEach(element, index, array)</span>
+fruits.<span class="fn">forEach</span>(<span class="kw">function</span>(fruit) {
+  <span class="fn">console</span>.<span class="fn">log</span>(fruit);
+});
+
+<span class="cm">// With arrow function</span>
+fruits.<span class="fn">forEach</span>(fruit => <span class="fn">console</span>.<span class="fn">log</span>(fruit));
+
+<span class="cm">// With index</span>
+fruits.<span class="fn">forEach</span>((fruit, index) => {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`${index}: ${fruit}`</span>);
+});
+<span class="cm">// 0: apple</span>
+<span class="cm">// 1: banana</span>
+<span class="cm">// 2: orange</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>3. for...of LOOP</h3>
+      <pre><span class="kw">let</span> fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"orange"</span>];
+
+<span class="kw">for</span> (<span class="kw">let</span> fruit <span class="kw">of</span> fruits) {
+  <span class="fn">console</span>.<span class="fn">log</span>(fruit);
+}
+<span class="cm">// Output: apple, banana, orange</span>
+
+<span class="cm">// With entries() to get index too</span>
+<span class="kw">for</span> (<span class="kw">let</span> [index, fruit] <span class="kw">of</span> fruits.<span class="fn">entries</span>()) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`${index}: ${fruit}`</span>);
+}</pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>4. for...in LOOP (NOT RECOMMENDED FOR ARRAYS)</h3>
+      <pre><span class="kw">let</span> fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"orange"</span>];
+
+<span class="cm">// ⚠️ for...in gives indices (strings), not values</span>
+<span class="kw">for</span> (<span class="kw">let</span> index <span class="kw">in</span> fruits) {
+  <span class="fn">console</span>.<span class="fn">log</span>(index, <span class="kw">typeof</span> index);
+}
+<span class="cm">// 0 string</span>
+<span class="cm">// 1 string</span>
+<span class="cm">// 2 string</span>
+
+<span class="cm">// Use for...of instead!</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>5. WHILE LOOP</h3>
+      <pre><span class="kw">let</span> fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"orange"</span>];
+<span class="kw">let</span> i = <span class="num">0</span>;
+
+<span class="kw">while</span> (i < fruits.length) {
+  <span class="fn">console</span>.<span class="fn">log</span>(fruits[i]);
+  i++;
+}</pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>COMPARISON TABLE</h3>
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Method</th>
+            <th>Access Index?</th>
+            <th>Can break?</th>
+            <th>Can continue?</th>
+            <th>Best For</th>
+          </tr>
+          <tr>
+            <td>for loop</td>
+            <td>✅ Yes</td>
+            <td>✅ Yes</td>
+            <td>✅ Yes</td>
+            <td>Full control, complex logic</td>
+          </tr>
+          <tr>
+            <td>forEach()</td>
+            <td>✅ Yes (2nd param)</td>
+            <td>❌ No</td>
+            <td>❌ No</td>
+            <td>Simple iteration</td>
+          </tr>
+          <tr>
+            <td>for...of</td>
+            <td>❌ No (unless with entries())</td>
+            <td>✅ Yes</td>
+            <td>✅ Yes</td>
+            <td>Clean iteration of values</td>
+          </tr>
+          <tr>
+            <td>for...in</td>
+            <td>✅ Yes (but as string)</td>
+            <td>✅ Yes</td>
+            <td>✅ Yes</td>
+            <td>Objects (avoid for arrays)</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="practice-section">
+      <div class="practice-title">🎯 Practice Questions — Loops</div>
+      
+      <div class="practice-q">
+        <div class="practice-q-num">Question 1</div>
+        <div class="practice-q-text">Loop through <code>[1, 2, 3, 4, 5]</code> using forEach() and print each number multiplied by 2.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 2</div>
+        <div class="practice-q-text">Use a for...of loop to find the sum of all numbers in <code>[10, 20, 30, 40, 50]</code>.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 3</div>
+        <div class="practice-q-text">Use a traditional for loop to print only even numbers from <code>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</code>.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 4</div>
+        <div class="practice-q-text">Loop through an array and stop (break) when you find a number greater than 50.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 5</div>
+        <div class="practice-q-text">Compare forEach() vs for...of. Which one can you break out of early? Demonstrate with code.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 06 Transform Methods -->
+  <div class="section" id="transform">
+    <div class="section-label">Topic 06</div>
+    <div class="section-title"><span class="icon">🔄</span> Transform Methods (map, filter, reduce)</div>
+    <div class="section-desc">Powerful methods to transform and process arrays</div>
+
+    <div class="card card-accent-left">
+      <h3>map() — TRANSFORM EACH ELEMENT</h3>
+      <p>Creates a NEW array by transforming every element. Original array unchanged.</p>
+      <pre><span class="cm">// Syntax: arr.map((element, index, array) => { })</span>
+
+<span class="kw">let</span> numbers = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>];
+
+<span class="cm">// Double each number</span>
+<span class="kw">let</span> doubled = numbers.<span class="fn">map</span>(num => num * <span class="num">2</span>);
+<span class="fn">console</span>.<span class="fn">log</span>(doubled);  <span class="cm">// [2, 4, 6, 8, 10]</span>
+
+<span class="cm">// Convert to strings</span>
+<span class="kw">let</span> strings = numbers.<span class="fn">map</span>(num => <span class="str">`Number ${num}`</span>);
+<span class="fn">console</span>.<span class="fn">log</span>(strings);
+<span class="cm">// ["Number 1", "Number 2", "Number 3", "Number 4", "Number 5"]</span>
+
+<span class="cm">// Extract property from objects</span>
+<span class="kw">let</span> users = [
+  { id: <span class="num">1</span>, name: <span class="str">"Ravi"</span> },
+  { id: <span class="num">2</span>, name: <span class="str">"Priya"</span> }
+];
+<span class="kw">let</span> names = users.<span class="fn">map</span>(user => user.name);
+<span class="fn">console</span>.<span class="fn">log</span>(names);  <span class="cm">// ["Ravi", "Priya"]</span></pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>filter() — SELECT ELEMENTS BY CONDITION</h3>
+      <p>Creates a NEW array with elements that pass the test. Original unchanged.</p>
+      <pre><span class="cm">// Syntax: arr.filter((element, index, array) => { })</span>
+
+<span class="kw">let</span> numbers = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>, <span class="num">7</span>, <span class="num">8</span>];
+
+<span class="cm">// Get only even numbers</span>
+<span class="kw">let</span> evens = numbers.<span class="fn">filter</span>(num => num % <span class="num">2</span> === <span class="num">0</span>);
+<span class="fn">console</span>.<span class="fn">log</span>(evens);  <span class="cm">// [2, 4, 6, 8]</span>
+
+<span class="cm">// Get numbers > 5</span>
+<span class="kw">let</span> large = numbers.<span class="fn">filter</span>(num => num > <span class="num">5</span>);
+<span class="fn">console</span>.<span class="fn">log</span>(large);  <span class="cm">// [6, 7, 8]</span>
+
+<span class="cm">// Filter objects</span>
+<span class="kw">let</span> users = [
+  { name: <span class="str">"Ravi"</span>, age: <span class="num">25</span> },
+  { name: <span class="str">"Priya"</span>, age: <span class="num">30</span> },
+  { name: <span class="str">"Amit"</span>, age: <span class="num">20</span> }
+];
+<span class="kw">let</span> adults = users.<span class="fn">filter</span>(user => user.age >= <span class="num">25</span>);
+<span class="fn">console</span>.<span class="fn">log</span>(adults);
+<span class="cm">// [{ name: "Ravi", age: 25 }, { name: "Priya", age: 30 }]</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>reduce() — REDUCE TO SINGLE VALUE</h3>
+      <p>Reduces array to a single value by applying a function to each element.</p>
+      <pre><span class="cm">// Syntax: arr.reduce((accumulator, current, index, array) => { }, initialValue)</span>
+
+<span class="kw">let</span> numbers = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>];
+
+<span class="cm">// Sum all numbers</span>
+<span class="kw">let</span> sum = numbers.<span class="fn">reduce</span>((total, num) => total + num, <span class="num">0</span>);
+<span class="fn">console</span>.<span class="fn">log</span>(sum);  <span class="cm">// 15</span>
+
+<span class="cm">// Find maximum</span>
+<span class="kw">let</span> max = numbers.<span class="fn">reduce</span>((max, num) => num > max ? num : max, numbers[<span class="num">0</span>]);
+<span class="fn">console</span>.<span class="fn">log</span>(max);  <span class="cm">// 5</span>
+
+<span class="cm">// Count occurrences</span>
+<span class="kw">let</span> fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"apple"</span>, <span class="str">"orange"</span>, <span class="str">"banana"</span>, <span class="str">"apple"</span>];
+<span class="kw">let</span> count = fruits.<span class="fn">reduce</span>((acc, fruit) => {
+  acc[fruit] = (acc[fruit] || <span class="num">0</span>) + <span class="num">1</span>;
+  <span class="kw">return</span> acc;
+}, {});
+<span class="fn">console</span>.<span class="fn">log</span>(count);
+<span class="cm">// { apple: 3, banana: 2, orange: 1 }</span>
+
+<span class="cm">// Flatten array</span>
+<span class="kw">let</span> nested = [[<span class="num">1</span>, <span class="num">2</span>], [<span class="num">3</span>, <span class="num">4</span>], [<span class="num">5</span>]];
+<span class="kw">let</span> flat = nested.<span class="fn">reduce</span>((acc, arr) => acc.<span class="fn">concat</span>(arr), []);
+<span class="fn">console</span>.<span class="fn">log</span>(flat);  <span class="cm">// [1, 2, 3, 4, 5]</span></pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>CHAINING METHODS</h3>
+      <pre><span class="cm">// Combine map(), filter(), reduce()</span>
+<span class="kw">let</span> numbers = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>, <span class="num">7</span>, <span class="num">8</span>];
+
+<span class="cm">// Get sum of squares of even numbers</span>
+<span class="kw">let</span> result = numbers
+  .<span class="fn">filter</span>(num => num % <span class="num">2</span> === <span class="num">0</span>)     <span class="cm">// [2, 4, 6, 8]</span>
+  .<span class="fn">map</span>(num => num * num)          <span class="cm">// [4, 16, 36, 64]</span>
+  .<span class="fn">reduce</span>((sum, num) => sum + num, <span class="num">0</span>);  <span class="cm">// 120</span>
+
+<span class="fn">console</span>.<span class="fn">log</span>(result);  <span class="cm">// 120</span></pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>COMPARISON TABLE</h3>
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Method</th>
+            <th>Purpose</th>
+            <th>Returns</th>
+            <th>Changes Original?</th>
+          </tr>
+          <tr>
+            <td>map()</td>
+            <td>Transform each element</td>
+            <td>New array (same length)</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>filter()</td>
+            <td>Select elements by condition</td>
+            <td>New array (≤ original length)</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>reduce()</td>
+            <td>Reduce to single value</td>
+            <td>Single value (any type)</td>
+            <td>No</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="practice-section">
+      <div class="practice-title">🎯 Practice Questions — Transform Methods</div>
+      
+      <div class="practice-q">
+        <div class="practice-q-num">Question 1</div>
+        <div class="practice-q-text">Use map() to convert <code>[1, 2, 3, 4, 5]</code> to squares: <code>[1, 4, 9, 16, 25]</code>.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 2</div>
+        <div class="practice-q-text">Use filter() to get all names longer than 4 characters from <code>['Ram', 'Shyam', 'Aman', 'Priya']</code>.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 3</div>
+        <div class="practice-q-text">Use reduce() to find the product of all numbers in <code>[2, 3, 4, 5]</code> (should be 120).</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 4</div>
+        <div class="practice-q-text">Chain filter() and map() to: filter odd numbers from <code>[1,2,3,4,5,6]</code>, then double them.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 5</div>
+        <div class="practice-q-text">Given an array of objects with {name, price}, use reduce() to calculate total price.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 07 Sorting -->
+  <div class="section" id="sorting">
+    <div class="section-label">Topic 07</div>
+    <div class="section-title"><span class="icon">🔢</span> Array Sorting</div>
+    <div class="section-desc">Different ways to sort arrays in JavaScript</div>
+
+    <div class="card card-accent-red">
+      <h3>sort() — BASIC SORTING</h3>
+      <p><strong>⚠️ WARNING:</strong> sort() modifies the ORIGINAL array and converts elements to strings by default!</p>
+      <pre><span class="cm">// String sorting (works as expected)</span>
+<span class="kw">let</span> fruits = [<span class="str">"banana"</span>, <span class="str">"apple"</span>, <span class="str">"orange"</span>];
+fruits.<span class="fn">sort</span>();
+<span class="fn">console</span>.<span class="fn">log</span>(fruits);  <span class="cm">// ["apple", "banana", "orange"]</span>
+
+<span class="cm">// ⚠️ Number sorting (WRONG without compare function!)</span>
+<span class="kw">let</span> numbers = [<span class="num">10</span>, <span class="num">5</span>, <span class="num">40</span>, <span class="num">25</span>, <span class="num">1000</span>];
+numbers.<span class="fn">sort</span>();
+<span class="fn">console</span>.<span class="fn">log</span>(numbers);  <span class="cm">// [10, 1000, 25, 40, 5] ❌ WRONG!</span>
+<span class="cm">// Why? It converts to strings: "10" < "1000" < "25"...</span></pre>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>SORTING NUMBERS CORRECTLY</h3>
+      <pre><span class="kw">let</span> numbers = [<span class="num">10</span>, <span class="num">5</span>, <span class="num">40</span>, <span class="num">25</span>, <span class="num">1000</span>];
+
+<span class="cm">// Ascending order (smallest first)</span>
+numbers.<span class="fn">sort</span>((a, b) => a - b);
+<span class="fn">console</span>.<span class="fn">log</span>(numbers);  <span class="cm">// [5, 10, 25, 40, 1000] ✅</span>
+
+<span class="cm">// Descending order (largest first)</span>
+numbers.<span class="fn">sort</span>((a, b) => b - a);
+<span class="fn">console</span>.<span class="fn">log</span>(numbers);  <span class="cm">// [1000, 40, 25, 10, 5] ✅</span>
+
+<span class="cm">// How it works:</span>
+<span class="cm">// If return < 0: a comes before b</span>
+<span class="cm">// If return > 0: b comes before a</span>
+<span class="cm">// If return = 0: order unchanged</span></pre>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>SORTING OBJECTS</h3>
+      <pre><span class="kw">let</span> users = [
+  { name: <span class="str">"Ravi"</span>, age: <span class="num">25</span> },
+  { name: <span class="str">"Amit"</span>, age: <span class="num">30</span> },
+  { name: <span class="str">"Priya"</span>, age: <span class="num">20</span> }
+];
+
+<span class="cm">// Sort by age (ascending)</span>
+users.<span class="fn">sort</span>((a, b) => a.age - b.age);
+<span class="fn">console</span>.<span class="fn">log</span>(users);
+<span class="cm">// [{ name: "Priya", age: 20 }, { name: "Ravi", age: 25 }, { name: "Amit", age: 30 }]</span>
+
+<span class="cm">// Sort by name (alphabetically)</span>
+users.<span class="fn">sort</span>((a, b) => a.name.<span class="fn">localeCompare</span>(b.name));
+<span class="fn">console</span>.<span class="fn">log</span>(users);
+<span class="cm">// [{ name: "Amit", ... }, { name: "Priya", ... }, { name: "Ravi", ... }]</span></pre>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>reverse() — REVERSE ORDER</h3>
+      <pre><span class="kw">let</span> arr = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>];
+
+<span class="cm">// Reverse in place (modifies original)</span>
+arr.<span class="fn">reverse</span>();
+<span class="fn">console</span>.<span class="fn">log</span>(arr);  <span class="cm">// [5, 4, 3, 2, 1]</span>
+
+<span class="cm">// Reverse without modifying original</span>
+<span class="kw">let</span> original = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+<span class="kw">let</span> reversed = [...original].<span class="fn">reverse</span>();
+<span class="fn">console</span>.<span class="fn">log</span>(original);  <span class="cm">// [1, 2, 3] (unchanged)</span>
+<span class="fn">console</span>.<span class="fn">log</span>(reversed);  <span class="cm">// [3, 2, 1]</span></pre>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>toSorted() & toReversed() — NON-MUTATING (ES2023)</h3>
+      <pre><span class="cm">// New methods that DON'T modify original array</span>
+<span class="kw">let</span> numbers = [<span class="num">3</span>, <span class="num">1</span>, <span class="num">4</span>, <span class="num">1</span>, <span class="num">5</span>];
+
+<span class="cm">// toSorted() — returns new sorted array</span>
+<span class="kw">let</span> sorted = numbers.<span class="fn">toSorted</span>((a, b) => a - b);
+<span class="fn">console</span>.<span class="fn">log</span>(numbers);  <span class="cm">// [3, 1, 4, 1, 5] (unchanged)</span>
+<span class="fn">console</span>.<span class="fn">log</span>(sorted);   <span class="cm">// [1, 1, 3, 4, 5]</span>
+
+<span class="cm">// toReversed() — returns new reversed array</span>
+<span class="kw">let</span> reversed = numbers.<span class="fn">toReversed</span>();
+<span class="fn">console</span>.<span class="fn">log</span>(numbers);   <span class="cm">// [3, 1, 4, 1, 5] (unchanged)</span>
+<span class="fn">console</span>.<span class="fn">log</span>(reversed);  <span class="cm">// [5, 1, 4, 1, 3]</span></pre>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>ADVANCED SORTING EXAMPLES</h3>
+      <pre><span class="cm">// Case-insensitive string sorting</span>
+<span class="kw">let</span> names = [<span class="str">"charlie"</span>, <span class="str">"Alice"</span>, <span class="str">"bob"</span>];
+names.<span class="fn">sort</span>((a, b) => a.<span class="fn">toLowerCase</span>().<span class="fn">localeCompare</span>(b.<span class="fn">toLowerCase</span>()));
+<span class="fn">console</span>.<span class="fn">log</span>(names);  <span class="cm">// ["Alice", "bob", "charlie"]</span>
+
+<span class="cm">// Multi-level sorting (age, then name)</span>
+<span class="kw">let</span> people = [
+  { name: <span class="str">"Ravi"</span>, age: <span class="num">25</span> },
+  { name: <span class="str">"Amit"</span>, age: <span class="num">25</span> },
+  { name: <span class="str">"Priya"</span>, age: <span class="num">20</span> }
+];
+
+people.<span class="fn">sort</span>((a, b) => {
+  <span class="kw">if</span> (a.age !== b.age) {
+    <span class="kw">return</span> a.age - b.age;  <span class="cm">// Sort by age first</span>
+  }
+  <span class="kw">return</span> a.name.<span class="fn">localeCompare</span>(b.name);  <span class="cm">// Then by name</span>
+});
+
+<span class="cm">// Random shuffle</span>
+<span class="kw">let</span> arr = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>];
+arr.<span class="fn">sort</span>(() => <span class="fn">Math</span>.<span class="fn">random</span>() - <span class="num">0.5</span>);
+<span class="fn">console</span>.<span class="fn">log</span>(arr);  <span class="cm">// Random order</span></pre>
+    </div>
+
+    <div class="practice-section">
+      <div class="practice-title">🎯 Practice Questions — Sorting</div>
+      
+      <div class="practice-q">
+        <div class="practice-q-num">Question 1</div>
+        <div class="practice-q-text">Sort <code>[100, 25, 5, 1, 500]</code> in ascending order correctly (not as strings!).</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 2</div>
+        <div class="practice-q-text">Sort <code>['zebra', 'apple', 'mango', 'banana']</code> in reverse alphabetical order.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 3</div>
+        <div class="practice-q-text">Given an array of students with {name, marks}, sort by marks in descending order.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 4</div>
+        <div class="practice-q-text">Reverse the array <code>[1, 2, 3, 4, 5]</code> WITHOUT modifying the original array.</div>
+      </div>
+
+      <div class="practice-q">
+        <div class="practice-q-num">Question 5</div>
+        <div class="practice-q-text">What's the difference between sort() and toSorted()? When would you use each?</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>🗂️ JavaScript Arrays — Complete Cheatsheet &nbsp;·&nbsp; <span>Ready for Interviews</span></p>
+  <p style="margin-top:8px; font-size:12px; color:#555;">Creation · Access · Methods · Loops · Transform · Sorting · Practice Questions</p>
+</div>
+
+</body>
+</html>
