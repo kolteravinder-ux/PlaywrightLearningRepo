@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Learning Journal — Day 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --card: #1a1a1a;
+    --border: #2a2a2a;
+    --accent: #f0c040;
+    --accent2: #4fc3f7;
+    --accent3: #a5d6a7;
+    --accent4: #ef9a9a;
+    --text: #e8e8e8;
+    --muted: #888;
+    --code-bg: #111;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #111 0%, #1a1200 50%, #111 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: 'JS';
+    position: absolute;
+    right: -20px; top: -20px;
+    font-size: 220px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    color: rgba(240,192,64,0.04);
+    pointer-events: none;
+    line-height: 1;
+  }
+  .header-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 900; color: #fff; line-height: 1.1;
+  }
+  .header h1 span { color: var(--accent); }
+  .header-sub { margin-top: 12px; color: var(--muted); font-size: 15px; }
+  .badges { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+  .badge {
+    padding: 4px 12px; border-radius: 20px;
+    font-size: 12px; font-family: 'JetBrains Mono', monospace; border: 1px solid;
+  }
+  .badge-yellow { color: var(--accent); border-color: rgba(240,192,64,0.3); background: rgba(240,192,64,0.05); }
+  .badge-blue   { color: var(--accent2); border-color: rgba(79,195,247,0.3); background: rgba(79,195,247,0.05); }
+  .badge-green  { color: var(--accent3); border-color: rgba(165,214,167,0.3); background: rgba(165,214,167,0.05); }
+
+  .progress-bar { height: 3px; background: var(--border); position: relative; }
+  .progress-fill {
+    height: 100%; width: 15%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2)); position: relative;
+  }
+  .progress-fill::after {
+    content: 'Day 1 of ~30';
+    position: absolute; right: 0; top: 8px;
+    font-size: 11px; color: var(--muted);
+    font-family: 'JetBrains Mono', monospace; white-space: nowrap;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 48px 24px; }
+  .section { margin-bottom: 48px; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; font-weight: 700; color: #fff;
+    margin-bottom: 6px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-title .icon { font-size: 22px; }
+  .section-desc { color: var(--muted); font-size: 14px; margin-bottom: 20px; padding-left: 34px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: #3a3a3a; }
+  .card-accent-left  { border-left: 3px solid var(--accent); }
+  .card-accent-blue  { border-left: 3px solid var(--accent2); }
+  .card-accent-green { border-left: 3px solid var(--accent3); }
+  .card-accent-red   { border-left: 3px solid var(--accent4); }
+
+  .card h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 10px;
+  }
+  .card-blue h3  { color: var(--accent2); }
+  .card-green h3 { color: var(--accent3); }
+  .card-red h3   { color: var(--accent4); }
+
+  .card p { font-size: 14px; color: #ccc; margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+
+  pre {
+    background: var(--code-bg); border: 1px solid #222;
+    border-radius: 8px; padding: 16px; overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; line-height: 1.7; margin-top: 12px; color: #ccc;
+  }
+  .kw  { color: #c792ea; }
+  .fn  { color: #82aaff; }
+  .str { color: #c3e88d; }
+  .num { color: #f78c6c; }
+  .cm  { color: #546e7a; font-style: italic; }
+  .op  { color: var(--accent); }
+
+  .table-wrap { overflow-x: auto; margin-top: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    background: #111; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1px;
+    padding: 10px 14px; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid #1e1e1e; color: #ccc; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .tick { color: var(--accent3); }
+  .cross { color: var(--accent4); }
+
+  .key-point {
+    display: inline-block;
+    background: rgba(240,192,64,0.08);
+    border: 1px solid rgba(240,192,64,0.2);
+    color: var(--accent); border-radius: 6px;
+    padding: 2px 8px; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; margin: 2px;
+  }
+
+  .callout {
+    border-radius: 10px; padding: 16px 20px;
+    margin-top: 16px; font-size: 14px; color: #ddd;
+    background: rgba(240,192,64,0.05);
+    border: 1px solid rgba(240,192,64,0.2);
+  }
+  .callout strong { color: var(--accent); }
+  .callout-blue { background: rgba(79,195,247,0.05); border-color: rgba(79,195,247,0.2); }
+  .callout-blue strong { color: var(--accent2); }
+  .callout-green { background: rgba(165,214,167,0.05); border-color: rgba(165,214,167,0.2); }
+  .callout-green strong { color: var(--accent3); }
+
+  /* Real life split cards */
+  .example-split {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px;
+  }
+  @media (max-width: 600px) { .example-split { grid-template-columns: 1fr; } }
+
+  .example-card { border-radius: 10px; padding: 20px; border: 1px solid var(--border); }
+  .example-card-var { background: rgba(239,154,154,0.04); border-color: rgba(239,154,154,0.25); }
+  .example-card-let { background: rgba(165,214,167,0.04); border-color: rgba(165,214,167,0.25); }
+
+  .ex-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .example-card-var .ex-label { color: var(--accent4); }
+  .example-card-let .ex-label { color: var(--accent3); }
+
+  .ex-body { font-size: 13px; color: #bbb; line-height: 1.8; }
+  .ex-result {
+    margin-top: 14px; padding: 10px 14px; border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.8;
+  }
+  .ex-result-bad  { background: rgba(239,154,154,0.08); color: var(--accent4); }
+  .ex-result-good { background: rgba(165,214,167,0.08); color: var(--accent3); }
+
+  .step-box {
+    background: #111; border: 1px solid #222;
+    border-radius: 8px; padding: 14px 18px;
+    margin: 8px 0; font-size: 13px; color: #ccc;
+    font-family: 'JetBrains Mono', monospace; line-height: 1.8;
+  }
+  .step-num { color: var(--accent); font-size: 10px; margin-bottom: 4px; letter-spacing: 1px; }
+
+  .interview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px; margin-top: 16px;
+  }
+  .interview-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    border-radius: 10px; padding: 18px;
+  }
+  .interview-card .q {
+    font-size: 13px; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace; margin-bottom: 8px;
+  }
+  .interview-card .a { font-size: 13px; color: #bbb; line-height: 1.6; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  .toc {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; margin-bottom: 48px;
+  }
+  .toc h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 16px;
+  }
+  .toc-list {
+    list-style: none;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;
+  }
+  .toc-list li a {
+    color: #ccc; text-decoration: none; font-size: 14px;
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 0; transition: color 0.2s;
+  }
+  .toc-list li a:hover { color: var(--accent); }
+  .toc-list li a .tnum {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent); min-width: 20px;
+  }
+
+  .footer {
+    text-align: center; padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 13px;
+  }
+  .footer span { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-tag">📓 Learning Journal</div>
+  <h1>JavaScript <span>Notes</span><br>Day 1</h1>
+  <p class="header-sub">Topics covered today · Interview ready · Real-life examples included</p>
+  <div class="badges">
+    <span class="badge badge-yellow">V8 Engine</span>
+    <span class="badge badge-yellow">Node.js</span>
+    <span class="badge badge-blue">var / let / const</span>
+    <span class="badge badge-blue">setTimeout</span>
+    <span class="badge badge-green">Event Loop</span>
+    <span class="badge badge-green">Interpreted vs Compiled</span>
+  </div>
+</div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h3>Contents</h3>
+    <ul class="toc-list">
+      <li><a href="#v8"><span class="tnum">01</span> V8 Engine</a></li>
+      <li><a href="#nodejs"><span class="tnum">02</span> Node.js</a></li>
+      <li><a href="#variables"><span class="tnum">03</span> var / let / const</a></li>
+      <li><a href="#reallife"><span class="tnum">04</span> var vs let — Real Life</a></li>
+      <li><a href="#settimeout"><span class="tnum">05</span> setTimeout Deep Dive</a></li>
+      <li><a href="#eventloop"><span class="tnum">06</span> Event Loop</a></li>
+      <li><a href="#interpreted"><span class="tnum">07</span> Interpreted vs Compiled</a></li>
+      <li><a href="#interview"><span class="tnum">08</span> Interview Q&amp;A</a></li>
+    </ul>
+  </div>
+
+  <!-- 01 V8 -->
+  <div class="section" id="v8">
+    <div class="section-label">Topic 01</div>
+    <div class="section-title"><span class="icon">⚙️</span> V8 Engine</div>
+    <div class="section-desc">Google's JS engine that powers Chrome and Node.js</div>
+
+    <div class="card card-accent-left">
+      <h3>DEFINITION</h3>
+      <p>V8 is Google's open-source, high-performance <strong>JavaScript and WebAssembly engine</strong> written in C++. It compiles JS directly to native machine code instead of interpreting it line by line.</p>
+      <div class="callout"><strong>One line:</strong> V8 is the engine that reads your JavaScript and makes the computer execute it — fast.</div>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>PIPELINE</h3>
+      <pre><span class="op">Your JS Code</span>
+   ↓
+<span class="fn">Parser</span>       <span class="cm">→ code → AST (Abstract Syntax Tree)</span>
+   ↓
+<span class="fn">Ignition</span>     <span class="cm">→ interpreter — runs bytecode fast at startup</span>
+   ↓
+<span class="fn">TurboFan</span>     <span class="cm">→ JIT compiler — compiles "hot" code to machine code</span>
+   ↓
+<span class="op">Native Machine Code</span>  <span class="cm">→ runs directly on CPU ⚡</span></pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>WHERE V8 IS USED</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Platform</th><th>Role</th></tr>
+          <tr><td>Google Chrome</td><td>Browser JS execution</td></tr>
+          <tr><td>Node.js</td><td>Server-side JS runtime</td></tr>
+          <tr><td>Deno</td><td>Modern JS/TS runtime</td></tr>
+          <tr><td>Electron</td><td>Desktop app framework</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 02 Node.js -->
+  <div class="section" id="nodejs">
+    <div class="section-label">Topic 02</div>
+    <div class="section-title"><span class="icon">🟢</span> Node.js</div>
+    <div class="section-desc">JavaScript runtime that runs JS outside the browser</div>
+
+    <div class="card card-accent-green card-green">
+      <h3>DEFINITION</h3>
+      <p>Node.js is an open-source, cross-platform <strong>JavaScript runtime environment</strong> that lets you run JS on servers, desktops, or any machine — not just inside a browser.</p>
+      <pre><span class="fn">Node.js</span> = <span class="op">V8 Engine</span> + <span class="op">libuv</span> + <span class="op">Node APIs</span>
+ ├── <span class="op">V8 Engine</span>   <span class="cm">→ Executes JavaScript</span>
+ ├── <span class="op">libuv</span>       <span class="cm">→ Handles async I/O (files, network)</span>
+ └── <span class="op">Node APIs</span>   <span class="cm">→ fs, http, path, crypto...</span></pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>KEY TRAITS</h3>
+      <p><span class="key-point">Asynchronous</span> <span class="key-point">Non-Blocking</span> <span class="key-point">Single-Threaded</span> <span class="key-point">Event Loop</span> <span class="key-point">NPM (2M+ packages)</span></p>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>SIMPLE HTTP SERVER</h3>
+      <pre><span class="kw">const</span> http = <span class="fn">require</span>(<span class="str">'http'</span>);
+<span class="kw">const</span> server = http.<span class="fn">createServer</span>((<span class="op">req</span>, <span class="op">res</span>) => {
+  res.<span class="fn">writeHead</span>(<span class="num">200</span>);
+  res.<span class="fn">end</span>(<span class="str">'Hello World!'</span>);
+});
+server.<span class="fn">listen</span>(<span class="num">3000</span>); <span class="cm">// → http://localhost:3000</span></pre>
+    </div>
+
+    <div class="callout callout-green">
+      <strong>Key insight:</strong> Before Node.js, JS only ran in browsers. Node brought JS to the server — now one language works for both frontend AND backend.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 03 var let const -->
+  <div class="section" id="variables">
+    <div class="section-label">Topic 03</div>
+    <div class="section-title"><span class="icon">📦</span> var / let / const</div>
+    <div class="section-desc">Three ways to declare variables — each with different rules</div>
+
+    <div class="card card-accent-left">
+      <h3>COMPARISON TABLE</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Feature</th><th>var</th><th>let</th><th>const</th></tr>
+          <tr><td>Scope</td><td>Function</td><td>Block</td><td>Block</td></tr>
+          <tr><td>Reassignable</td><td class="tick">✅ Yes</td><td class="tick">✅ Yes</td><td class="cross">❌ No</td></tr>
+          <tr><td>Redeclarable</td><td class="tick">✅ Yes</td><td class="cross">❌ No</td><td class="cross">❌ No</td></tr>
+          <tr><td>Hoisted</td><td>✅ as undefined</td><td>✅ TDZ error</td><td>✅ TDZ error</td></tr>
+          <tr><td>Modern use</td><td class="cross">❌ Avoid</td><td class="tick">✅ Use</td><td class="tick">✅ Prefer</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>var — FUNCTION SCOPED (AVOID IN MODERN JS)</h3>
+      <pre><span class="kw">var</span> x = <span class="num">10</span>;
+<span class="kw">var</span> x = <span class="num">20</span>;   <span class="cm">// ✅ redeclare ok — dangerous!</span>
+
+<span class="kw">if</span> (<span class="kw">true</span>) { <span class="kw">var</span> y = <span class="num">5</span>; }
+<span class="fn">console</span>.<span class="fn">log</span>(y); <span class="cm">// ✅ 5 — leaks out of if block! Bug!</span>
+
+<span class="cm">// Hoisting — var moves to top as undefined</span>
+<span class="fn">console</span>.<span class="fn">log</span>(a); <span class="cm">// undefined (no error)</span>
+<span class="kw">var</span> a = <span class="num">5</span>;</pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>let — BLOCK SCOPED (USE WHEN REASSIGNING)</h3>
+      <pre><span class="kw">let</span> count = <span class="num">0</span>;
+count = <span class="num">1</span>;      <span class="cm">// ✅ reassign ok</span>
+<span class="kw">let</span> count = <span class="num">2</span>;  <span class="cm">// ❌ SyntaxError — cannot redeclare</span>
+
+<span class="kw">if</span> (<span class="kw">true</span>) { <span class="kw">let</span> z = <span class="num">5</span>; }
+<span class="fn">console</span>.<span class="fn">log</span>(z); <span class="cm">// ❌ ReferenceError — stays in block ✅</span>
+
+<span class="cm">// TDZ — accessing before declaration throws error</span>
+<span class="fn">console</span>.<span class="fn">log</span>(b); <span class="cm">// ❌ ReferenceError (Temporal Dead Zone)</span>
+<span class="kw">let</span> b = <span class="num">5</span>;</pre>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>const — BLOCK SCOPED (YOUR DEFAULT CHOICE)</h3>
+      <pre><span class="kw">const</span> PI = <span class="num">3.14</span>;
+PI = <span class="num">3.15</span>;         <span class="cm">// ❌ TypeError — cannot reassign</span>
+
+<span class="cm">// ⚠️ const prevents reassignment, NOT mutation!</span>
+<span class="kw">const</span> user = { name: <span class="str">'Ravi'</span> };
+user.name = <span class="str">'Kumar'</span>;   <span class="cm">// ✅ mutation allowed</span>
+user = {};              <span class="cm">// ❌ reassignment NOT allowed</span>
+
+<span class="kw">const</span> nums = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+nums.<span class="fn">push</span>(<span class="num">4</span>);           <span class="cm">// ✅ push is mutation — allowed</span>
+nums = [<span class="num">5</span>, <span class="num">6</span>];          <span class="cm">// ❌ reassignment — not allowed</span></pre>
+    </div>
+
+    <div class="callout">
+      <strong>Best Practice:</strong> Always use <code>const</code> by default. Switch to <code>let</code> only when you need to reassign. Never use <code>var</code> in modern JS.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 04 REAL LIFE -->
+  <div class="section" id="reallife">
+    <div class="section-label">Topic 04</div>
+    <div class="section-title"><span class="icon">🌍</span> var vs let — Real Life Examples</div>
+    <div class="section-desc">3 everyday analogies to make scope crystal clear</div>
+
+    <!-- Example 1 -->
+    <div class="card card-accent-left">
+      <h3>🏫 EXAMPLE 1 — CLASSROOM WHITEBOARD</h3>
+      <div class="example-split">
+        <div class="example-card example-card-var">
+          <div class="ex-label">var = One Shared Whiteboard</div>
+          <div class="ex-body">
+            Teacher writes a number on the board and sends 3 students to the library.<br><br>
+            <em>"Come back when the bell rings and tell me what's on the whiteboard."</em><br><br>
+            • Sends Student 1 → board: 0<br>
+            • Sends Student 2 → board: 1<br>
+            • Sends Student 3 → board: 2<br>
+            • Loop ends → board erased → now says <strong>3</strong><br><br>
+            Bell rings. All 3 look at the <strong>same whiteboard</strong>.
+          </div>
+          <div class="ex-result ex-result-bad">
+            Student 1 → "3" ❌<br>
+            Student 2 → "3" ❌<br>
+            Student 3 → "3" ❌
+          </div>
+        </div>
+        <div class="example-card example-card-let">
+          <div class="ex-label">let = Personal Sticky Note</div>
+          <div class="ex-body">
+            Same classroom — but teacher gives each student their <strong>own sticky note</strong> with their number.<br><br>
+            • Student 1 gets note → 0<br>
+            • Student 2 gets note → 1<br>
+            • Student 3 gets note → 2<br><br>
+            Nobody can change anyone else's sticky note.<br><br>
+            Bell rings. Each looks at <strong>their own note</strong>.
+          </div>
+          <div class="ex-result ex-result-good">
+            Student 1 → "0" ✅<br>
+            Student 2 → "1" ✅<br>
+            Student 3 → "2" ✅
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Example 2 -->
+    <div class="card card-accent-blue card-blue">
+      <h3>🏏 EXAMPLE 2 — CRICKET SCOREBOARD</h3>
+      <div class="example-split">
+        <div class="example-card example-card-var">
+          <div class="ex-label">var = One Big Scoreboard</div>
+          <div class="ex-body">
+            3 journalists are asked to note the score each over and report at the end of the match.<br><br>
+            • Over 1 → scoreboard: 10<br>
+            • Over 2 → scoreboard: 45<br>
+            • Over 3 → scoreboard: 89 (final)<br><br>
+            Match ends. All 3 journalists check the <strong>same scoreboard</strong>.
+          </div>
+          <div class="ex-result ex-result-bad">
+            All 3 report → 89, 89, 89 ❌<br>
+            (original scores lost!)
+          </div>
+        </div>
+        <div class="example-card example-card-let">
+          <div class="ex-label">let = Each Journalist's Notepad</div>
+          <div class="ex-body">
+            Each journalist writes in <strong>their own notepad</strong> at their over.<br><br>
+            • Journalist 1 notes → 10<br>
+            • Journalist 2 notes → 45<br>
+            • Journalist 3 notes → 89<br><br>
+            Match ends. Each reads from <strong>their own notepad</strong>.
+          </div>
+          <div class="ex-result ex-result-good">
+            Reports → 10, 45, 89 ✅<br>
+            (each captured their moment!)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Example 3 -->
+    <div class="card card-accent-green card-green">
+      <h3>📱 EXAMPLE 3 — WHATSAPP GROUP vs SCREENSHOT</h3>
+      <div class="example-split">
+        <div class="example-card example-card-var">
+          <div class="ex-label">var = WhatsApp Group Chat</div>
+          <div class="ex-body">
+            3 friends each join a group chat at different times. They are asked: <em>"What was the last message when you joined?"</em><br><br>
+            But someone kept editing the last message. By the time all 3 answer, it was edited to <strong>"Bye!"</strong><br><br>
+            All check the <strong>same group chat</strong>.
+          </div>
+          <div class="ex-result ex-result-bad">
+            All 3 say → "Bye!" ❌<br>
+            (their original message gone!)
+          </div>
+        </div>
+        <div class="example-card example-card-let">
+          <div class="ex-label">let = Screenshot at Join Time</div>
+          <div class="ex-body">
+            Each friend took a <strong>screenshot</strong> the moment they joined the group.<br><br>
+            • Friend 1 screenshot → "Hi"<br>
+            • Friend 2 screenshot → "How are you?"<br>
+            • Friend 3 screenshot → "Let's meet!"<br><br>
+            Screenshot is frozen — no one can change it.
+          </div>
+          <div class="ex-result ex-result-good">
+            Friend 1 → "Hi" ✅<br>
+            Friend 2 → "How are you?" ✅<br>
+            Friend 3 → "Let's meet!" ✅
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-green" style="margin-top:16px">
+        <strong>Golden Rule:</strong> <code>var</code> = everyone shares one copy, sees the latest value. <code>let</code> = everyone gets their own private frozen copy at that moment.
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 05 setTimeout -->
+  <div class="section" id="settimeout">
+    <div class="section-label">Topic 05</div>
+    <div class="section-title"><span class="icon">⏱️</span> setTimeout — Deep Dive</div>
+    <div class="section-desc">Non-blocking delay — schedules code, doesn't pause code</div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>DEFINITION</h3>
+      <p><code>setTimeout(fn, ms)</code> schedules a function to run after a delay. It is <strong>non-blocking</strong> — JS does NOT wait for it. It moves to the next line immediately.</p>
+      <div class="callout callout-blue">
+        <strong>Restaurant analogy:</strong> You order food (setTimeout). Waiter says "ready in 100ms". You don't stare at the wall — you talk, drink water (next lines run). When food is ready, waiter brings it (callback fires).
+      </div>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>STEP BY STEP — WITH let ✅</h3>
+      <pre><span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; <span class="num">3</span>; i++) {
+  <span class="fn">setTimeout</span>(() => <span class="fn">console</span>.<span class="fn">log</span>(i), <span class="num">100</span>);
+}
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Loop done!"</span>);</pre>
+
+      <div class="step-box">
+        <div class="step-num">STEP 1 — i = 0</div>
+        → let creates own copy of i=0 for this iteration<br>
+        → setTimeout scheduled for 100ms — does NOT wait<br>
+        → moves to next iteration immediately
+      </div>
+      <div class="step-box">
+        <div class="step-num">STEP 2 — i = 1</div>
+        → let creates own copy of i=1 for this iteration<br>
+        → setTimeout scheduled for 100ms — does NOT wait<br>
+        → moves to next iteration immediately
+      </div>
+      <div class="step-box">
+        <div class="step-num">STEP 3 — i = 2</div>
+        → let creates own copy of i=2 for this iteration<br>
+        → setTimeout scheduled for 100ms — does NOT wait<br>
+        → i++ → i=3 → (3 &lt; 3) is false → loop ends
+      </div>
+      <div class="step-box">
+        <div class="step-num">STEP 4 — synchronous code runs</div>
+        → console.log("Loop done!") runs IMMEDIATELY ✅<br>
+        → Call Stack is now empty
+      </div>
+      <div class="step-box">
+        <div class="step-num">STEP 5 — after 100ms</div>
+        → All 3 callbacks fire from queue<br>
+        → Each has its own copy of i → prints 0, 1, 2 ✅
+      </div>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>STEP BY STEP — WITH var ❌</h3>
+      <pre><span class="kw">for</span> (<span class="kw">var</span> i = <span class="num">0</span>; i &lt; <span class="num">3</span>; i++) {
+  <span class="fn">setTimeout</span>(() => <span class="fn">console</span>.<span class="fn">log</span>(i), <span class="num">100</span>);
+}
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Loop done!"</span>);</pre>
+
+      <div class="step-box">
+        <div class="step-num">STEP 1 — i = 0</div>
+        → ONE shared var i created in memory (hoisted)<br>
+        → setTimeout scheduled — callback stores reference to i (not value 0!)<br>
+        → i becomes 1
+      </div>
+      <div class="step-box">
+        <div class="step-num">STEP 2 — i = 1</div>
+        → same shared i is now 1<br>
+        → setTimeout scheduled — callback still points to same i<br>
+        → i becomes 2
+      </div>
+      <div class="step-box">
+        <div class="step-num">STEP 3 — i = 2</div>
+        → same shared i is now 2<br>
+        → setTimeout scheduled — callback points to same i<br>
+        → i++ → i=3 → loop ends. i is now 3 in memory.
+      </div>
+      <div class="step-box">
+        <div class="step-num">STEP 4 — synchronous code runs</div>
+        → console.log("Loop done!") runs IMMEDIATELY ✅<br>
+        → i is still 3 sitting in memory
+      </div>
+      <div class="step-box">
+        <div class="step-num">STEP 5 — after 100ms</div>
+        → All 3 callbacks fire<br>
+        → All check same shared i → i = 3 → prints 3, 3, 3 ❌
+      </div>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>MEMORY PICTURE</h3>
+      <pre><span class="cm">// With let — 3 separate private boxes</span>
+Iteration 1 → [ i = <span class="num">0</span> ]  ← callback 1 reads this
+Iteration 2 → [ i = <span class="num">1</span> ]  ← callback 2 reads this
+Iteration 3 → [ i = <span class="num">2</span> ]  ← callback 3 reads this
+
+<span class="cm">// With var — ONE shared box that keeps changing</span>
+        [ i ]  <span class="cm">← only ONE box exists</span>
+          ↓
+     <span class="num">0</span> → <span class="num">1</span> → <span class="num">2</span> → <span class="num">3</span>  <span class="cm">(keeps updating)</span>
+
+All 3 callbacks look here ──→ all see <span class="num">3</span> ❌</pre>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 06 Event Loop -->
+  <div class="section" id="eventloop">
+    <div class="section-label">Topic 06</div>
+    <div class="section-title"><span class="icon">🔄</span> Event Loop</div>
+    <div class="section-desc">How JavaScript handles async on a single thread</div>
+
+    <div class="card card-accent-left">
+      <h3>DEFINITION</h3>
+      <p>The Event Loop is JavaScript's mechanism to handle asynchronous code on a single thread. It constantly checks: <em>"Is the Call Stack empty? If yes — pick the next callback from the queue and run it."</em></p>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>3 KEY AREAS</h3>
+      <pre><span class="op">1. Call Stack</span>      <span class="cm">→ runs your synchronous code right now</span>
+<span class="op">2. Web APIs</span>        <span class="cm">→ handles setTimeout, fetch, click events</span>
+<span class="op">3. Callback Queue</span>  <span class="cm">→ holds callbacks waiting for their turn</span>
+
+<span class="cm">// Rule: If Call Stack is EMPTY → pick from Queue → run it</span></pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>EXECUTION TIMELINE</h3>
+      <pre><span class="cm">// 0ms — synchronous loop runs instantly</span>
+i=<span class="num">0</span> → setTimeout → Web APIs ────────────────────┐
+i=<span class="num">1</span> → setTimeout → Web APIs ─────────────────┐  │
+i=<span class="num">2</span> → setTimeout → Web APIs ──────────────┐  │  │
+<span class="str">"Loop done!"</span> → Call Stack → prints ✅     │  │  │
+Call Stack now EMPTY                       │  │  │
+                                           │  │  │
+<span class="cm">// 100ms — callbacks move to queue, then stack</span>
+prints <span class="num">0</span>  ◄──────────────────────────────────┘  │  │
+prints <span class="num">1</span>  ◄─────────────────────────────────────┘  │
+prints <span class="num">2</span>  ◄────────────────────────────────────────┘</pre>
+    </div>
+
+    <div class="callout">
+      <strong>Why "Loop done!" prints first:</strong> setTimeout goes to Web APIs — not the Call Stack. Synchronous code runs on Call Stack immediately. Callbacks only enter the stack after it's completely empty.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 07 Interpreted vs Compiled -->
+  <div class="section" id="interpreted">
+    <div class="section-label">Topic 07</div>
+    <div class="section-title"><span class="icon">⚡</span> Interpreted vs Compiled</div>
+    <div class="section-desc">JavaScript is a hybrid — JIT compiled at runtime</div>
+
+    <div class="card card-accent-green card-green">
+      <h3>DEFINITION</h3>
+      <p>JavaScript is traditionally called <strong>interpreted</strong> but modern JS engines use <strong>JIT (Just-In-Time) compilation</strong> — a hybrid approach. Starts as interpreted (fast startup), then compiles frequently-run "hot" code to native machine code (fast execution).</p>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>COMPARISON</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th></th><th>Interpreted</th><th>Compiled</th><th>JIT — Modern JS</th></tr>
+          <tr><td>When compiled</td><td>Never</td><td>Before running</td><td>During running</td></tr>
+          <tr><td>Startup speed</td><td>Fast</td><td>Slow</td><td>Fast ✅</td></tr>
+          <tr><td>Run speed</td><td>Slow</td><td>Fast</td><td>Fast ✅</td></tr>
+          <tr><td>Examples</td><td>Old JS, Python</td><td>C, C++, Rust</td><td>Modern JS, Java JVM</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card card-accent-green card-green">
+      <h3>HISTORY</h3>
+      <pre><span class="cm">// 1995–2008: Pure interpreted 🐢</span>
+Code → Interpreter → line by line → output
+
+<span class="cm">// 2008–now: JIT with V8 ⚡</span>
+Code → Parser → Ignition (bytecode) → TurboFan (machine code) → output</pre>
+    </div>
+
+    <div class="callout callout-green">
+      <strong>Interview answer:</strong> "JavaScript is traditionally interpreted, but modern engines like V8 use JIT — it starts fast like an interpreter, then compiles hot code to native machine code for speed."
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 08 Interview -->
+  <div class="section" id="interview">
+    <div class="section-label">Topic 08</div>
+    <div class="section-title"><span class="icon">🎯</span> Interview Q&amp;A</div>
+    <div class="section-desc">Top 10 questions from today — read these before your interview!</div>
+
+    <div class="interview-grid">
+
+      <div class="interview-card">
+        <div class="q">Q: What is the V8 engine?</div>
+        <div class="a">Google's open-source JS engine in C++. Powers Chrome and Node.js. Uses JIT compilation — Ignition (interpreter) + TurboFan (compiler) for fast execution.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What is Node.js?</div>
+        <div class="a">A JS runtime built on V8 that runs JavaScript outside the browser. Uses non-blocking event loop. Made of V8 + libuv + Node APIs.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Difference between var, let, const?</div>
+        <div class="a">var = function-scoped, hoisted as undefined, avoid. let = block-scoped, reassignable. const = block-scoped, not reassignable. Use const by default, let when needed.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Why does var in loop with setTimeout print wrong?</div>
+        <div class="a">var is function-scoped — all iterations share one i. By the time setTimeout fires (100ms later), the loop already made i = 3. let gives each iteration its own private copy.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What is the Event Loop?</div>
+        <div class="a">JS mechanism to handle async on a single thread. Checks if Call Stack is empty, then picks callbacks from the queue. Enables non-blocking execution.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Is JavaScript interpreted or compiled?</div>
+        <div class="a">Hybrid — uses JIT compilation. Starts interpreted for fast startup, then V8's TurboFan compiles hot (frequently run) code to native machine code for speed.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What is a closure?</div>
+        <div class="a">A function that remembers variables from its outer scope even after that scope ends. The setTimeout arrow function "closes over" i from the loop — that's a closure.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What is the Temporal Dead Zone?</div>
+        <div class="a">The gap between when let/const is hoisted and when it's initialized. Accessing it during this gap throws ReferenceError. var avoids TDZ by initializing as undefined.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What is hoisting?</div>
+        <div class="a">JS moves declarations to the top of their scope before execution. var → hoisted as undefined. let/const → hoisted but stay in TDZ. Functions → fully hoisted.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Why does "Loop done!" print before 0,1,2?</div>
+        <div class="a">setTimeout is async — it goes to Web APIs, not Call Stack. console.log("Loop done!") is synchronous and runs on the Call Stack immediately. Callbacks wait until the stack is empty.</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>📓 JavaScript Learning Journal &nbsp;·&nbsp; <span>Day 1 Complete</span> &nbsp;·&nbsp; Continue tomorrow →</p>
+  <p style="margin-top:8px; font-size:12px; color:#555;">V8 · Node.js · var/let/const · Real-life analogies · setTimeout · Event Loop · JIT Compilation</p>
+</div>
+
+</body>
+</html>

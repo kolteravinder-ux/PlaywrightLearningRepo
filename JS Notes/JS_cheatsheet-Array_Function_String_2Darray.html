@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Complete Cheatsheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --card: #1a1a26;
+  --border: #252535;
+  --yellow: #f5c842;
+  --blue: #58c4f5;
+  --green: #5fe0a0;
+  --red: #f57070;
+  --purple: #c084fc;
+  --orange: #fb923c;
+  --text: #e2e2f0;
+  --muted: #7070a0;
+  --code-bg: #0d0d18;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* ── HEADER ── */
+.hero {
+  background: linear-gradient(135deg, #0a0a0f 0%, #12101f 40%, #0a0f1a 100%);
+  padding: 70px 40px 50px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(245,200,66,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px; color: var(--yellow);
+  letter-spacing: 4px; text-transform: uppercase; margin-bottom: 14px;
+}
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 800; color: #fff; line-height: 1;
+  margin-bottom: 12px;
+}
+.hero h1 span { color: var(--yellow); }
+.hero-sub { color: var(--muted); font-size: 15px; max-width: 600px; margin-bottom: 28px; }
+.hero-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+.hbadge {
+  padding: 5px 14px; border-radius: 20px;
+  font-family: 'Space Mono', monospace; font-size: 11px;
+  border: 1px solid; cursor: pointer;
+  transition: all 0.2s;
+}
+.hbadge:hover { transform: translateY(-2px); }
+.hbadge-y { color: var(--yellow); border-color: rgba(245,200,66,0.3); background: rgba(245,200,66,0.06); }
+.hbadge-b { color: var(--blue); border-color: rgba(88,196,245,0.3); background: rgba(88,196,245,0.06); }
+.hbadge-g { color: var(--green); border-color: rgba(95,224,160,0.3); background: rgba(95,224,160,0.06); }
+.hbadge-p { color: var(--purple); border-color: rgba(192,132,252,0.3); background: rgba(192,132,252,0.06); }
+.hbadge-o { color: var(--orange); border-color: rgba(251,146,60,0.3); background: rgba(251,146,60,0.06); }
+
+/* ── NAV ── */
+.sticky-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,15,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  display: flex; gap: 0; overflow-x: auto;
+}
+.sticky-nav a {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px; color: var(--muted);
+  text-decoration: none;
+  padding: 14px 18px;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.sticky-nav a:hover { color: var(--yellow); border-bottom-color: var(--yellow); }
+
+/* ── LAYOUT ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 48px 24px; }
+.section { margin-bottom: 64px; }
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--yellow); margin-bottom: 10px;
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 30px; font-weight: 800; color: #fff;
+  margin-bottom: 8px; display: flex; align-items: center; gap: 14px;
+}
+.section-desc { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 22px; margin-bottom: 16px;
+}
+.card-y { border-left: 3px solid var(--yellow); }
+.card-b { border-left: 3px solid var(--blue); }
+.card-g { border-left: 3px solid var(--green); }
+.card-r { border-left: 3px solid var(--red); }
+.card-p { border-left: 3px solid var(--purple); }
+.card-o { border-left: 3px solid var(--orange); }
+.card h3 {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px; font-weight: 700;
+  color: var(--yellow); margin-bottom: 12px; letter-spacing: 1px;
+}
+.card-b h3 { color: var(--blue); }
+.card-g h3 { color: var(--green); }
+.card-r h3 { color: var(--red); }
+.card-p h3 { color: var(--purple); }
+.card-o h3 { color: var(--orange); }
+.card p { font-size: 14px; color: #bbb; margin-bottom: 8px; line-height: 1.8; }
+.card ul { margin: 10px 0 0 18px; }
+.card li { font-size: 14px; color: #bbb; line-height: 1.9; }
+
+/* ── CODE ── */
+pre {
+  background: var(--code-bg); border: 1px solid #1e1e2e;
+  border-radius: 8px; padding: 16px; overflow-x: auto;
+  font-family: 'Space Mono', monospace;
+  font-size: 11.5px; line-height: 1.8; margin-top: 12px; color: #aaa;
+}
+.kw  { color: #c792ea; }
+.fn  { color: #82aaff; }
+.str { color: #c3e88d; }
+.num { color: #f78c6c; }
+.cm  { color: #546e7a; font-style: italic; }
+.op  { color: var(--yellow); }
+.cls { color: var(--orange); }
+
+/* ── GRID ── */
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px,1fr)); gap: 14px; }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 14px; }
+
+/* ── METHOD TABLE ── */
+.table-wrap { overflow-x: auto; margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  background: #0d0d18; color: var(--yellow);
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  letter-spacing: 1px; padding: 10px 14px; text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+td { padding: 9px 14px; border-bottom: 1px solid #1a1a26; color: #bbb; vertical-align: top; }
+tr:hover td { background: rgba(255,255,255,0.015); }
+tr:last-child td { border-bottom: none; }
+td code, th code {
+  background: rgba(0,0,0,0.4); padding: 2px 6px;
+  border-radius: 4px; font-family: 'Space Mono', monospace; font-size: 11px;
+  color: var(--blue);
+}
+
+/* ── CALLOUT ── */
+.callout {
+  border-radius: 10px; padding: 14px 18px;
+  margin-top: 14px; font-size: 13.5px; color: #ccc;
+  line-height: 1.8;
+}
+.callout strong { color: var(--yellow); }
+.cy { background: rgba(245,200,66,0.05); border: 1px solid rgba(245,200,66,0.2); }
+.cb { background: rgba(88,196,245,0.05); border: 1px solid rgba(88,196,245,0.2); }
+.cg { background: rgba(95,224,160,0.05); border: 1px solid rgba(95,224,160,0.2); }
+.cr { background: rgba(245,112,112,0.05); border: 1px solid rgba(245,112,112,0.2); }
+.cp { background: rgba(192,132,252,0.05); border: 1px solid rgba(192,132,252,0.2); }
+
+/* ── PRACTICE ── */
+.practice-box {
+  background: rgba(245,200,66,0.03);
+  border: 1px solid rgba(245,200,66,0.15);
+  border-radius: 12px; padding: 24px; margin-top: 24px;
+}
+.practice-title {
+  font-family: 'Space Mono', monospace; font-size: 11px;
+  color: var(--yellow); letter-spacing: 3px;
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.pq {
+  background: var(--code-bg);
+  border-left: 3px solid var(--yellow);
+  padding: 14px 18px; margin-bottom: 12px; border-radius: 6px;
+}
+.pq-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; color: var(--yellow); margin-bottom: 6px;
+}
+.pq-text { font-size: 14px; color: #ccc; line-height: 1.7; }
+.pq-answer {
+  margin-top: 10px; padding: 12px;
+  background: rgba(0,0,0,0.3); border-radius: 6px;
+}
+
+/* ── INTERVIEW ── */
+.iq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 12px; margin-top: 16px; }
+.iq {
+  background: var(--card); border: 1px solid var(--border);
+  border-top: 2px solid var(--yellow);
+  border-radius: 10px; padding: 18px;
+}
+.iq-q { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--yellow); margin-bottom: 8px; }
+.iq-a { font-size: 13px; color: #bbb; line-height: 1.7; }
+
+.divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+/* ── TOC ── */
+.toc {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; margin-bottom: 48px;
+}
+.toc h3 { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+.toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 8px; }
+.toc-grid a {
+  color: #bbb; text-decoration: none; font-size: 14px;
+  display: flex; align-items: center; gap: 8px; padding: 5px 0;
+  transition: color 0.2s;
+}
+.toc-grid a:hover { color: var(--yellow); }
+.toc-grid a .tn { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--yellow); min-width: 22px; }
+
+.footer {
+  text-align: center; padding: 40px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--muted); font-size: 13px;
+  font-family: 'Space Mono', monospace;
+}
+.footer span { color: var(--yellow); }
+
+/* Method highlight badges */
+.mb {
+  display: inline-block; padding: 2px 8px;
+  border-radius: 4px; font-family: 'Space Mono', monospace;
+  font-size: 11px; margin: 2px;
+}
+.mb-y { background: rgba(245,200,66,0.1); color: var(--yellow); }
+.mb-b { background: rgba(88,196,245,0.1); color: var(--blue); }
+.mb-g { background: rgba(95,224,160,0.1); color: var(--green); }
+.mb-r { background: rgba(245,112,112,0.1); color: var(--red); }
+.mb-p { background: rgba(192,132,252,0.1); color: var(--purple); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">📚 Complete Revision Guide</div>
+  <h1>JavaScript <span>Cheatsheet</span></h1>
+  <p class="hero-sub">Arrays · Functions · Objects · Strings · Multidimensional Arrays — All methods, problems & interview questions</p>
+  <div class="hero-badges">
+    <span class="hbadge hbadge-y">Arrays</span>
+    <span class="hbadge hbadge-b">Functions</span>
+    <span class="hbadge hbadge-g">Objects</span>
+    <span class="hbadge hbadge-p">Strings</span>
+    <span class="hbadge hbadge-o">2D Arrays</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="sticky-nav">
+  <a href="#arrays">Arrays</a>
+  <a href="#functions">Functions</a>
+  <a href="#objects">Objects</a>
+  <a href="#strings">Strings</a>
+  <a href="#multidimensional">2D Arrays</a>
+  <a href="#problems">Problems</a>
+  <a href="#interview">Interview Q&A</a>
+</nav>
+
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h3>Table of Contents</h3>
+    <div class="toc-grid">
+      <a href="#arrays"><span class="tn">01</span> Array Methods (All)</a>
+      <a href="#functions"><span class="tn">02</span> Functions (All Types)</a>
+      <a href="#objects"><span class="tn">03</span> Objects & Methods</a>
+      <a href="#strings"><span class="tn">04</span> String Methods (All)</a>
+      <a href="#multidimensional"><span class="tn">05</span> 2D / Multidimensional Arrays</a>
+      <a href="#problems"><span class="tn">06</span> Coding Problems & Answers</a>
+      <a href="#interview"><span class="tn">07</span> Interview Questions</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 1: ARRAYS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section" id="arrays">
+    <div class="section-label">Section 01</div>
+    <div class="section-title">📦 Arrays — All Methods</div>
+    <div class="section-desc">Complete reference for every JavaScript Array method</div>
+
+    <!-- Creation -->
+    <div class="card card-y">
+      <h3>ARRAY CREATION</h3>
+      <pre><span class="kw">let</span> a  = [];                                      <span class="cm">// Literal (BEST)</span>
+<span class="kw">let</span> b  = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];                               <span class="cm">// With values</span>
+<span class="kw">let</span> c  = <span class="kw">new</span> <span class="cls">Array</span>(<span class="num">5</span>);                              <span class="cm">// Empty 5 slots</span>
+<span class="kw">let</span> d  = <span class="cls">Array</span>.<span class="fn">of</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>);                        <span class="cm">// [1,2,3]</span>
+<span class="kw">let</span> e  = <span class="cls">Array</span>.<span class="fn">from</span>(<span class="str">"hello"</span>);                       <span class="cm">// ['h','e','l','l','o']</span>
+<span class="kw">let</span> f  = <span class="cls">Array</span>.<span class="fn">from</span>({length:<span class="num">5</span>}, (_, i) => i + <span class="num">1</span>); <span class="cm">// [1,2,3,4,5]</span>
+<span class="kw">let</span> g  = [...<span class="kw">new</span> <span class="cls">Set</span>([<span class="num">1</span>,<span class="num">2</span>,<span class="num">2</span>,<span class="num">3</span>])];                 <span class="cm">// [1,2,3] unique</span></pre>
+    </div>
+
+    <!-- Add / Remove -->
+    <div class="grid2">
+      <div class="card card-y">
+        <h3>ADD / REMOVE — ENDS</h3>
+        <pre><span class="kw">let</span> arr = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+arr.<span class="fn">push</span>(<span class="num">4</span>);        <span class="cm">// [1,2,3,4]  add end</span>
+arr.<span class="fn">pop</span>();          <span class="cm">// [1,2,3]   remove end → 4</span>
+arr.<span class="fn">unshift</span>(<span class="num">0</span>);    <span class="cm">// [0,1,2,3] add start</span>
+arr.<span class="fn">shift</span>();        <span class="cm">// [1,2,3]   remove start → 0</span></pre>
+      </div>
+      <div class="card card-b">
+        <h3>ADD / REMOVE — MIDDLE (splice)</h3>
+        <pre><span class="kw">let</span> arr = [<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>,<span class="num">4</span>,<span class="num">5</span>];
+arr.<span class="fn">splice</span>(<span class="num">2</span>, <span class="num">0</span>, <span class="num">99</span>);  <span class="cm">// insert at 2</span>
+arr.<span class="fn">splice</span>(<span class="num">2</span>, <span class="num">1</span>);      <span class="cm">// remove 1 at index 2</span>
+arr.<span class="fn">splice</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="str">'a'</span>); <span class="cm">// replace 2 with 'a'</span>
+<span class="kw">let</span> sub = arr.<span class="fn">slice</span>(<span class="num">1</span>,<span class="num">3</span>); <span class="cm">// extract (no modify)</span></pre>
+      </div>
+    </div>
+
+    <!-- All Array Methods Table -->
+    <div class="card card-g" style="margin-top:16px">
+      <h3>ALL ARRAY METHODS — COMPLETE REFERENCE</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Method</th><th>What it does</th><th>Returns</th><th>Mutates?</th></tr>
+          <tr><td><code>push(val)</code></td><td>Add to end</td><td>New length</td><td>✅ Yes</td></tr>
+          <tr><td><code>pop()</code></td><td>Remove from end</td><td>Removed element</td><td>✅ Yes</td></tr>
+          <tr><td><code>unshift(val)</code></td><td>Add to start</td><td>New length</td><td>✅ Yes</td></tr>
+          <tr><td><code>shift()</code></td><td>Remove from start</td><td>Removed element</td><td>✅ Yes</td></tr>
+          <tr><td><code>splice(i,n,...)</code></td><td>Add/remove anywhere</td><td>Removed elements</td><td>✅ Yes</td></tr>
+          <tr><td><code>reverse()</code></td><td>Reverse in place</td><td>Reversed array</td><td>✅ Yes</td></tr>
+          <tr><td><code>sort(fn)</code></td><td>Sort in place</td><td>Sorted array</td><td>✅ Yes</td></tr>
+          <tr><td><code>fill(val,s,e)</code></td><td>Fill with value</td><td>Modified array</td><td>✅ Yes</td></tr>
+          <tr><td><code>copyWithin(t,s)</code></td><td>Copy part to another index</td><td>Modified array</td><td>✅ Yes</td></tr>
+          <tr><td><code>slice(s,e)</code></td><td>Extract portion</td><td>New array</td><td>❌ No</td></tr>
+          <tr><td><code>concat(...)</code></td><td>Merge arrays</td><td>New array</td><td>❌ No</td></tr>
+          <tr><td><code>flat(depth)</code></td><td>Flatten nested</td><td>New array</td><td>❌ No</td></tr>
+          <tr><td><code>flatMap(fn)</code></td><td>Map then flatten</td><td>New array</td><td>❌ No</td></tr>
+          <tr><td><code>map(fn)</code></td><td>Transform each element</td><td>New array (same length)</td><td>❌ No</td></tr>
+          <tr><td><code>filter(fn)</code></td><td>Select by condition</td><td>New array (≤ length)</td><td>❌ No</td></tr>
+          <tr><td><code>reduce(fn,init)</code></td><td>Reduce to single value</td><td>Any type</td><td>❌ No</td></tr>
+          <tr><td><code>reduceRight(fn)</code></td><td>reduce() from right</td><td>Any type</td><td>❌ No</td></tr>
+          <tr><td><code>forEach(fn)</code></td><td>Loop (no return)</td><td>undefined</td><td>❌ No</td></tr>
+          <tr><td><code>find(fn)</code></td><td>First match</td><td>Element or undefined</td><td>❌ No</td></tr>
+          <tr><td><code>findIndex(fn)</code></td><td>Index of first match</td><td>Number (-1 if none)</td><td>❌ No</td></tr>
+          <tr><td><code>findLast(fn)</code></td><td>Last match (ES2023)</td><td>Element or undefined</td><td>❌ No</td></tr>
+          <tr><td><code>findLastIndex(fn)</code></td><td>Index of last match (ES2023)</td><td>Number (-1 if none)</td><td>❌ No</td></tr>
+          <tr><td><code>indexOf(val)</code></td><td>First index of value</td><td>Number (-1 if none)</td><td>❌ No</td></tr>
+          <tr><td><code>lastIndexOf(val)</code></td><td>Last index of value</td><td>Number (-1 if none)</td><td>❌ No</td></tr>
+          <tr><td><code>includes(val)</code></td><td>Check existence</td><td>Boolean</td><td>❌ No</td></tr>
+          <tr><td><code>some(fn)</code></td><td>Any element passes?</td><td>Boolean</td><td>❌ No</td></tr>
+          <tr><td><code>every(fn)</code></td><td>All elements pass?</td><td>Boolean</td><td>❌ No</td></tr>
+          <tr><td><code>join(sep)</code></td><td>Array to string</td><td>String</td><td>❌ No</td></tr>
+          <tr><td><code>toString()</code></td><td>Convert to string</td><td>String</td><td>❌ No</td></tr>
+          <tr><td><code>at(i)</code></td><td>Element at index (neg OK)</td><td>Element</td><td>❌ No</td></tr>
+          <tr><td><code>entries()</code></td><td>Iterator of [i, val]</td><td>Iterator</td><td>❌ No</td></tr>
+          <tr><td><code>keys()</code></td><td>Iterator of indices</td><td>Iterator</td><td>❌ No</td></tr>
+          <tr><td><code>values()</code></td><td>Iterator of values</td><td>Iterator</td><td>❌ No</td></tr>
+          <tr><td><code>toSorted(fn)</code></td><td>Sort without mutation (ES2023)</td><td>New array</td><td>❌ No</td></tr>
+          <tr><td><code>toReversed()</code></td><td>Reverse without mutation (ES2023)</td><td>New array</td><td>❌ No</td></tr>
+          <tr><td><code>toSpliced(i,n)</code></td><td>Splice without mutation (ES2023)</td><td>New array</td><td>❌ No</td></tr>
+          <tr><td><code>with(i, val)</code></td><td>Replace index without mutation (ES2023)</td><td>New array</td><td>❌ No</td></tr>
+          <tr><td><code>Array.isArray()</code></td><td>Check if array</td><td>Boolean</td><td>❌ No</td></tr>
+          <tr><td><code>Array.from()</code></td><td>Create from iterable</td><td>New array</td><td>❌ No</td></tr>
+          <tr><td><code>Array.of()</code></td><td>Create from args</td><td>New array</td><td>❌ No</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Transform Methods in Detail -->
+    <div class="card card-p" style="margin-top:16px">
+      <h3>TRANSFORM METHODS — DEEP DIVE</h3>
+      <pre><span class="kw">let</span> nums = [<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>,<span class="num">4</span>,<span class="num">5</span>];
+
+<span class="cm">// map() — transform each</span>
+nums.<span class="fn">map</span>(n => n * <span class="num">2</span>);          <span class="cm">// [2,4,6,8,10]</span>
+
+<span class="cm">// filter() — select by condition</span>
+nums.<span class="fn">filter</span>(n => n % <span class="num">2</span> === <span class="num">0</span>);  <span class="cm">// [2,4]</span>
+
+<span class="cm">// reduce() — single value</span>
+nums.<span class="fn">reduce</span>((acc,n) => acc + n, <span class="num">0</span>); <span class="cm">// 15</span>
+
+<span class="cm">// some() — any match?</span>
+nums.<span class="fn">some</span>(n => n > <span class="num">4</span>);          <span class="cm">// true</span>
+
+<span class="cm">// every() — all match?</span>
+nums.<span class="fn">every</span>(n => n > <span class="num">0</span>);          <span class="cm">// true</span>
+
+<span class="cm">// flat() — flatten nested</span>
+[<span class="num">1</span>,[<span class="num">2</span>,[<span class="num">3</span>,[<span class="num">4</span>]]]].<span class="fn">flat</span>();          <span class="cm">// [1,2,[3,[4]]]</span>
+[<span class="num">1</span>,[<span class="num">2</span>,[<span class="num">3</span>,[<span class="num">4</span>]]]].<span class="fn">flat</span>(<span class="cls">Infinity</span>); <span class="cm">// [1,2,3,4]</span>
+
+<span class="cm">// flatMap() — map + flat(1)</span>
+[<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>].<span class="fn">flatMap</span>(n => [n, n * <span class="num">2</span>]); <span class="cm">// [1,2,2,4,3,6]</span>
+
+<span class="cm">// CHAINING</span>
+nums
+  .<span class="fn">filter</span>(n => n % <span class="num">2</span> === <span class="num">0</span>)  <span class="cm">// [2,4]</span>
+  .<span class="fn">map</span>(n => n * n)              <span class="cm">// [4,16]</span>
+  .<span class="fn">reduce</span>((a,b) => a + b, <span class="num">0</span>);  <span class="cm">// 20</span></pre>
+    </div>
+
+    <!-- Sorting -->
+    <div class="card card-o" style="margin-top:16px">
+      <h3>SORTING — ALL PATTERNS</h3>
+      <pre><span class="kw">let</span> nums = [<span class="num">10</span>,<span class="num">5</span>,<span class="num">40</span>,<span class="num">25</span>];
+<span class="kw">let</span> strs = [<span class="str">'banana'</span>,<span class="str">'apple'</span>,<span class="str">'cherry'</span>];
+
+<span class="cm">// Numbers ascending</span>
+nums.<span class="fn">sort</span>((a,b) => a - b);              <span class="cm">// [5,10,25,40]</span>
+
+<span class="cm">// Numbers descending</span>
+nums.<span class="fn">sort</span>((a,b) => b - a);              <span class="cm">// [40,25,10,5]</span>
+
+<span class="cm">// Strings alphabetical</span>
+strs.<span class="fn">sort</span>();                             <span class="cm">// ['apple','banana','cherry']</span>
+
+<span class="cm">// Strings reverse alpha</span>
+strs.<span class="fn">sort</span>((a,b) => b.<span class="fn">localeCompare</span>(a)); <span class="cm">// ['cherry','banana','apple']</span>
+
+<span class="cm">// Objects by property</span>
+<span class="kw">let</span> users = [{name:<span class="str">'Bob'</span>,age:<span class="num">30</span>},{name:<span class="str">'Alice'</span>,age:<span class="num">25</span>}];
+users.<span class="fn">sort</span>((a,b) => a.age - b.age);      <span class="cm">// Alice, Bob</span>
+
+<span class="cm">// Without mutation (ES2023)</span>
+<span class="kw">let</span> sorted = nums.<span class="fn">toSorted</span>((a,b) => a - b);
+
+<span class="cm">// Shuffle randomly</span>
+nums.<span class="fn">sort</span>(() => <span class="cls">Math</span>.<span class="fn">random</span>() - <span class="num">0.5</span>);</pre>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 2: FUNCTIONS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section" id="functions">
+    <div class="section-label">Section 02</div>
+    <div class="section-title">⚡ Functions — All Types</div>
+    <div class="section-desc">Every way to define and use functions in JavaScript</div>
+
+    <div class="grid2">
+      <div class="card card-y">
+        <h3>FUNCTION DECLARATION</h3>
+        <pre><span class="kw">function</span> <span class="fn">greet</span>(name) {
+  <span class="kw">return</span> <span class="str">`Hello, ${name}!`</span>;
+}
+<span class="fn">greet</span>(<span class="str">'Ravi'</span>); <span class="cm">// "Hello, Ravi!"</span>
+<span class="cm">// ✅ Hoisted — can call before declaration</span></pre>
+      </div>
+      <div class="card card-b">
+        <h3>FUNCTION EXPRESSION</h3>
+        <pre><span class="kw">const</span> greet = <span class="kw">function</span>(name) {
+  <span class="kw">return</span> <span class="str">`Hello, ${name}!`</span>;
+};
+<span class="fn">greet</span>(<span class="str">'Ravi'</span>); <span class="cm">// "Hello, Ravi!"</span>
+<span class="cm">// ❌ Not hoisted</span></pre>
+      </div>
+      <div class="card card-g">
+        <h3>ARROW FUNCTION</h3>
+        <pre><span class="kw">const</span> greet = (name) => <span class="str">`Hello, ${name}!`</span>;
+
+<span class="cm">// Multiple params + body</span>
+<span class="kw">const</span> add = (a, b) => {
+  <span class="kw">return</span> a + b;
+};
+
+<span class="cm">// One param — no parens needed</span>
+<span class="kw">const</span> double = n => n * <span class="num">2</span>;</pre>
+      </div>
+      <div class="card card-p">
+        <h3>DEFAULT PARAMETERS</h3>
+        <pre><span class="kw">function</span> <span class="fn">connect</span>(host = <span class="str">'localhost'</span>, port = <span class="num">3000</span>) {
+  <span class="kw">return</span> <span class="str">`${host}:${port}`</span>;
+}
+<span class="fn">connect</span>();               <span class="cm">// 'localhost:3000'</span>
+<span class="fn">connect</span>(<span class="str">'example.com'</span>); <span class="cm">// 'example.com:3000'</span></pre>
+      </div>
+      <div class="card card-o">
+        <h3>REST PARAMETERS</h3>
+        <pre><span class="kw">function</span> <span class="fn">sum</span>(...nums) {
+  <span class="kw">return</span> nums.<span class="fn">reduce</span>((a,b) => a + b, <span class="num">0</span>);
+}
+<span class="fn">sum</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>);     <span class="cm">// 6</span>
+<span class="fn">sum</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>); <span class="cm">// 15</span>
+<span class="cm">// ...nums collects all args into array</span></pre>
+      </div>
+      <div class="card card-r">
+        <h3>IMMEDIATELY INVOKED (IIFE)</h3>
+        <pre><span class="cm">// Runs immediately, scope isolated</span>
+(<span class="kw">function</span>() {
+  <span class="kw">let</span> secret = <span class="str">'hidden'</span>;
+  <span class="fn">console</span>.<span class="fn">log</span>(secret);
+})();
+
+<span class="cm">// Arrow IIFE</span>
+(() => {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">'IIFE'</span>);
+})();</pre>
+      </div>
+      <div class="card card-y">
+        <h3>CALLBACK FUNCTION</h3>
+        <pre><span class="kw">function</span> <span class="fn">process</span>(arr, callback) {
+  <span class="kw">return</span> arr.<span class="fn">map</span>(callback);
+}
+
+<span class="fn">process</span>([<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>], n => n * <span class="num">2</span>);
+<span class="cm">// [2, 4, 6]</span>
+
+<span class="cm">// Real use: array methods</span>
+[<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>].<span class="fn">filter</span>(n => n > <span class="num">1</span>); <span class="cm">// [2,3]</span></pre>
+      </div>
+      <div class="card card-b">
+        <h3>HIGHER ORDER FUNCTION</h3>
+        <pre><span class="cm">// Function that returns a function</span>
+<span class="kw">function</span> <span class="fn">multiplier</span>(factor) {
+  <span class="kw">return</span> (num) => num * factor;
+}
+<span class="kw">const</span> double = <span class="fn">multiplier</span>(<span class="num">2</span>);
+<span class="kw">const</span> triple = <span class="fn">multiplier</span>(<span class="num">3</span>);
+<span class="fn">double</span>(<span class="num">5</span>); <span class="cm">// 10</span>
+<span class="fn">triple</span>(<span class="num">5</span>); <span class="cm">// 15</span></pre>
+      </div>
+      <div class="card card-g">
+        <h3>CLOSURE</h3>
+        <pre><span class="kw">function</span> <span class="fn">counter</span>() {
+  <span class="kw">let</span> count = <span class="num">0</span>;   <span class="cm">// private variable</span>
+  <span class="kw">return</span> {
+    increment: () => ++count,
+    decrement: () => --count,
+    value: () => count
+  };
+}
+<span class="kw">const</span> c = <span class="fn">counter</span>();
+c.<span class="fn">increment</span>();  <span class="cm">// 1</span>
+c.<span class="fn">increment</span>();  <span class="cm">// 2</span>
+c.<span class="fn">value</span>();      <span class="cm">// 2</span></pre>
+      </div>
+      <div class="card card-p">
+        <h3>ASYNC / AWAIT FUNCTION</h3>
+        <pre><span class="kw">async function</span> <span class="fn">fetchData</span>(url) {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(url);
+    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();
+    <span class="kw">return</span> data;
+  } <span class="kw">catch</span> (err) {
+    <span class="fn">console</span>.<span class="fn">error</span>(err);
+  }
+}
+<span class="cm">// Used in Playwright tests!</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 3: OBJECTS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section" id="objects">
+    <div class="section-label">Section 03</div>
+    <div class="section-title">🗂️ Objects — Methods & Patterns</div>
+    <div class="section-desc">Everything about JavaScript objects — creation, manipulation, all methods</div>
+
+    <div class="grid2">
+      <div class="card card-b">
+        <h3>OBJECT CREATION</h3>
+        <pre><span class="cm">// Object literal (BEST)</span>
+<span class="kw">let</span> user = { name: <span class="str">'Ravi'</span>, age: <span class="num">25</span> };
+
+<span class="cm">// Constructor function</span>
+<span class="kw">function</span> <span class="fn">User</span>(name, age) {
+  <span class="kw">this</span>.name = name;
+  <span class="kw">this</span>.age = age;
+}
+<span class="kw">let</span> u = <span class="kw">new</span> <span class="fn">User</span>(<span class="str">'Ravi'</span>, <span class="num">25</span>);
+
+<span class="cm">// Class syntax</span>
+<span class="kw">class</span> <span class="cls">User</span> {
+  <span class="fn">constructor</span>(name) { <span class="kw">this</span>.name = name; }
+}
+<span class="kw">let</span> u2 = <span class="kw">new</span> <span class="cls">User</span>(<span class="str">'Ravi'</span>);</pre>
+      </div>
+      <div class="card card-g">
+        <h3>ACCESS & MODIFY</h3>
+        <pre><span class="kw">let</span> obj = { name: <span class="str">'Ravi'</span>, age: <span class="num">25</span> };
+
+<span class="cm">// Access</span>
+obj.name;          <span class="cm">// 'Ravi' (dot notation)</span>
+obj[<span class="str">'name'</span>];      <span class="cm">// 'Ravi' (bracket notation)</span>
+
+<span class="cm">// Add property</span>
+obj.city = <span class="str">'Nagpur'</span>;
+
+<span class="cm">// Delete property</span>
+<span class="kw">delete</span> obj.age;
+
+<span class="cm">// Check if property exists</span>
+<span class="str">'name'</span> <span class="kw">in</span> obj;      <span class="cm">// true</span>
+obj.<span class="fn">hasOwnProperty</span>(<span class="str">'name'</span>); <span class="cm">// true</span></pre>
+      </div>
+    </div>
+
+    <div class="card card-y" style="margin-top:16px">
+      <h3>ALL OBJECT METHODS — COMPLETE REFERENCE</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Method</th><th>What it does</th><th>Returns</th></tr>
+          <tr><td><code>Object.keys(obj)</code></td><td>Get all property names</td><td>Array of strings</td></tr>
+          <tr><td><code>Object.values(obj)</code></td><td>Get all values</td><td>Array of values</td></tr>
+          <tr><td><code>Object.entries(obj)</code></td><td>Get [key, value] pairs</td><td>Array of arrays</td></tr>
+          <tr><td><code>Object.assign(target, src)</code></td><td>Copy properties (shallow)</td><td>Target object</td></tr>
+          <tr><td><code>Object.freeze(obj)</code></td><td>Make immutable</td><td>Frozen object</td></tr>
+          <tr><td><code>Object.seal(obj)</code></td><td>Prevent add/delete (can modify)</td><td>Sealed object</td></tr>
+          <tr><td><code>Object.create(proto)</code></td><td>Create with prototype</td><td>New object</td></tr>
+          <tr><td><code>Object.fromEntries(arr)</code></td><td>Array of pairs → object</td><td>New object</td></tr>
+          <tr><td><code>Object.hasOwn(obj, key)</code></td><td>Check own property (ES2022)</td><td>Boolean</td></tr>
+          <tr><td><code>Object.getPrototypeOf(obj)</code></td><td>Get prototype</td><td>Object or null</td></tr>
+          <tr><td><code>Object.defineProperty(obj,k,d)</code></td><td>Define with descriptor</td><td>Object</td></tr>
+          <tr><td><code>Object.getOwnPropertyNames(obj)</code></td><td>All property names (incl. non-enum)</td><td>Array</td></tr>
+          <tr><td><code>Object.is(a, b)</code></td><td>Strict equality (handles NaN)</td><td>Boolean</td></tr>
+          <tr><td><code>{...obj}</code></td><td>Spread / shallow copy</td><td>New object</td></tr>
+          <tr><td><code>structuredClone(obj)</code></td><td>Deep copy</td><td>New object (deep)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card card-p" style="margin-top:16px">
+      <h3>DESTRUCTURING & SPREAD</h3>
+      <pre><span class="kw">let</span> user = { name: <span class="str">'Ravi'</span>, age: <span class="num">25</span>, city: <span class="str">'Nagpur'</span> };
+
+<span class="cm">// Destructuring</span>
+<span class="kw">let</span> { name, age } = user;      <span class="cm">// name='Ravi', age=25</span>
+<span class="kw">let</span> { name: n, age: a } = user; <span class="cm">// alias: n='Ravi', a=25</span>
+<span class="kw">let</span> { name, ...rest } = user;   <span class="cm">// rest={age:25, city:'Nagpur'}</span>
+
+<span class="cm">// Default values</span>
+<span class="kw">let</span> { name, country = <span class="str">'India'</span> } = user; <span class="cm">// country='India'</span>
+
+<span class="cm">// Spread — merge objects</span>
+<span class="kw">let</span> updated = { ...user, city: <span class="str">'Mumbai'</span> };
+<span class="cm">// { name:'Ravi', age:25, city:'Mumbai' }</span>
+
+<span class="cm">// Merge two objects</span>
+<span class="kw">let</span> merged = { ...obj1, ...obj2 }; <span class="cm">// obj2 wins on conflict</span>
+
+<span class="cm">// Object.entries + map</span>
+<span class="kw">let</span> upper = <span class="cls">Object</span>.<span class="fn">fromEntries</span>(
+  <span class="cls">Object</span>.<span class="fn">entries</span>(user).<span class="fn">map</span>(([k,v]) => [k, <span class="cls">String</span>(v).<span class="fn">toUpperCase</span>()])
+);</pre>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 4: STRINGS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section" id="strings">
+    <div class="section-label">Section 04</div>
+    <div class="section-title">📝 Strings — All Methods</div>
+    <div class="section-desc">Complete reference for every JavaScript String method</div>
+
+    <div class="card card-b">
+      <h3>STRING CREATION</h3>
+      <pre><span class="kw">let</span> s1 = <span class="str">'single quotes'</span>;
+<span class="kw">let</span> s2 = <span class="str">"double quotes"</span>;
+<span class="kw">let</span> s3 = <span class="str">`template literal ${</span><span class="num">2</span> + <span class="num">2</span><span class="str">}`</span>;  <span class="cm">// "template literal 4"</span>
+<span class="kw">let</span> s4 = <span class="cls">String</span>(<span class="num">42</span>);              <span class="cm">// "42"</span>
+<span class="kw">let</span> s5 = (<span class="num">42</span>).<span class="fn">toString</span>();          <span class="cm">// "42"</span>
+<span class="cm">// Strings are immutable — methods return NEW strings</span></pre>
+    </div>
+
+    <div class="card card-g" style="margin-top:16px">
+      <h3>ALL STRING METHODS — COMPLETE REFERENCE</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Method</th><th>What it does</th><th>Example → Output</th></tr>
+          <tr><td><code>.length</code></td><td>Number of characters</td><td><code>"hello".length → 5</code></td></tr>
+          <tr><td><code>.charAt(i)</code></td><td>Character at index</td><td><code>"hello".charAt(1) → 'e'</code></td></tr>
+          <tr><td><code>.charCodeAt(i)</code></td><td>Unicode value at index</td><td><code>"A".charCodeAt(0) → 65</code></td></tr>
+          <tr><td><code>.at(i)</code></td><td>Char at index (neg OK)</td><td><code>"hello".at(-1) → 'o'</code></td></tr>
+          <tr><td><code>.indexOf(str)</code></td><td>First index of substring</td><td><code>"hello".indexOf('l') → 2</code></td></tr>
+          <tr><td><code>.lastIndexOf(str)</code></td><td>Last index of substring</td><td><code>"hello".lastIndexOf('l') → 3</code></td></tr>
+          <tr><td><code>.includes(str)</code></td><td>Check if contains</td><td><code>"hello".includes("ell") → true</code></td></tr>
+          <tr><td><code>.startsWith(str)</code></td><td>Starts with?</td><td><code>"hello".startsWith("he") → true</code></td></tr>
+          <tr><td><code>.endsWith(str)</code></td><td>Ends with?</td><td><code>"hello".endsWith("lo") → true</code></td></tr>
+          <tr><td><code>.slice(s,e)</code></td><td>Extract substring</td><td><code>"hello".slice(1,3) → 'el'</code></td></tr>
+          <tr><td><code>.substring(s,e)</code></td><td>Extract (no negatives)</td><td><code>"hello".substring(1,3) → 'el'</code></td></tr>
+          <tr><td><code>.toUpperCase()</code></td><td>Convert to uppercase</td><td><code>"hello".toUpperCase() → 'HELLO'</code></td></tr>
+          <tr><td><code>.toLowerCase()</code></td><td>Convert to lowercase</td><td><code>"HELLO".toLowerCase() → 'hello'</code></td></tr>
+          <tr><td><code>.trim()</code></td><td>Remove leading/trailing spaces</td><td><code>" hi ".trim() → 'hi'</code></td></tr>
+          <tr><td><code>.trimStart()</code></td><td>Remove leading spaces</td><td><code>" hi ".trimStart() → 'hi '</code></td></tr>
+          <tr><td><code>.trimEnd()</code></td><td>Remove trailing spaces</td><td><code>" hi ".trimEnd() → ' hi'</code></td></tr>
+          <tr><td><code>.split(sep)</code></td><td>Split into array</td><td><code>"a,b,c".split(',') → ['a','b','c']</code></td></tr>
+          <tr><td><code>.replace(old,new)</code></td><td>Replace first match</td><td><code>"hello".replace('l','r') → 'herlo'</code></td></tr>
+          <tr><td><code>.replaceAll(old,new)</code></td><td>Replace all matches</td><td><code>"hello".replaceAll('l','r') → 'herro'</code></td></tr>
+          <tr><td><code>.match(regex)</code></td><td>Find regex matches</td><td><code>"test123".match(/\d+/) → ['123']</code></td></tr>
+          <tr><td><code>.matchAll(regex)</code></td><td>Iterator of all matches</td><td>All regex matches</td></tr>
+          <tr><td><code>.search(regex)</code></td><td>Index of first regex match</td><td><code>"hello".search(/l/) → 2</code></td></tr>
+          <tr><td><code>.padStart(n,str)</code></td><td>Pad beginning to length n</td><td><code>"5".padStart(3,'0') → '005'</code></td></tr>
+          <tr><td><code>.padEnd(n,str)</code></td><td>Pad end to length n</td><td><code>"5".padEnd(3,'0') → '500'</code></td></tr>
+          <tr><td><code>.repeat(n)</code></td><td>Repeat n times</td><td><code>"ab".repeat(3) → 'ababab'</code></td></tr>
+          <tr><td><code>.concat(str)</code></td><td>Join strings</td><td><code>"hi".concat(" there") → 'hi there'</code></td></tr>
+          <tr><td><code>.normalize()</code></td><td>Unicode normalization</td><td>Normalized string</td></tr>
+          <tr><td><code>.codePointAt(i)</code></td><td>Unicode code point</td><td><code>"A".codePointAt(0) → 65</code></td></tr>
+          <tr><td><code>String.fromCharCode(n)</code></td><td>Create char from code</td><td><code>String.fromCharCode(65) → 'A'</code></td></tr>
+          <tr><td><code>String.raw`str`</code></td><td>Raw string (no escapes)</td><td>Raw template literal</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card card-p" style="margin-top:16px">
+      <h3>STRING METHODS IN ACTION</h3>
+      <pre><span class="kw">let</span> str = <span class="str">"  Hello, JavaScript World!  "</span>;
+
+<span class="cm">// Chain methods</span>
+str.<span class="fn">trim</span>().<span class="fn">toLowerCase</span>().<span class="fn">replace</span>(<span class="str">','</span>,<span class="str">''</span>);
+<span class="cm">// "hello javascript world!"</span>
+
+<span class="cm">// Split and rejoin</span>
+str.<span class="fn">trim</span>().<span class="fn">split</span>(<span class="str">' '</span>).<span class="fn">join</span>(<span class="str">'-'</span>);
+<span class="cm">// "Hello,-JavaScript-World!"</span>
+
+<span class="cm">// Template literals</span>
+<span class="kw">let</span> name = <span class="str">'Ravi'</span>;
+<span class="str">`Welcome back, ${name.toUpperCase()}!`</span>;
+<span class="cm">// "Welcome back, RAVI!"</span>
+
+<span class="cm">// Check and extract</span>
+<span class="str">'user:pass123'</span>.<span class="fn">split</span>(<span class="str">':'</span>);         <span class="cm">// ['user','pass123']</span>
+<span class="str">'hello world'</span>.<span class="fn">includes</span>(<span class="str">'world'</span>);  <span class="cm">// true</span>
+<span class="str">'hello'</span>.<span class="fn">slice</span>(-<span class="num">3</span>);                <span class="cm">// 'llo' (last 3)</span>
+
+<span class="cm">// Padding (useful for formatting)</span>
+<span class="str">'5'</span>.<span class="fn">padStart</span>(<span class="num">3</span>, <span class="str">'0'</span>);  <span class="cm">// '005'</span>
+<span class="str">'hi'</span>.<span class="fn">padEnd</span>(<span class="num">5</span>, <span class="str">'.'</span>);  <span class="cm">// 'hi...'</span></pre>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 5: MULTIDIMENSIONAL ARRAYS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section" id="multidimensional">
+    <div class="section-label">Section 05</div>
+    <div class="section-title">🔲 Multidimensional Arrays</div>
+    <div class="section-desc">2D and nested arrays — creation, access, iteration, manipulation</div>
+
+    <div class="grid2">
+      <div class="card card-y">
+        <h3>CREATING 2D ARRAYS</h3>
+        <pre><span class="cm">// Manual creation</span>
+<span class="kw">let</span> matrix = [
+  [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>],
+  [<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>],
+  [<span class="num">7</span>, <span class="num">8</span>, <span class="num">9</span>]
+];
+
+<span class="cm">// Dynamic creation</span>
+<span class="kw">let</span> rows = <span class="num">3</span>, cols = <span class="num">3</span>;
+<span class="kw">let</span> grid = <span class="cls">Array</span>.<span class="fn">from</span>({length: rows}, () =>
+  <span class="kw">new</span> <span class="cls">Array</span>(cols).<span class="fn">fill</span>(<span class="num">0</span>)
+);
+<span class="cm">// [[0,0,0],[0,0,0],[0,0,0]]</span></pre>
+      </div>
+      <div class="card card-b">
+        <h3>ACCESSING ELEMENTS</h3>
+        <pre><span class="kw">let</span> matrix = [
+  [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>],
+  [<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>],
+  [<span class="num">7</span>, <span class="num">8</span>, <span class="num">9</span>]
+];
+
+matrix[<span class="num">0</span>][<span class="num">0</span>];  <span class="cm">// 1 (row 0, col 0)</span>
+matrix[<span class="num">1</span>][<span class="num">2</span>];  <span class="cm">// 6 (row 1, col 2)</span>
+matrix[<span class="num">2</span>][<span class="num">2</span>];  <span class="cm">// 9 (last element)</span>
+
+<span class="cm">// Number of rows</span>
+matrix.length;       <span class="cm">// 3</span>
+<span class="cm">// Number of cols in row 0</span>
+matrix[<span class="num">0</span>].length;   <span class="cm">// 3</span></pre>
+      </div>
+    </div>
+
+    <div class="card card-g" style="margin-top:16px">
+      <h3>ITERATING 2D ARRAYS</h3>
+      <pre><span class="kw">let</span> matrix = [[<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>],[<span class="num">4</span>,<span class="num">5</span>,<span class="num">6</span>],[<span class="num">7</span>,<span class="num">8</span>,<span class="num">9</span>]];
+
+<span class="cm">// Nested for loop</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < matrix.length; i++) {
+  <span class="kw">for</span> (<span class="kw">let</span> j = <span class="num">0</span>; j < matrix[i].length; j++) {
+    <span class="fn">console</span>.<span class="fn">log</span>(matrix[i][j]);
+  }
+}
+
+<span class="cm">// for...of (cleaner)</span>
+<span class="kw">for</span> (<span class="kw">let</span> row <span class="kw">of</span> matrix) {
+  <span class="kw">for</span> (<span class="kw">let</span> cell <span class="kw">of</span> row) {
+    <span class="fn">console</span>.<span class="fn">log</span>(cell);
+  }
+}
+
+<span class="cm">// forEach</span>
+matrix.<span class="fn">forEach</span>(row => row.<span class="fn">forEach</span>(cell => <span class="fn">console</span>.<span class="fn">log</span>(cell)));
+
+<span class="cm">// Flatten to 1D</span>
+matrix.<span class="fn">flat</span>();            <span class="cm">// [1,2,3,4,5,6,7,8,9]</span>
+matrix.<span class="fn">flat</span>(<span class="cls">Infinity</span>);   <span class="cm">// flatten any depth</span></pre>
+    </div>
+
+    <div class="card card-p" style="margin-top:16px">
+      <h3>COMMON 2D OPERATIONS</h3>
+      <pre><span class="kw">let</span> matrix = [[<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>],[<span class="num">4</span>,<span class="num">5</span>,<span class="num">6</span>],[<span class="num">7</span>,<span class="num">8</span>,<span class="num">9</span>]];
+
+<span class="cm">// Sum all elements</span>
+<span class="kw">let</span> sum = matrix.<span class="fn">flat</span>().<span class="fn">reduce</span>((a,b) => a + b, <span class="num">0</span>); <span class="cm">// 45</span>
+
+<span class="cm">// Sum a row</span>
+<span class="kw">let</span> rowSum = matrix[<span class="num">0</span>].<span class="fn">reduce</span>((a,b) => a + b, <span class="num">0</span>); <span class="cm">// 6</span>
+
+<span class="cm">// Transpose matrix (rows become cols)</span>
+<span class="kw">let</span> transposed = matrix[<span class="num">0</span>].<span class="fn">map</span>((_, colIdx) =>
+  matrix.<span class="fn">map</span>(row => row[colIdx])
+);
+<span class="cm">// [[1,4,7],[2,5,8],[3,6,9]]</span>
+
+<span class="cm">// Find in 2D array</span>
+matrix.<span class="fn">flat</span>().<span class="fn">includes</span>(<span class="num">5</span>);        <span class="cm">// true</span>
+matrix.<span class="fn">flat</span>().<span class="fn">find</span>(n => n > <span class="num">7</span>);   <span class="cm">// 8</span>
+
+<span class="cm">// Map all elements</span>
+matrix.<span class="fn">map</span>(row => row.<span class="fn">map</span>(n => n * <span class="num">2</span>));
+<span class="cm">// [[2,4,6],[8,10,12],[14,16,18]]</span></pre>
+    </div>
+
+    <div class="card card-o" style="margin-top:16px">
+      <h3>PLAYWRIGHT SCENARIO — TEST MATRIX</h3>
+      <pre><span class="cm">// Test data matrix for data-driven testing</span>
+<span class="kw">let</span> testMatrix = [
+  [<span class="str">'user1'</span>, <span class="str">'pass1'</span>, <span class="str">'dashboard'</span>],
+  [<span class="str">'admin'</span>, <span class="str">'admin123'</span>, <span class="str">'admin-panel'</span>],
+  [<span class="str">'guest'</span>, <span class="str">'guest01'</span>, <span class="str">'home'</span>]
+];
+
+<span class="cm">// Convert to test objects</span>
+<span class="kw">let</span> tests = testMatrix.<span class="fn">map</span>(([user, pass, page]) => ({
+  username: user, password: pass, expectedPage: page
+}));
+
+<span class="cm">// Run each test</span>
+tests.<span class="fn">forEach</span>(({username, password, expectedPage}) => {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`Testing ${username} → expects ${expectedPage}`</span>);
+});</pre>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 6: CODING PROBLEMS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section" id="problems">
+    <div class="section-label">Section 06</div>
+    <div class="section-title">💻 Coding Problems & Answers</div>
+    <div class="section-desc">Real interview problems with complete solutions</div>
+
+    <!-- Array Problems -->
+    <div class="card card-y" style="margin-bottom:20px">
+      <h3>🔢 ARRAY PROBLEMS</h3>
+    </div>
+
+    <div class="card card-y">
+      <h3>PROBLEM 1: Remove Duplicates</h3>
+      <p>Given <code>[1,2,2,3,4,4,5]</code>, return unique values.</p>
+      <pre><span class="cm">// Method 1: Set (BEST)</span>
+<span class="kw">let</span> arr = [<span class="num">1</span>,<span class="num">2</span>,<span class="num">2</span>,<span class="num">3</span>,<span class="num">4</span>,<span class="num">4</span>,<span class="num">5</span>];
+<span class="kw">let</span> unique = [...<span class="kw">new</span> <span class="cls">Set</span>(arr)]; <span class="cm">// [1,2,3,4,5]</span>
+
+<span class="cm">// Method 2: filter</span>
+<span class="kw">let</span> unique = arr.<span class="fn">filter</span>((v,i) => arr.<span class="fn">indexOf</span>(v) === i);</pre>
+    </div>
+
+    <div class="card card-b">
+      <h3>PROBLEM 2: Two Sum (Google/Amazon)</h3>
+      <p>Find two indices that add up to target. Input: <code>[2,7,11,15]</code>, target: 9</p>
+      <pre><span class="kw">function</span> <span class="fn">twoSum</span>(arr, target) {
+  <span class="kw">let</span> map = <span class="kw">new</span> <span class="cls">Map</span>();
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < arr.length; i++) {
+    <span class="kw">let</span> complement = target - arr[i];
+    <span class="kw">if</span> (map.<span class="fn">has</span>(complement)) {
+      <span class="kw">return</span> [map.<span class="fn">get</span>(complement), i];
+    }
+    map.<span class="fn">set</span>(arr[i], i);
+  }
+}
+<span class="fn">twoSum</span>([<span class="num">2</span>,<span class="num">7</span>,<span class="num">11</span>,<span class="num">15</span>], <span class="num">9</span>); <span class="cm">// [0,1]</span></pre>
+    </div>
+
+    <div class="card card-g">
+      <h3>PROBLEM 3: Count Occurrences</h3>
+      <p>Count how many times each item appears.</p>
+      <pre><span class="kw">let</span> fruits = [<span class="str">'apple'</span>,<span class="str">'banana'</span>,<span class="str">'apple'</span>,<span class="str">'orange'</span>,<span class="str">'banana'</span>,<span class="str">'apple'</span>];
+
+<span class="kw">let</span> count = fruits.<span class="fn">reduce</span>((acc, fruit) => {
+  acc[fruit] = (acc[fruit] || <span class="num">0</span>) + <span class="num">1</span>;
+  <span class="kw">return</span> acc;
+}, {});
+<span class="cm">// { apple: 3, banana: 2, orange: 1 }</span></pre>
+    </div>
+
+    <div class="card card-p">
+      <h3>PROBLEM 4: Flatten Deep Nested Array</h3>
+      <p>Flatten <code>[1,[2,[3,[4,[5]]]]]</code> completely.</p>
+      <pre><span class="kw">let</span> nested = [<span class="num">1</span>,[<span class="num">2</span>,[<span class="num">3</span>,[<span class="num">4</span>,[<span class="num">5</span>]]]]];
+
+<span class="cm">// Method 1: flat(Infinity)</span>
+nested.<span class="fn">flat</span>(<span class="cls">Infinity</span>);  <span class="cm">// [1,2,3,4,5]</span>
+
+<span class="cm">// Method 2: reduce + recursion</span>
+<span class="kw">function</span> <span class="fn">flatten</span>(arr) {
+  <span class="kw">return</span> arr.<span class="fn">reduce</span>((acc, val) =>
+    <span class="cls">Array</span>.<span class="fn">isArray</span>(val) ? acc.<span class="fn">concat</span>(<span class="fn">flatten</span>(val)) : [...acc, val], []);
+}
+<span class="fn">flatten</span>(nested); <span class="cm">// [1,2,3,4,5]</span></pre>
+    </div>
+
+    <div class="card card-o">
+      <h3>PROBLEM 5: Group By Property</h3>
+      <p>Group test results by status.</p>
+      <pre><span class="kw">let</span> results = [
+  {test:<span class="str">'Login'</span>, status:<span class="str">'pass'</span>},
+  {test:<span class="str">'Signup'</span>, status:<span class="str">'fail'</span>},
+  {test:<span class="str">'Logout'</span>, status:<span class="str">'pass'</span>}
+];
+
+<span class="kw">let</span> grouped = results.<span class="fn">reduce</span>((acc, item) => {
+  (<span class="kw">acc</span>[item.status] = acc[item.status] || []).<span class="fn">push</span>(item);
+  <span class="kw">return</span> acc;
+}, {});
+<span class="cm">// { pass: [{...},{...}], fail: [{...}] }</span></pre>
+    </div>
+
+    <!-- String Problems -->
+    <div class="card card-b" style="margin-top:24px; margin-bottom:16px">
+      <h3>📝 STRING PROBLEMS</h3>
+    </div>
+
+    <div class="card card-b">
+      <h3>PROBLEM 6: Reverse a String</h3>
+      <pre><span class="kw">function</span> <span class="fn">reverse</span>(str) {
+  <span class="kw">return</span> str.<span class="fn">split</span>(<span class="str">''</span>).<span class="fn">reverse</span>().<span class="fn">join</span>(<span class="str">''</span>);
+}
+<span class="fn">reverse</span>(<span class="str">'hello'</span>); <span class="cm">// 'olleh'</span>
+
+<span class="cm">// Without reverse()</span>
+<span class="kw">function</span> <span class="fn">reverse2</span>(str) {
+  <span class="kw">let</span> result = <span class="str">''</span>;
+  <span class="kw">for</span> (<span class="kw">let</span> i = str.length - <span class="num">1</span>; i >= <span class="num">0</span>; i--) result += str[i];
+  <span class="kw">return</span> result;
+}</pre>
+    </div>
+
+    <div class="card card-g">
+      <h3>PROBLEM 7: Check Palindrome</h3>
+      <pre><span class="kw">function</span> <span class="fn">isPalindrome</span>(str) {
+  <span class="kw">let</span> cleaned = str.<span class="fn">toLowerCase</span>().<span class="fn">replace</span>(<span class="str">/[^a-z0-9]/g</span>, <span class="str">''</span>);
+  <span class="kw">let</span> reversed = cleaned.<span class="fn">split</span>(<span class="str">''</span>).<span class="fn">reverse</span>().<span class="fn">join</span>(<span class="str">''</span>);
+  <span class="kw">return</span> cleaned === reversed;
+}
+<span class="fn">isPalindrome</span>(<span class="str">'racecar'</span>); <span class="cm">// true</span>
+<span class="fn">isPalindrome</span>(<span class="str">'hello'</span>);   <span class="cm">// false</span></pre>
+    </div>
+
+    <div class="card card-p">
+      <h3>PROBLEM 8: Count Vowels</h3>
+      <pre><span class="kw">function</span> <span class="fn">countVowels</span>(str) {
+  <span class="kw">return</span> (str.<span class="fn">match</span>(<span class="str">/[aeiou]/gi</span>) || []).length;
+}
+<span class="fn">countVowels</span>(<span class="str">'Hello World'</span>); <span class="cm">// 3</span>
+
+<span class="cm">// Loop version</span>
+<span class="kw">function</span> <span class="fn">countVowels2</span>(str) {
+  <span class="kw">let</span> count = <span class="num">0</span>;
+  <span class="kw">for</span> (<span class="kw">let</span> ch <span class="kw">of</span> str.<span class="fn">toLowerCase</span>())
+    <span class="kw">if</span> (<span class="str">'aeiou'</span>.<span class="fn">includes</span>(ch)) count++;
+  <span class="kw">return</span> count;
+}</pre>
+    </div>
+
+    <div class="card card-o">
+      <h3>PROBLEM 9: Anagram Check</h3>
+      <pre><span class="kw">function</span> <span class="fn">isAnagram</span>(s1, s2) {
+  <span class="kw">const</span> norm = str => str.<span class="fn">toLowerCase</span>().<span class="fn">split</span>(<span class="str">''</span>).<span class="fn">sort</span>().<span class="fn">join</span>(<span class="str">''</span>);
+  <span class="kw">return</span> <span class="fn">norm</span>(s1) === <span class="fn">norm</span>(s2);
+}
+<span class="fn">isAnagram</span>(<span class="str">'listen'</span>, <span class="str">'silent'</span>); <span class="cm">// true</span>
+<span class="fn">isAnagram</span>(<span class="str">'hello'</span>, <span class="str">'world'</span>);   <span class="cm">// false</span></pre>
+    </div>
+
+    <div class="card card-r">
+      <h3>PROBLEM 10: Most Frequent Character</h3>
+      <pre><span class="kw">function</span> <span class="fn">mostFrequent</span>(str) {
+  <span class="kw">let</span> freq = {};
+  <span class="kw">for</span> (<span class="kw">let</span> ch <span class="kw">of</span> str) freq[ch] = (freq[ch] || <span class="num">0</span>) + <span class="num">1</span>;
+  <span class="kw">return</span> <span class="cls">Object</span>.<span class="fn">keys</span>(freq).<span class="fn">reduce</span>((a,b) => freq[a] > freq[b] ? a : b);
+}
+<span class="fn">mostFrequent</span>(<span class="str">'javascript'</span>); <span class="cm">// 'a'</span></pre>
+    </div>
+
+    <!-- Object Problems -->
+    <div class="card card-g" style="margin-top:24px; margin-bottom:16px">
+      <h3>🗂️ OBJECT PROBLEMS</h3>
+    </div>
+
+    <div class="card card-g">
+      <h3>PROBLEM 11: Deep Clone Object</h3>
+      <pre><span class="kw">let</span> original = {name:<span class="str">'Ravi'</span>, data:{score:<span class="num">100</span>}};
+
+<span class="cm">// Method 1: structuredClone (BEST)</span>
+<span class="kw">let</span> clone1 = <span class="fn">structuredClone</span>(original);
+
+<span class="cm">// Method 2: JSON (no functions/dates)</span>
+<span class="kw">let</span> clone2 = <span class="cls">JSON</span>.<span class="fn">parse</span>(<span class="cls">JSON</span>.<span class="fn">stringify</span>(original));
+
+<span class="cm">// Verify no mutation</span>
+clone1.data.score = <span class="num">200</span>;
+<span class="fn">console</span>.<span class="fn">log</span>(original.data.score); <span class="cm">// 100 ✅</span></pre>
+    </div>
+
+    <div class="card card-b">
+      <h3>PROBLEM 12: Merge Config Objects</h3>
+      <pre><span class="kw">function</span> <span class="fn">mergeConfig</span>(defaults, overrides) {
+  <span class="kw">const</span> merged = { ...defaults, ...overrides };
+  <span class="kw">if</span> (!(<span class="str">'retries'</span> <span class="kw">in</span> merged)) merged.retries = <span class="num">0</span>;
+  <span class="kw">return</span> merged;
+}
+<span class="fn">mergeConfig</span>({env:<span class="str">'dev'</span>,retries:<span class="num">1</span>}, {retries:<span class="num">3</span>});
+<span class="cm">// { env: 'dev', retries: 3 }</span></pre>
+    </div>
+
+    <!-- Function Problem -->
+    <div class="card card-p" style="margin-top:24px; margin-bottom:16px">
+      <h3>⚡ FUNCTION PROBLEMS</h3>
+    </div>
+
+    <div class="card card-p">
+      <h3>PROBLEM 13: Memoization / Caching</h3>
+      <pre><span class="kw">function</span> <span class="fn">memoize</span>(fn) {
+  <span class="kw">let</span> cache = {};
+  <span class="kw">return</span> <span class="kw">function</span>(...args) {
+    <span class="kw">let</span> key = <span class="cls">JSON</span>.<span class="fn">stringify</span>(args);
+    <span class="kw">if</span> (key <span class="kw">in</span> cache) <span class="kw">return</span> cache[key];
+    cache[key] = <span class="fn">fn</span>(...args);
+    <span class="kw">return</span> cache[key];
+  };
+}
+<span class="kw">const</span> factorial = <span class="fn">memoize</span>(n => n <= <span class="num">1</span> ? <span class="num">1</span> : n * <span class="fn">factorial</span>(n-<span class="num">1</span>));
+<span class="fn">factorial</span>(<span class="num">5</span>); <span class="cm">// 120</span></pre>
+    </div>
+
+    <div class="card card-o">
+      <h3>PROBLEM 14: Chunk Array (Playwright - Parallel Tests)</h3>
+      <pre><span class="kw">function</span> <span class="fn">chunkArray</span>(arr, size) {
+  <span class="kw">let</span> result = [];
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < arr.length; i += size) {
+    result.<span class="fn">push</span>(arr.<span class="fn">slice</span>(i, i + size));
+  }
+  <span class="kw">return</span> result;
+}
+<span class="fn">chunkArray</span>([<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>,<span class="num">4</span>,<span class="num">5</span>,<span class="num">6</span>,<span class="num">7</span>,<span class="num">8</span>], <span class="num">3</span>);
+<span class="cm">// [[1,2,3],[4,5,6],[7,8]]</span></pre>
+    </div>
+
+    <div class="card card-r">
+      <h3>PROBLEM 15: Second Largest (Amazon)</h3>
+      <pre><span class="kw">function</span> <span class="fn">secondLargest</span>(arr) {
+  <span class="kw">let</span> first = -<span class="cls">Infinity</span>, second = -<span class="cls">Infinity</span>;
+  <span class="kw">for</span> (<span class="kw">let</span> n <span class="kw">of</span> arr) {
+    <span class="kw">if</span> (n > first) { second = first; first = n; }
+    <span class="kw">else if</span> (n > second && n < first) second = n;
+  }
+  <span class="kw">return</span> second === -<span class="cls">Infinity</span> ? <span class="kw">null</span> : second;
+}
+<span class="fn">secondLargest</span>([<span class="num">45</span>,<span class="num">78</span>,<span class="num">23</span>,<span class="num">90</span>,<span class="num">56</span>,<span class="num">12</span>,<span class="num">90</span>]); <span class="cm">// 78</span></pre>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 7: INTERVIEW Q&A -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section" id="interview">
+    <div class="section-label">Section 07</div>
+    <div class="section-title">🎯 Interview Questions & Answers</div>
+    <div class="section-desc">Top questions asked at FAANG, product and service companies</div>
+
+    <!-- Array Interview -->
+    <div class="card card-y" style="margin-bottom:16px"><h3>📦 ARRAY INTERVIEW QUESTIONS</h3></div>
+    <div class="iq-grid">
+      <div class="iq">
+        <div class="iq-q">Q: Difference between map() and forEach()?</div>
+        <div class="iq-a">map() returns a NEW array with transformed values. forEach() returns undefined — used only for side effects. Use map() when you need a new array, forEach() when you just need to loop.</div>
+      </div>
+      <div class="iq">
+        <div class="iq-q">Q: Can you break out of forEach?</div>
+        <div class="iq-a">No. forEach cannot be stopped with break or continue. Use for...of with break, or use some() (return true to stop) or every() (return false to stop).</div>
+      </div>
+      <div class="iq">
+        <div class="iq-q">Q: Difference between splice() and slice()?</div>
+        <div class="iq-a">splice() modifies the ORIGINAL array (add/remove). slice() creates a NEW array (extract). Memory trick: splIce = In-place (mutates). slIce = Independent copy.</div>
+      </div>
+      <div class="iq">
+        <div class="iq-q">Q: Shallow vs deep copy of arrays?</div>
+        <div class="iq-a">[...arr] and slice() are shallow — nested objects share reference. Use structuredClone() or JSON.parse(JSON.stringify()) for deep copy. Spread copies only one level deep.</div>
+      </div>
+      <div class="iq">
+        <div class="iq-q">Q: What does reduce() do?</div>
+        <div class="iq-a">Reduces an array to a single value by accumulating a result through each element. Can produce numbers, strings, objects, or arrays. The accumulator holds the running result.</div>
+      </div>
+      <div class="iq">
+        <div class="iq-q">Q: Difference between find() and filter()?</div>
+        <div class="iq-a">find() returns the FIRST matching element (or undefined). filter() returns ALL matching elements as a new array. Use find() when you want one result, filter() for multiple.</div>
+      </div>
+    </div>
+
+    <!-- String Interview -->
+    <div class="card card-b" style="margin-top:24px; margin-bottom:16px"><h3>📝 STRING INTERVIEW QUESTIONS</h3></div>
+    <div class="iq-grid">
+      <div class="iq" style="border-top-color: var(--blue)">
+        <div class="iq-q" style="color:var(--blue)">Q: Are strings mutable in JS?</div>
+        <div class="iq-a">No. Strings are immutable. Methods like toUpperCase(), slice(), replace() return NEW strings — they never modify the original. You can only replace the variable's value entirely.</div>
+      </div>
+      <div class="iq" style="border-top-color: var(--blue)">
+        <div class="iq-q" style="color:var(--blue)">Q: Difference between slice() and substring()?</div>
+        <div class="iq-a">Both extract substrings. slice() supports negative indices (counts from end). substring() treats negatives as 0 and swaps args if start > end. slice() is more powerful and modern.</div>
+      </div>
+      <div class="iq" style="border-top-color: var(--blue)">
+        <div class="iq-q" style="color:var(--blue)">Q: How to check if string contains a substring?</div>
+        <div class="iq-a">Use includes() for boolean check. indexOf() for position (-1 if not found). match() or search() for regex patterns. startsWith()/endsWith() for beginning/end checks.</div>
+      </div>
+      <div class="iq" style="border-top-color: var(--blue)">
+        <div class="iq-q" style="color:var(--blue)">Q: Template literals vs string concatenation?</div>
+        <div class="iq-a">Template literals (backticks) are cleaner and support multi-line strings and expressions. `Hello ${name}` vs "Hello " + name. Template literals are the modern standard.</div>
+      </div>
+    </div>
+
+    <!-- Object Interview -->
+    <div class="card card-g" style="margin-top:24px; margin-bottom:16px"><h3>🗂️ OBJECT INTERVIEW QUESTIONS</h3></div>
+    <div class="iq-grid">
+      <div class="iq" style="border-top-color: var(--green)">
+        <div class="iq-q" style="color:var(--green)">Q: Difference between Object.freeze() and Object.seal()?</div>
+        <div class="iq-a">freeze() — cannot add, delete, or modify any property. seal() — cannot add or delete, but CAN modify existing values. freeze is stricter than seal.</div>
+      </div>
+      <div class="iq" style="border-top-color: var(--green)">
+        <div class="iq-q" style="color:var(--green)">Q: What is destructuring?</div>
+        <div class="iq-a">A shorthand to extract values from arrays/objects into variables. let {name, age} = user; instead of let name = user.name. Supports defaults, renaming, and rest (...) syntax.</div>
+      </div>
+      <div class="iq" style="border-top-color: var(--green)">
+        <div class="iq-q" style="color:var(--green)">Q: Difference between null and undefined?</div>
+        <div class="iq-a">undefined — variable declared but not assigned. null — intentional absence of value (explicitly set). typeof undefined is "undefined", typeof null is "object" (historical bug).</div>
+      </div>
+      <div class="iq" style="border-top-color: var(--green)">
+        <div class="iq-q" style="color:var(--green)">Q: What is optional chaining (?.)?</div>
+        <div class="iq-a">Safely access deeply nested properties without errors. user?.address?.city returns undefined instead of throwing if address is null/undefined. Very useful for API responses.</div>
+      </div>
+    </div>
+
+    <!-- Function Interview -->
+    <div class="card card-p" style="margin-top:24px; margin-bottom:16px"><h3>⚡ FUNCTION INTERVIEW QUESTIONS</h3></div>
+    <div class="iq-grid">
+      <div class="iq" style="border-top-color: var(--purple)">
+        <div class="iq-q" style="color:var(--purple)">Q: What is a closure?</div>
+        <div class="iq-a">A function that remembers variables from its outer scope even after the outer function has finished. Used for data privacy, memoization, and factory functions. The inner function "closes over" outer variables.</div>
+      </div>
+      <div class="iq" style="border-top-color: var(--purple)">
+        <div class="iq-q" style="color:var(--purple)">Q: Arrow functions vs regular functions?</div>
+        <div class="iq-a">Arrow functions don't have their own 'this' — they inherit from surrounding scope. Regular functions have their own 'this'. Arrows can't be used as constructors. No 'arguments' object in arrows.</div>
+      </div>
+      <div class="iq" style="border-top-color: var(--purple)">
+        <div class="iq-q" style="color:var(--purple)">Q: What is hoisting?</div>
+        <div class="iq-a">Function declarations are hoisted (can call before defining). var is hoisted as undefined. let/const are hoisted but in TDZ (Temporal Dead Zone) — accessing before declaration throws ReferenceError.</div>
+      </div>
+      <div class="iq" style="border-top-color: var(--purple)">
+        <div class="iq-q" style="color:var(--purple)">Q: What is a callback function?</div>
+        <div class="iq-a">A function passed as an argument to another function, called when a task completes. Used in array methods (map, filter, forEach), event handlers, and async operations (setTimeout, fetch).</div>
+      </div>
+    </div>
+
+    <!-- Predict Output -->
+    <div class="card card-r" style="margin-top:24px">
+      <h3>🔥 PREDICT THE OUTPUT — TRICKY QUESTIONS</h3>
+      <pre><span class="cm">// Q1: What is the output?</span>
+<span class="fn">console</span>.<span class="fn">log</span>([<span class="num">1</span>,<span class="num">2</span>] + [<span class="num">3</span>,<span class="num">4</span>]);  <span class="cm">// "1,23,4" (arrays convert to strings!)</span>
+
+<span class="cm">// Q2: What is the output?</span>
+<span class="kw">let</span> a = [<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>];
+<span class="kw">let</span> b = a;
+b.<span class="fn">push</span>(<span class="num">4</span>);
+<span class="fn">console</span>.<span class="fn">log</span>(a);  <span class="cm">// [1,2,3,4] — same reference!</span>
+
+<span class="cm">// Q3: What is the output?</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">typeof</span> []);   <span class="cm">// "object" (not "array"!)</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">typeof</span> <span class="kw">null</span>); <span class="cm">// "object" (historical bug!)</span>
+
+<span class="cm">// Q4: What is the output?</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="num">0.1</span> + <span class="num">0.2</span> === <span class="num">0.3</span>); <span class="cm">// false (floating point!)</span>
+
+<span class="cm">// Q5: What is the output?</span>
+<span class="kw">let</span> arr = [<span class="num">3</span>,<span class="num">1</span>,<span class="num">10</span>,<span class="num">2</span>];
+arr.<span class="fn">sort</span>();
+<span class="fn">console</span>.<span class="fn">log</span>(arr); <span class="cm">// [1, 10, 2, 3] — sorts as STRINGS!</span></pre>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>📚 JavaScript Complete Cheatsheet &nbsp;·&nbsp; <span>Built for Interview Revision</span></p>
+  <p style="margin-top: 8px; font-size: 11px;">Arrays · Functions · Objects · Strings · 2D Arrays · Problems · Interview Q&A</p>
+</div>
+
+</body>
+</html>

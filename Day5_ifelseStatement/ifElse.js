@@ -3,7 +3,7 @@ write a java program that calculates and displays the letter grade for a given
 number score: A:90-100, B:80-89, C:70-79, D:60-69, F:0-59
 */
 
-let a="abc";
+let a=10;
 
 
 if(typeof a!== "number")
@@ -30,3 +30,6 @@ else
 {
     console.log("Score can not be more than 100, kindly re calculate.")
 }
+
+
+

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Learning Journal — Day 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --card: #1a1a1a;
+    --border: #2a2a2a;
+    --accent: #f0c040;
+    --accent2: #4fc3f7;
+    --accent3: #a5d6a7;
+    --accent4: #ef9a9a;
+    --text: #e8e8e8;
+    --muted: #888;
+    --code-bg: #111;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #111 0%, #1a1200 50%, #111 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: 'JS';
+    position: absolute;
+    right: -20px; top: -20px;
+    font-size: 220px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    color: rgba(240,192,64,0.04);
+    pointer-events: none;
+    line-height: 1;
+  }
+  .header-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 900; color: #fff; line-height: 1.1;
+  }
+  .header h1 span { color: var(--accent); }
+  .header-sub { margin-top: 12px; color: var(--muted); font-size: 15px; }
+  .badges { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+  .badge {
+    padding: 4px 12px; border-radius: 20px;
+    font-size: 12px; font-family: 'JetBrains Mono', monospace; border: 1px solid;
+  }
+  .badge-yellow { color: var(--accent); border-color: rgba(240,192,64,0.3); background: rgba(240,192,64,0.05); }
+  .badge-blue   { color: var(--accent2); border-color: rgba(79,195,247,0.3); background: rgba(79,195,247,0.05); }
+  .badge-red    { color: var(--accent4); border-color: rgba(239,154,154,0.3); background: rgba(239,154,154,0.05); }
+
+  .progress-bar { height: 3px; background: var(--border); position: relative; }
+  .progress-fill {
+    height: 100%; width: 30%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2)); position: relative;
+  }
+  .progress-fill::after {
+    content: 'Day 2 of ~30';
+    position: absolute; right: 0; top: 8px;
+    font-size: 11px; color: var(--muted);
+    font-family: 'JetBrains Mono', monospace; white-space: nowrap;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 48px 24px; }
+  .section { margin-bottom: 48px; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; font-weight: 700; color: #fff;
+    margin-bottom: 6px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-title .icon { font-size: 22px; }
+  .section-desc { color: var(--muted); font-size: 14px; margin-bottom: 20px; padding-left: 34px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: #3a3a3a; }
+  .card-accent-left  { border-left: 3px solid var(--accent); }
+  .card-accent-blue  { border-left: 3px solid var(--accent2); }
+  .card-accent-red   { border-left: 3px solid var(--accent4); }
+
+  .card h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 10px;
+  }
+  .card-blue h3  { color: var(--accent2); }
+  .card-red h3   { color: var(--accent4); }
+
+  .card p { font-size: 14px; color: #ccc; margin-bottom: 10px; line-height: 1.8; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul { margin: 10px 0; padding-left: 20px; }
+  .card li { font-size: 14px; color: #ccc; line-height: 1.8; margin-bottom: 6px; }
+
+  pre {
+    background: var(--code-bg); border: 1px solid #222;
+    border-radius: 8px; padding: 16px; overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; line-height: 1.7; margin-top: 12px; color: #ccc;
+  }
+  .kw  { color: #c792ea; }
+  .fn  { color: #82aaff; }
+  .str { color: #c3e88d; }
+  .num { color: #f78c6c; }
+  .cm  { color: #546e7a; font-style: italic; }
+  .op  { color: var(--accent); }
+
+  .table-wrap { overflow-x: auto; margin-top: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    background: #111; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1px;
+    padding: 10px 14px; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid #1e1e1e; color: #ccc; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .callout {
+    border-radius: 10px; padding: 16px 20px;
+    margin-top: 16px; font-size: 14px; color: #ddd;
+    background: rgba(240,192,64,0.05);
+    border: 1px solid rgba(240,192,64,0.2);
+    line-height: 1.8;
+  }
+  .callout strong { color: var(--accent); }
+  .callout code {
+    background: rgba(0,0,0,0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .callout-blue { background: rgba(79,195,247,0.05); border-color: rgba(79,195,247,0.2); }
+  .callout-blue strong { color: var(--accent2); }
+  .callout-red { background: rgba(239,154,154,0.05); border-color: rgba(239,154,154,0.2); }
+  .callout-red strong { color: var(--accent4); }
+
+  .example-box {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-left: 3px solid var(--accent2);
+    border-radius: 8px;
+    padding: 18px;
+    margin: 12px 0;
+  }
+  .example-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .example-content {
+    font-size: 13px;
+    color: #bbb;
+    line-height: 1.8;
+  }
+  .example-result {
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(79,195,247,0.08);
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent2);
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 30px;
+    margin: 16px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -26px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+  .timeline-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .timeline-text {
+    font-size: 13px;
+    color: #bbb;
+    line-height: 1.7;
+  }
+
+  .interview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px; margin-top: 16px;
+  }
+  .interview-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    border-radius: 10px; padding: 18px;
+  }
+  .interview-card .q {
+    font-size: 13px; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace; margin-bottom: 8px;
+  }
+  .interview-card .a { font-size: 13px; color: #bbb; line-height: 1.6; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  .toc {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; margin-bottom: 48px;
+  }
+  .toc h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 16px;
+  }
+  .toc-list {
+    list-style: none;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;
+  }
+  .toc-list li a {
+    color: #ccc; text-decoration: none; font-size: 14px;
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 0; transition: color 0.2s;
+  }
+  .toc-list li a:hover { color: var(--accent); }
+  .toc-list li a .tnum {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent); min-width: 20px;
+  }
+
+  .footer {
+    text-align: center; padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 13px;
+  }
+  .footer span { color: var(--accent); }
+
+  .warning-box {
+    background: rgba(239,154,154,0.05);
+    border: 1px solid rgba(239,154,154,0.2);
+    border-left: 3px solid var(--accent4);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 12px 0;
+  }
+  .warning-box strong {
+    color: var(--accent4);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-tag">📓 Learning Journal</div>
+  <h1>JavaScript <span>Notes</span><br>Day 2</h1>
+  <p class="header-sub">Hoisting & Temporal Dead Zone · Interview ready · Real-life examples</p>
+  <div class="badges">
+    <span class="badge badge-yellow">Hoisting</span>
+    <span class="badge badge-red">Temporal Dead Zone</span>
+    <span class="badge badge-blue">var Hoisting</span>
+    <span class="badge badge-blue">let/const Hoisting</span>
+    <span class="badge badge-yellow">Function Hoisting</span>
+  </div>
+</div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h3>Contents</h3>
+    <ul class="toc-list">
+      <li><a href="#hoisting"><span class="tnum">01</span> What is Hoisting?</a></li>
+      <li><a href="#var-hoist"><span class="tnum">02</span> var Hoisting</a></li>
+      <li><a href="#let-const-hoist"><span class="tnum">03</span> let/const Hoisting</a></li>
+      <li><a href="#tdz"><span class="tnum">04</span> Temporal Dead Zone (TDZ)</a></li>
+      <li><a href="#function-hoist"><span class="tnum">05</span> Function Hoisting</a></li>
+      <li><a href="#reallife"><span class="tnum">06</span> Real-Life Examples</a></li>
+      <li><a href="#interview"><span class="tnum">07</span> Interview Q&amp;A</a></li>
+    </ul>
+  </div>
+
+  <!-- 01 Hoisting -->
+  <div class="section" id="hoisting">
+    <div class="section-label">Topic 01</div>
+    <div class="section-title"><span class="icon">⬆️</span> What is Hoisting?</div>
+    <div class="section-desc">JavaScript moves declarations to the top before execution</div>
+
+    <div class="card card-accent-left">
+      <h3>DEFINITION</h3>
+      <p>Hoisting is JavaScript's behavior of moving all <strong>declarations</strong> (var, let, const, function) to the <strong>top of their scope</strong> before code executes — but <strong>NOT</strong> the assignments/initializations.</p>
+      <div class="callout">
+        <strong>Think of it like this:</strong> JavaScript reads your code in 2 passes:<br>
+        <strong>Pass 1</strong> — Collect all declarations and move them to the top<br>
+        <strong>Pass 2</strong> — Execute code line by line
+      </div>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>QUICK EXAMPLE</h3>
+      <pre><span class="cm">// What you write:</span>
+<span class="fn">console</span>.<span class="fn">log</span>(name); <span class="cm">// undefined</span>
+<span class="kw">var</span> name = <span class="str">"Ravi"</span>;
+<span class="fn">console</span>.<span class="fn">log</span>(name); <span class="cm">// "Ravi"</span>
+
+<span class="cm">// What JavaScript does (behind the scenes):</span>
+<span class="kw">var</span> name;              <span class="cm">← HOISTED to top</span>
+<span class="fn">console</span>.<span class="fn">log</span>(name); <span class="cm">// undefined</span>
+name = <span class="str">"Ravi"</span>;         <span class="cm">← assignment stays here</span>
+<span class="fn">console</span>.<span class="fn">log</span>(name); <span class="cm">// "Ravi"</span></pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>KEY POINTS</h3>
+      <ul>
+        <li><strong>Only declarations are hoisted</strong> — not initializations</li>
+        <li><strong>var</strong> → hoisted and initialized as <code>undefined</code></li>
+        <li><strong>let/const</strong> → hoisted but NOT initialized (Temporal Dead Zone)</li>
+        <li><strong>function declarations</strong> → fully hoisted (ready to use)</li>
+        <li><strong>function expressions</strong> → treated like variables</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 02 var Hoisting -->
+  <div class="section" id="var-hoist">
+    <div class="section-label">Topic 02</div>
+    <div class="section-title"><span class="icon">📦</span> var Hoisting</div>
+    <div class="section-desc">var is hoisted and initialized as undefined</div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>HOW var HOISTING WORKS</h3>
+      <pre><span class="cm">// Code you write:</span>
+<span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// undefined (no error!)</span>
+<span class="kw">var</span> x = <span class="num">5</span>;
+<span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// 5</span>
+
+<span class="cm">// What JavaScript executes:</span>
+<span class="kw">var</span> x;              <span class="cm">← declaration hoisted</span>
+<span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// undefined (initialized but no value yet)</span>
+x = <span class="num">5</span>;              <span class="cm">← assignment happens here</span>
+<span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// 5</span></pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>var IN FUNCTIONS</h3>
+      <pre><span class="kw">function</span> <span class="fn">test</span>() {
+  <span class="fn">console</span>.<span class="fn">log</span>(a); <span class="cm">// undefined</span>
+  <span class="kw">var</span> a = <span class="num">10</span>;
+  <span class="fn">console</span>.<span class="fn">log</span>(a); <span class="cm">// 10</span>
+}
+
+<span class="cm">// Behind the scenes:</span>
+<span class="kw">function</span> <span class="fn">test</span>() {
+  <span class="kw">var</span> a;            <span class="cm">← hoisted to top of function</span>
+  <span class="fn">console</span>.<span class="fn">log</span>(a); <span class="cm">// undefined</span>
+  a = <span class="num">10</span>;
+  <span class="fn">console</span>.<span class="fn">log</span>(a); <span class="cm">// 10</span>
+}</pre>
+    </div>
+
+    <div class="callout callout-blue">
+      <strong>Key insight:</strong> <code>var</code> is hoisted to the top and immediately initialized as <code>undefined</code>. That's why you don't get an error — you just get <code>undefined</code>.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 03 let/const Hoisting -->
+  <div class="section" id="let-const-hoist">
+    <div class="section-label">Topic 03</div>
+    <div class="section-title"><span class="icon">🔒</span> let/const Hoisting</div>
+    <div class="section-desc">let/const are hoisted but stay in Temporal Dead Zone</div>
+
+    <div class="card card-accent-red">
+      <h3>HOW let/const HOISTING WORKS</h3>
+      <pre><span class="cm">// Code you write:</span>
+<span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// 🚨 ReferenceError!</span>
+<span class="kw">let</span> x = <span class="num">5</span>;
+<span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// 5</span>
+
+<span class="cm">// What JavaScript does:</span>
+<span class="cm">// TDZ STARTS ← x is hoisted but NOT initialized</span>
+<span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// 🚨 ReferenceError — x is in TDZ!</span>
+<span class="kw">let</span> x = <span class="num">5</span>;        <span class="cm">← TDZ ENDS here</span>
+<span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// 5 ✅</span></pre>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>COMPARISON — var vs let</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Aspect</th><th>var</th><th>let/const</th></tr>
+          <tr><td>Hoisted?</td><td>✅ Yes</td><td>✅ Yes</td></tr>
+          <tr><td>Initialized?</td><td>✅ as undefined</td><td>❌ No (TDZ)</td></tr>
+          <tr><td>Can use before declaration?</td><td>✅ Yes (undefined)</td><td>❌ No (Error)</td></tr>
+          <tr><td>Error type</td><td>None (returns undefined)</td><td>ReferenceError</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout callout-red">
+      <strong>Critical difference:</strong> Both <code>var</code> and <code>let</code> are hoisted. But <code>var</code> gives you <code>undefined</code>, while <code>let</code> throws an error because it's locked in the Temporal Dead Zone.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 04 TDZ -->
+  <div class="section" id="tdz">
+    <div class="section-label">Topic 04</div>
+    <div class="section-title"><span class="icon">🚫</span> Temporal Dead Zone (TDZ)</div>
+    <div class="section-desc">The forbidden zone where let/const exist but cannot be accessed</div>
+
+    <div class="card card-accent-red">
+      <h3>WHAT IS TDZ?</h3>
+      <p><strong>Temporal Dead Zone (TDZ)</strong> is the time period between when a variable is hoisted and when it's actually initialized in your code.</p>
+      <p>During this zone:</p>
+      <ul>
+        <li>The variable <strong>exists</strong> in memory (hoisted)</li>
+        <li>But you <strong>CANNOT access it</strong> — throws ReferenceError</li>
+        <li>It's "dead" — locked, untouchable, forbidden 🔒</li>
+      </ul>
+      <div class="callout callout-red" style="margin-top:16px">
+        <strong>Only affects:</strong> <code>let</code> and <code>const</code> (NOT <code>var</code>)
+      </div>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>TDZ TIMELINE</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-label">Scope Starts</div>
+          <div class="timeline-text">Variable is hoisted — TDZ BEGINS 🚫<br>Variable exists but is locked</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-label">During TDZ</div>
+          <div class="timeline-text">Any access throws ReferenceError ❌<br>"Cannot access before initialization"</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-label">Declaration Line</div>
+          <div class="timeline-text">TDZ ENDS ✅<br>Variable is initialized and ready to use</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-label">After Declaration</div>
+          <div class="timeline-text">Variable can be accessed normally ✅</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>CODE EXAMPLE</h3>
+      <pre><span class="cm">// TDZ visualization</span>
+{
+  <span class="cm">// ← TDZ STARTS here for variable 'name'</span>
+  <span class="cm">// name exists but is LOCKED 🔒</span>
+  
+  <span class="fn">console</span>.<span class="fn">log</span>(name); <span class="cm">// 🚨 ReferenceError — in TDZ!</span>
+  
+  <span class="cm">// Still in TDZ...</span>
+  
+  <span class="kw">let</span> name = <span class="str">"Ravi"</span>; <span class="cm">← TDZ ENDS here ✅</span>
+  
+  <span class="fn">console</span>.<span class="fn">log</span>(name); <span class="cm">// "Ravi" — now accessible ✅</span>
+}</pre>
+    </div>
+
+    <div class="card card-accent-red">
+      <h3>COMMON TDZ MISTAKES</h3>
+      <pre><span class="cm">// Mistake 1: Using in own initialization</span>
+<span class="kw">let</span> x = x + <span class="num">1</span>; <span class="cm">// 🚨 ReferenceError — x in TDZ on right side</span>
+
+<span class="cm">// Mistake 2: typeof doesn't save you</span>
+<span class="kw">typeof</span> y; <span class="cm">// 🚨 ReferenceError — y in TDZ</span>
+<span class="kw">let</span> y = <span class="num">10</span>;
+
+<span class="cm">// Mistake 3: Function parameter TDZ</span>
+<span class="kw">function</span> <span class="fn">test</span>(a = b, b = <span class="num">2</span>) {
+  <span class="cm">// 🚨 Error — b is in TDZ when evaluating default for 'a'</span>
+}</pre>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 05 Function Hoisting -->
+  <div class="section" id="function-hoist">
+    <div class="section-label">Topic 05</div>
+    <div class="section-title"><span class="icon">⚡</span> Function Hoisting</div>
+    <div class="section-desc">Function declarations are fully hoisted and ready to use</div>
+
+    <div class="card card-accent-left">
+      <h3>FUNCTION DECLARATION — FULLY HOISTED</h3>
+      <pre><span class="cm">// You can call before declaration!</span>
+<span class="fn">greet</span>(); <span class="cm">// "Hello!" ✅ Works perfectly</span>
+
+<span class="kw">function</span> <span class="fn">greet</span>() {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Hello!"</span>);
+}
+
+<span class="cm">// Behind the scenes — function moved to top:</span>
+<span class="kw">function</span> <span class="fn">greet</span>() {      <span class="cm">← FULLY hoisted</span>
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Hello!"</span>);
+}
+<span class="fn">greet</span>(); <span class="cm">// "Hello!" ✅</span></pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>FUNCTION EXPRESSION — NOT FULLY HOISTED</h3>
+      <pre><span class="cm">// Function expression with var</span>
+<span class="fn">greet</span>(); <span class="cm">// 🚨 TypeError: greet is not a function</span>
+
+<span class="kw">var</span> greet = <span class="kw">function</span>() {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Hello!"</span>);
+};
+
+<span class="cm">// Behind the scenes:</span>
+<span class="kw">var</span> greet;            <span class="cm">← declaration hoisted as undefined</span>
+<span class="fn">greet</span>();            <span class="cm">// 🚨 undefined is not a function!</span>
+greet = <span class="kw">function</span>() {  <span class="cm">← assignment happens here</span>
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Hello!"</span>);
+};</pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>FUNCTION EXPRESSION WITH let — TDZ ERROR</h3>
+      <pre><span class="cm">// Function expression with let</span>
+<span class="fn">greet</span>(); <span class="cm">// 🚨 ReferenceError — greet is in TDZ!</span>
+
+<span class="kw">const</span> greet = <span class="kw">function</span>() {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Hello!"</span>);
+};</pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>COMPARISON TABLE</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Type</th><th>Can call before?</th><th>Hoisting behavior</th></tr>
+          <tr><td>Function declaration</td><td>✅ Yes</td><td>Fully hoisted — ready to use</td></tr>
+          <tr><td>Function expression (var)</td><td>❌ No</td><td>var hoisted as undefined</td></tr>
+          <tr><td>Function expression (let/const)</td><td>❌ No</td><td>TDZ — ReferenceError</td></tr>
+          <tr><td>Arrow function</td><td>❌ No</td><td>Same as function expression</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 06 Real Life Examples -->
+  <div class="section" id="reallife">
+    <div class="section-label">Topic 06</div>
+    <div class="section-title"><span class="icon">🌍</span> Real-Life Examples</div>
+    <div class="section-desc">Understand hoisting and TDZ through everyday analogies</div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>🏨 EXAMPLE 1 — HOTEL ROOM BOOKING (TDZ)</h3>
+      <div class="example-box">
+        <div class="example-title">THE SCENARIO</div>
+        <div class="example-content">
+          <strong>Day 1 (9 AM):</strong> You book Room 305 online<br>
+          → Room is RESERVED in system ✓ (hoisted)<br>
+          → But check-in is at 2 PM<br><br>
+          
+          <strong>Day 1 (12 PM):</strong> You arrive early and try to enter<br>
+          Security: "🚨 Room 305 is reserved for you, but you're in the TEMPORAL DEAD ZONE. Check-in hasn't happened yet!"<br><br>
+          
+          <strong>Day 1 (2 PM):</strong> Check-in time ✓<br>
+          → You get the room key<br>
+          → NOW you can enter Room 305 ✅
+        </div>
+        <div class="example-result">
+          JavaScript: Variable exists (hoisted) but locked in TDZ until initialization line
+        </div>
+      </div>
+
+      <pre><span class="cm">// JavaScript equivalent:</span>
+{
+  <span class="cm">// TDZ starts ← room reserved but can't enter</span>
+  <span class="fn">console</span>.<span class="fn">log</span>(room); <span class="cm">// 🚨 ReferenceError — TDZ!</span>
+  <span class="kw">let</span> room = <span class="num">305</span>; <span class="cm">← TDZ ends (check-in time)</span>
+  <span class="fn">console</span>.<span class="fn">log</span>(room); <span class="cm">// 305 ✅</span>
+}</pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>🍽️ EXAMPLE 2 — RESTAURANT MENU (var Hoisting)</h3>
+      <div class="example-box">
+        <div class="example-title">THE SCENARIO</div>
+        <div class="example-content">
+          <strong>Before restaurant opens:</strong><br>
+          Manager writes on board: "Paneer Tikka (coming soon)"<br><br>
+          
+          <strong>Restaurant opens:</strong><br>
+          Customer: "Do you have Paneer Tikka?"<br>
+          Waiter: "Yes, it's on the board! But... it says 'coming soon'" (undefined)<br><br>
+          
+          <strong>Later:</strong><br>
+          Manager updates: "Paneer Tikka — ₹250" ✓<br>
+          Now actually available!
+        </div>
+        <div class="example-result">
+          var hoisting: Name exists (on board) but value comes later (undefined → actual price)
+        </div>
+      </div>
+
+      <pre><span class="cm">// JavaScript equivalent:</span>
+<span class="fn">console</span>.<span class="fn">log</span>(dish); <span class="cm">// undefined (on board but "coming soon")</span>
+<span class="kw">var</span> dish = <span class="str">"Paneer Tikka"</span>;
+<span class="fn">console</span>.<span class="fn">log</span>(dish); <span class="cm">// "Paneer Tikka" ✅</span></pre>
+    </div>
+
+    <div class="card card-accent-blue card-blue">
+      <h3>🏏 EXAMPLE 3 — CRICKET PLAYER IN QUARANTINE (TDZ)</h3>
+      <div class="example-box">
+        <div class="example-title">THE SCENARIO</div>
+        <div class="example-content">
+          <strong>Day 1:</strong> Rohit Sharma selected for Indian team<br>
+          → Name added to roster ✓ (hoisted)<br>
+          → But mandatory 7-day quarantine 🏨<br><br>
+          
+          <strong>Day 3:</strong> Coach tries to call him for practice<br>
+          Official: "🚨 Rohit is on the team but in QUARANTINE ZONE. You cannot contact him yet!"<br><br>
+          
+          <strong>Day 7:</strong> Quarantine ends ✓<br>
+          → Rohit joins team<br>
+          → NOW coach can call him ✅
+        </div>
+        <div class="example-result">
+          TDZ: Player registered (hoisted) but in quarantine (locked) until cleared
+        </div>
+      </div>
+
+      <pre><span class="cm">// JavaScript equivalent:</span>
+{
+  <span class="cm">// TDZ starts ← player in quarantine</span>
+  <span class="fn">callPlayer</span>(player); <span class="cm">// 🚨 ReferenceError!</span>
+  <span class="kw">let</span> player = <span class="str">"Rohit"</span>; <span class="cm">← quarantine ends</span>
+  <span class="fn">callPlayer</span>(player); <span class="cm">// ✅ Works!</span>
+}</pre>
+    </div>
+
+    <div class="card card-accent-left">
+      <h3>📦 EXAMPLE 4 — AMAZON PACKAGE (var vs let)</h3>
+      <div class="example-box">
+        <div class="example-title">var — EMPTY BOX ARRIVES FIRST</div>
+        <div class="example-content">
+          <strong>Day 1:</strong> Empty package box arrives at door<br>
+          You: "Is my laptop here?"<br>
+          Box: "Yes I exist... but I'm empty" (undefined)<br><br>
+          
+          <strong>Day 3:</strong> Amazon fills the box<br>
+          Box: "Now I have your MacBook Pro!" ✅
+        </div>
+      </div>
+
+      <div class="example-box" style="margin-top:12px">
+        <div class="example-title">let — PACKAGE STUCK IN CUSTOMS</div>
+        <div class="example-content">
+          <strong>Day 1:</strong> Package exists in system but stuck in customs<br>
+          You: "Is my laptop here?"<br>
+          Customs: "🚨 Package exists but STOP — still in customs!" (TDZ)<br><br>
+          
+          <strong>Day 3:</strong> Clears customs<br>
+          Delivery: "Here's your MacBook Pro!" ✅
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>The Pattern:</strong> In all examples, hoisting = thing exists early. But:<br>
+      • <code>var</code> = You get an empty placeholder (undefined)<br>
+      • <code>let/const</code> = You get blocked access (TDZ error) until ready
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 07 Interview -->
+  <div class="section" id="interview">
+    <div class="section-label">Topic 07</div>
+    <div class="section-title"><span class="icon">🎯</span> Interview Q&amp;A</div>
+    <div class="section-desc">Master these answers — commonly asked in interviews!</div>
+
+    <div class="interview-grid">
+
+      <div class="interview-card">
+        <div class="q">Q: What is hoisting?</div>
+        <div class="a">JavaScript's behavior of moving declarations (var, let, const, function) to the top of their scope before code execution. Only declarations are hoisted, not initializations.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Difference between var and let hoisting?</div>
+        <div class="a">Both are hoisted. var is initialized as undefined (no error). let is hoisted but NOT initialized — stays in TDZ and throws ReferenceError if accessed before declaration.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What is Temporal Dead Zone?</div>
+        <div class="a">The time between when let/const is hoisted and when it's initialized. During TDZ, the variable exists but cannot be accessed — throws ReferenceError. Only affects let/const, not var.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Can you use a function before declaration?</div>
+        <div class="a">Yes for function declarations (fully hoisted). No for function expressions — they behave like variables. Arrow functions also cannot be used before declaration.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Why does this code throw an error?<br><code>console.log(x); let x = 5;</code></div>
+        <div class="a">x is in the Temporal Dead Zone. let is hoisted but NOT initialized. Accessing it before the declaration line throws ReferenceError.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Why does this return undefined?<br><code>console.log(x); var x = 5;</code></div>
+        <div class="a">var is hoisted and initialized as undefined. So console.log sees x exists but has no value yet. After assignment, x becomes 5.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Are let and const hoisted?</div>
+        <div class="a">Yes, but unlike var they are NOT initialized. They stay in the Temporal Dead Zone until their declaration line is reached. This prevents usage before declaration.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: What happens here?<br><code>greet(); var greet = function(){...}</code></div>
+        <div class="a">TypeError: greet is not a function. The variable greet is hoisted as undefined. When you try to call undefined as a function, you get a TypeError.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Why does function hoisting matter?</div>
+        <div class="a">Function declarations are fully hoisted — you can organize code naturally (main logic first, helper functions below) without worrying about call order. Makes code more readable.</div>
+      </div>
+
+      <div class="interview-card">
+        <div class="q">Q: Best practice to avoid hoisting bugs?</div>
+        <div class="a">Always declare variables at the top of their scope. Use let/const (not var). Declare functions before calling them. The TDZ protection in let/const helps catch bugs early.</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>📓 JavaScript Learning Journal &nbsp;·&nbsp; <span>Day 2 Complete</span> &nbsp;·&nbsp; Continue tomorrow →</p>
+  <p style="margin-top:8px; font-size:12px; color:#555;">Hoisting · Temporal Dead Zone · var/let/const hoisting · Function hoisting · Real-life examples</p>
+</div>
+
+</body>
+</html>
