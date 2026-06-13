@@ -7,6 +7,20 @@ function cafe(orderfoodname, callMeWhenTableFound){
 
 }
 
+function callMeWhenTableFound()
+{
+    console.log('Bring the food.')
+}
+
+//Call through 1 scenario
+cafe("momo", callMeWhenTableFound)
+
+//Call through 2 scenario
+cafe("momo", function(){
+    console.log('Call on Phone.')
+})
+
+//Call through 3 scenario
 cafe("Burger",()=>{
 console.log('Arrow=> Got the table bring the food.') 
 })
