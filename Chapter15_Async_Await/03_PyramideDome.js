@@ -38,7 +38,7 @@ return new Promise(function(resolve, reject){
 
 function GoToLogin(){
 return new Promise(function(resolve, reject){
-    reject("Navigate to Login Page!")
+    resolve("Navigate to Login Page!")
 })
 }
 
@@ -48,15 +48,31 @@ return new Promise(function(resolve, reject){
 })
 }
 
-openBrowser().then(function(msg){
-    console.log("Step 1 is completed for open browser")
-    return GoToLogin()
-}).then(function(msg){
-    console.log("step2 Navigated to Login Page")
-    return enterCred()
-}).then(function(msg){
-    console.log("step3 Enter Credentials Page ")
-   console.log(msg)
-}).catch(function(msg){
-    console.log("Error Appeared!")
-})
+// openBrowser().then(function(msg){
+//     console.log("Step 1 is completed for open browser")
+//     return GoToLogin()
+// }).then(function(msg){
+//     console.log("step2 Navigated to Login Page")
+//     return enterCred()
+// }).then(function(msg){
+//     console.log("step3 Enter Credentials Page ")
+//    console.log(msg)
+// }).catch(function(){
+//     console.log("Error Appeared!")
+// })
+
+
+async function runTheE2E() {
+    let msg1= await openBrowser();
+    console.log("Step 1:",msg1)
+
+    let msg2= await GoToLogin();
+    console.log("Step 2:",msg2)
+
+    let msg3= await enterCred();
+    console.log("Step 3:",msg3)
+
+
+}
+
+runTheE2E()

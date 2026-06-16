@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JS Callbacks & Promises — Learning Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #0d1117;
+  --surface:   #161b22;
+  --card:      #1c2128;
+  --border:    #30363d;
+  --amber:     #f5a623;
+  --cyan:      #38bdf8;
+  --green:     #3fb950;
+  --red:       #f85149;
+  --purple:    #bc8cff;
+  --orange:    #fb923c;
+  --text:      #e6edf3;
+  --muted:     #7d8590;
+  --code-bg:   #0d1117;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+/* ─── HERO ─── */
+.hero {
+  background: linear-gradient(160deg, #0d1117 0%, #1a1f2e 50%, #0d1117 100%);
+  padding: 80px 48px 60px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content:'';
+  position:absolute; top:-200px; right:-100px;
+  width:600px; height:600px;
+  background: radial-gradient(circle, rgba(245,166,35,0.07) 0%, transparent 65%);
+  pointer-events:none;
+}
+.hero::after {
+  content:'';
+  position:absolute; bottom:-150px; left:-100px;
+  width:500px; height:500px;
+  background: radial-gradient(circle, rgba(56,189,248,0.05) 0%, transparent 65%);
+  pointer-events:none;
+}
+.hero-eyebrow {
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px; color:var(--amber);
+  letter-spacing:4px; text-transform:uppercase;
+  margin-bottom:18px;
+}
+.hero h1 {
+  font-family:'IBM Plex Mono', monospace;
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight:700; color:#fff;
+  line-height:1.1; margin-bottom:16px;
+}
+.hero h1 .cb  { color:var(--amber); }
+.hero h1 .sep { color:var(--muted); font-weight:400; }
+.hero h1 .pr  { color:var(--cyan); }
+.hero-sub {
+  color:var(--muted); font-size:15px;
+  max-width:620px; margin-bottom:32px; line-height:1.8;
+}
+.chip-row { display:flex; gap:10px; flex-wrap:wrap; }
+.chip {
+  padding:5px 14px; border-radius:20px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px; border:1px solid; letter-spacing:.5px;
+}
+.chip-a { color:var(--amber); border-color:rgba(245,166,35,.3); background:rgba(245,166,35,.07); }
+.chip-c { color:var(--cyan);  border-color:rgba(56,189,248,.3);  background:rgba(56,189,248,.07); }
+.chip-g { color:var(--green); border-color:rgba(63,185,80,.3);   background:rgba(63,185,80,.07); }
+.chip-p { color:var(--purple);border-color:rgba(188,140,255,.3); background:rgba(188,140,255,.07);}
+
+/* ─── PROMISE STATE MACHINE (signature element) ─── */
+.state-machine {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px; padding:28px 32px;
+  margin:32px 0 0;
+  max-width:700px;
+}
+.sm-title {
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px; color:var(--muted);
+  letter-spacing:3px; text-transform:uppercase;
+  margin-bottom:20px;
+}
+.sm-diagram {
+  display:flex; align-items:center; gap:0;
+  flex-wrap:wrap;
+}
+.sm-state {
+  padding:10px 20px; border-radius:8px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:13px; font-weight:600;
+  text-align:center; min-width:120px;
+}
+.sm-pending  { background:rgba(245,166,35,.12);  color:var(--amber);  border:1px solid rgba(245,166,35,.4);  }
+.sm-resolved { background:rgba(63,185,80,.12);   color:var(--green);  border:1px solid rgba(63,185,80,.4);   }
+.sm-rejected { background:rgba(248,81,73,.12);   color:var(--red);    border:1px solid rgba(248,81,73,.4);   }
+.sm-arrow {
+  display:flex; flex-direction:column;
+  align-items:center; margin:0 12px;
+}
+.sm-arrow-line {
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px; color:var(--muted); white-space:nowrap;
+}
+.sm-branch {
+  display:flex; flex-direction:column;
+  gap:12px; align-items:flex-start;
+}
+
+/* ─── NAV ─── */
+.sticky-nav {
+  position:sticky; top:0; z-index:200;
+  background:rgba(13,17,23,0.97);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex; overflow-x:auto;
+  padding:0 48px;
+}
+.sticky-nav a {
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px; color:var(--muted);
+  text-decoration:none; padding:14px 16px;
+  border-bottom:2px solid transparent;
+  white-space:nowrap; transition:all .2s;
+  letter-spacing:.5px;
+}
+.sticky-nav a:hover { color:var(--amber); border-bottom-color:var(--amber); }
+.nav-sep {
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px; color:var(--border);
+  padding:14px 4px; align-self:center;
+}
+
+/* ─── LAYOUT ─── */
+.wrap { max-width:960px; margin:0 auto; padding:56px 24px; }
+.section { margin-bottom:72px; }
+
+.section-eyebrow {
+  font-family:'IBM Plex Mono', monospace;
+  font-size:10px; letter-spacing:4px;
+  text-transform:uppercase; margin-bottom:10px;
+}
+.ey-amber { color:var(--amber); }
+.ey-cyan  { color:var(--cyan);  }
+.ey-green { color:var(--green); }
+.ey-purple{ color:var(--purple);}
+
+.section-title {
+  font-family:'IBM Plex Mono', monospace;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight:700; color:#fff;
+  margin-bottom:8px; line-height:1.2;
+}
+.section-sub { color:var(--muted); font-size:14px; margin-bottom:28px; }
+
+/* ─── CARDS ─── */
+.card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:12px; padding:24px;
+  margin-bottom:16px;
+}
+.card-amber  { border-left:3px solid var(--amber); }
+.card-cyan   { border-left:3px solid var(--cyan);  }
+.card-green  { border-left:3px solid var(--green); }
+.card-red    { border-left:3px solid var(--red);   }
+.card-purple { border-left:3px solid var(--purple);}
+.card-orange { border-left:3px solid var(--orange);}
+
+.card-title {
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px; font-weight:600;
+  letter-spacing:1px; margin-bottom:12px;
+  text-transform:uppercase;
+}
+.ct-amber  { color:var(--amber); }
+.ct-cyan   { color:var(--cyan);  }
+.ct-green  { color:var(--green); }
+.ct-red    { color:var(--red);   }
+.ct-purple { color:var(--purple);}
+.ct-orange { color:var(--orange);}
+
+.card p { font-size:14px; color:#bdc3cc; line-height:1.85; margin-bottom:10px; }
+.card p:last-child { margin-bottom:0; }
+.card ul { padding-left:20px; margin:10px 0; }
+.card li { font-size:14px; color:#bdc3cc; line-height:1.9; margin-bottom:6px; }
+
+/* ─── CODE BLOCKS ─── */
+.code-wrap {
+  background:var(--code-bg);
+  border:1px solid var(--border);
+  border-radius:10px; overflow:hidden;
+  margin-top:14px;
+}
+.code-header {
+  display:flex; align-items:center; gap:8px;
+  padding:10px 16px;
+  background:rgba(255,255,255,0.03);
+  border-bottom:1px solid var(--border);
+}
+.code-dot { width:10px; height:10px; border-radius:50%; }
+.dot-r { background:#f85149; }
+.dot-y { background:#f5a623; }
+.dot-g { background:#3fb950; }
+.code-label {
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px; color:var(--muted);
+  margin-left:auto;
+}
+pre {
+  padding:18px 20px; overflow-x:auto;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px; line-height:1.8; color:#adbac7;
+}
+/* syntax */
+.kw  { color:#ff7b72; }
+.fn  { color:#d2a8ff; }
+.str { color:#a5d6ff; }
+.num { color:#f2cc60; }
+.cm  { color:#8b949e; font-style:italic; }
+.cls { color:#ffa657; }
+.op  { color:var(--amber); }
+.met { color:#79c0ff; }
+
+/* ─── GRID ─── */
+.g2 { display:grid; grid-template-columns:repeat(auto-fit, minmax(340px,1fr)); gap:14px; }
+.g3 { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:12px; }
+
+/* ─── TABLES ─── */
+.tbl-wrap { overflow-x:auto; margin-top:14px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th {
+  background:#0d1117; color:var(--amber);
+  font-family:'IBM Plex Mono', monospace;
+  font-size:10px; letter-spacing:1px;
+  padding:10px 14px; text-align:left;
+  border-bottom:1px solid var(--border);
+}
+td { padding:10px 14px; border-bottom:1px solid #1c2128; color:#bdc3cc; vertical-align:top; }
+tr:hover td { background:rgba(255,255,255,0.02); }
+tr:last-child td { border-bottom:none; }
+td code { font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--cyan); background:rgba(56,189,248,.08); padding:2px 6px; border-radius:4px; }
+
+/* ─── CALLOUT ─── */
+.callout {
+  border-radius:10px; padding:16px 20px;
+  margin-top:16px; font-size:14px; color:#ccc; line-height:1.85;
+}
+.ca { background:rgba(245,166,35,.05); border:1px solid rgba(245,166,35,.2); }
+.ca strong { color:var(--amber); }
+.cc { background:rgba(56,189,248,.05); border:1px solid rgba(56,189,248,.2); }
+.cc strong { color:var(--cyan); }
+.cg { background:rgba(63,185,80,.05); border:1px solid rgba(63,185,80,.2); }
+.cg strong { color:var(--green); }
+.cr { background:rgba(248,81,73,.05); border:1px solid rgba(248,81,73,.2); }
+.cr strong { color:var(--red); }
+.cp { background:rgba(188,140,255,.05); border:1px solid rgba(188,140,255,.2); }
+.cp strong { color:var(--purple); }
+
+/* ─── INTERVIEW CARDS ─── */
+.iq-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:12px; margin-top:16px; }
+.iq {
+  background:var(--card); border:1px solid var(--border);
+  border-top:2px solid var(--amber);
+  border-radius:10px; padding:18px;
+}
+.iq-cyan  { border-top-color:var(--cyan);   }
+.iq-green { border-top-color:var(--green);  }
+.iq-purple{ border-top-color:var(--purple); }
+.iq-red   { border-top-color:var(--red);    }
+.iq-q {
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px; color:var(--amber);
+  margin-bottom:10px; line-height:1.5;
+}
+.iq-cyan .iq-q   { color:var(--cyan);   }
+.iq-green .iq-q  { color:var(--green);  }
+.iq-purple .iq-q { color:var(--purple); }
+.iq-red .iq-q    { color:var(--red);    }
+.iq-a { font-size:13px; color:#bdc3cc; line-height:1.75; }
+
+/* ─── PRACTICE QUESTIONS ─── */
+.pq-box {
+  background:rgba(245,166,35,.03);
+  border:1px solid rgba(245,166,35,.15);
+  border-radius:12px; padding:24px; margin-top:24px;
+}
+.pq-box-cyan {
+  background:rgba(56,189,248,.03);
+  border-color:rgba(56,189,248,.15);
+}
+.pq-header {
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px; color:var(--amber);
+  letter-spacing:3px; text-transform:uppercase;
+  margin-bottom:18px;
+}
+.pq-header-cyan { color:var(--cyan); }
+.pq {
+  background:var(--code-bg);
+  border-left:3px solid var(--amber);
+  padding:14px 18px; margin-bottom:12px;
+  border-radius:6px;
+}
+.pq-cyan { border-left-color:var(--cyan); }
+.pq-num {
+  font-family:'IBM Plex Mono', monospace;
+  font-size:10px; color:var(--amber); margin-bottom:6px;
+}
+.pq-cyan .pq-num { color:var(--cyan); }
+.pq-text { font-size:14px; color:#ccc; line-height:1.75; }
+.pq-tag {
+  display:inline-block; margin-top:8px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:10px; padding:2px 8px; border-radius:4px;
+}
+.tag-easy   { background:rgba(63,185,80,.1);  color:var(--green);  }
+.tag-medium { background:rgba(245,166,35,.1); color:var(--amber);  }
+.tag-hard   { background:rgba(248,81,73,.1);  color:var(--red);    }
+.tag-pw     { background:rgba(56,189,248,.1); color:var(--cyan);   }
+
+.divider { border:none; border-top:1px solid var(--border); margin:60px 0; }
+
+/* ─── FLOW DIAGRAM ─── */
+.flow {
+  background:var(--code-bg); border:1px solid var(--border);
+  border-radius:10px; padding:20px 24px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px; line-height:2; color:#8b949e;
+  margin-top:14px; overflow-x:auto;
+}
+.fw  { color:#fff; }
+.fa  { color:var(--amber); }
+.fc  { color:var(--cyan);  }
+.fg  { color:var(--green); }
+.fr  { color:var(--red);   }
+
+/* ─── COMPARISON BLOCK ─── */
+.vs-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+.vs-card {
+  background:var(--code-bg); border:1px solid var(--border);
+  border-radius:8px; overflow:hidden;
+}
+.vs-label {
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px; padding:10px 16px;
+  border-bottom:1px solid var(--border);
+}
+.vs-bad  { background:rgba(248,81,73,.08); color:var(--red); }
+.vs-good { background:rgba(63,185,80,.08); color:var(--green); }
+
+/* ─── FOOTER ─── */
+.footer {
+  text-align:center; padding:40px 24px;
+  border-top:1px solid var(--border);
+  color:var(--muted);
+  font-family:'IBM Plex Mono', monospace; font-size:12px;
+}
+.footer span { color:var(--amber); }
+
+@media(max-width:640px) {
+  .hero { padding:48px 20px 40px; }
+  .sticky-nav { padding:0 16px; }
+  .vs-grid { grid-template-columns:1fr; }
+  .sm-diagram { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+  <div class="hero-eyebrow">📚 JavaScript Learning Guide</div>
+  <h1>
+    <span class="cb">Callbacks</span>
+    <span class="sep"> &amp; </span>
+    <span class="pr">Promises</span>
+  </h1>
+  <p class="hero-sub">Master asynchronous JavaScript — from callbacks to Promises to async/await. With descriptions, examples, practice questions, and interview Q&A.</p>
+  <div class="chip-row">
+    <span class="chip chip-a">Callbacks</span>
+    <span class="chip chip-c">Promises</span>
+    <span class="chip chip-g">async/await</span>
+    <span class="chip chip-p">Interview Q&A</span>
+    <span class="chip chip-a">Practice Questions</span>
+  </div>
+
+  <!-- Promise State Machine — Signature Element -->
+  <div class="state-machine">
+    <div class="sm-title">Promise State Machine</div>
+    <div class="sm-diagram">
+      <div class="sm-state sm-pending">⏳ PENDING</div>
+      <div class="sm-arrow">
+        <div class="sm-arrow-line">──────────&gt;</div>
+      </div>
+      <div class="sm-branch">
+        <div class="sm-state sm-resolved">✅ FULFILLED</div>
+        <div class="sm-state sm-rejected">❌ REJECTED</div>
+      </div>
+      <div class="sm-arrow">
+        <div class="sm-arrow-line">&nbsp;&nbsp;→ .then()</div>
+        <div class="sm-arrow-line">&nbsp;&nbsp;→ .catch()</div>
+      </div>
+      <div class="sm-state sm-resolved" style="min-width:100px; font-size:11px;">
+        .finally()
+        <br>always runs
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="sticky-nav">
+  <a href="#cb-what">What is Callback</a>
+  <a href="#cb-types">Callback Types</a>
+  <a href="#cb-hell">Callback Hell</a>
+  <a href="#cb-practice">CB Practice</a>
+  <span class="nav-sep">|</span>
+  <a href="#pr-what">What is Promise</a>
+  <a href="#pr-states">States</a>
+  <a href="#pr-methods">PR Methods</a>
+  <a href="#async-await">async/await</a>
+  <a href="#pr-practice">PR Practice</a>
+  <span class="nav-sep">|</span>
+  <a href="#interview">Interview Q&A</a>
+</nav>
+
+<div class="wrap">
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--                    CALLBACKS SECTION                        -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+
+<!-- WHAT IS CALLBACK -->
+<div class="section" id="cb-what">
+  <div class="section-eyebrow ey-amber">Section 01</div>
+  <div class="section-title">What is a Callback Function?</div>
+  <div class="section-sub">A function passed as an argument to another function, called when a task completes</div>
+
+  <div class="g2">
+    <div class="card card-amber">
+      <div class="card-title ct-amber">Simple Definition</div>
+      <p>A <strong style="color:var(--amber)">callback</strong> is a function you give to another function and say <em>"call this when you're done."</em></p>
+      <p>The function receiving the callback decides <strong>when</strong> to call it — immediately or later.</p>
+    </div>
+    <div class="card card-cyan">
+      <div class="card-title ct-cyan">Real-Life Analogy</div>
+      <p>🍕 You order pizza and give your phone number (callback).</p>
+      <p>The pizza shop calls you back when it's ready — you don't wait by the phone!</p>
+      <p>You continue your work while pizza is being made (non-blocking).</p>
+    </div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div>
+      <span class="code-label">callback-basic.js</span>
+    </div>
+    <pre><span class="cm">// Simplest callback example</span>
+<span class="kw">function</span> <span class="fn">greet</span>(name, <span class="fn">callback</span>) {
+  <span class="kw">let</span> message = <span class="str">`Hello, ${name}!`</span>;
+  <span class="fn">callback</span>(message);           <span class="cm">// call the passed function</span>
+}
+
+<span class="cm">// Pass a function as argument</span>
+<span class="fn">greet</span>(<span class="str">"Ravi"</span>, (msg) => {
+  <span class="met">console</span>.<span class="fn">log</span>(msg);            <span class="cm">// "Hello, Ravi!"</span>
+});
+
+<span class="cm">// Use different callbacks with SAME function</span>
+<span class="fn">greet</span>(<span class="str">"Ravi"</span>, (msg) => <span class="met">console</span>.<span class="fn">log</span>(msg.<span class="met">toUpperCase</span>())); <span class="cm">// "HELLO, RAVI!"</span>
+<span class="fn">greet</span>(<span class="str">"Ravi"</span>, (msg) => alert(msg));   <span class="cm">// shows alert</span></pre>
+  </div>
+
+  <div class="callout ca">
+    <strong>Why callbacks exist:</strong> JavaScript is single-threaded. Callbacks let you say "do this task, and when done — run this function." This keeps JS non-blocking and responsive.
+  </div>
+</div>
+
+<!-- CALLBACK TYPES -->
+<div class="section" id="cb-types">
+  <div class="section-eyebrow ey-amber">Section 02</div>
+  <div class="section-title">Types of Callbacks</div>
+  <div class="section-sub">Synchronous callbacks run immediately — Asynchronous callbacks run later</div>
+
+  <div class="g2">
+    <div class="card card-green">
+      <div class="card-title ct-green">Synchronous Callback</div>
+      <p>Runs <strong style="color:var(--green)">immediately</strong> inside the function call. No waiting.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div>
+          <span class="code-label">sync-callback.js</span>
+        </div>
+        <pre><span class="cm">// map, filter, forEach = sync callbacks</span>
+[<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>].<span class="met">map</span>(n => n * <span class="num">2</span>);  <span class="cm">// runs immediately</span>
+
+<span class="kw">function</span> <span class="fn">calculate</span>(a, b, <span class="fn">op</span>) {
+  <span class="kw">return</span> <span class="fn">op</span>(a, b);  <span class="cm">// called right now</span>
+}
+<span class="fn">calculate</span>(<span class="num">5</span>, <span class="num">3</span>, (a,b) => a + b); <span class="cm">// 8</span></pre>
+      </div>
+    </div>
+    <div class="card card-cyan">
+      <div class="card-title ct-cyan">Asynchronous Callback</div>
+      <p>Runs <strong style="color:var(--cyan)">later</strong> — after a delay, event, or async operation.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div>
+          <span class="code-label">async-callback.js</span>
+        </div>
+        <pre><span class="cm">// setTimeout = async callback</span>
+<span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Start"</span>);
+
+<span class="fn">setTimeout</span>(() => {
+  <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Runs after 2 seconds"</span>);
+}, <span class="num">2000</span>);
+
+<span class="met">console</span>.<span class="fn">log</span>(<span class="str">"End"</span>);
+
+<span class="cm">// Output order:</span>
+<span class="cm">// "Start"    ← immediate</span>
+<span class="cm">// "End"      ← immediate</span>
+<span class="cm">// "Runs after 2 seconds" ← later!</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-amber" style="margin-top:16px">
+    <div class="card-title ct-amber">Error-First Callback (Node.js Pattern)</div>
+    <p>Standard Node.js convention: first parameter is <strong style="color:var(--red)">error</strong>, second is <strong style="color:var(--green)">data</strong>.</p>
+    <div class="code-wrap">
+      <div class="code-header">
+        <div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div>
+        <span class="code-label">error-first.js</span>
+      </div>
+      <pre><span class="cm">// Pattern: callback(error, data)</span>
+<span class="kw">function</span> <span class="fn">divideNumbers</span>(a, b, <span class="fn">callback</span>) {
+  <span class="kw">if</span> (b === <span class="num">0</span>) {
+    <span class="fn">callback</span>(<span class="kw">new</span> <span class="cls">Error</span>(<span class="str">"Cannot divide by zero"</span>), <span class="kw">null</span>);
+  } <span class="kw">else</span> {
+    <span class="fn">callback</span>(<span class="kw">null</span>, a / b);  <span class="cm">// null = no error</span>
+  }
+}
+
+<span class="fn">divideNumbers</span>(<span class="num">10</span>, <span class="num">2</span>, (err, result) => {
+  <span class="kw">if</span> (err) {
+    <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Error:"</span>, err.message);
+  } <span class="kw">else</span> {
+    <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Result:"</span>, result);  <span class="cm">// 5</span>
+  }
+});
+
+<span class="fn">divideNumbers</span>(<span class="num">10</span>, <span class="num">0</span>, (err, result) => {
+  <span class="kw">if</span> (err) <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Error:"</span>, err.message);
+  <span class="cm">// "Error: Cannot divide by zero"</span>
+});</pre>
+    </div>
+  </div>
+
+  <div class="card card-purple" style="margin-top:16px">
+    <div class="card-title ct-purple">Higher-Order Functions with Callbacks</div>
+    <p>Functions that take other functions as arguments. All built-in array methods use callbacks!</p>
+    <div class="code-wrap">
+      <div class="code-header">
+        <div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div>
+        <span class="code-label">higher-order.js</span>
+      </div>
+      <pre><span class="cm">// Build your own map() — shows HOW callbacks work</span>
+<span class="kw">function</span> <span class="fn">myMap</span>(arr, <span class="fn">callback</span>) {
+  <span class="kw">let</span> result = [];
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < arr.length; i++) {
+    result.<span class="met">push</span>(<span class="fn">callback</span>(arr[i], i, arr)); <span class="cm">// element, index, array</span>
+  }
+  <span class="kw">return</span> result;
+}
+
+<span class="fn">myMap</span>([<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>], n => n * <span class="num">2</span>);   <span class="cm">// [2, 4, 6]</span>
+<span class="fn">myMap</span>([<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>], n => n > <span class="num">1</span>);   <span class="cm">// [false, true, true]</span>
+
+<span class="cm">// Build your own filter()</span>
+<span class="kw">function</span> <span class="fn">myFilter</span>(arr, <span class="fn">callback</span>) {
+  <span class="kw">let</span> result = [];
+  <span class="kw">for</span> (<span class="kw">let</span> item <span class="kw">of</span> arr) {
+    <span class="kw">if</span> (<span class="fn">callback</span>(item)) result.<span class="met">push</span>(item);
+  }
+  <span class="kw">return</span> result;
+}
+
+<span class="fn">myFilter</span>([<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>,<span class="num">4</span>,<span class="num">5</span>], n => n % <span class="num">2</span> === <span class="num">0</span>); <span class="cm">// [2, 4]</span></pre>
+    </div>
+  </div>
+</div>
+
+<!-- CALLBACK HELL -->
+<div class="section" id="cb-hell">
+  <div class="section-eyebrow ey-amber">Section 03</div>
+  <div class="section-title">Callback Hell — The Problem</div>
+  <div class="section-sub">When callbacks nest inside callbacks inside callbacks — creating the "pyramid of doom"</div>
+
+  <div class="vs-grid">
+    <div class="vs-card">
+      <div class="vs-label vs-bad">❌ Callback Hell</div>
+      <pre style="padding:16px; font-size:11px; background:var(--code-bg);">getUser(id, (user) => {
+  getOrders(user.id, (orders) => {
+    getPayment(orders[0].id, (payment) => {
+      getInvoice(payment.id, (invoice) => {
+        sendEmail(invoice, (result) => {
+          <span class="cm">// Lost in nesting! 😱</span>
+          console.log(result);
+        });
+      });
+    });
+  });
+});</pre>
+    </div>
+    <div class="vs-card">
+      <div class="vs-label vs-good">✅ With Promises</div>
+      <pre style="padding:16px; font-size:11px; background:var(--code-bg);"><span class="fn">getUser</span>(id)
+  .<span class="met">then</span>(user => <span class="fn">getOrders</span>(user.id))
+  .<span class="met">then</span>(orders => <span class="fn">getPayment</span>(orders[<span class="num">0</span>].id))
+  .<span class="met">then</span>(payment => <span class="fn">getInvoice</span>(payment.id))
+  .<span class="met">then</span>(invoice => <span class="fn">sendEmail</span>(invoice))
+  .<span class="met">then</span>(result => {
+    <span class="cm">// Clean and readable! ✅</span>
+    <span class="met">console</span>.<span class="fn">log</span>(result);
+  })
+  .<span class="met">catch</span>(err => <span class="met">console</span>.<span class="fn">log</span>(err));</pre>
+    </div>
+  </div>
+
+  <div class="callout cr" style="margin-top:16px">
+    <strong>Problems with Callback Hell:</strong> Hard to read, hard to debug, hard to handle errors, hard to add logic between steps. This is exactly why Promises were invented!
+  </div>
+
+  <div class="card card-orange" style="margin-top:16px">
+    <div class="card-title ct-orange">Advanced Callbacks — debounce() & once()</div>
+    <div class="code-wrap">
+      <div class="code-header">
+        <div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div>
+        <span class="code-label">advanced-callbacks.js</span>
+      </div>
+      <pre><span class="cm">// once() — function runs ONLY on first call</span>
+<span class="kw">function</span> <span class="fn">once</span>(<span class="fn">fn</span>) {
+  <span class="kw">let</span> called = <span class="kw">false</span>, result;
+  <span class="kw">return</span> <span class="kw">function</span>(...args) {
+    <span class="kw">if</span> (!called) { called = <span class="kw">true</span>; result = <span class="fn">fn</span>(...args); }
+    <span class="kw">return</span> result;
+  };
+}
+
+<span class="kw">const</span> init = <span class="fn">once</span>(() => { <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Initialized!"</span>); <span class="kw">return</span> <span class="num">42</span>; });
+<span class="fn">init</span>();  <span class="cm">// "Initialized!" → 42</span>
+<span class="fn">init</span>();  <span class="cm">// silent → 42</span>
+
+<span class="cm">// debounce() — waits until user STOPS calling</span>
+<span class="kw">function</span> <span class="fn">debounce</span>(<span class="fn">fn</span>, delay) {
+  <span class="kw">let</span> timer;
+  <span class="kw">return</span> <span class="kw">function</span>(...args) {
+    <span class="fn">clearTimeout</span>(timer);
+    timer = <span class="fn">setTimeout</span>(() => <span class="fn">fn</span>(...args), delay);
+  };
+}
+
+<span class="kw">const</span> search = <span class="fn">debounce</span>((q) => <span class="met">console</span>.<span class="fn">log</span>(<span class="str">`Search: ${q}`</span>), <span class="num">500</span>);
+<span class="fn">search</span>(<span class="str">"R"</span>);     <span class="cm">// reset timer</span>
+<span class="fn">search</span>(<span class="str">"Ra"</span>);    <span class="cm">// reset timer</span>
+<span class="fn">search</span>(<span class="str">"Ravi"</span>);  <span class="cm">// after 500ms → "Search: Ravi"</span></pre>
+    </div>
+  </div>
+</div>
+
+<!-- CALLBACK PRACTICE QUESTIONS -->
+<div class="section" id="cb-practice">
+  <div class="section-eyebrow ey-amber">Section 04</div>
+  <div class="section-title">Callback Practice Questions</div>
+  <div class="section-sub">Questions from easy to advanced — with complete answers below each</div>
+
+  <div class="pq-box">
+    <div class="pq-header">📝 Practice Questions — Callbacks</div>
+
+    <div class="pq">
+      <div class="pq-num">Q1</div>
+      <div class="pq-text">Write a function <code style="color:var(--amber)">calculate(a, b, operation)</code> that takes two numbers and an operation callback. Test with add, subtract, multiply, divide.</div>
+      <span class="pq-tag tag-easy">Easy</span>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div><span class="code-label">answer-q1.js</span></div>
+      <pre><span class="kw">function</span> <span class="fn">calculate</span>(a, b, <span class="fn">operation</span>) {
+  <span class="kw">return</span> <span class="fn">operation</span>(a, b);
+}
+
+<span class="met">console</span>.<span class="fn">log</span>(<span class="fn">calculate</span>(<span class="num">10</span>, <span class="num">5</span>, (a, b) => a + b));  <span class="cm">// 15</span>
+<span class="met">console</span>.<span class="fn">log</span>(<span class="fn">calculate</span>(<span class="num">10</span>, <span class="num">5</span>, (a, b) => a - b));  <span class="cm">// 5</span>
+<span class="met">console</span>.<span class="fn">log</span>(<span class="fn">calculate</span>(<span class="num">10</span>, <span class="num">5</span>, (a, b) => a * b));  <span class="cm">// 50</span>
+<span class="met">console</span>.<span class="fn">log</span>(<span class="fn">calculate</span>(<span class="num">10</span>, <span class="num">5</span>, (a, b) => a / b));  <span class="cm">// 2</span></pre>
+    </div>
+
+    <div class="pq" style="margin-top:14px">
+      <div class="pq-num">Q2</div>
+      <div class="pq-text">Implement <code style="color:var(--amber)">myForEach(arr, callback)</code> and <code style="color:var(--amber)">myMap(arr, callback)</code> from scratch. The callback should receive (element, index, array).</div>
+      <span class="pq-tag tag-medium">Medium</span>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div><span class="code-label">answer-q2.js</span></div>
+      <pre><span class="kw">function</span> <span class="fn">myForEach</span>(arr, <span class="fn">callback</span>) {
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < arr.length; i++) {
+    <span class="fn">callback</span>(arr[i], i, arr);
+  }
+}
+
+<span class="kw">function</span> <span class="fn">myMap</span>(arr, <span class="fn">callback</span>) {
+  <span class="kw">let</span> result = [];
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < arr.length; i++) {
+    result.<span class="met">push</span>(<span class="fn">callback</span>(arr[i], i, arr));
+  }
+  <span class="kw">return</span> result;
+}
+
+<span class="fn">myForEach</span>([<span class="str">"pass"</span>,<span class="str">"fail"</span>,<span class="str">"skip"</span>], (item, i) => {
+  <span class="met">console</span>.<span class="fn">log</span>(<span class="str">`Test ${i+1}: ${item.<span class="met">toUpperCase</span>()}`</span>);
+});
+<span class="cm">// Test 1: PASS   Test 2: FAIL   Test 3: SKIP</span>
+
+<span class="met">console</span>.<span class="fn">log</span>(<span class="fn">myMap</span>([<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>], n => n * n)); <span class="cm">// [1, 4, 9]</span></pre>
+    </div>
+
+    <div class="pq" style="margin-top:14px">
+      <div class="pq-num">Q3</div>
+      <div class="pq-text">Write a <code style="color:var(--amber)">retry(fn, times, callback)</code> function that retries a failing function up to <code>times</code> times before giving up.</div>
+      <span class="pq-tag tag-hard">Hard</span>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div><span class="code-label">answer-q3.js</span></div>
+      <pre><span class="kw">function</span> <span class="fn">retry</span>(<span class="fn">fn</span>, times, <span class="fn">callback</span>) {
+  <span class="kw">try</span> {
+    <span class="kw">let</span> result = <span class="fn">fn</span>();
+    <span class="fn">callback</span>(<span class="kw">null</span>, result);
+  } <span class="kw">catch</span> (err) {
+    <span class="kw">if</span> (times > <span class="num">0</span>) {
+      <span class="met">console</span>.<span class="fn">log</span>(<span class="str">`Retrying... (${times} left)`</span>);
+      <span class="fn">retry</span>(<span class="fn">fn</span>, times - <span class="num">1</span>, <span class="fn">callback</span>);
+    } <span class="kw">else</span> {
+      <span class="fn">callback</span>(err, <span class="kw">null</span>);
+    }
+  }
+}
+
+<span class="kw">let</span> attempt = <span class="num">0</span>;
+<span class="kw">function</span> <span class="fn">unstable</span>() {
+  attempt++;
+  <span class="kw">if</span> (attempt < <span class="num">3</span>) <span class="kw">throw new</span> <span class="cls">Error</span>(<span class="str">"Network error"</span>);
+  <span class="kw">return</span> <span class="str">"Success!"</span>;
+}
+
+<span class="fn">retry</span>(<span class="fn">unstable</span>, <span class="num">3</span>, (err, result) => {
+  <span class="kw">if</span> (err) <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Failed:"</span>, err.message);
+  <span class="kw">else</span> <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"✅"</span>, result);
+});
+<span class="cm">// Retrying... (3 left)</span>
+<span class="cm">// Retrying... (2 left)</span>
+<span class="cm">// ✅ Success!</span></pre>
+    </div>
+
+    <div class="pq" style="margin-top:14px">
+      <div class="pq-num">Q4</div>
+      <div class="pq-text">Predict the output of this code and explain WHY the order is what it is.</div>
+      <span class="pq-tag tag-medium">Medium</span>
+      <div class="code-wrap" style="margin-top:10px">
+        <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+        <pre><span class="met">console</span>.<span class="fn">log</span>(<span class="str">"A"</span>);
+<span class="fn">setTimeout</span>(() => <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"B"</span>), <span class="num">0</span>);
+<span class="met">console</span>.<span class="fn">log</span>(<span class="str">"C"</span>);</pre>
+      </div>
+      <div style="margin-top:10px; padding:12px; background:rgba(63,185,80,.05); border-radius:6px; border:1px solid rgba(63,185,80,.2);">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--green); margin-bottom:6px;">ANSWER</div>
+        <div style="font-size:13px; color:#bdc3cc;">Output: <strong style="color:var(--green)">A → C → B</strong><br>Even with 0ms delay, setTimeout is async — callback goes to the event queue and runs AFTER all synchronous code finishes.</div>
+      </div>
+    </div>
+
+    <div class="pq" style="margin-top:14px">
+      <div class="pq-num">Q5 — Playwright</div>
+      <div class="pq-text">Write a <code style="color:var(--amber)">runTestsSequentially(tests, finalCallback)</code> that runs each test one by one using callbacks, collecting results, then calls finalCallback with summary.</div>
+      <span class="pq-tag tag-hard">Hard</span>
+      <span class="pq-tag tag-pw">Playwright</span>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div><span class="code-label">answer-q5.js</span></div>
+      <pre><span class="kw">function</span> <span class="fn">runTest</span>(name, <span class="fn">callback</span>) {
+  <span class="fn">setTimeout</span>(() => {
+    <span class="kw">let</span> status = <span class="cls">Math</span>.<span class="fn">random</span>() > <span class="num">0.3</span> ? <span class="str">"pass"</span> : <span class="str">"fail"</span>;
+    <span class="fn">callback</span>(<span class="kw">null</span>, { name, status });
+  }, <span class="cls">Math</span>.<span class="fn">random</span>() * <span class="num">500</span>);
+}
+
+<span class="kw">function</span> <span class="fn">runTestsSequentially</span>(tests, <span class="fn">finalCallback</span>) {
+  <span class="kw">let</span> results = [], index = <span class="num">0</span>;
+
+  <span class="kw">function</span> <span class="fn">runNext</span>() {
+    <span class="kw">if</span> (index >= tests.length) {
+      <span class="kw">let</span> passed = results.<span class="met">filter</span>(r => r.status === <span class="str">"pass"</span>).length;
+      <span class="fn">finalCallback</span>(<span class="kw">null</span>, { total: results.length, passed, results });
+      <span class="kw">return</span>;
+    }
+    <span class="fn">runTest</span>(tests[index++], (err, result) => {
+      <span class="met">console</span>.<span class="fn">log</span>(<span class="str">`${result.status === "pass" ? "✅" : "❌"} ${result.name}`</span>);
+      results.<span class="met">push</span>(result);
+      <span class="fn">runNext</span>();
+    });
+  }
+
+  <span class="fn">runNext</span>();
+}
+
+<span class="fn">runTestsSequentially</span>([<span class="str">"Login"</span>,<span class="str">"Signup"</span>,<span class="str">"Checkout"</span>], (err, summary) => {
+  <span class="met">console</span>.<span class="fn">log</span>(<span class="str">`\n📊 ${summary.passed}/${summary.total} passed`</span>);
+});</pre>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--                    PROMISES SECTION                         -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+
+<!-- WHAT IS PROMISE -->
+<div class="section" id="pr-what">
+  <div class="section-eyebrow ey-cyan">Section 05</div>
+  <div class="section-title">What is a Promise?</div>
+  <div class="section-sub">An object representing the eventual completion or failure of an async operation</div>
+
+  <div class="g2">
+    <div class="card card-cyan">
+      <div class="card-title ct-cyan">Simple Definition</div>
+      <p>A <strong style="color:var(--cyan)">Promise</strong> is a placeholder for a value you don't have yet but will get in the future.</p>
+      <p>Like an IOU note — "I promise to give you the data when it's ready."</p>
+    </div>
+    <div class="card card-green">
+      <div class="card-title ct-green">Zomato Analogy</div>
+      <p>🍕 You place an order → get an <strong style="color:var(--amber)">order ID</strong> (Promise)</p>
+      <p>You continue doing other things while it's being prepared</p>
+      <p>Later: Food arrives ✅ (resolved) or Order cancelled ❌ (rejected)</p>
+    </div>
+  </div>
+
+  <div class="card card-cyan" style="margin-top:16px">
+    <div class="card-title ct-cyan">Creating & Consuming a Promise</div>
+    <div class="code-wrap">
+      <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div><span class="code-label">promise-basic.js</span></div>
+      <pre><span class="cm">// ─── CREATING ───────────────────────────────────────</span>
+<span class="kw">let</span> myPromise = <span class="kw">new</span> <span class="cls">Promise</span>((<span class="fn">resolve</span>, <span class="fn">reject</span>) => {
+  <span class="kw">let</span> success = <span class="kw">true</span>;
+
+  <span class="kw">if</span> (success) {
+    <span class="fn">resolve</span>(<span class="str">"Data received!"</span>);    <span class="cm">// ✅ Fulfil it</span>
+  } <span class="kw">else</span> {
+    <span class="fn">reject</span>(<span class="kw">new</span> <span class="cls">Error</span>(<span class="str">"Failed!"</span>)); <span class="cm">// ❌ Reject it</span>
+  }
+});
+
+<span class="cm">// ─── CONSUMING ──────────────────────────────────────</span>
+myPromise
+  .<span class="met">then</span>(data  => <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"✅ Success:"</span>, data))
+  .<span class="met">catch</span>(err  => <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"❌ Error:"</span>, err.message))
+  .<span class="met">finally</span>(()  => <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Always runs!"</span>));
+
+<span class="cm">// Output: ✅ Success: Data received!</span>
+<span class="cm">//         Always runs!</span></pre>
+    </div>
+  </div>
+</div>
+
+<!-- PROMISE STATES -->
+<div class="section" id="pr-states">
+  <div class="section-eyebrow ey-cyan">Section 06</div>
+  <div class="section-title">Promise States & Chaining</div>
+  <div class="section-sub">A Promise is always in one of three states — and .then() chains are how you sequence async work</div>
+
+  <div class="g3">
+    <div class="card card-amber">
+      <div class="card-title ct-amber">⏳ PENDING</div>
+      <p>Initial state. Neither fulfilled nor rejected. Operation is still running.</p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+      <pre><span class="kw">let</span> p = <span class="kw">new</span> <span class="cls">Promise</span>((res) => {
+  <span class="cm">// Still running...</span>
+});
+<span class="cm">// p is PENDING</span></pre></div>
+    </div>
+    <div class="card card-green">
+      <div class="card-title ct-green">✅ FULFILLED</div>
+      <p>Operation succeeded. resolve() was called. .then() handler runs.</p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+      <pre><span class="kw">let</span> p = <span class="kw">new</span> <span class="cls">Promise</span>((res) => {
+  <span class="fn">res</span>(<span class="str">"Success!"</span>);
+});
+<span class="cm">// p is FULFILLED</span></pre></div>
+    </div>
+    <div class="card card-red">
+      <div class="card-title ct-red">❌ REJECTED</div>
+      <p>Operation failed. reject() was called. .catch() handler runs.</p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+      <pre><span class="kw">let</span> p = <span class="kw">new</span> <span class="cls">Promise</span>((_, rej) => {
+  <span class="fn">rej</span>(<span class="kw">new</span> <span class="cls">Error</span>(<span class="str">"Failed"</span>));
+});
+<span class="cm">// p is REJECTED</span></pre></div>
+    </div>
+  </div>
+
+  <div class="card card-cyan" style="margin-top:16px">
+    <div class="card-title ct-cyan">Promise Chaining — Sequential Async Operations</div>
+    <div class="code-wrap">
+      <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div><span class="code-label">chaining.js</span></div>
+      <pre><span class="kw">function</span> <span class="fn">step1</span>() {
+  <span class="kw">return</span> <span class="kw">new</span> <span class="cls">Promise</span>(res => <span class="fn">setTimeout</span>(() => <span class="fn">res</span>(<span class="str">"Step 1 done"</span>), <span class="num">1000</span>));
+}
+<span class="kw">function</span> <span class="fn">step2</span>(data) {
+  <span class="kw">return</span> <span class="kw">new</span> <span class="cls">Promise</span>(res => <span class="fn">setTimeout</span>(() => <span class="fn">res</span>(data + <span class="str">" → Step 2 done"</span>), <span class="num">1000</span>));
+}
+<span class="kw">function</span> <span class="fn">step3</span>(data) {
+  <span class="kw">return</span> <span class="kw">new</span> <span class="cls">Promise</span>(res => <span class="fn">setTimeout</span>(() => <span class="fn">res</span>(data + <span class="str">" → Step 3 done"</span>), <span class="num">1000</span>));
+}
+
+<span class="cm">// Each .then() receives result of previous</span>
+<span class="fn">step1</span>()
+  .<span class="met">then</span>(data => <span class="fn">step2</span>(data))
+  .<span class="met">then</span>(data => <span class="fn">step3</span>(data))
+  .<span class="met">then</span>(result => <span class="met">console</span>.<span class="fn">log</span>(result))
+  .<span class="met">catch</span>(err => <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Error:"</span>, err));
+
+<span class="cm">// After 3 seconds: "Step 1 done → Step 2 done → Step 3 done"</span></pre>
+    </div>
+  </div>
+</div>
+
+<!-- PROMISE METHODS -->
+<div class="section" id="pr-methods">
+  <div class="section-eyebrow ey-cyan">Section 07</div>
+  <div class="section-title">All Promise Methods</div>
+  <div class="section-sub">Six static methods — each with a distinct purpose</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr>
+        <th>Method</th><th>Waits For</th><th>Fails If</th><th>Use Case</th>
+      </tr>
+      <tr>
+        <td><code>Promise.all()</code></td>
+        <td>ALL resolve</td>
+        <td>ANY rejects</td>
+        <td>Load all data before rendering</td>
+      </tr>
+      <tr>
+        <td><code>Promise.allSettled()</code></td>
+        <td>ALL settle</td>
+        <td>Never rejects</td>
+        <td>Run all tests, collect results</td>
+      </tr>
+      <tr>
+        <td><code>Promise.race()</code></td>
+        <td>FIRST settles</td>
+        <td>If FIRST rejects</td>
+        <td>Timeout pattern</td>
+      </tr>
+      <tr>
+        <td><code>Promise.any()</code></td>
+        <td>FIRST resolves</td>
+        <td>ALL reject</td>
+        <td>Try fastest server</td>
+      </tr>
+      <tr>
+        <td><code>Promise.resolve(val)</code></td>
+        <td>—</td>
+        <td>Never</td>
+        <td>Wrap value in Promise</td>
+      </tr>
+      <tr>
+        <td><code>Promise.reject(err)</code></td>
+        <td>—</td>
+        <td>Always</td>
+        <td>Immediately reject</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="g2" style="margin-top:16px">
+    <div class="card card-cyan">
+      <div class="card-title ct-cyan">Promise.all() — All Must Pass</div>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+      <pre><span class="cm">// All run SIMULTANEOUSLY — faster!</span>
+<span class="cls">Promise</span>.<span class="met">all</span>([
+  <span class="fn">fetch</span>(<span class="str">'/api/users'</span>),
+  <span class="fn">fetch</span>(<span class="str">'/api/orders'</span>),
+  <span class="fn">fetch</span>(<span class="str">'/api/products'</span>)
+]).<span class="met">then</span>(([users, orders, products]) => {
+  <span class="cm">// All three loaded!</span>
+}).<span class="met">catch</span>(err => {
+  <span class="cm">// ONE failed → all fail</span>
+});</pre></div>
+    </div>
+    <div class="card card-purple">
+      <div class="card-title ct-purple">Promise.allSettled() — No Failure</div>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+      <pre><span class="cls">Promise</span>.<span class="met">allSettled</span>([
+  <span class="cls">Promise</span>.<span class="met">resolve</span>(<span class="str">"pass"</span>),
+  <span class="cls">Promise</span>.<span class="met">reject</span>(<span class="kw">new</span> <span class="cls">Error</span>(<span class="str">"fail"</span>)),
+  <span class="cls">Promise</span>.<span class="met">resolve</span>(<span class="str">"pass"</span>)
+]).<span class="met">then</span>(results => {
+  results.<span class="met">forEach</span>(r => {
+    <span class="kw">if</span> (r.status === <span class="str">"fulfilled"</span>)
+      <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"✅"</span>, r.value);
+    <span class="kw">else</span>
+      <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"❌"</span>, r.reason.message);
+  });
+});</pre></div>
+    </div>
+    <div class="card card-orange">
+      <div class="card-title ct-orange">Promise.race() — Timeout Pattern</div>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+      <pre><span class="kw">function</span> <span class="fn">fetchWithTimeout</span>(url, ms) {
+  <span class="kw">let</span> fetchP = <span class="fn">fetch</span>(url).<span class="met">then</span>(r => r.<span class="met">json</span>());
+  <span class="kw">let</span> timeoutP = <span class="kw">new</span> <span class="cls">Promise</span>((_, rej) =>
+    <span class="fn">setTimeout</span>(() =>
+      <span class="fn">rej</span>(<span class="kw">new</span> <span class="cls">Error</span>(<span class="str">"Timeout!"</span>)), ms)
+  );
+  <span class="kw">return</span> <span class="cls">Promise</span>.<span class="met">race</span>([fetchP, timeoutP]);
+}</pre></div>
+    </div>
+    <div class="card card-green">
+      <div class="card-title ct-green">Promise.any() — First Success</div>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+      <pre><span class="cm">// Try multiple servers, use fastest</span>
+<span class="cls">Promise</span>.<span class="met">any</span>([
+  <span class="fn">fetch</span>(<span class="str">'https://server1.com/api'</span>),
+  <span class="fn">fetch</span>(<span class="str">'https://server2.com/api'</span>),
+  <span class="fn">fetch</span>(<span class="str">'https://server3.com/api'</span>)
+]).<span class="met">then</span>(res => <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Fastest:"</span>, res))
+  .<span class="met">catch</span>(() => <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"All failed!"</span>));</pre></div>
+    </div>
+  </div>
+</div>
+
+<!-- ASYNC/AWAIT -->
+<div class="section" id="async-await">
+  <div class="section-eyebrow ey-green">Section 08</div>
+  <div class="section-title">async / await</div>
+  <div class="section-sub">Syntactic sugar on top of Promises — makes async code look synchronous</div>
+
+  <div class="card card-green">
+    <div class="card-title ct-green">async/await Rules</div>
+    <ul>
+      <li><code style="color:var(--cyan)">async</code> before function — makes it return a Promise automatically</li>
+      <li><code style="color:var(--cyan)">await</code> pauses execution until Promise resolves</li>
+      <li><code style="color:var(--cyan)">await</code> can only be used inside <code style="color:var(--cyan)">async</code> functions</li>
+      <li>Use <code style="color:var(--cyan)">try/catch</code> for error handling (replaces .catch())</li>
+    </ul>
+  </div>
+
+  <div class="vs-grid" style="margin-top:16px">
+    <div class="vs-card">
+      <div class="vs-label" style="background:rgba(56,189,248,.08); color:var(--cyan); border-bottom:1px solid var(--border);">Promise Chain Way</div>
+      <pre style="padding:16px; font-size:11px; background:var(--code-bg);">getUser(id)
+  .<span class="met">then</span>(user => <span class="fn">getOrders</span>(user.id))
+  .<span class="met">then</span>(orders => <span class="fn">getPayment</span>(orders[<span class="num">0</span>].id))
+  .<span class="met">then</span>(payment => {
+    <span class="met">console</span>.<span class="fn">log</span>(payment);
+  })
+  .<span class="met">catch</span>(err => <span class="met">console</span>.<span class="fn">log</span>(err));</pre>
+    </div>
+    <div class="vs-card">
+      <div class="vs-label vs-good">async/await Way (Same thing!)</div>
+      <pre style="padding:16px; font-size:11px; background:var(--code-bg);"><span class="kw">async function</span> <span class="fn">process</span>(id) {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> user = <span class="kw">await</span> <span class="fn">getUser</span>(id);
+    <span class="kw">const</span> orders = <span class="kw">await</span> <span class="fn">getOrders</span>(user.id);
+    <span class="kw">const</span> payment = <span class="kw">await</span> <span class="fn">getPayment</span>(orders[<span class="num">0</span>].id);
+    <span class="met">console</span>.<span class="fn">log</span>(payment);
+  } <span class="kw">catch</span>(err) { <span class="met">console</span>.<span class="fn">log</span>(err); }
+}</pre>
+    </div>
+  </div>
+
+  <div class="card card-purple" style="margin-top:16px">
+    <div class="card-title ct-purple">async/await with Promise.all (Parallel!)</div>
+    <div class="code-wrap">
+      <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div><span class="code-label">parallel-async.js</span></div>
+      <pre><span class="kw">async function</span> <span class="fn">loadDashboard</span>() {
+  <span class="kw">try</span> {
+    <span class="cm">// ❌ Sequential — slow! (each waits for previous)</span>
+    <span class="kw">const</span> user   = <span class="kw">await</span> <span class="fn">getUser</span>();       <span class="cm">// 1s</span>
+    <span class="kw">const</span> orders = <span class="kw">await</span> <span class="fn">getOrders</span>();     <span class="cm">// 1s</span>
+    <span class="kw">const</span> notifs = <span class="kw">await</span> <span class="fn">getNotifications</span>(); <span class="cm">// 1s → 3s total</span>
+
+    <span class="cm">// ✅ Parallel — fast! (all run at same time)</span>
+    <span class="kw">const</span> [user2, orders2, notifs2] = <span class="kw">await</span> <span class="cls">Promise</span>.<span class="met">all</span>([
+      <span class="fn">getUser</span>(),
+      <span class="fn">getOrders</span>(),
+      <span class="fn">getNotifications</span>()
+    ]);
+    <span class="cm">// ~1s total (runs simultaneously)</span>
+
+  } <span class="kw">catch</span>(err) {
+    <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Dashboard failed:"</span>, err.message);
+  }
+}</pre>
+    </div>
+  </div>
+</div>
+
+<!-- PROMISE PRACTICE -->
+<div class="section" id="pr-practice">
+  <div class="section-eyebrow ey-cyan">Section 09</div>
+  <div class="section-title">Promise Practice Questions</div>
+  <div class="section-sub">Progressive questions from basic to real Playwright scenarios</div>
+
+  <div class="pq-box pq-box-cyan">
+    <div class="pq-header pq-header-cyan">📝 Practice Questions — Promises</div>
+
+    <div class="pq pq-cyan">
+      <div class="pq-num">Q1</div>
+      <div class="pq-text">Write a function <code style="color:var(--cyan)">checkAge(age)</code> that returns a Promise resolving with "Access granted" if age ≥ 18, rejecting with "Access denied" otherwise.</div>
+      <span class="pq-tag tag-easy">Easy</span>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div><span class="code-label">answer-q1.js</span></div>
+      <pre><span class="kw">function</span> <span class="fn">checkAge</span>(age) {
+  <span class="kw">return new</span> <span class="cls">Promise</span>((<span class="fn">resolve</span>, <span class="fn">reject</span>) => {
+    age >= <span class="num">18</span>
+      ? <span class="fn">resolve</span>(<span class="str">"✅ Access granted"</span>)
+      : <span class="fn">reject</span>(<span class="kw">new</span> <span class="cls">Error</span>(<span class="str">"❌ Access denied"</span>));
+  });
+}
+
+<span class="fn">checkAge</span>(<span class="num">20</span>).<span class="met">then</span>(m => <span class="met">console</span>.<span class="fn">log</span>(m)).<span class="met">catch</span>(e => <span class="met">console</span>.<span class="fn">log</span>(e.message));
+<span class="cm">// ✅ Access granted</span>
+<span class="fn">checkAge</span>(<span class="num">15</span>).<span class="met">then</span>(m => <span class="met">console</span>.<span class="fn">log</span>(m)).<span class="met">catch</span>(e => <span class="met">console</span>.<span class="fn">log</span>(e.message));
+<span class="cm">// ❌ Access denied</span></pre>
+    </div>
+
+    <div class="pq pq-cyan" style="margin-top:14px">
+      <div class="pq-num">Q2</div>
+      <div class="pq-text">Simulate a login flow: <code style="color:var(--cyan)">validateUser()</code> → <code style="color:var(--cyan)">getPermissions()</code> → <code style="color:var(--cyan)">loadDashboard()</code> using Promise chaining with .then().</div>
+      <span class="pq-tag tag-medium">Medium</span>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div><span class="code-label">answer-q2.js</span></div>
+      <pre><span class="kw">const</span> <span class="fn">validateUser</span> = (u) => <span class="kw">new</span> <span class="cls">Promise</span>((res, rej) =>
+  <span class="fn">setTimeout</span>(() =>
+    u === <span class="str">"admin"</span> ? <span class="fn">res</span>({ id:<span class="num">1</span>, name:u }) : <span class="fn">rej</span>(<span class="kw">new</span> <span class="cls">Error</span>(<span class="str">"Not found"</span>)), <span class="num">500</span>));
+
+<span class="kw">const</span> <span class="fn">getPermissions</span> = (user) => <span class="kw">new</span> <span class="cls">Promise</span>(res =>
+  <span class="fn">setTimeout</span>(() => <span class="fn">res</span>({ ...user, perms:[<span class="str">"read"</span>,<span class="str">"write"</span>] }), <span class="num">500</span>));
+
+<span class="kw">const</span> <span class="fn">loadDashboard</span> = (u) => <span class="kw">new</span> <span class="cls">Promise</span>(res =>
+  <span class="fn">setTimeout</span>(() => <span class="fn">res</span>(<span class="str">`Dashboard loaded for ${u.name}`</span>), <span class="num">500</span>));
+
+<span class="fn">validateUser</span>(<span class="str">"admin"</span>)
+  .<span class="met">then</span>(user => {
+    <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Step 1 ✅ User:"</span>, user.name);
+    <span class="kw">return</span> <span class="fn">getPermissions</span>(user);
+  })
+  .<span class="met">then</span>(u => {
+    <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Step 2 ✅ Perms:"</span>, u.perms);
+    <span class="kw">return</span> <span class="fn">loadDashboard</span>(u);
+  })
+  .<span class="met">then</span>(msg => <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Step 3 ✅"</span>, msg))
+  .<span class="met">catch</span>(err => <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"❌"</span>, err.message));</pre>
+    </div>
+
+    <div class="pq pq-cyan" style="margin-top:14px">
+      <div class="pq-num">Q3</div>
+      <div class="pq-text">Use <code style="color:var(--cyan)">Promise.all()</code> to load user, orders, and notifications simultaneously. Show total time taken. Compare with sequential await.</div>
+      <span class="pq-tag tag-medium">Medium</span>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div><span class="code-label">answer-q3.js</span></div>
+      <pre><span class="kw">const</span> <span class="fn">getUser</span>  = () => <span class="kw">new</span> <span class="cls">Promise</span>(r => <span class="fn">setTimeout</span>(() => <span class="fn">r</span>({name:<span class="str">"Ravi"</span>}), <span class="num">1000</span>));
+<span class="kw">const</span> <span class="fn">getOrders</span> = () => <span class="kw">new</span> <span class="cls">Promise</span>(r => <span class="fn">setTimeout</span>(() => <span class="fn">r</span>([{id:<span class="num">1</span>}]),  <span class="num">1500</span>));
+<span class="kw">const</span> <span class="fn">getNotifs</span> = () => <span class="kw">new</span> <span class="cls">Promise</span>(r => <span class="fn">setTimeout</span>(() => <span class="fn">r</span>([<span class="str">"New msg"</span>]),<span class="num">800</span>));
+
+<span class="cm">// PARALLEL — fastest!</span>
+<span class="met">console</span>.<span class="fn">time</span>(<span class="str">"parallel"</span>);
+<span class="cls">Promise</span>.<span class="met">all</span>([<span class="fn">getUser</span>(), <span class="fn">getOrders</span>(), <span class="fn">getNotifs</span>()])
+  .<span class="met">then</span>(([user, orders, notifs]) => {
+    <span class="met">console</span>.<span class="fn">timeEnd</span>(<span class="str">"parallel"</span>); <span class="cm">// ~1500ms (not 3300ms!)</span>
+    <span class="met">console</span>.<span class="fn">log</span>(user.name, orders.length, notifs[<span class="num">0</span>]);
+  });</pre>
+    </div>
+
+    <div class="pq pq-cyan" style="margin-top:14px">
+      <div class="pq-num">Q4</div>
+      <div class="pq-text">Refactor this async/await function to handle errors properly. Add <code style="color:var(--cyan)">try/catch/finally</code> and ensure cleanup code always runs.</div>
+      <span class="pq-tag tag-medium">Medium</span>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div><span class="code-label">answer-q4.js</span></div>
+      <pre><span class="cm">// ❌ No error handling:</span>
+<span class="kw">async function</span> <span class="fn">fetchUser</span>(id) {
+  <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">`/api/users/${id}`</span>);
+  <span class="kw">return</span> <span class="kw">await</span> res.<span class="met">json</span>();
+}
+
+<span class="cm">// ✅ With proper error handling:</span>
+<span class="kw">async function</span> <span class="fn">fetchUser</span>(id) {
+  <span class="kw">let</span> isLoading = <span class="kw">true</span>;
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">`/api/users/${id}`</span>);
+    <span class="kw">if</span> (!res.ok) <span class="kw">throw new</span> <span class="cls">Error</span>(<span class="str">`HTTP error: ${res.status}`</span>);
+    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="met">json</span>();
+    <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"✅ User:"</span>, data.name);
+    <span class="kw">return</span> data;
+  } <span class="kw">catch</span> (err) {
+    <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"❌ Error:"</span>, err.message);
+    <span class="kw">return null</span>;
+  } <span class="kw">finally</span> {
+    isLoading = <span class="kw">false</span>;
+    <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Loading complete"</span>); <span class="cm">// always runs</span>
+  }
+}</pre>
+    </div>
+
+    <div class="pq pq-cyan" style="margin-top:14px">
+      <div class="pq-num">Q5 — Playwright</div>
+      <div class="pq-text">Write a full Playwright-style test suite using async/await: login, fetch test data, run tests in parallel, generate report using <code style="color:var(--cyan)">Promise.allSettled()</code>.</div>
+      <span class="pq-tag tag-hard">Hard</span>
+      <span class="pq-tag tag-pw">Playwright</span>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div><span class="code-label">playwright-suite.js</span></div>
+      <pre><span class="cm">// Simulate async operations</span>
+<span class="kw">const</span> <span class="fn">login</span> = (u, p) => <span class="kw">new</span> <span class="cls">Promise</span>((res, rej) =>
+  <span class="fn">setTimeout</span>(() =>
+    u === <span class="str">"admin"</span> ? <span class="fn">res</span>(<span class="str">"token_abc123"</span>) : <span class="fn">rej</span>(<span class="kw">new</span> <span class="cls">Error</span>(<span class="str">"Invalid creds"</span>)), <span class="num">400</span>));
+
+<span class="kw">const</span> <span class="fn">runTest</span> = (name) => <span class="kw">new</span> <span class="cls">Promise</span>(res =>
+  <span class="fn">setTimeout</span>(() => <span class="fn">res</span>({name, status:<span class="cls">Math</span>.<span class="fn">random</span>()><span class="num">.3</span>?<span class="str">"pass"</span>:<span class="str">"fail"</span>}),
+  <span class="cls">Math</span>.<span class="fn">random</span>() * <span class="num">600</span>));
+
+<span class="kw">async function</span> <span class="fn">runPlaywrightSuite</span>() {
+  <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"🚀 Starting Playwright Suite\n"</span>);
+
+  <span class="kw">try</span> {
+    <span class="cm">// Step 1: Login</span>
+    <span class="kw">const</span> token = <span class="kw">await</span> <span class="fn">login</span>(<span class="str">"admin"</span>, <span class="str">"pass"</span>);
+    <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"1️⃣  Login ✅ Token:"</span>, token);
+
+    <span class="cm">// Step 2: Run ALL tests in parallel</span>
+    <span class="kw">const</span> testNames = [<span class="str">"Login"</span>, <span class="str">"Signup"</span>, <span class="str">"Checkout"</span>, <span class="str">"Profile"</span>, <span class="str">"Dashboard"</span>];
+    <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"\n2️⃣  Running tests in parallel..."</span>);
+
+    <span class="kw">const</span> settled = <span class="kw">await</span> <span class="cls">Promise</span>.<span class="met">allSettled</span>(testNames.<span class="met">map</span>(<span class="fn">runTest</span>));
+
+    <span class="cm">// Step 3: Generate report</span>
+    <span class="kw">let</span> passed = <span class="num">0</span>, failed = <span class="num">0</span>;
+    settled.<span class="met">forEach</span>(r => {
+      <span class="kw">if</span> (r.status === <span class="str">"fulfilled"</span>) {
+        <span class="kw">const</span> t = r.value;
+        t.status === <span class="str">"pass"</span> ? passed++ : failed++;
+        <span class="met">console</span>.<span class="fn">log</span>(<span class="str">`  ${t.status==="pass"?"✅":"❌"} ${t.name}`</span>);
+      }
+    });
+
+    <span class="met">console</span>.<span class="fn">log</span>(<span class="str">`\n📊 Results: ${passed} passed, ${failed} failed`</span>);
+
+  } <span class="kw">catch</span> (err) {
+    <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"❌ Suite failed:"</span>, err.message);
+  } <span class="kw">finally</span> {
+    <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"✔️  Suite complete"</span>);
+  }
+}
+
+<span class="fn">runPlaywrightSuite</span>();</pre>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- INTERVIEW Q&A -->
+<div class="section" id="interview">
+  <div class="section-eyebrow ey-purple">Section 10</div>
+  <div class="section-title">Interview Questions & Answers</div>
+  <div class="section-sub">Top questions asked at FAANG and product companies — with clear answers</div>
+
+  <!-- Callback Interview -->
+  <div class="card card-amber" style="margin-bottom:14px"><div class="card-title ct-amber">🔶 Callback Interview Questions</div></div>
+  <div class="iq-grid">
+    <div class="iq">
+      <div class="iq-q">Q: What is a callback function?</div>
+      <div class="iq-a">A function passed as an argument to another function and called when that function completes its task. It enables async operations by saying "when done, run this."</div>
+    </div>
+    <div class="iq">
+      <div class="iq-q">Q: Sync vs async callbacks?</div>
+      <div class="iq-a">Sync callbacks run immediately (map, filter, forEach). Async callbacks run later after a delay or event (setTimeout, fetch, event listeners). Async callbacks don't block execution.</div>
+    </div>
+    <div class="iq">
+      <div class="iq-q">Q: What is callback hell?</div>
+      <div class="iq-a">When callbacks nest deeply inside each other creating a "pyramid of doom." Hard to read, debug, and maintain. Solved by Promises and async/await.</div>
+    </div>
+    <div class="iq">
+      <div class="iq-q">Q: What is the error-first pattern?</div>
+      <div class="iq-a">Node.js convention where callback's first parameter is the error, second is data: callback(err, data). Always check if err is truthy before using data.</div>
+    </div>
+    <div class="iq">
+      <div class="iq-q">Q: What is a higher-order function?</div>
+      <div class="iq-a">A function that accepts another function as an argument or returns a function. map(), filter(), reduce() are HOFs. They enable callbacks and functional programming.</div>
+    </div>
+    <div class="iq">
+      <div class="iq-q">Q: What is debounce?</div>
+      <div class="iq-a">A technique using callbacks and closures that delays function execution until after a set time has passed since the last call. Used in search boxes to avoid firing on every keystroke.</div>
+    </div>
+  </div>
+
+  <!-- Promise Interview -->
+  <div class="card card-cyan" style="margin-top:24px; margin-bottom:14px"><div class="card-title ct-cyan">🔵 Promise Interview Questions</div></div>
+  <div class="iq-grid">
+    <div class="iq iq-cyan">
+      <div class="iq-q">Q: What is a Promise?</div>
+      <div class="iq-a">An object representing eventual completion or failure of an async operation. Has 3 states: pending, fulfilled, rejected. Consumed via .then(), .catch(), .finally().</div>
+    </div>
+    <div class="iq iq-cyan">
+      <div class="iq-q">Q: Difference between Promise.all() and Promise.allSettled()?</div>
+      <div class="iq-a">Promise.all() fails fast — if ANY promise rejects, it rejects immediately. Promise.allSettled() waits for ALL to complete regardless, returning status of each. Use allSettled when you want all results even with failures.</div>
+    </div>
+    <div class="iq iq-cyan">
+      <div class="iq-q">Q: What is Promise chaining?</div>
+      <div class="iq-a">Each .then() returns a new Promise, enabling sequential async operations. The return value of .then() is passed to the next .then(). Errors propagate to the first .catch().</div>
+    </div>
+    <div class="iq iq-cyan">
+      <div class="iq-q">Q: Callback vs Promise?</div>
+      <div class="iq-a">Callbacks can cause nesting hell and make error handling complex. Promises provide .then() chaining, single .catch() for errors, and access to static methods like Promise.all(). Promises are built on callbacks internally.</div>
+    </div>
+    <div class="iq iq-cyan">
+      <div class="iq-q">Q: What does async/await do?</div>
+      <div class="iq-a">Syntactic sugar over Promises. async makes a function return a Promise. await pauses execution inside the async function until the Promise resolves. Makes async code look and behave like synchronous code.</div>
+    </div>
+    <div class="iq iq-cyan">
+      <div class="iq-q">Q: Promise.race() vs Promise.any()?</div>
+      <div class="iq-a">race() resolves or rejects with the FIRST settled promise — whether success or failure. any() only resolves with the FIRST successful promise, ignoring rejections unless ALL reject (AggregateError).</div>
+    </div>
+  </div>
+
+  <!-- Predict Output -->
+  <div class="card card-red" style="margin-top:24px">
+    <div class="card-title ct-red">🔴 Predict the Output — Tricky Questions</div>
+    <div class="code-wrap">
+      <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div><span class="code-label">tricky.js</span></div>
+      <pre><span class="cm">// Q1: What is the order?</span>
+<span class="met">console</span>.<span class="fn">log</span>(<span class="str">"1"</span>);
+<span class="fn">setTimeout</span>(() => <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"2"</span>), <span class="num">0</span>);
+<span class="cls">Promise</span>.<span class="met">resolve</span>().<span class="met">then</span>(() => <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"3"</span>));
+<span class="met">console</span>.<span class="fn">log</span>(<span class="str">"4"</span>);
+
+<span class="cm">// Answer: 1 → 4 → 3 → 2</span>
+<span class="cm">// Why? Sync runs first (1,4), then microtasks/Promises (3),</span>
+<span class="cm">// then macrotasks/setTimeout (2)</span>
+
+<span class="cm">// Q2: What does this return?</span>
+<span class="kw">async function</span> <span class="fn">foo</span>() { <span class="kw">return</span> <span class="num">42</span>; }
+<span class="kw">const</span> result = <span class="fn">foo</span>();
+<span class="met">console</span>.<span class="fn">log</span>(result);  <span class="cm">// Promise { 42 } (not 42!)</span>
+<span class="cm">// async ALWAYS returns a Promise</span>
+
+<span class="cm">// Q3: Does this catch the error?</span>
+<span class="kw">async function</span> <span class="fn">bar</span>() {
+  <span class="kw">throw new</span> <span class="cls">Error</span>(<span class="str">"Oops"</span>);
+}
+<span class="fn">bar</span>().<span class="met">catch</span>(e => <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"Caught:"</span>, e.message));
+<span class="cm">// "Caught: Oops" — YES! throw inside async = rejection</span>
+
+<span class="cm">// Q4: What is the output?</span>
+<span class="kw">const</span> p = <span class="kw">new</span> <span class="cls">Promise</span>((res) => {
+  <span class="fn">res</span>(<span class="num">1</span>);
+  <span class="fn">res</span>(<span class="num">2</span>);    <span class="cm">// Ignored! Promise settles once</span>
+  <span class="fn">res</span>(<span class="num">3</span>);    <span class="cm">// Ignored!</span>
+});
+p.<span class="met">then</span>(v => <span class="met">console</span>.<span class="fn">log</span>(v));  <span class="cm">// 1</span></pre>
+    </div>
+  </div>
+
+  <!-- Comparison table -->
+  <div class="card card-purple" style="margin-top:16px">
+    <div class="card-title ct-purple">Callback vs Promise vs async/await</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Feature</th><th>Callback</th><th>Promise</th><th>async/await</th></tr>
+        <tr><td>Readability</td><td>❌ Nested</td><td>✅ Chained</td><td>✅✅ Linear</td></tr>
+        <tr><td>Error handling</td><td>❌ Each level</td><td>✅ .catch()</td><td>✅ try/catch</td></tr>
+        <tr><td>Debugging</td><td>❌ Hard</td><td>✅ Okay</td><td>✅✅ Easy</td></tr>
+        <tr><td>Parallel ops</td><td>❌ Complex</td><td>✅ Promise.all()</td><td>✅ await Promise.all()</td></tr>
+        <tr><td>Interview level</td><td>Beginner</td><td>Intermediate</td><td>Advanced</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Quick Reference -->
+  <div class="card card-green" style="margin-top:16px">
+    <div class="card-title ct-green">Quick Reference — Cheat Sheet</div>
+    <div class="code-wrap">
+      <div class="code-header"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div><span class="code-label">cheatsheet.js</span></div>
+      <pre><span class="cm">// ── CALLBACK ──────────────────────────────────────────────</span>
+<span class="kw">function</span> <span class="fn">doWork</span>(<span class="fn">callback</span>) { <span class="fn">callback</span>(<span class="kw">null</span>, result); }
+<span class="fn">doWork</span>((err, data) => { <span class="kw">if</span> (err) <span class="kw">return</span>; <span class="cm">/* use data */</span> });
+
+<span class="cm">// ── PROMISE ───────────────────────────────────────────────</span>
+<span class="kw">new</span> <span class="cls">Promise</span>((<span class="fn">resolve</span>, <span class="fn">reject</span>) => <span class="fn">resolve</span>(data))
+  .<span class="met">then</span>(data => data)
+  .<span class="met">catch</span>(err => err)
+  .<span class="met">finally</span>(() => <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"done"</span>));
+
+<span class="cm">// Static methods</span>
+<span class="cls">Promise</span>.<span class="met">all</span>([p1, p2]);          <span class="cm">// all must pass</span>
+<span class="cls">Promise</span>.<span class="met">allSettled</span>([p1, p2]);   <span class="cm">// wait for all</span>
+<span class="cls">Promise</span>.<span class="met">race</span>([p1, p2]);         <span class="cm">// first wins</span>
+<span class="cls">Promise</span>.<span class="met">any</span>([p1, p2]);          <span class="cm">// first success</span>
+<span class="cls">Promise</span>.<span class="met">resolve</span>(val);           <span class="cm">// already resolved</span>
+<span class="cls">Promise</span>.<span class="met">reject</span>(err);            <span class="cm">// already rejected</span>
+
+<span class="cm">// ── ASYNC/AWAIT ───────────────────────────────────────────</span>
+<span class="kw">async function</span> <span class="fn">fn</span>() {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> data = <span class="kw">await</span> somePromise;
+    <span class="kw">const</span> [a, b] = <span class="kw">await</span> <span class="cls">Promise</span>.<span class="met">all</span>([p1, p2]);
+  } <span class="kw">catch</span>(err) { <span class="met">console</span>.<span class="fn">log</span>(err); }
+  <span class="kw">finally</span> { <span class="met">console</span>.<span class="fn">log</span>(<span class="str">"always"</span>); }
+}</pre>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .wrap -->
+
+<div class="footer">
+  📚 Callbacks &amp; Promises Learning Guide &nbsp;·&nbsp;
+  <span>Built for Playwright Interview Prep</span>
+  <br>
+  <span style="color:var(--muted); font-size:10px; margin-top:8px; display:block;">
+    Callbacks · Async Callbacks · Error-First Pattern · Promise States · Chaining · Promise.all · async/await · Interview Q&A
+  </span>
+</div>
+
+</body>
+</html>
