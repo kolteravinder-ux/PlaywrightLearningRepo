@@ -7,3 +7,10 @@ coverage/
 /.DS_Store
 npm-debug.log*
 .env
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
