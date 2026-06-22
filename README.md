@@ -1,20 +1,45 @@
-# LearningPlaywright
+# Playwright Learning Repository
 
-A small workspace with Playwright examples, JavaScript/TypeScript notes, and practice exercises used while learning Playwright and core JS/TS concepts.
+A comprehensive learning workspace with **Playwright test automation**, **JavaScript fundamentals**, **TypeScript examples**, and **practice exercises** for mastering web testing and core programming concepts.
 
-## What is this repository
+## 📋 Repository Overview
 
-- Hands-on Playwright test examples and code snippets
-- Day-by-day practice files for JavaScript fundamentals
-- Small tasks and demos for learning automation and testing
+This project is organized into several key learning areas:
 
-## Prerequisites
+### **Playwright Automation Testing**
+- [tests/](./tests/) - Main Playwright test specifications
+- [agent-tests/](./agent-tests/) - Agent-based test examples
+- [playwright-report/](./playwright-report/) - Test execution reports
+- [test-results/](./test-results/) - Test result artifacts
 
-- Node.js (LTS recommended)
-- npm or yarn
-- Playwright (installed via npm)
+### **JavaScript Learning Path** 
+Structured chapter-by-chapter learning in [Javascript/](./Javascript/):
+- **Chapter01-02**: Basics, Keywords, Variables, Comments
+- **Chapter03-05**: Variable Hoisting, Literals, Operators
+- **Chapter06-09**: Conditionals, Loops, Arrays, Functions
+- **Chapter10-15**: Strings, Objects, 2D Arrays, Callbacks, Promises, Async/Await
+- **Chapter16**: Object-Oriented Programming (Classes, OOP concepts)
+- **Day-wise Practice**: Organized daily practice files and tasks
 
-## Quick setup
+### **TypeScript Examples**
+- [Typescript/](./Typescript/) - TypeScript code examples and utilities
+
+### **Practice Tasks & Exercises**
+- [Task/](./Task/) - Coding challenges and practical exercises
+- [Class Day Wise Data/](./Class%20Day%20Wise%20Data/) - Day-wise class materials
+
+### **Study Materials**
+- [JS Notes/](./JS%20Notes/) - HTML cheatsheets and reference notes for Arrays, Functions, Strings, 2D Arrays, Callbacks, and Promises
+- [VSCode Shortcuts Guide](./VSCode_Shortcuts_Windows_Playwright_JS_TS.md)
+
+## 🚀 Prerequisites
+
+- **Node.js** (LTS recommended)
+- **npm** or **yarn**
+- **Playwright** (installed via npm)
+- **Git** (for version control)
+
+## ⚙️ Quick Setup
 
 Install dependencies and Playwright browsers:
 
@@ -23,30 +48,86 @@ npm install
 npx playwright install
 ```
 
-Add useful npm scripts to `package.json` (example):
-
-```json
-"scripts": {
-	"test": "playwright test",
-	"test:headed": "playwright test --headed",
-	"test:debug": "pw-test --debug",
-	"codegen": "playwright codegen"
-}
-```
-
-## Running tests
+## 🧪 Running Playwright Tests
 
 Run all tests:
-
 ```bash
 npx playwright test
 ```
 
-Run a single file or folder:
+Run tests in headed mode (see browser):
+```bash
+npx playwright test --headed
+```
 
+Run a specific test file:
 ```bash
 npx playwright test tests/example.spec.ts
 ```
+
+Debug mode:
+```bash
+npx playwright test --debug
+```
+
+Generate test code interactively:
+```bash
+npx playwright codegen
+```
+
+View test report:
+```bash
+npx playwright show-report
+```
+
+## 📁 Project Structure
+
+```
+├── tests/                    # Playwright test files
+├── agent-tests/              # Agent-based tests
+├── Javascript/               # JS learning chapters (16+ chapters)
+├── Typescript/               # TypeScript examples
+├── Task/                     # Coding challenges
+├── Class Day Wise Data/      # Day-wise materials
+├── JS Notes/                 # Study materials & cheatsheets
+├── playwright.config.ts      # Playwright configuration
+├── package.json              # Dependencies & scripts
+└── playwright-report/        # Test execution reports
+```
+
+## 📚 Learning Path
+
+1. Start with **Javascript/Chapter01_Basics** for fundamentals
+2. Progress through chapters sequentially for deeper concepts
+3. Practice with **Task/** directory exercises
+4. Apply knowledge to **Playwright tests** for automation
+5. Reference **JS Notes/** for quick lookups
+
+## 🔧 npm Scripts
+
+View available scripts in `package.json`:
+```bash
+npm run [script-name]
+```
+
+## 🤖 Agent & Orchestrator
+
+- [RaviPlaywrightAgent.agent.md](./RaviPlaywrightAgent.agent.md) - Custom agent configuration
+- [orchestrator/](./orchestrator/) - Test orchestration utilities
+
+## 📝 Additional Resources
+
+- [RaviPlaywrightAgent README](./RaviPlaywrightAgent_README.md)
+- [Windows VS Code Shortcuts Guide](./VSCode_Shortcuts_Windows_Playwright_JS_TS.md)
+
+## 🎯 Purpose
+
+This repository serves as a complete learning companion for:
+- ✅ Web test automation with Playwright
+- ✅ JavaScript fundamentals and advanced concepts
+- ✅ TypeScript integration
+- ✅ Hands-on coding practice
+- ✅ Building automation testing skills
 
 Run with headed browser and trace:
 
