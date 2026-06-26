@@ -11,7 +11,9 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.61.0",
-    "@types/node": "^25.9.3"
+    "@types/node": "^25.9.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
   },
   "description": "A small workspace with Playwright examples, JavaScript/TypeScript notes, and practice exercises used while learning Playwright and core JS/TS concepts.",
   "main": "debug_inspector.js",
@@ -22,8 +24,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  
- "type": "module",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/kolteravinder-ux/PlaywrightLearningRepo/issues"
   },
