@@ -21,7 +21,7 @@ interface user2{
 
     readonly id:number   // cannot modify the value for varaible once assigned 
     name1:string
-    status?:string   // question mark means option not mandatory to give 
+    status?:string   // question mark means optional not mandatory to give or assign value
 
 }
 

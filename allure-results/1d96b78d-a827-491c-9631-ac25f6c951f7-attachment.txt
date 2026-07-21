@@ -1,0 +1,3 @@
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Full-Time Permanent' })
+1

@@ -18,3 +18,5 @@ function sayHello3(msg:number):never{
     console.log(msg);
     throw new Error("This function never returns");
 }
+
+sayHello3(1)

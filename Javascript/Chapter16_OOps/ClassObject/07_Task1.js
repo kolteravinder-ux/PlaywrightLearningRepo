@@ -37,8 +37,8 @@ const S8=new student("sdasa",32,random10DidgitNum())
 const S9=new student("wqw",30,random10DidgitNum())
 const S10=new student("qwsse",32,random10DidgitNum())
 
-console.log(student.classname)
-console.log(student.Instructor)
+console.log("Class Name :",student.classname)
+console.log("Class Instructor Name :",student.Instructor)
 process.stdout.write("Student Name | Age       | PhoneNumber")
 console.log();
 S1.printStudentData()

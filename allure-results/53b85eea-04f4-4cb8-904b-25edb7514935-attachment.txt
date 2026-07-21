@@ -1,0 +1,66 @@
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
+Pages in table: 1
+locator('[class*=\'-table-row--clickable\']').filter({ hasText: 'Part-Time Internship' })
+Employee Status row found: 0
