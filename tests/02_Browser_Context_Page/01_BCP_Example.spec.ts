@@ -1,7 +1,10 @@
 import{test, expect} from '@playwright/test'
+import{chromium} from 'playwright'
+
+
 
 test('Verify the title', async({browser})=>{
-
+const b1 = await chromium.launch({headless:false})
 const browserC1= await browser.newContext()
 const page1 =await browserC1.newPage()
 

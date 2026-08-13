@@ -14,6 +14,7 @@ test('Verify signup error', async({page})=>{
 await page.goto('https://vwo.com/free-trial/',{waitUntil:'networkidle'})
 console.log("'networkidle' - DISCOURAGED consider operation to be finished when there are no network connections for at least 500 ms. Don't use this method for testing, rely on web assertions to assess readiness instead.")
 
+
 await page.getByRole('textbox',{name:'email'}).fill('Abcsd@gmail.com')
 
 //await page.locator("#page-free-trial-step1-cu-gdpr-consent-checkbox").click()

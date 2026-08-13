@@ -20,3 +20,5 @@ function sayHello3(msg:number):never{
 }
 
 sayHello3(1)
+
+

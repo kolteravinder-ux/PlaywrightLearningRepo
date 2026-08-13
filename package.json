@@ -7,11 +7,12 @@
     "test": "npx playwright test"
   },
   "dependencies": {
+    "@playwright/mcp": "^0.0.78",
     "playwright": "^1.61.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1",
-    "@types/node": "^25.9.3",
+    "@types/node": "^25.9.5",
     "allure-playwright": "^3.10.2",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
