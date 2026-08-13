@@ -1,5 +1,7 @@
 class Person {
-  constructor(public name: string) {}
+  constructor(public name: string) {
+    this.name=name
+  }
 
   greet(): string {
     return `Hello, I am ${this.name}`;

@@ -1,0 +1,84 @@
+Before Each test Block
+TC1
+Total Search Titles:  40
+Total Search Product Price:  40
+Title 1: LORSHEL Japanese Instant Pain Relief Soothing Massage Gel - Herbal Massage Gel, Premi... Gel
+Price 1: ₹212₹69969% off
+Title 2: Ved Sanjeevani Digestion & Detox Nabhi Oil For Bloating Relief & Improve Gut Health
+Price 2: ₹450₹54918% off
+Title 3: axenza Japanese Pain Relief Gel Muscle Joint Pain Relief Fast Absorbing Gel
+Price 3: ₹158₹69977% off
+Title 4: VANVASI AYURVEDA Arogya Netram Ayurvedic Eye Drops
+Price 4: ₹246₹1,10077% off
+Title 5: Green Chilli
+Price 5: ₹35
+Title 6: Krishna's Herbal & Ayurveda She Care Juice | Women Tonic
+Price 6: ₹543
+Title 7: Humicure Hanging Absorber Packets Moisture Absorber
+Price 7: ₹290₹59951% off
+Title 8: VetMantra MMC 5 Kg, Mineral mixture for cow, buffalo, sheep, goat Pet Health Supplements
+Price 8: ₹270₹1,06774% off
+Title 9: VitaVedik Rosemary Dried Leaves for Hair Growth with Mist Spray & Hair Oil Applicator
+Price 9: ₹146₹36960% off
+Title 10: CRETO Heating Pad Gel Full Body Pain Reliever Electric 1 L Hot Water Bag
+Price 10: ₹175₹99982% off
+Title 11: Ghar Soaps Detan Magic Combo - Magic Soap & Magic Facewash
+Price 11: ₹359₹55335% off
+Title 12: Krishna's Herbal & Ayurveda Sciatifix Herbal Juice Good Source of Calcium | Strengthens Bones and Muscles
+Price 12: ₹430₹47810% off
+Title 13: Dish TV Genuine Universal dish tv Remote Controller
+Price 13: ₹198₹49960% off
+Title 14: Mi Original Mi X Pro, X series, Mi 5A Voice Remote Control with Google for Android (Bluetooth Remote) For Device Mi Android TV, Mi tv, Xiaomi Redmi Mi Smart Tv, MI Smart TV 4A Remote Controller
+Price 14: ₹267₹99973% off
+Title 15: CRETO Heating Pad Gel Full Body Pain Reliever Electric 1 L Hot Water Bag
+Price 15: ₹175₹99982% off
+Title 16: Plain Makhana
+Price 16: ₹180₹28035% off
+Title 17: Ridoy Ayurvedic Herbs sugar patch | Essential Diabetic Patch Wellness Edition - Ideal Plaster & Patch
+Price 17: ₹84₹29971% off
+Title 18: Dr care Heating Pad Heating Pad
+Price 18: ₹619₹1,59961% off
+Title 19: Kindly Wooden Money Saving Box | Cash Saver Money Box with Counting Target Coin Bank Coin Bank
+Price 19: ₹96₹99990% off
+Title 20: Emolene Propylene Glycol (hydronourisher for dry skin) Cream
+Price 20: ₹351₹39110% off
+Title 21: APTECHDEALS HTC-2 HTC-2 Digital Hygrometer Thermometer Humidity Meter With Clock LCD Display Thermometer
+Price 21: ₹336₹59943% off
+Title 22: SHINGALA Hypoallergenic Sleep Mouth Tape Anti Snoring Strips for Better Sleep Night Anti-snoring Device
+Price 22: ₹149₹99985% off
+Title 23: Niconi Gluta-Kojic Instant Tan Removal & Tan Vanish With Glutathione, For All Type Skin
+Price 23: ₹1,396₹1,399
+Title 24: Bubble me Minute Mend Magnesium Balm 10g | Migraine Headache Relief | 2-Minute Reset Balm
+Price 24: ₹246₹29717% off
+Title 25: CRETO Velvet Fur Hot Water Bag , Pain Relief Warm Bag, Heating Gel Pad, Soft Fur Hot Hand Pillow/ Hand Pocket/ Hot Gel Bag electric 1 L Hot Water Bag
+Price 25: ₹180₹99981% off
+Title 26: Asthakesari Asthma Allergy Syrup
+Price 26: ₹757₹94920% off
+Title 27: VetMantra MMC 5 Kg, Mineral mixture for cow, buffalo, sheep, goat Pet Health Supplements
+Price 27: ₹270₹1,06774% off
+Title 28: Tedibar Moisturising Baby Bathing Bar | 100% Soap Free | Skin Friendly pH - By Torrent
+Price 28: ₹389₹390
+Title 29: ganpati traders Joint Pain Relief Rubber Hot Water Bottle/Bag Non-Electric 2 L Hot Water Bag (Multicolor) Non-Electrical 2 L Hot Water Bag (Multicolor)3 NON-ELECTRIC 2 L Hot Water Bag
+Price 29: ₹142₹49971% off
+Title 30: airtech Strong metal Black tripod stand with ring light for phography and video Ring Flash
+Price 30: ₹495₹1,97574% off
+Title 31: Pixieplay Gas Mask Set Respirator with Filters and Goggle Activated Carbon Mask Gas Mask P mask for dust protection Blowtorch, Laboratory, Power Tool, Welding, Wood-working  Safety Goggle
+Price 31: ₹432₹1,66674% off
+Title 32: aswini Hiran Strong Pain Oil Liquid
+Price 32: ₹158₹18012% off
+Title 33: All Out Ultra Mosquito Vaporiser Refill
+Price 33: ₹380₹48521% off
+Title 34: Mint Leaves
+Price 34: ₹31₹4226% off
+Title 35: Hit Cockroach Killer Spray (Fresh Fragrance)
+Price 35: ₹302₹3257% off
+Title 36: VitaVedik Rosemary Dried Leaves for Hair Growth with Mist Spray & Hair Oil Applicator
+Price 36: ₹146₹36960% off
+Title 37: TrustEdge  TV-out Cable HDMI to RCA HDMI to AV HDMI to 3RCA CVBS AV Composite Video Audio Converter
+Price 37: ₹280₹1,99985% off
+Title 38: Zanskar Advanced Pain Healing (Pack of 2) Cream
+Price 38: ₹629₹99836% off
+Title 39: Smart Weigh Personal Body Weighing Scale with LCD Screen weigh scale Anti-Skid Glass Machine Weighing Scale
+Price 39: ₹408₹1,59974% off
+Title 40: cleevo Kitchen Surface Cleaner Spray | Bottle Pack | Grease Removal | Lilly
+Price 40: ₹175₹24929% off

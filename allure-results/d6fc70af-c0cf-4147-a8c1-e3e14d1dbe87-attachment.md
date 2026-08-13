@@ -1,0 +1,1131 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: SVG\02_Task.spec.ts >> Flipkart task >> Flipkart Task: TC1 @smoke @regression
+- Location: tests\SVG\02_Task.spec.ts:13:1
+
+# Error details
+
+```
+Error: locator.waitFor: Error: strict mode violation: locator('.pIpigb') resolved to 40 elements:
+    1) <a class="pIpigb" target="_blank" rel="noopener noreferrer" title="LORSHEL Japanese Instant Pain Relief Soothing Massage Gel - Herbal Massage Gel, Premi... Gel" href="/lorshel-japanese-instant-pain-relief-soothing-massage-gel-herbal-gel-premi/p/itm78d1624c82fd0?pid=BPRHFSEVDCZPXR5F&lid=LSTBPRHFSEVDCZPXR5FRSHFHK&marketplace=FLIPKART&store=search.flipkart.com&srno=s_1_1&otracker=search&otracker1=search&fm=organic&iid=en_Ffdmy2StJ4KHJjf_jwS7lqbsM3mV5Q3mmtGNR5L4xMQBKZiOPJhbQa8BfCO4P4FE8YXD0NM8GVbTtFz…>LORSHEL Japanese Instant Pain Relief Soothing Mas…</a> aka getByRole('link', { name: 'LORSHEL Japanese Instant Pain Relief Soothing Massage G...' })
+    2) <a class="pIpigb" target="_blank" rel="noopener noreferrer" title="Ayuzera by Wellwith Himalayan Sea Buckthorn Pulp Concentrate Herbal Juice" href="/ayuzera-wellwith-himalayan-sea-buckthorn-pulp-concentrate-herbal-juice/p/itmf4c4779360775?pid=DAJH5WQHSEXGTH2K&lid=LSTDAJH5WQHSEXGTH2KLAQTAL&marketplace=FLIPKART&store=search.flipkart.com&srno=s_1_2&otracker=search&otracker1=search&fm=organic&iid=en_Ffdmy2StJ4KHJjf_jwS7lqbsM3mV5Q3mmtGNR5L4xMQ9rxKXRAu3-4XcIcmGTdSUV_g795Je0EaGB5Slbq4bAnoc5LWJw_UgzH5vdG…>Ayuzera by Wellwith Himalayan Sea Buckthorn Pulp …</a> aka getByRole('link', { name: 'Ayuzera by Wellwith Himalayan Sea Buckthorn Pulp Concen...' })
+    3) <a class="pIpigb" target="_blank" rel="noopener noreferrer" title="Ved Sanjeevani Digestion & Detox Nabhi Oil For Bloating Relief & Improve Gut Health" href="/ved-sanjeevani-digestion-detox-nabhi-oil-bloating-relief-improve-gut-health/p/itm9166e2d997283?pid=MSOHEYHYMZUYMR2N&lid=LSTMSOHEYHYMZUYMR2NEZ1QS3&marketplace=FLIPKART&store=search.flipkart.com&srno=s_1_3&otracker=search&otracker1=search&fm=organic&iid=en_Ffdmy2StJ4KHJjf_jwS7lqbsM3mV5Q3mmtGNR5L4xMTeH8BIPszTF9PhPiTE1n63GWuTMuEZCSXalzKhKfw5I7B…>Ved Sanjeevani Digestion & Detox Nabhi Oil For Bl…</a> aka getByRole('link', { name: 'Ved Sanjeevani Digestion & Detox Nabhi Oil For Bloating...' })
+    4) <a class="pIpigb" target="_blank" rel="noopener noreferrer" title="CALF JANAM GHUTTI CJG-0925 Pet Health Supplements" href="/calf-janam-ghutti-cjg-0925-pet-health-supplements/p/itm901c1a76e8aa4?pid=PHSHGVHC4HCZZCPD&lid=LSTPHSHGVHC4HCZZCPDMK4ZIB&marketplace=FLIPKART&store=search.flipkart.com&srno=s_1_4&otracker=search&otracker1=search&fm=organic&iid=2c7b60b5-74db-409a-8860-a0b9a1d2cfaf.PHSHGVHC4HCZZCPD.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=…>CALF JANAM GHUTTI CJG-0925 Pet Health Supplements</a> aka getByRole('link', { name: 'CALF JANAM GHUTTI CJG-0925', description: 'CALF JANAM GHUTTI CJG-0925 Pet Health Supplements' })
+    5) <a class="pIpigb" target="_blank" rel="noopener noreferrer" title="Humicure Hanging Absorber Packets Moisture Absorber" href="/humicure-hanging-absorber-packets-moisture/p/itm0b2294f60ac3c?pid=MOAHF5F2ASV6KBAJ&lid=LSTMOAHF5F2ASV6KBAJEQ2HYN&marketplace=FLIPKART&store=search.flipkart.com&srno=s_1_5&otracker=search&otracker1=search&fm=organic&iid=2c7b60b5-74db-409a-8860-a0b9a1d2cfaf.MOAHF5F2ASV6KBAJ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&…>Humicure Hanging Absorber Packets Moisture Absorb…</a> aka getByRole('link', { name: 'Humicure Hanging Absorber', description: 'Humicure Hanging Absorber Packets Moisture Absorber' })
+    6) <a class="pIpigb" target="_blank" rel="noopener noreferrer" title="Krishna's Herbal & Ayurveda She Care Juice | Women Tonic" href="/krishna-s-herbal-ayurveda-she-care-juice-women-tonic/p/itmfdf21c5ddc4a7?pid=AYDGNJY4E8ZMPDUY&lid=LSTAYDGNJY4E8ZMPDUY8WBNQ3&marketplace=FLIPKART&store=search.flipkart.com&srno=s_1_6&otracker=search&otracker1=search&fm=organic&iid=en_Ffdmy2StJ4KHJjf_jwS7lqbsM3mV5Q3mmtGNR5L4xMQ59HA8kvLeT8iJHpdOLGHeJbzvc3Oh0cSQeq6quAKRxsxyyHTdpgWRhFCiYeswBngXCsrXIKnIPoNvYImkVMnn&ppt=brow…>Krishna's Herbal & Ayurveda She Care Juice | Wome…</a> aka getByRole('link', { name: 'Krishna\'s Herbal & Ayurveda She Care Juice | Women Toni...' })
+    7) <a class="pIpigb" target="_blank" rel="noopener noreferrer" title="VetMantra MMC 5 Kg, Mineral mixture for cow, buffalo, sheep, goat Pet Health Supplements" href="/vetmantra-mmc-5-kg-mineral-mixture-cow-buffalo-sheep-goat-pet-health-supplements/p/itm2d43a28a1a30a?pid=PHSHFTU3ZXD6RNUB&lid=LSTPHSHFTU3ZXD6RNUBOWSXC7&marketplace=FLIPKART&store=search.flipkart.com&srno=s_1_7&otracker=search&otracker1=search&fm=organic&iid=2c7b60b5-74db-409a-8860-a0b9a1d2cfaf.PHSHFTU3ZXD6RNUB.SEARCH&ppt=browse&ppn=brow…>VetMantra MMC 5 Kg, Mineral mixture for cow, buff…</a> aka getByRole('link', { name: 'VetMantra MMC 5 Kg, Mineral mixture for cow, buffalo, s...' })
+    8) <a class="pIpigb" target="_blank" rel="noopener noreferrer" title="CRETO Heating Pad Gel Full Body Pain Reliever Electric 1 L Hot Water Bag" href="/creto-heating-pad-gel-full-body-pain-reliever-electric-1-l-hot-water-bag/p/itm2606185731806?pid=HWBGVYEZ5ZZDGMQQ&lid=LSTHWBGVYEZ5ZZDGMQQ8C1O9D&marketplace=FLIPKART&store=search.flipkart.com&srno=s_1_8&otracker=search&otracker1=search&fm=organic&iid=2c7b60b5-74db-409a-8860-a0b9a1d2cfaf.HWBGVYEZ5ZZDGMQQ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo000000…>CRETO Heating Pad Gel Full Body Pain Reliever Ele…</a> aka getByRole('link', { name: 'CRETO Heating Pad Gel Full' }).nth(1)
+    9) <a class="pIpigb" target="_blank" rel="noopener noreferrer" title="axenza Japanese Pain Relief Gel Muscle Joint Pain Relief Fast Absorbing Gel" href="/axenza-japanese-pain-relief-gel-muscle-joint-fast-absorbing/p/itmcbb6eb7ffb4f5?pid=BPRHMPHNGKWEB7E7&lid=LSTBPRHMPHNGKWEB7E7ASIGQV&marketplace=FLIPKART&store=search.flipkart.com&srno=s_1_9&otracker=search&otracker1=search&fm=organic&iid=en_Ffdmy2StJ4KHJjf_jwS7lqbsM3mV5Q3mmtGNR5L4xMTqyulu7vOIpPjoTsOCyOoczbT5S4RbaXbG_ExkjsW9vQ03BvnmzE4yBQ82gkmcfroXCsr…>axenza Japanese Pain Relief Gel Muscle Joint Pain…</a> aka getByRole('link', { name: 'axenza Japanese Pain Relief Gel Muscle Joint Pain Relie...' })
+    10) <a class="pIpigb" target="_blank" rel="noopener noreferrer" title="Dish TV Genuine Universal dish tv Remote Controller" href="/dish-tv-genuine-universal-remote-controller/p/itmfag24qxgzk9xf?pid=REMFGNNESYH6ZTR4&lid=LSTREMFGNNESYH6ZTR42NS0BS&marketplace=FLIPKART&store=search.flipkart.com&srno=s_1_10&otracker=search&otracker1=search&fm=organic&iid=2c7b60b5-74db-409a-8860-a0b9a1d2cfaf.REMFGNNESYH6ZTR4.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=tru…>Dish TV Genuine Universal dish tv Remote Controll…</a> aka getByRole('link', { name: 'Dish TV Genuine Universal', description: 'Dish TV Genuine Universal dish tv Remote Controller' })
+    ...
+
+Call log:
+  - waiting for locator('.pIpigb') to be visible
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - generic [ref=e7]:
+    - generic [ref=e9]:
+      - link "Flipkart" [ref=e10] [cursor=pointer]:
+        - /url: /
+        - img "Flipkart" [ref=e11]
+      - link "Explore Plus" [ref=e12] [cursor=pointer]:
+        - /url: /plus
+        - text: Explore Plus
+        - img [ref=e13]
+    - generic [ref=e16]:
+      - textbox "Search for products, brands and more" [ref=e18]: Mac mini
+      - button [active] [ref=e19] [cursor=pointer]:
+        - img [ref=e20]
+    - link "Login" [ref=e28] [cursor=pointer]:
+      - /url: /account/login?ret=/search%3Fq%3DMac%2520mini%26otracker%3Dsearch%26otracker1%3Dsearch%26marketplace%3DFLIPKART%26as-show%3Don%26as%3Doff
+    - link "Become a Seller" [ref=e30] [cursor=pointer]:
+      - /url: https://seller.flipkart.com/sell-online/?utm_source=fkwebsite&utm_medium=websitedirect
+      - generic [ref=e31]: Become a Seller
+    - generic [ref=e33] [cursor=pointer]:
+      - generic [ref=e36]: More
+      - img [ref=e37]
+    - link "Cart" [ref=e42] [cursor=pointer]:
+      - /url: /viewcart?exploreMode=true&preference=FLIPKART
+      - img [ref=e43]
+      - generic [ref=e45]: Cart
+  - generic [ref=e50]:
+    - generic [ref=e51] [cursor=pointer]:
+      - text: Electronics
+      - img [ref=e52]
+    - generic [ref=e54] [cursor=pointer]:
+      - text: TVs & Appliances
+      - img [ref=e55]
+    - generic [ref=e57] [cursor=pointer]:
+      - text: Men
+      - img [ref=e58]
+    - generic [ref=e60] [cursor=pointer]:
+      - text: Women
+      - img [ref=e61]
+    - generic [ref=e63] [cursor=pointer]:
+      - text: Baby & Kids
+      - img [ref=e64]
+    - generic [ref=e66] [cursor=pointer]:
+      - text: Home & Furniture
+      - img [ref=e67]
+    - generic [ref=e69] [cursor=pointer]:
+      - text: Sports, Books & More
+      - img [ref=e70]
+    - link "Flights" [ref=e72] [cursor=pointer]:
+      - /url: /travel/flights?otracker=nmenu_Flights
+    - link "Offer Zone" [ref=e73] [cursor=pointer]:
+      - /url: /offers-list/top-deals?screen=dynamic&pk=themeViews%3DDT-OMU-A2%3ADT-OMU~widgetType%3DdealCard~contentType%3Dneo&otracker=nmenu_offer-zone
+  - generic [ref=e74]:
+    - generic [ref=e75]:
+      - generic [ref=e79]:
+        - generic [ref=e82]: Filters
+        - generic [ref=e84]:
+          - generic [ref=e85]: CATEGORIES
+          - generic [ref=e87]:
+            - img [ref=e89] [cursor=pointer]
+            - link "Computers" [ref=e91] [cursor=pointer]:
+              - /url: /computers/pr?sid=6bo&q=Mac+mini&otracker=categorytree
+          - generic [ref=e93]:
+            - img [ref=e95] [cursor=pointer]
+            - link "Desktop PCs" [ref=e97] [cursor=pointer]:
+              - /url: /computers/desktop-pcs/pr?sid=6bo,nl4&q=Mac+mini&otracker=categorytree
+        - generic [ref=e98]:
+          - generic [ref=e99] [cursor=pointer]:
+            - generic [ref=e100]: Brand
+            - img [ref=e101]
+          - generic [ref=e104]:
+            - generic "Apple" [ref=e105] [cursor=pointer]:
+              - generic [ref=e109]: Apple
+            - generic "DELL" [ref=e110] [cursor=pointer]:
+              - generic [ref=e114]: DELL
+            - generic "CompuTek" [ref=e115] [cursor=pointer]:
+              - generic [ref=e119]: CompuTek
+            - generic "Nayajaisa" [ref=e120] [cursor=pointer]:
+              - generic [ref=e124]: Nayajaisa
+            - generic "Qiwa" [ref=e125] [cursor=pointer]:
+              - generic [ref=e129]: Qiwa
+            - generic "Vbh" [ref=e130] [cursor=pointer]:
+              - generic [ref=e134]: Vbh
+            - generic "YHB" [ref=e135] [cursor=pointer]:
+              - generic [ref=e139]: YHB
+            - generic "NCS" [ref=e140] [cursor=pointer]:
+              - generic [ref=e144]: NCS
+            - generic "SAIRAM COMPUTER" [ref=e145] [cursor=pointer]:
+              - generic [ref=e149]: SAIRAM COMPUTER
+            - generic "VECG COMPUTER GAMING" [ref=e150] [cursor=pointer]:
+              - generic [ref=e154]: VECG COMPUTER GAMING
+            - generic "Ybh" [ref=e155] [cursor=pointer]:
+              - generic [ref=e159]: Ybh
+        - generic [ref=e160]:
+          - generic [ref=e162]: Price
+          - generic [ref=e178]:
+            - generic [ref=e179]: .
+            - generic [ref=e180]: .
+            - generic [ref=e181]: .
+            - generic [ref=e182]: .
+            - generic [ref=e183]: .
+            - generic [ref=e184]: .
+            - generic [ref=e185]: .
+            - generic [ref=e186]: .
+            - generic [ref=e187]: .
+            - generic [ref=e188]: .
+            - generic [ref=e189]: .
+            - generic [ref=e190]: .
+            - generic: .
+          - generic [ref=e191]:
+            - combobox [ref=e193]:
+              - option "Min" [selected]
+              - option "₹250"
+              - option "₹500"
+              - option "₹1000"
+              - option "₹2000"
+              - option "₹5000"
+              - option "₹10000"
+              - option "₹20000"
+              - option "₹30000"
+              - option "₹40000"
+              - option "₹50000"
+              - option "₹60000"
+            - generic [ref=e194]: to
+            - combobox [ref=e196]:
+              - option "₹250"
+              - option "₹500"
+              - option "₹1000"
+              - option "₹2000"
+              - option "₹5000"
+              - option "₹10000"
+              - option "₹20000"
+              - option "₹30000"
+              - option "₹40000"
+              - option "₹50000"
+              - option "₹60000"
+              - option "₹60000+" [selected]
+        - generic [ref=e198] [cursor=pointer]:
+          - generic [ref=e199]: Discount
+          - img [ref=e200]
+        - generic [ref=e202]:
+          - generic [ref=e203] [cursor=pointer]:
+            - generic [ref=e204]: Customer Ratings
+            - img [ref=e205]
+          - generic [ref=e208]:
+            - generic "4★ & above" [ref=e209] [cursor=pointer]:
+              - generic [ref=e213]: 4★ & above
+            - generic "3★ & above" [ref=e214] [cursor=pointer]:
+              - generic [ref=e218]: 3★ & above
+        - generic [ref=e219]:
+          - img [ref=e224] [cursor=pointer]
+          - generic [ref=e226] [cursor=pointer]: "?"
+        - generic [ref=e227]:
+          - generic [ref=e228] [cursor=pointer]:
+            - generic [ref=e229]: Offers
+            - img [ref=e230]
+          - generic [ref=e233]:
+            - generic "Special Price" [ref=e234] [cursor=pointer]:
+              - generic [ref=e238]: Special Price
+            - generic "Buy More, Save More" [ref=e239] [cursor=pointer]:
+              - generic [ref=e243]: Buy More, Save More
+        - generic [ref=e245] [cursor=pointer]:
+          - generic [ref=e246]: New Arrivals
+          - img [ref=e247]
+        - generic [ref=e250] [cursor=pointer]:
+          - generic [ref=e251]: SSD Capacity
+          - img [ref=e252]
+        - generic [ref=e255] [cursor=pointer]:
+          - generic [ref=e256]: Availability
+          - img [ref=e257]
+        - generic [ref=e260] [cursor=pointer]:
+          - generic [ref=e261]: GST Invoice Available
+          - img [ref=e262]
+      - generic [ref=e264]:
+        - generic [ref=e267]:
+          - generic [ref=e268]:
+            - generic [ref=e269]:
+              - link "Home" [ref=e270] [cursor=pointer]:
+                - /url: /
+              - img [ref=e271]
+            - generic [ref=e273]:
+              - link "Computers" [ref=e274] [cursor=pointer]:
+                - /url: /computers/pr?sid=6bo&marketplace=FLIPKART
+              - img [ref=e275]
+            - link "Desktop PCs" [ref=e278] [cursor=pointer]:
+              - /url: /computers/desktop-pcs/pr?sid=6bo,nl4&marketplace=FLIPKART
+          - generic [ref=e279]: Showing 1 – 40 of 88 results for "Mac mini"
+          - generic [ref=e280]:
+            - generic [ref=e281]: Sort By
+            - generic [ref=e282]: Relevance
+            - generic [ref=e283] [cursor=pointer]: Popularity
+            - generic [ref=e284] [cursor=pointer]: Price -- Low to High
+            - generic [ref=e285] [cursor=pointer]: Price -- High to Low
+            - generic [ref=e286] [cursor=pointer]: Newest First
+        - generic [ref=e288]:
+          - generic [ref=e290]:
+            - link "Apple Mac Mini (MGNT3HN/A) M1 Chip (8 GB RAM/integrated 8-core GPU Graphics/512 GB SSD Capacity/Mac OS Big Sur) Microtower Coming Soon" [ref=e291] [cursor=pointer]:
+              - /url: /apple-mac-mini-mgnt3hn-a-m1-chip-8-gb-ram-integrated-8-core-gpu-graphics-512-ssd-capacity-mac-os-big-sur-microtower/p/itme7675cf277b41?pid=CPUFXESGGTTGEWZA&lid=LSTCPUFXESGGTTGEWZA1INCSF&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_1&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUFXESGGTTGEWZA.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - img "Apple Mac Mini (MGNT3HN/A) M1 Chip (8 GB RAM/integrated 8-core GPU Graphics/512 GB SSD Capacity/Mac OS Big Sur) Microtower" [ref=e295]
+              - generic: Coming Soon
+              - img [ref=e298]
+            - link "Apple Mac Mini (MGNT3HN/A) M1 Chip (8 GB RAM/integrated..." [ref=e300] [cursor=pointer]:
+              - /url: /apple-mac-mini-mgnt3hn-a-m1-chip-8-gb-ram-integrated-8-core-gpu-graphics-512-ssd-capacity-mac-os-big-sur-microtower/p/itme7675cf277b41?pid=CPUFXESGGTTGEWZA&lid=LSTCPUFXESGGTTGEWZA1INCSF&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_1&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUFXESGGTTGEWZA.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e301]:
+              - generic [ref=e303]:
+                - text: "4.7"
+                - img [ref=e304]
+              - text: (97)
+            - img [ref=e306]
+            - link "₹84,900" [ref=e307] [cursor=pointer]:
+              - /url: /apple-mac-mini-mgnt3hn-a-m1-chip-8-gb-ram-integrated-8-core-gpu-graphics-512-ssd-capacity-mac-os-big-sur-microtower/p/itme7675cf277b41?pid=CPUFXESGGTTGEWZA&lid=LSTCPUFXESGGTTGEWZA1INCSF&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_1&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUFXESGGTTGEWZA.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e309]: ₹84,900
+          - generic [ref=e311]:
+            - link "Apple MQH63HN/A M2 Ultra chip (64 GB RAM/Integrated 60 core GPU Graphics/1 TB SSD Capacity/macOS Ventura) Mini Tower Coming Soon" [ref=e312] [cursor=pointer]:
+              - /url: /apple-mqh63hn-a-m2-ultra-chip-64-gb-ram-integrated-60-core-gpu-graphics-1-tb-ssd-capacity-macos-ventura-mini-tower/p/itmdba1c57fe269c?pid=CPUGQA2J8TAKGYK8&lid=LSTCPUGQA2J8TAKGYK8CPJXXN&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_2&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUGQA2J8TAKGYK8.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - img "Apple MQH63HN/A M2 Ultra chip (64 GB RAM/Integrated 60 core GPU Graphics/1 TB SSD Capacity/macOS Ventura) Mini Tower" [ref=e316]
+              - generic: Coming Soon
+              - img [ref=e319]
+            - link "Apple MQH63HN/A M2 Ultra chip (64 GB RAM/Integrated 60 ..." [ref=e321] [cursor=pointer]:
+              - /url: /apple-mqh63hn-a-m2-ultra-chip-64-gb-ram-integrated-60-core-gpu-graphics-1-tb-ssd-capacity-macos-ventura-mini-tower/p/itmdba1c57fe269c?pid=CPUGQA2J8TAKGYK8&lid=LSTCPUGQA2J8TAKGYK8CPJXXN&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_2&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUGQA2J8TAKGYK8.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - img [ref=e323]
+            - link "₹4,19,900" [ref=e324] [cursor=pointer]:
+              - /url: /apple-mqh63hn-a-m2-ultra-chip-64-gb-ram-integrated-60-core-gpu-graphics-1-tb-ssd-capacity-macos-ventura-mini-tower/p/itmdba1c57fe269c?pid=CPUGQA2J8TAKGYK8&lid=LSTCPUGQA2J8TAKGYK8CPJXXN&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_2&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUGQA2J8TAKGYK8.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e326]: ₹4,19,900
+          - generic [ref=e328]:
+            - link "Apple MCYT4HN/A|MCYT4HN/A M4 Chip (24 GB RAM/10-core GPU Graphics/512 GB SSD Capacity/macOS Sequoia) Mini Tower Trending" [ref=e329] [cursor=pointer]:
+              - /url: /apple-mcyt4hn-a-mcyt4hn-a-m4-chip-24-gb-ram-10-core-gpu-graphics-512-ssd-capacity-macos-sequoia-mini-tower/p/itm456a2fe28f49c?pid=CPUHZQWXBYPR3K7Q&lid=LSTCPUHZQWXBYPR3K7QHWETAQ&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&spotlightTagId=default_TrendingId_6bo%2Fnl4&srno=s_1_3&otracker=search&otracker1=search&fm=Search&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHZQWXBYPR3K7Q.SEARCH&ppt=sp&ppn=sp&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - img "Apple MCYT4HN/A|MCYT4HN/A M4 Chip (24 GB RAM/10-core GPU Graphics/512 GB SSD Capacity/macOS Sequoia) Mini Tower" [ref=e333]
+              - generic [ref=e334]: Trending
+              - img [ref=e337]
+            - link "Apple MCYT4HN/A|MCYT4HN/A M4 Chip (24 GB RAM/10-core GP..." [ref=e339] [cursor=pointer]:
+              - /url: /apple-mcyt4hn-a-mcyt4hn-a-m4-chip-24-gb-ram-10-core-gpu-graphics-512-ssd-capacity-macos-sequoia-mini-tower/p/itm456a2fe28f49c?pid=CPUHZQWXBYPR3K7Q&lid=LSTCPUHZQWXBYPR3K7QHWETAQ&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&spotlightTagId=default_TrendingId_6bo%2Fnl4&srno=s_1_3&otracker=search&otracker1=search&fm=Search&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHZQWXBYPR3K7Q.SEARCH&ppt=sp&ppn=sp&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - link "₹1,42,900" [ref=e340] [cursor=pointer]:
+              - /url: /apple-mcyt4hn-a-mcyt4hn-a-m4-chip-24-gb-ram-10-core-gpu-graphics-512-ssd-capacity-macos-sequoia-mini-tower/p/itm456a2fe28f49c?pid=CPUHZQWXBYPR3K7Q&lid=LSTCPUHZQWXBYPR3K7QHWETAQ&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&spotlightTagId=default_TrendingId_6bo%2Fnl4&srno=s_1_3&otracker=search&otracker1=search&fm=Search&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHZQWXBYPR3K7Q.SEARCH&ppt=sp&ppn=sp&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e342]: ₹1,42,900
+            - generic [ref=e345]: Only 2 left
+          - generic [ref=e347]:
+            - link "Apple Mac Mini (MXNF2HN/A) Core i3 (8 GB RAM/Intel UHD Graphics 630 Graphics/256 GB SSD Capacity/Mac OS Catalina) Mini Tower Coming Soon" [ref=e348] [cursor=pointer]:
+              - /url: /apple-mac-mini-mxnf2hn-a-core-i3-8-gb-ram-intel-uhd-graphics-630-graphics-256-ssd-capacity-mac-os-catalina-tower/p/itm42ae808c8b871?pid=CPUFQXEMGZJXDH2D&lid=LSTCPUFQXEMGZJXDH2DXXKZQI&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_4&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUFQXEMGZJXDH2D.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - img "Apple Mac Mini (MXNF2HN/A) Core i3 (8 GB RAM/Intel UHD Graphics 630 Graphics/256 GB SSD Capacity/Mac OS Catalina) Mini Tower" [ref=e352]
+              - generic: Coming Soon
+              - img [ref=e355]
+            - link "Apple Mac Mini (MXNF2HN/A) Core i3 (8 GB RAM/Intel UHD ..." [ref=e357] [cursor=pointer]:
+              - /url: /apple-mac-mini-mxnf2hn-a-core-i3-8-gb-ram-intel-uhd-graphics-630-graphics-256-ssd-capacity-mac-os-catalina-tower/p/itm42ae808c8b871?pid=CPUFQXEMGZJXDH2D&lid=LSTCPUFQXEMGZJXDH2DXXKZQI&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_4&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUFQXEMGZJXDH2D.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - img [ref=e359]
+            - link "₹74,900" [ref=e360] [cursor=pointer]:
+              - /url: /apple-mac-mini-mxnf2hn-a-core-i3-8-gb-ram-intel-uhd-graphics-630-graphics-256-ssd-capacity-mac-os-catalina-tower/p/itm42ae808c8b871?pid=CPUFQXEMGZJXDH2D&lid=LSTCPUFQXEMGZJXDH2DXXKZQI&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_4&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUFQXEMGZJXDH2D.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e362]: ₹74,900
+        - generic [ref=e364]:
+          - generic [ref=e366]:
+            - link "DELL Wyse 7040 Small Form Factor Mini PC(Renewed) - Windows 11, Intel, Core i5-6th Generation, 600 MB Graphics Card, 8 GB DDR-4/PC-4, 256 GB SSD M.2/SATA Mini PC" [ref=e367] [cursor=pointer]:
+              - /url: /dell-wyse-7040-small-form-factor-mini-pc-renewed-windows-11-intel-core-i5-6th-generation-600-mb-graphics-card-8-gb-ddr-4-pc-4-256-ssd-m-2-sata-pc/p/itmc846c8d85594f?pid=MPCHECPHF2SFPCV7&lid=LSTMPCHECPHF2SFPCV7JYNVHJ&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_5&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHECPHF2SFPCV7.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - img "DELL Wyse 7040 Small Form Factor Mini PC(Renewed) - Windows 11, Intel, Core i5-6th Generation, 600 MB Graphics Card, 8 GB DDR-4/PC-4, 256 GB SSD M.2/SATA Mini PC" [ref=e371]
+              - img [ref=e374]
+            - link "DELL Wyse 7040 Small Form Factor Mini PC(Renewed) - Win..." [ref=e376] [cursor=pointer]:
+              - /url: /dell-wyse-7040-small-form-factor-mini-pc-renewed-windows-11-intel-core-i5-6th-generation-600-mb-graphics-card-8-gb-ddr-4-pc-4-256-ssd-m-2-sata-pc/p/itmc846c8d85594f?pid=MPCHECPHF2SFPCV7&lid=LSTMPCHECPHF2SFPCV7JYNVHJ&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_5&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHECPHF2SFPCV7.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e377]: Black
+            - generic [ref=e378]:
+              - generic [ref=e380]:
+                - text: "2.5"
+                - img [ref=e381]
+              - text: (4)
+            - link "₹18,150 ₹59,600 69% off" [ref=e382] [cursor=pointer]:
+              - /url: /dell-wyse-7040-small-form-factor-mini-pc-renewed-windows-11-intel-core-i5-6th-generation-600-mb-graphics-card-8-gb-ddr-4-pc-4-256-ssd-m-2-sata-pc/p/itmc846c8d85594f?pid=MPCHECPHF2SFPCV7&lid=LSTMPCHECPHF2SFPCV7JYNVHJ&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_5&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHECPHF2SFPCV7.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e383]:
+                - generic [ref=e384]: ₹18,150
+                - generic [ref=e385]: ₹59,600
+                - generic [ref=e386]: 69% off
+            - generic [ref=e389]: Only few left
+          - generic [ref=e391]:
+            - link "Apple MacBook Air M3 - (24 GB/512 GB SSD/macOS Sequoia) MC8M4HN/A Coming Soon" [ref=e392] [cursor=pointer]:
+              - /url: /apple-macbook-air-m3-24-gb-512-gb-ssd-macos-sequoia-mc8m4hn-a/p/itm45bd67b7758ad?pid=COMH64PYVYF6ZEPJ&lid=LSTCOMH64PYVYF6ZEPJPT7M7Z&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_6&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.COMH64PYVYF6ZEPJ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - img "Apple MacBook Air M3 - (24 GB/512 GB SSD/macOS Sequoia) MC8M4HN/A" [ref=e396]
+              - generic: Coming Soon
+              - img [ref=e399]
+            - link "Apple MacBook Air M3 - (24 GB/512 GB SSD/macOS Sequoia)..." [ref=e401] [cursor=pointer]:
+              - /url: /apple-macbook-air-m3-24-gb-512-gb-ssd-macos-sequoia-mc8m4hn-a/p/itm45bd67b7758ad?pid=COMH64PYVYF6ZEPJ&lid=LSTCOMH64PYVYF6ZEPJPT7M7Z&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_6&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.COMH64PYVYF6ZEPJ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e402]: 13.6 Inch, Space Gray, 1.24 kg
+            - img [ref=e404]
+            - link "₹1,54,900" [ref=e405] [cursor=pointer]:
+              - /url: /apple-macbook-air-m3-24-gb-512-gb-ssd-macos-sequoia-mc8m4hn-a/p/itm45bd67b7758ad?pid=COMH64PYVYF6ZEPJ&lid=LSTCOMH64PYVYF6ZEPJPT7M7Z&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_6&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.COMH64PYVYF6ZEPJ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e407]: ₹1,54,900
+          - generic [ref=e409]:
+            - link "DELL Refurbished Core i3 7th Generation Tiny PC - Windows 10, Intel®, Core i3 7th Generation, 8 GB DDR4, 256 GB SSD Mini PC" [ref=e410] [cursor=pointer]:
+              - /url: /dell-refurbished-core-i3-7th-generation-tiny-pc-windows-10-intel-generation-8-gb-ddr4-256-ssd-mini/p/itm96775787ea864?pid=MPCH9HVPHYPH3G5F&lid=LSTMPCH9HVPHYPH3G5FXYD2M2&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_7&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCH9HVPHYPH3G5F.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e413]:
+                - img "DELL Refurbished Core i3 7th Generation Tiny PC - Windows 10, Intel®, Core i3 7th Generation, 8 GB DDR4, 256 GB SSD Mini PC"
+              - img [ref=e416]
+            - link "DELL Refurbished Core i3 7th Generation Tiny PC - Windo..." [ref=e418] [cursor=pointer]:
+              - /url: /dell-refurbished-core-i3-7th-generation-tiny-pc-windows-10-intel-generation-8-gb-ddr4-256-ssd-mini/p/itm96775787ea864?pid=MPCH9HVPHYPH3G5F&lid=LSTMPCH9HVPHYPH3G5FXYD2M2&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_7&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCH9HVPHYPH3G5F.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e419]: Black
+            - generic [ref=e420]:
+              - generic [ref=e422]:
+                - text: "3.6"
+                - img [ref=e423]
+              - text: (181)
+            - link "₹13,600 ₹22,000 38% off" [ref=e424] [cursor=pointer]:
+              - /url: /dell-refurbished-core-i3-7th-generation-tiny-pc-windows-10-intel-generation-8-gb-ddr4-256-ssd-mini/p/itm96775787ea864?pid=MPCH9HVPHYPH3G5F&lid=LSTMPCH9HVPHYPH3G5FXYD2M2&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_7&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCH9HVPHYPH3G5F.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e425]:
+                - generic [ref=e426]: ₹13,600
+                - generic [ref=e427]: ₹22,000
+                - generic [ref=e428]: 38% off
+            - generic [ref=e431]: Only 5 left
+          - generic [ref=e433]:
+            - link "Vbh DFGFHTY PRO (12 MB RAM/DSRE Graphics/12 GB Hard Disk/64 GB SSD Capacity/Mac OS Big Sur/12 GB Graphics Memory) Mini Tower" [ref=e434] [cursor=pointer]:
+              - /url: /vbh-dfgfhty-pro-12-mb-ram-dsre-graphics-12-gb-hard-disk-64-ssd-capacity-mac-os-big-sur-12-graphics-memory-mini-tower/p/itm1b60f5bafda1c?pid=CPUHPBUAMZGZ5KNY&lid=LSTCPUHPBUAMZGZ5KNYY7ZSME&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_8&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHPBUAMZGZ5KNY.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e437]:
+                - img "Vbh DFGFHTY PRO (12 MB RAM/DSRE Graphics/12 GB Hard Disk/64 GB SSD Capacity/Mac OS Big Sur/12 GB Graphics Memory) Mini Tower"
+              - img [ref=e440]
+            - link "Vbh DFGFHTY PRO (12 MB RAM/DSRE Graphics/12 GB Hard Dis..." [ref=e442] [cursor=pointer]:
+              - /url: /vbh-dfgfhty-pro-12-mb-ram-dsre-graphics-12-gb-hard-disk-64-ssd-capacity-mac-os-big-sur-12-graphics-memory-mini-tower/p/itm1b60f5bafda1c?pid=CPUHPBUAMZGZ5KNY&lid=LSTCPUHPBUAMZGZ5KNYY7ZSME&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_8&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHPBUAMZGZ5KNY.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - link "₹46,999 ₹55,000 14% off" [ref=e443] [cursor=pointer]:
+              - /url: /vbh-dfgfhty-pro-12-mb-ram-dsre-graphics-12-gb-hard-disk-64-ssd-capacity-mac-os-big-sur-12-graphics-memory-mini-tower/p/itm1b60f5bafda1c?pid=CPUHPBUAMZGZ5KNY&lid=LSTCPUHPBUAMZGZ5KNYY7ZSME&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_8&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHPBUAMZGZ5KNY.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e444]:
+                - generic [ref=e445]: ₹46,999
+                - generic [ref=e446]: ₹55,000
+                - generic [ref=e447]: 14% off
+            - generic [ref=e450]: Only 5 left
+        - generic [ref=e452]:
+          - generic [ref=e454]:
+            - link "Ybh BGTY PRO (12 MB RAM/BGH67 Graphics/12 GB Hard Disk/64 GB SSD Capacity/Mac OS Big Sur/12 GB Graphics Memory) Mini Tower" [ref=e455] [cursor=pointer]:
+              - /url: /ybh-bgty-pro-12-mb-ram-bgh67-graphics-12-gb-hard-disk-64-ssd-capacity-mac-os-big-sur-12-graphics-memory-mini-tower/p/itm67a079f3806cd?pid=CPUHPCZCSZRJSGTE&lid=LSTCPUHPCZCSZRJSGTEXK3DHR&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_9&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHPCZCSZRJSGTE.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e458]:
+                - img "Ybh BGTY PRO (12 MB RAM/BGH67 Graphics/12 GB Hard Disk/64 GB SSD Capacity/Mac OS Big Sur/12 GB Graphics Memory) Mini Tower"
+              - img [ref=e461]
+            - link "Ybh BGTY PRO (12 MB RAM/BGH67 Graphics/12 GB Hard Disk/..." [ref=e463] [cursor=pointer]:
+              - /url: /ybh-bgty-pro-12-mb-ram-bgh67-graphics-12-gb-hard-disk-64-ssd-capacity-mac-os-big-sur-12-graphics-memory-mini-tower/p/itm67a079f3806cd?pid=CPUHPCZCSZRJSGTE&lid=LSTCPUHPCZCSZRJSGTEXK3DHR&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_9&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHPCZCSZRJSGTE.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - link "₹46,999 ₹55,000 14% off" [ref=e464] [cursor=pointer]:
+              - /url: /ybh-bgty-pro-12-mb-ram-bgh67-graphics-12-gb-hard-disk-64-ssd-capacity-mac-os-big-sur-12-graphics-memory-mini-tower/p/itm67a079f3806cd?pid=CPUHPCZCSZRJSGTE&lid=LSTCPUHPCZCSZRJSGTEXK3DHR&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_9&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHPCZCSZRJSGTE.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e465]:
+                - generic [ref=e466]: ₹46,999
+                - generic [ref=e467]: ₹55,000
+                - generic [ref=e468]: 14% off
+            - generic [ref=e471]: Only 5 left
+          - generic [ref=e473]:
+            - link "Ybh BVGTY PRO (12 MB RAM/BVG65 Graphics/12 GB Hard Disk/64 GB SSD Capacity/Mac OS Big Sur/12 GB Graphics Memory) Mini Tower" [ref=e474] [cursor=pointer]:
+              - /url: /ybh-bvgty-pro-12-mb-ram-bvg65-graphics-12-gb-hard-disk-64-ssd-capacity-mac-os-big-sur-12-graphics-memory-mini-tower/p/itm5024eeabc418a?pid=CPUHPCNRCCG9HFJY&lid=LSTCPUHPCNRCCG9HFJY7ZLT4Y&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_10&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHPCNRCCG9HFJY.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e477]:
+                - img "Ybh BVGTY PRO (12 MB RAM/BVG65 Graphics/12 GB Hard Disk/64 GB SSD Capacity/Mac OS Big Sur/12 GB Graphics Memory) Mini Tower"
+              - img [ref=e480]
+            - link "Ybh BVGTY PRO (12 MB RAM/BVG65 Graphics/12 GB Hard Disk..." [ref=e482] [cursor=pointer]:
+              - /url: /ybh-bvgty-pro-12-mb-ram-bvg65-graphics-12-gb-hard-disk-64-ssd-capacity-mac-os-big-sur-12-graphics-memory-mini-tower/p/itm5024eeabc418a?pid=CPUHPCNRCCG9HFJY&lid=LSTCPUHPCNRCCG9HFJY7ZLT4Y&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_10&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHPCNRCCG9HFJY.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - link "₹46,999 ₹55,000 14% off" [ref=e483] [cursor=pointer]:
+              - /url: /ybh-bvgty-pro-12-mb-ram-bvg65-graphics-12-gb-hard-disk-64-ssd-capacity-mac-os-big-sur-12-graphics-memory-mini-tower/p/itm5024eeabc418a?pid=CPUHPCNRCCG9HFJY&lid=LSTCPUHPCNRCCG9HFJY7ZLT4Y&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_10&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHPCNRCCG9HFJY.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e484]:
+                - generic [ref=e485]: ₹46,999
+                - generic [ref=e486]: ₹55,000
+                - generic [ref=e487]: 14% off
+            - generic [ref=e490]: Only 5 left
+          - generic [ref=e492]:
+            - link "YHB CBVDF PRO (12 MB RAM/VFGRT45 Graphics/12 GB Hard Disk/64 GB SSD Capacity/Mac OS Big Sur/12 GB Graphics Memory) Mini Tower" [ref=e493] [cursor=pointer]:
+              - /url: /yhb-cbvdf-pro-12-mb-ram-vfgrt45-graphics-12-gb-hard-disk-64-ssd-capacity-mac-os-big-sur-12-graphics-memory-mini-tower/p/itm389febc362542?pid=CPUHPCNNNGECKGGZ&lid=LSTCPUHPCNNNGECKGGZJLEYIC&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_11&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHPCNNNGECKGGZ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e496]:
+                - img "YHB CBVDF PRO (12 MB RAM/VFGRT45 Graphics/12 GB Hard Disk/64 GB SSD Capacity/Mac OS Big Sur/12 GB Graphics Memory) Mini Tower"
+              - img [ref=e499]
+            - link "YHB CBVDF PRO (12 MB RAM/VFGRT45 Graphics/12 GB Hard Di..." [ref=e501] [cursor=pointer]:
+              - /url: /yhb-cbvdf-pro-12-mb-ram-vfgrt45-graphics-12-gb-hard-disk-64-ssd-capacity-mac-os-big-sur-12-graphics-memory-mini-tower/p/itm389febc362542?pid=CPUHPCNNNGECKGGZ&lid=LSTCPUHPCNNNGECKGGZJLEYIC&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_11&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHPCNNNGECKGGZ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - link "₹46,999 ₹55,000 14% off" [ref=e502] [cursor=pointer]:
+              - /url: /yhb-cbvdf-pro-12-mb-ram-vfgrt45-graphics-12-gb-hard-disk-64-ssd-capacity-mac-os-big-sur-12-graphics-memory-mini-tower/p/itm389febc362542?pid=CPUHPCNNNGECKGGZ&lid=LSTCPUHPCNNNGECKGGZJLEYIC&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_11&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.CPUHPCNNNGECKGGZ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e503]:
+                - generic [ref=e504]: ₹46,999
+                - generic [ref=e505]: ₹55,000
+                - generic [ref=e506]: 14% off
+            - generic [ref=e509]: Only 5 left
+          - generic [ref=e511]:
+            - link "DELL wyse_7040 - Windows 10, Intel UHD Graphics 530, DELL (Refurbished) Wyse 7040 Mini-PC High Performance Processor Type i5-6th, 620 MB Graphics Card, 8 GB DDR4, 256 GB ssd with 6 month warranty with 5G Dongle Mini PC" [ref=e512] [cursor=pointer]:
+              - /url: /dell-wyse-7040-windows-10-intel-uhd-graphics-530-refurbished-wyse-7040-mini-pc-high-performance-processor-type-i5-6th-620-mb-card-8-gb-ddr4-256-ssd-6-month-warranty-5g-dongle-mini-pc/p/itm7b13252430df5?pid=MPCHGYDRPXZMARQC&lid=LSTMPCHGYDRPXZMARQC0S3V36&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_12&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGYDRPXZMARQC.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e515]:
+                - img "DELL wyse_7040 - Windows 10, Intel UHD Graphics 530, DELL (Refurbished) Wyse 7040 Mini-PC High Performance Processor Type i5-6th, 620 MB Graphics Card, 8 GB DDR4, 256 GB ssd with 6 month warranty with 5G Dongle Mini PC"
+              - img [ref=e518]
+            - link "DELL wyse_7040 - Windows 10, Intel UHD Graphics 530, DE..." [ref=e520] [cursor=pointer]:
+              - /url: /dell-wyse-7040-windows-10-intel-uhd-graphics-530-refurbished-wyse-7040-mini-pc-high-performance-processor-type-i5-6th-620-mb-card-8-gb-ddr4-256-ssd-6-month-warranty-5g-dongle-mini-pc/p/itm7b13252430df5?pid=MPCHGYDRPXZMARQC&lid=LSTMPCHGYDRPXZMARQC0S3V36&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_12&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGYDRPXZMARQC.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e521]: Black
+            - generic [ref=e522]:
+              - generic [ref=e524]:
+                - text: "2.8"
+                - img [ref=e525]
+              - text: (4)
+            - link "₹18,999 ₹69,999 72% off" [ref=e526] [cursor=pointer]:
+              - /url: /dell-wyse-7040-windows-10-intel-uhd-graphics-530-refurbished-wyse-7040-mini-pc-high-performance-processor-type-i5-6th-620-mb-card-8-gb-ddr4-256-ssd-6-month-warranty-5g-dongle-mini-pc/p/itm7b13252430df5?pid=MPCHGYDRPXZMARQC&lid=LSTMPCHGYDRPXZMARQC0S3V36&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_12&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGYDRPXZMARQC.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e527]:
+                - generic [ref=e528]: ₹18,999
+                - generic [ref=e529]: ₹69,999
+                - generic [ref=e530]: 72% off
+            - generic [ref=e533]: Only few left
+        - generic [ref=e535]:
+          - generic [ref=e537]:
+            - link "CompuTek ™ | DELL-Optiplex 7050 Mini (Renewed) - Windows 10, Intel, i5 Quad Core, 6th Generation ,Intel HD Graphics, 8 GB DDR4 RAM, 500 GB SSD(M.2 NVMe) Mini PC" [ref=e538] [cursor=pointer]:
+              - /url: /computek-dell-optiplex-7050-mini-renewed-windows-10-intel-i5-quad-core-6th-generation-intel-hd-graphics-8-gb-ddr4-ram-500-ssd-m-2-nvme-pc/p/itm97f53e5ffb775?pid=MPCGYFNTG7J4RPNZ&lid=LSTMPCGYFNTG7J4RPNZTEHUIZ&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_13&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCGYFNTG7J4RPNZ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e541]:
+                - img "CompuTek ™ | DELL-Optiplex 7050 Mini (Renewed) - Windows 10, Intel, i5 Quad Core, 6th Generation ,Intel HD Graphics, 8 GB DDR4 RAM, 500 GB SSD(M.2 NVMe) Mini PC"
+              - img [ref=e544]
+            - link "CompuTek ™ | DELL-Optiplex 7050 Mini (Renewed) - Window..." [ref=e546] [cursor=pointer]:
+              - /url: /computek-dell-optiplex-7050-mini-renewed-windows-10-intel-i5-quad-core-6th-generation-intel-hd-graphics-8-gb-ddr4-ram-500-ssd-m-2-nvme-pc/p/itm97f53e5ffb775?pid=MPCGYFNTG7J4RPNZ&lid=LSTMPCGYFNTG7J4RPNZTEHUIZ&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_13&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCGYFNTG7J4RPNZ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e547]: Black
+            - generic [ref=e548]:
+              - generic [ref=e550]:
+                - text: "3.7"
+                - img [ref=e551]
+              - text: (7)
+            - link "₹18,450 ₹25,000 26% off" [ref=e552] [cursor=pointer]:
+              - /url: /computek-dell-optiplex-7050-mini-renewed-windows-10-intel-i5-quad-core-6th-generation-intel-hd-graphics-8-gb-ddr4-ram-500-ssd-m-2-nvme-pc/p/itm97f53e5ffb775?pid=MPCGYFNTG7J4RPNZ&lid=LSTMPCGYFNTG7J4RPNZTEHUIZ&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_13&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCGYFNTG7J4RPNZ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e553]:
+                - generic [ref=e554]: ₹18,450
+                - generic [ref=e555]: ₹25,000
+                - generic [ref=e556]: 26% off
+            - generic [ref=e559]: Only 2 left
+          - generic [ref=e561]:
+            - link "DELL (REFURBISHED) WYSE_7040 - Windows 10, 530, I5-6TH 6500 4 CORE, 512 MB Graphics Card, 8 GB DDR4, 256 GB SSD Mini PC" [ref=e562] [cursor=pointer]:
+              - /url: /dell-refurbished-wyse-7040-windows-10-530-i5-6th-6500-4-core-512-mb-graphics-card-8-gb-ddr4-256-ssd-mini-pc/p/itmbcf33f9713550?pid=MPCHGXTKTYAXVNB4&lid=LSTMPCHGXTKTYAXVNB4DHGQFH&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_14&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGXTKTYAXVNB4.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e565]:
+                - img "DELL (REFURBISHED) WYSE_7040 - Windows 10, 530, I5-6TH 6500 4 CORE, 512 MB Graphics Card, 8 GB DDR4, 256 GB SSD Mini PC"
+              - img [ref=e568]
+            - link "DELL (REFURBISHED) WYSE_7040 - Windows 10, 530, I5-6TH ..." [ref=e570] [cursor=pointer]:
+              - /url: /dell-refurbished-wyse-7040-windows-10-530-i5-6th-6500-4-core-512-mb-graphics-card-8-gb-ddr4-256-ssd-mini-pc/p/itmbcf33f9713550?pid=MPCHGXTKTYAXVNB4&lid=LSTMPCHGXTKTYAXVNB4DHGQFH&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_14&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGXTKTYAXVNB4.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e571]: Black
+            - img [ref=e573]
+            - link "₹17,500 ₹69,994 74% off" [ref=e574] [cursor=pointer]:
+              - /url: /dell-refurbished-wyse-7040-windows-10-530-i5-6th-6500-4-core-512-mb-graphics-card-8-gb-ddr4-256-ssd-mini-pc/p/itmbcf33f9713550?pid=MPCHGXTKTYAXVNB4&lid=LSTMPCHGXTKTYAXVNB4DHGQFH&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_14&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGXTKTYAXVNB4.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e575]:
+                - generic [ref=e576]: ₹17,500
+                - generic [ref=e577]: ₹69,994
+                - generic [ref=e578]: 74% off
+            - generic [ref=e581]: Only few left
+          - generic [ref=e583]:
+            - link "Qiwa X98Q Mini Pc Box with Amlogic S905W2 Quad core Processor - 4K UHD Video, - Android v4.4 (KitKat), NITEL, AMLOGIC S905W2, 2 GB DDR3, 16 GB 10 Mini PC" [ref=e584] [cursor=pointer]:
+              - /url: /qiwa-x98q-mini-pc-box-amlogic-s905w2-quad-core-processor-4k-uhd-video-android-v4-4-kitkat-nitel-s905w2-2-gb-ddr3-16-10/p/itmbd20df9b15bf5?pid=MPCGRK3B7AHUZJSG&lid=LSTMPCGRK3B7AHUZJSGWSZLLK&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_15&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCGRK3B7AHUZJSG.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e587]:
+                - img "Qiwa X98Q Mini Pc Box with Amlogic S905W2 Quad core Processor - 4K UHD Video, - Android v4.4 (KitKat), NITEL, AMLOGIC S905W2, 2 GB DDR3, 16 GB 10 Mini PC"
+              - img [ref=e590]
+            - link "Qiwa X98Q Mini Pc Box with Amlogic S905W2 Quad core Pro..." [ref=e592] [cursor=pointer]:
+              - /url: /qiwa-x98q-mini-pc-box-amlogic-s905w2-quad-core-processor-4k-uhd-video-android-v4-4-kitkat-nitel-s905w2-2-gb-ddr3-16-10/p/itmbd20df9b15bf5?pid=MPCGRK3B7AHUZJSG&lid=LSTMPCGRK3B7AHUZJSGWSZLLK&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_15&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCGRK3B7AHUZJSG.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e593]: Black
+            - link "₹3,999" [ref=e594] [cursor=pointer]:
+              - /url: /qiwa-x98q-mini-pc-box-amlogic-s905w2-quad-core-processor-4k-uhd-video-android-v4-4-kitkat-nitel-s905w2-2-gb-ddr3-16-10/p/itmbd20df9b15bf5?pid=MPCGRK3B7AHUZJSG&lid=LSTMPCGRK3B7AHUZJSGWSZLLK&marketplace=FLIPKART&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_15&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCGRK3B7AHUZJSG.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e596]: ₹3,999
+            - generic [ref=e599]: Only few left
+          - generic [ref=e601]:
+            - link "SAIRAM COMPUTER EliteDesk Core i7 (9th Gen) [12M Cache, 3.00 GHz]/32GB RAM/1024GB SSD [MCA] - Windows 11 Pro, Intel H310, Core i7 (9th Generation) Processor [8 Cores, 8 Threads], 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e602] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-core-i7-9th-gen-12m-cache-3-00-ghz-32gb-ram-1024gb-ssd-mca-windows-11-pro-intel-h310-generation-processor-8-cores-8-threads-32-gb-ddr4-1024-nvme-mini-pc/p/itm3b58809707c21?pid=MPCHGDPFEDTAHXGC&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_16&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFEDTAHXGC.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e605]:
+                - img "SAIRAM COMPUTER EliteDesk Core i7 (9th Gen) [12M Cache, 3.00 GHz]/32GB RAM/1024GB SSD [MCA] - Windows 11 Pro, Intel H310, Core i7 (9th Generation) Processor [8 Cores, 8 Threads], 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e608]
+            - link "SAIRAM COMPUTER EliteDesk Core i7 (9th Gen) [12M Cache,..." [ref=e610] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-core-i7-9th-gen-12m-cache-3-00-ghz-32gb-ram-1024gb-ssd-mca-windows-11-pro-intel-h310-generation-processor-8-cores-8-threads-32-gb-ddr4-1024-nvme-mini-pc/p/itm3b58809707c21?pid=MPCHGDPFEDTAHXGC&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_16&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFEDTAHXGC.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e611]: Black
+            - 'link "Price: Not Available" [ref=e612] [cursor=pointer]':
+              - /url: /sairam-computer-elitedesk-core-i7-9th-gen-12m-cache-3-00-ghz-32gb-ram-1024gb-ssd-mca-windows-11-pro-intel-h310-generation-processor-8-cores-8-threads-32-gb-ddr4-1024-nvme-mini-pc/p/itm3b58809707c21?pid=MPCHGDPFEDTAHXGC&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_16&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFEDTAHXGC.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e614]: "Price: Not Available"
+        - generic [ref=e616]:
+          - generic [ref=e618]:
+            - link "SAIRAM COMPUTER EliteDesk Core i7 (9th Gen) [12MB Cache, 3.00 GHz]/32GB RAM/1TB SSD [MCT] - Windows 11 Pro, Intel H310, Core™ i7-9700 [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e619] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-core-i7-9th-gen-12mb-cache-3-00-ghz-32gb-ram-1tb-ssd-mct-windows-11-pro-intel-h310-core-i7-9700-8-cores-8-threads-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itmde68e8f7ea4e9?pid=MPCHGDPF2R4HNCKM&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_17&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPF2R4HNCKM.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e622]:
+                - img "SAIRAM COMPUTER EliteDesk Core i7 (9th Gen) [12MB Cache, 3.00 GHz]/32GB RAM/1TB SSD [MCT] - Windows 11 Pro, Intel H310, Core™ i7-9700 [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e625]
+            - link "SAIRAM COMPUTER EliteDesk Core i7 (9th Gen) [12MB Cache..." [ref=e627] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-core-i7-9th-gen-12mb-cache-3-00-ghz-32gb-ram-1tb-ssd-mct-windows-11-pro-intel-h310-core-i7-9700-8-cores-8-threads-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itmde68e8f7ea4e9?pid=MPCHGDPF2R4HNCKM&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_17&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPF2R4HNCKM.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e628]: Black
+            - 'link "Price: Not Available" [ref=e629] [cursor=pointer]':
+              - /url: /sairam-computer-elitedesk-core-i7-9th-gen-12mb-cache-3-00-ghz-32gb-ram-1tb-ssd-mct-windows-11-pro-intel-h310-core-i7-9700-8-cores-8-threads-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itmde68e8f7ea4e9?pid=MPCHGDPF2R4HNCKM&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_17&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPF2R4HNCKM.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e631]: "Price: Not Available"
+          - generic [ref=e633]:
+            - link "SAIRAM COMPUTER Core i7-9700 [8 Cores, 8 Threads]/32GB RAM/1024GB SSD EliteDesk Tiny PC [DKA] - Windows 11 Pro, Intel H310, Core i7 (9th Generation) Processor [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e634] [cursor=pointer]:
+              - /url: /sairam-computer-core-i7-9700-8-cores-8-threads-32gb-ram-1024gb-ssd-elitedesk-tiny-pc-dka-windows-11-pro-intel-h310-i7-9th-generation-processor-12mb-cache-up-4-70-ghz-32-gb-ddr4-1024-nvme-mini/p/itmc0707f1434b80?pid=MPCHGDPDMFRNGEDB&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_18&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPDMFRNGEDB.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e637]:
+                - img "SAIRAM COMPUTER Core i7-9700 [8 Cores, 8 Threads]/32GB RAM/1024GB SSD EliteDesk Tiny PC [DKA] - Windows 11 Pro, Intel H310, Core i7 (9th Generation) Processor [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e640]
+            - link "SAIRAM COMPUTER Core i7-9700 [8 Cores, 8 Threads]/32GB ..." [ref=e642] [cursor=pointer]:
+              - /url: /sairam-computer-core-i7-9700-8-cores-8-threads-32gb-ram-1024gb-ssd-elitedesk-tiny-pc-dka-windows-11-pro-intel-h310-i7-9th-generation-processor-12mb-cache-up-4-70-ghz-32-gb-ddr4-1024-nvme-mini/p/itmc0707f1434b80?pid=MPCHGDPDMFRNGEDB&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_18&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPDMFRNGEDB.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e643]: Black
+            - 'link "Price: Not Available" [ref=e644] [cursor=pointer]':
+              - /url: /sairam-computer-core-i7-9700-8-cores-8-threads-32gb-ram-1024gb-ssd-elitedesk-tiny-pc-dka-windows-11-pro-intel-h310-i7-9th-generation-processor-12mb-cache-up-4-70-ghz-32-gb-ddr4-1024-nvme-mini/p/itmc0707f1434b80?pid=MPCHGDPDMFRNGEDB&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_18&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPDMFRNGEDB.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e646]: "Price: Not Available"
+          - generic [ref=e648]:
+            - link "SAIRAM COMPUTER Intel Core i7-9700 Processor/32GB RAM/1024GB NVMe SSD EliteDesk Mini PC [LJZ] - Windows 11 Pro, Intel H310, Core i7 (9th Gen) [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e649] [cursor=pointer]:
+              - /url: /sairam-computer-intel-core-i7-9700-processor-32gb-ram-1024gb-nvme-ssd-elitedesk-mini-pc-ljz-windows-11-pro-h310-i7-9th-gen-12mb-cache-up-4-70-ghz-32-gb-ddr4-1024/p/itm3e34f31e0703e?pid=MPCHGDPFSHMQUNJK&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_19&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFSHMQUNJK.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e652]:
+                - img "SAIRAM COMPUTER Intel Core i7-9700 Processor/32GB RAM/1024GB NVMe SSD EliteDesk Mini PC [LJZ] - Windows 11 Pro, Intel H310, Core i7 (9th Gen) [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e655]
+            - link "SAIRAM COMPUTER Intel Core i7-9700 Processor/32GB RAM/1..." [ref=e657] [cursor=pointer]:
+              - /url: /sairam-computer-intel-core-i7-9700-processor-32gb-ram-1024gb-nvme-ssd-elitedesk-mini-pc-ljz-windows-11-pro-h310-i7-9th-gen-12mb-cache-up-4-70-ghz-32-gb-ddr4-1024/p/itm3e34f31e0703e?pid=MPCHGDPFSHMQUNJK&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_19&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFSHMQUNJK.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e658]: Black
+            - 'link "Price: Not Available" [ref=e659] [cursor=pointer]':
+              - /url: /sairam-computer-intel-core-i7-9700-processor-32gb-ram-1024gb-nvme-ssd-elitedesk-mini-pc-ljz-windows-11-pro-h310-i7-9th-gen-12mb-cache-up-4-70-ghz-32-gb-ddr4-1024/p/itm3e34f31e0703e?pid=MPCHGDPFSHMQUNJK&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_19&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFSHMQUNJK.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e661]: "Price: Not Available"
+          - generic [ref=e663]:
+            - link "Nayajaisa Len Thinkcentre M700 Tiny i3 6th 8-512 - Windows 10, MSO|HD Graphics|USB, Ethernet,VGA|PAN India Warranty, LGA 1151, 8 GB DDR4, 512 GB SSD Mini PC Currently unavailable" [ref=e664] [cursor=pointer]:
+              - /url: /nayajaisa-len-thinkcentre-m700-tiny-i3-6th-8-512-windows-10-mso-hd-graphics-usb-ethernet-vga-pan-india-warranty-lga-1151-8-gb-ddr4-512-ssd-mini-pc/p/itm3fa9556db422e?pid=MPCHDWUKGUWZ7WED&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_20&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHDWUKGUWZ7WED.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e667]:
+                - img "Nayajaisa Len Thinkcentre M700 Tiny i3 6th 8-512 - Windows 10, MSO|HD Graphics|USB, Ethernet,VGA|PAN India Warranty, LGA 1151, 8 GB DDR4, 512 GB SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e670]
+            - link "Nayajaisa Len Thinkcentre M700 Tiny i3 6th 8-512 - Wind..." [ref=e672] [cursor=pointer]:
+              - /url: /nayajaisa-len-thinkcentre-m700-tiny-i3-6th-8-512-windows-10-mso-hd-graphics-usb-ethernet-vga-pan-india-warranty-lga-1151-8-gb-ddr4-512-ssd-mini-pc/p/itm3fa9556db422e?pid=MPCHDWUKGUWZ7WED&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_20&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHDWUKGUWZ7WED.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e673]: Black
+            - 'link "Price: Not Available" [ref=e674] [cursor=pointer]':
+              - /url: /nayajaisa-len-thinkcentre-m700-tiny-i3-6th-8-512-windows-10-mso-hd-graphics-usb-ethernet-vga-pan-india-warranty-lga-1151-8-gb-ddr4-512-ssd-mini-pc/p/itm3fa9556db422e?pid=MPCHDWUKGUWZ7WED&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_20&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHDWUKGUWZ7WED.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e676]: "Price: Not Available"
+        - generic [ref=e678]:
+          - generic [ref=e680]:
+            - link "NCS EliteDesk Mini PC Intel Core i7 (9th Gen)/32GB RAM/1024GB NVMe SSD [DVZ] - Windows 11 Pro, Intel H310, Core i7-9700 Processor [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e681] [cursor=pointer]:
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9th-gen-32gb-ram-1024gb-nvme-ssd-dvz-windows-11-pro-h310-i7-9700-processor-8-cores-8-threads-3-00-ghz-32-gb-ddr4-1024/p/itmb3f296074467d?pid=MPCHGDPFDAG6ZVZD&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_21&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFDAG6ZVZD.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e684]:
+                - img "NCS EliteDesk Mini PC Intel Core i7 (9th Gen)/32GB RAM/1024GB NVMe SSD [DVZ] - Windows 11 Pro, Intel H310, Core i7-9700 Processor [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e687]
+            - link "NCS EliteDesk Mini PC Intel Core i7 (9th Gen)/32GB RAM/..." [ref=e689] [cursor=pointer]:
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9th-gen-32gb-ram-1024gb-nvme-ssd-dvz-windows-11-pro-h310-i7-9700-processor-8-cores-8-threads-3-00-ghz-32-gb-ddr4-1024/p/itmb3f296074467d?pid=MPCHGDPFDAG6ZVZD&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_21&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFDAG6ZVZD.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e690]: Black
+            - 'link "Price: Not Available" [ref=e691] [cursor=pointer]':
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9th-gen-32gb-ram-1024gb-nvme-ssd-dvz-windows-11-pro-h310-i7-9700-processor-8-cores-8-threads-3-00-ghz-32-gb-ddr4-1024/p/itmb3f296074467d?pid=MPCHGDPFDAG6ZVZD&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_21&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFDAG6ZVZD.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e693]: "Price: Not Available"
+          - generic [ref=e695]:
+            - link "NCS Intel Core i7 (9th Gen)/32GB RAM/1TB NVMe SSD EliteDesk Mini PC [MWM] - Windows 11 Pro, Intel H310, Core™ i7 (9th Generation) Octa-Core Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e696] [cursor=pointer]:
+              - /url: /ncs-intel-core-i7-9th-gen-32gb-ram-1tb-nvme-ssd-elitedesk-mini-pc-mwm-windows-11-pro-h310-core-generation-octa-core-processor-32-gb-ddr4-1024/p/itm76285c5ab81cd?pid=MPCHGDPFVJN2SEHY&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_22&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFVJN2SEHY.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e699]:
+                - img "NCS Intel Core i7 (9th Gen)/32GB RAM/1TB NVMe SSD EliteDesk Mini PC [MWM] - Windows 11 Pro, Intel H310, Core™ i7 (9th Generation) Octa-Core Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e702]
+            - link "NCS Intel Core i7 (9th Gen)/32GB RAM/1TB NVMe SSD Elite..." [ref=e704] [cursor=pointer]:
+              - /url: /ncs-intel-core-i7-9th-gen-32gb-ram-1tb-nvme-ssd-elitedesk-mini-pc-mwm-windows-11-pro-h310-core-generation-octa-core-processor-32-gb-ddr4-1024/p/itm76285c5ab81cd?pid=MPCHGDPFVJN2SEHY&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_22&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFVJN2SEHY.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e705]: Black
+            - 'link "Price: Not Available" [ref=e706] [cursor=pointer]':
+              - /url: /ncs-intel-core-i7-9th-gen-32gb-ram-1tb-nvme-ssd-elitedesk-mini-pc-mwm-windows-11-pro-h310-core-generation-octa-core-processor-32-gb-ddr4-1024/p/itm76285c5ab81cd?pid=MPCHGDPFVJN2SEHY&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_22&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFVJN2SEHY.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e708]: "Price: Not Available"
+          - generic [ref=e710]:
+            - link "NCS EliteDesk Mini PC Intel Core i7 (9th Gen)/32GB RAM/1TB NVMe SSD [DVY] - Windows 11 Pro, Intel H310, Intel Core i7 - 9700 Processor [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e711] [cursor=pointer]:
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9th-gen-32gb-ram-1tb-nvme-ssd-dvy-windows-11-pro-h310-9700-processor-8-cores-8-threads-3-00-ghz-32-gb-ddr4-1024/p/itmff91e863357e0?pid=MPCHGDPEZUPDZS6Q&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_23&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPEZUPDZS6Q.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e714]:
+                - img "NCS EliteDesk Mini PC Intel Core i7 (9th Gen)/32GB RAM/1TB NVMe SSD [DVY] - Windows 11 Pro, Intel H310, Intel Core i7 - 9700 Processor [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e717]
+            - link "NCS EliteDesk Mini PC Intel Core i7 (9th Gen)/32GB RAM/..." [ref=e719] [cursor=pointer]:
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9th-gen-32gb-ram-1tb-nvme-ssd-dvy-windows-11-pro-h310-9700-processor-8-cores-8-threads-3-00-ghz-32-gb-ddr4-1024/p/itmff91e863357e0?pid=MPCHGDPEZUPDZS6Q&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_23&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPEZUPDZS6Q.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e720]: Black
+            - 'link "Price: Not Available" [ref=e721] [cursor=pointer]':
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9th-gen-32gb-ram-1tb-nvme-ssd-dvy-windows-11-pro-h310-9700-processor-8-cores-8-threads-3-00-ghz-32-gb-ddr4-1024/p/itmff91e863357e0?pid=MPCHGDPEZUPDZS6Q&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_23&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPEZUPDZS6Q.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e723]: "Price: Not Available"
+          - generic [ref=e725]:
+            - link "NCS ELITEDESK Core i7 (9th Gen) [12M Cache, 3.00 GHz]/32GB RAM/1024GB NVMe SSD [MWW] - Windows 11 Pro, Intel H310, Intel Core i7 (9th Generation) Octa-Core, 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e726] [cursor=pointer]:
+              - /url: /ncs-elitedesk-core-i7-9th-gen-12m-cache-3-00-ghz-32gb-ram-1024gb-nvme-ssd-mww-windows-11-pro-intel-h310-generation-octa-core-32-gb-ddr4-1024-mini-pc/p/itmdb061a929a1cf?pid=MPCHGGG5WVWPG4MQ&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_24&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGGG5WVWPG4MQ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e729]:
+                - img "NCS ELITEDESK Core i7 (9th Gen) [12M Cache, 3.00 GHz]/32GB RAM/1024GB NVMe SSD [MWW] - Windows 11 Pro, Intel H310, Intel Core i7 (9th Generation) Octa-Core, 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e732]
+            - link "NCS ELITEDESK Core i7 (9th Gen) [12M Cache, 3.00 GHz]/3..." [ref=e734] [cursor=pointer]:
+              - /url: /ncs-elitedesk-core-i7-9th-gen-12m-cache-3-00-ghz-32gb-ram-1024gb-nvme-ssd-mww-windows-11-pro-intel-h310-generation-octa-core-32-gb-ddr4-1024-mini-pc/p/itmdb061a929a1cf?pid=MPCHGGG5WVWPG4MQ&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_24&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGGG5WVWPG4MQ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e735]: Black
+            - 'link "Price: Not Available" [ref=e736] [cursor=pointer]':
+              - /url: /ncs-elitedesk-core-i7-9th-gen-12m-cache-3-00-ghz-32gb-ram-1024gb-nvme-ssd-mww-windows-11-pro-intel-h310-generation-octa-core-32-gb-ddr4-1024-mini-pc/p/itmdb061a929a1cf?pid=MPCHGGG5WVWPG4MQ&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_24&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGGG5WVWPG4MQ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e738]: "Price: Not Available"
+        - generic [ref=e740]:
+          - generic [ref=e742]:
+            - link "NCS ELITEDESK MINI PC Intel Core i7 (9th Gen) Processor/32GB RAM/1TB NVMe SSD [CWU] - Windows 11 Pro, Intel H310, Core i7 - 9700 Octa-Core Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e743] [cursor=pointer]:
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9th-gen-processor-32gb-ram-1tb-nvme-ssd-cwu-windows-11-pro-h310-9700-octa-core-processor-32-gb-ddr4-1024/p/itmd2c208a2e0db7?pid=MPCHGDPE57QP9E4W&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_25&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPE57QP9E4W.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e746]:
+                - img "NCS ELITEDESK MINI PC Intel Core i7 (9th Gen) Processor/32GB RAM/1TB NVMe SSD [CWU] - Windows 11 Pro, Intel H310, Core i7 - 9700 Octa-Core Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e749]
+            - link "NCS ELITEDESK MINI PC Intel Core i7 (9th Gen) Processor..." [ref=e751] [cursor=pointer]:
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9th-gen-processor-32gb-ram-1tb-nvme-ssd-cwu-windows-11-pro-h310-9700-octa-core-processor-32-gb-ddr4-1024/p/itmd2c208a2e0db7?pid=MPCHGDPE57QP9E4W&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_25&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPE57QP9E4W.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e752]: Black
+            - 'link "Price: Not Available" [ref=e753] [cursor=pointer]':
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9th-gen-processor-32gb-ram-1tb-nvme-ssd-cwu-windows-11-pro-h310-9700-octa-core-processor-32-gb-ddr4-1024/p/itmd2c208a2e0db7?pid=MPCHGDPE57QP9E4W&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_25&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPE57QP9E4W.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e755]: "Price: Not Available"
+          - generic [ref=e757]:
+            - link "NCS Intel Core i7 (9th Gen)/32GB RAM/1TB NVMe SSD ELITEDESK MINI PC [MUO] - Windows 11 Pro, Intel H310, Intel® Core™ i7 - 9700 Processor [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e758] [cursor=pointer]:
+              - /url: /ncs-intel-core-i7-9th-gen-32gb-ram-1tb-nvme-ssd-elitedesk-mini-pc-muo-windows-11-pro-h310-intel-core-9700-processor-12mb-cache-up-4-70-ghz-32-gb-ddr4-1024/p/itm642715c958c69?pid=MPCHGDPFFRMJT7SA&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_26&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFFRMJT7SA.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e761]:
+                - img "NCS Intel Core i7 (9th Gen)/32GB RAM/1TB NVMe SSD ELITEDESK MINI PC [MUO] - Windows 11 Pro, Intel H310, Intel® Core™ i7 - 9700 Processor [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e764]
+            - link "NCS Intel Core i7 (9th Gen)/32GB RAM/1TB NVMe SSD ELITE..." [ref=e766] [cursor=pointer]:
+              - /url: /ncs-intel-core-i7-9th-gen-32gb-ram-1tb-nvme-ssd-elitedesk-mini-pc-muo-windows-11-pro-h310-intel-core-9700-processor-12mb-cache-up-4-70-ghz-32-gb-ddr4-1024/p/itm642715c958c69?pid=MPCHGDPFFRMJT7SA&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_26&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFFRMJT7SA.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e767]: Black
+            - 'link "Price: Not Available" [ref=e768] [cursor=pointer]':
+              - /url: /ncs-intel-core-i7-9th-gen-32gb-ram-1tb-nvme-ssd-elitedesk-mini-pc-muo-windows-11-pro-h310-intel-core-9700-processor-12mb-cache-up-4-70-ghz-32-gb-ddr4-1024/p/itm642715c958c69?pid=MPCHGDPFFRMJT7SA&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_26&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFFRMJT7SA.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e770]: "Price: Not Available"
+          - generic [ref=e772]:
+            - link "NCS EliteDesk Mini PC Core i7-9700 [8 Cores, 8 Threads]/32GB RAM/1024GB SSD [LTV] - Windows 11 Pro, Intel H310, Core i7 (9th Gen) Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e773] [cursor=pointer]:
+              - /url: /ncs-elitedesk-mini-pc-core-i7-9700-8-cores-8-threads-32gb-ram-1024gb-ssd-ltv-windows-11-pro-intel-h310-i7-9th-gen-processor-32-gb-ddr4-1024-nvme/p/itm48697479991cf?pid=MPCHGDPFGZ3WSG9G&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_27&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFGZ3WSG9G.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e776]:
+                - img "NCS EliteDesk Mini PC Core i7-9700 [8 Cores, 8 Threads]/32GB RAM/1024GB SSD [LTV] - Windows 11 Pro, Intel H310, Core i7 (9th Gen) Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e779]
+            - link "NCS EliteDesk Mini PC Core i7-9700 [8 Cores, 8 Threads]..." [ref=e781] [cursor=pointer]:
+              - /url: /ncs-elitedesk-mini-pc-core-i7-9700-8-cores-8-threads-32gb-ram-1024gb-ssd-ltv-windows-11-pro-intel-h310-i7-9th-gen-processor-32-gb-ddr4-1024-nvme/p/itm48697479991cf?pid=MPCHGDPFGZ3WSG9G&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_27&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFGZ3WSG9G.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e782]: Black
+            - 'link "Price: Not Available" [ref=e783] [cursor=pointer]':
+              - /url: /ncs-elitedesk-mini-pc-core-i7-9700-8-cores-8-threads-32gb-ram-1024gb-ssd-ltv-windows-11-pro-intel-h310-i7-9th-gen-processor-32-gb-ddr4-1024-nvme/p/itm48697479991cf?pid=MPCHGDPFGZ3WSG9G&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_27&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFGZ3WSG9G.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e785]: "Price: Not Available"
+          - generic [ref=e787]:
+            - link "NCS ELITEDESK MINI PC Intel Core i7-9700 Processor/32GB RAM/1024GB NVMe SSD [JCJ] - Windows 11 Pro, Intel H310, Intel® Core™ i7 (9th Gen) Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e788] [cursor=pointer]:
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9700-processor-32gb-ram-1024gb-nvme-ssd-jcj-windows-11-pro-h310-intel-core-i7-9th-gen-processor-32-gb-ddr4-1024/p/itmbb192c488d43d?pid=MPCHGDPFCTVPSVYC&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_28&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFCTVPSVYC.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e791]:
+                - img "NCS ELITEDESK MINI PC Intel Core i7-9700 Processor/32GB RAM/1024GB NVMe SSD [JCJ] - Windows 11 Pro, Intel H310, Intel® Core™ i7 (9th Gen) Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e794]
+            - link "NCS ELITEDESK MINI PC Intel Core i7-9700 Processor/32GB..." [ref=e796] [cursor=pointer]:
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9700-processor-32gb-ram-1024gb-nvme-ssd-jcj-windows-11-pro-h310-intel-core-i7-9th-gen-processor-32-gb-ddr4-1024/p/itmbb192c488d43d?pid=MPCHGDPFCTVPSVYC&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_28&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFCTVPSVYC.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e797]: Black
+            - 'link "Price: Not Available" [ref=e798] [cursor=pointer]':
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9700-processor-32gb-ram-1024gb-nvme-ssd-jcj-windows-11-pro-h310-intel-core-i7-9th-gen-processor-32-gb-ddr4-1024/p/itmbb192c488d43d?pid=MPCHGDPFCTVPSVYC&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_28&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFCTVPSVYC.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e800]: "Price: Not Available"
+        - generic [ref=e802]:
+          - generic [ref=e804]:
+            - link "NCS ELITEDESK MINI PC Intel Core i7-9700 Processor/32GB RAM/1024GB NVMe SSD [LTN] - Windows 11 Pro, Intel H310, Core i7-9700, 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e805] [cursor=pointer]:
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9700-processor-32gb-ram-1024gb-nvme-ssd-ltn-windows-11-pro-h310-i7-9700-32-gb-ddr4-1024/p/itmaf236662922da?pid=MPCHGDPFP2F7TQWU&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_29&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFP2F7TQWU.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e808]:
+                - img "NCS ELITEDESK MINI PC Intel Core i7-9700 Processor/32GB RAM/1024GB NVMe SSD [LTN] - Windows 11 Pro, Intel H310, Core i7-9700, 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e811]
+            - link "NCS ELITEDESK MINI PC Intel Core i7-9700 Processor/32GB..." [ref=e813] [cursor=pointer]:
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9700-processor-32gb-ram-1024gb-nvme-ssd-ltn-windows-11-pro-h310-i7-9700-32-gb-ddr4-1024/p/itmaf236662922da?pid=MPCHGDPFP2F7TQWU&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_29&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFP2F7TQWU.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e814]: Black
+            - 'link "Price: Not Available" [ref=e815] [cursor=pointer]':
+              - /url: /ncs-elitedesk-mini-pc-intel-core-i7-9700-processor-32gb-ram-1024gb-nvme-ssd-ltn-windows-11-pro-h310-i7-9700-32-gb-ddr4-1024/p/itmaf236662922da?pid=MPCHGDPFP2F7TQWU&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_29&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFP2F7TQWU.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e817]: "Price: Not Available"
+          - generic [ref=e819]:
+            - link "SAIRAM COMPUTER Core i7 (9th Gen) [12MB Cache, 3.00GHz]/32GB RAM/1024GB NVMe SSD ELITEDESK [MDR] - Windows 11 Pro, Intel H310, Core™ i7 (9th Gen) Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e820] [cursor=pointer]:
+              - /url: /sairam-computer-core-i7-9th-gen-12mb-cache-3-00ghz-32gb-ram-1024gb-nvme-ssd-elitedesk-mdr-windows-11-pro-intel-h310-core-processor-32-gb-ddr4-1024-mini-pc/p/itm7936f18d9a7e8?pid=MPCHGDPFYKBTH6MJ&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_30&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFYKBTH6MJ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e823]:
+                - img "SAIRAM COMPUTER Core i7 (9th Gen) [12MB Cache, 3.00GHz]/32GB RAM/1024GB NVMe SSD ELITEDESK [MDR] - Windows 11 Pro, Intel H310, Core™ i7 (9th Gen) Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e826]
+            - link "SAIRAM COMPUTER Core i7 (9th Gen) [12MB Cache, 3.00GHz]..." [ref=e828] [cursor=pointer]:
+              - /url: /sairam-computer-core-i7-9th-gen-12mb-cache-3-00ghz-32gb-ram-1024gb-nvme-ssd-elitedesk-mdr-windows-11-pro-intel-h310-core-processor-32-gb-ddr4-1024-mini-pc/p/itm7936f18d9a7e8?pid=MPCHGDPFYKBTH6MJ&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_30&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFYKBTH6MJ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e829]: Black
+            - 'link "Price: Not Available" [ref=e830] [cursor=pointer]':
+              - /url: /sairam-computer-core-i7-9th-gen-12mb-cache-3-00ghz-32gb-ram-1024gb-nvme-ssd-elitedesk-mdr-windows-11-pro-intel-h310-core-processor-32-gb-ddr4-1024-mini-pc/p/itm7936f18d9a7e8?pid=MPCHGDPFYKBTH6MJ&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_30&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFYKBTH6MJ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e832]: "Price: Not Available"
+          - generic [ref=e834]:
+            - link "NCS ELITEDESK Core i7-9700 [12MB Cache, Up to 4.70 GHz]/32GB RAM/1024GB SSD [MXC] - Windows 11 Pro, Intel H310, Intel Core i7-9700 [8 Cores, 8 Threads, Upto 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e835] [cursor=pointer]:
+              - /url: /ncs-elitedesk-core-i7-9700-12mb-cache-up-4-70-ghz-32gb-ram-1024gb-ssd-mxc-windows-11-pro-intel-h310-8-cores-8-threads-upto-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm377a45eaf3550?pid=MPCHGGG5ZNTVHJAK&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_31&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGGG5ZNTVHJAK.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e838]:
+                - img "NCS ELITEDESK Core i7-9700 [12MB Cache, Up to 4.70 GHz]/32GB RAM/1024GB SSD [MXC] - Windows 11 Pro, Intel H310, Intel Core i7-9700 [8 Cores, 8 Threads, Upto 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e841]
+            - link "NCS ELITEDESK Core i7-9700 [12MB Cache, Up to 4.70 GHz]..." [ref=e843] [cursor=pointer]:
+              - /url: /ncs-elitedesk-core-i7-9700-12mb-cache-up-4-70-ghz-32gb-ram-1024gb-ssd-mxc-windows-11-pro-intel-h310-8-cores-8-threads-upto-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm377a45eaf3550?pid=MPCHGGG5ZNTVHJAK&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_31&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGGG5ZNTVHJAK.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e844]: Black
+            - 'link "Price: Not Available" [ref=e845] [cursor=pointer]':
+              - /url: /ncs-elitedesk-core-i7-9700-12mb-cache-up-4-70-ghz-32gb-ram-1024gb-ssd-mxc-windows-11-pro-intel-h310-8-cores-8-threads-upto-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm377a45eaf3550?pid=MPCHGGG5ZNTVHJAK&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_31&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGGG5ZNTVHJAK.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e847]: "Price: Not Available"
+          - generic [ref=e849]:
+            - link "SAIRAM COMPUTER EliteDesk Core i7-9700 [12M Cache, Up to 4.70 GHz]/32GB RAM/1TB SSD [MCP] - Windows 11 Pro, Intel H310, Core i7-9700 Processor [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e850] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-core-i7-9700-12m-cache-up-4-70-ghz-32gb-ram-1tb-ssd-mcp-windows-11-pro-intel-h310-processor-8-cores-8-threads-3-00-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm691e0bc9c5516?pid=MPCHGGG5DE7XBEFF&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_32&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGGG5DE7XBEFF.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e853]:
+                - img "SAIRAM COMPUTER EliteDesk Core i7-9700 [12M Cache, Up to 4.70 GHz]/32GB RAM/1TB SSD [MCP] - Windows 11 Pro, Intel H310, Core i7-9700 Processor [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e856]
+            - link "SAIRAM COMPUTER EliteDesk Core i7-9700 [12M Cache, Up t..." [ref=e858] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-core-i7-9700-12m-cache-up-4-70-ghz-32gb-ram-1tb-ssd-mcp-windows-11-pro-intel-h310-processor-8-cores-8-threads-3-00-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm691e0bc9c5516?pid=MPCHGGG5DE7XBEFF&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_32&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGGG5DE7XBEFF.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e859]: Black
+            - 'link "Price: Not Available" [ref=e860] [cursor=pointer]':
+              - /url: /sairam-computer-elitedesk-core-i7-9700-12m-cache-up-4-70-ghz-32gb-ram-1tb-ssd-mcp-windows-11-pro-intel-h310-processor-8-cores-8-threads-3-00-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm691e0bc9c5516?pid=MPCHGGG5DE7XBEFF&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_32&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGGG5DE7XBEFF.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e862]: "Price: Not Available"
+        - generic [ref=e864]:
+          - generic [ref=e866]:
+            - link "SAIRAM COMPUTER Core i7-9700 [12MB Cache, Up to 4.70 GHz]/32GB RAM/1TB SSD EliteDesk [GAY] - Windows 11 Pro, Intel H310, Core i7 - 9700 [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e867] [cursor=pointer]:
+              - /url: /sairam-computer-core-i7-9700-12mb-cache-up-4-70-ghz-32gb-ram-1tb-ssd-elitedesk-gay-windows-11-pro-intel-h310-i7-9700-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm7e4de7814aa3a?pid=MPCHGDPFXR9GJWJA&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_33&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFXR9GJWJA.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e870]:
+                - img "SAIRAM COMPUTER Core i7-9700 [12MB Cache, Up to 4.70 GHz]/32GB RAM/1TB SSD EliteDesk [GAY] - Windows 11 Pro, Intel H310, Core i7 - 9700 [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e873]
+            - link "SAIRAM COMPUTER Core i7-9700 [12MB Cache, Up to 4.70 GH..." [ref=e875] [cursor=pointer]:
+              - /url: /sairam-computer-core-i7-9700-12mb-cache-up-4-70-ghz-32gb-ram-1tb-ssd-elitedesk-gay-windows-11-pro-intel-h310-i7-9700-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm7e4de7814aa3a?pid=MPCHGDPFXR9GJWJA&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_33&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFXR9GJWJA.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e876]: Black
+            - 'link "Price: Not Available" [ref=e877] [cursor=pointer]':
+              - /url: /sairam-computer-core-i7-9700-12mb-cache-up-4-70-ghz-32gb-ram-1tb-ssd-elitedesk-gay-windows-11-pro-intel-h310-i7-9700-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm7e4de7814aa3a?pid=MPCHGDPFXR9GJWJA&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_33&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFXR9GJWJA.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e879]: "Price: Not Available"
+          - generic [ref=e881]:
+            - link "SAIRAM COMPUTER Core i7-9700 [12M Cache, Up to 4.70 GHz]/32GB RAM/1024GB SSD ELITEDESK [IPN] - Windows 11 Pro, Intel H310, Core™ i7-9700 [8 Cores, 8 Threads], 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e882] [cursor=pointer]:
+              - /url: /sairam-computer-core-i7-9700-12m-cache-up-4-70-ghz-32gb-ram-1024gb-ssd-elitedesk-ipn-windows-11-pro-intel-h310-core-8-cores-8-threads-32-gb-ddr4-1024-nvme-mini-pc/p/itm348c6c420538c?pid=MPCHGDPFW8YNJKKN&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_34&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFW8YNJKKN.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e885]:
+                - img "SAIRAM COMPUTER Core i7-9700 [12M Cache, Up to 4.70 GHz]/32GB RAM/1024GB SSD ELITEDESK [IPN] - Windows 11 Pro, Intel H310, Core™ i7-9700 [8 Cores, 8 Threads], 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e888]
+            - link "SAIRAM COMPUTER Core i7-9700 [12M Cache, Up to 4.70 GHz..." [ref=e890] [cursor=pointer]:
+              - /url: /sairam-computer-core-i7-9700-12m-cache-up-4-70-ghz-32gb-ram-1024gb-ssd-elitedesk-ipn-windows-11-pro-intel-h310-core-8-cores-8-threads-32-gb-ddr4-1024-nvme-mini-pc/p/itm348c6c420538c?pid=MPCHGDPFW8YNJKKN&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_34&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFW8YNJKKN.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e891]: Black
+            - 'link "Price: Not Available" [ref=e892] [cursor=pointer]':
+              - /url: /sairam-computer-core-i7-9700-12m-cache-up-4-70-ghz-32gb-ram-1024gb-ssd-elitedesk-ipn-windows-11-pro-intel-h310-core-8-cores-8-threads-32-gb-ddr4-1024-nvme-mini-pc/p/itm348c6c420538c?pid=MPCHGDPFW8YNJKKN&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_34&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFW8YNJKKN.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e894]: "Price: Not Available"
+          - generic [ref=e896]:
+            - link "SAIRAM COMPUTER EliteDesk Core i7-9700 [12M Cache, Up to 4.70 GHz]/32GB RAM/1TB SSD [BLR] - Windows 11 Pro, Intel H310, Core i7-9700 Processor [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e897] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-core-i7-9700-12m-cache-up-4-70-ghz-32gb-ram-1tb-ssd-blr-windows-11-pro-intel-h310-processor-8-cores-8-threads-3-00-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm701c44a2acedc?pid=MPCHGDPEBKFVR4GQ&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_35&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPEBKFVR4GQ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e900]:
+                - img "SAIRAM COMPUTER EliteDesk Core i7-9700 [12M Cache, Up to 4.70 GHz]/32GB RAM/1TB SSD [BLR] - Windows 11 Pro, Intel H310, Core i7-9700 Processor [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e903]
+            - link "SAIRAM COMPUTER EliteDesk Core i7-9700 [12M Cache, Up t..." [ref=e905] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-core-i7-9700-12m-cache-up-4-70-ghz-32gb-ram-1tb-ssd-blr-windows-11-pro-intel-h310-processor-8-cores-8-threads-3-00-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm701c44a2acedc?pid=MPCHGDPEBKFVR4GQ&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_35&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPEBKFVR4GQ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e906]: Black
+            - 'link "Price: Not Available" [ref=e907] [cursor=pointer]':
+              - /url: /sairam-computer-elitedesk-core-i7-9700-12m-cache-up-4-70-ghz-32gb-ram-1tb-ssd-blr-windows-11-pro-intel-h310-processor-8-cores-8-threads-3-00-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm701c44a2acedc?pid=MPCHGDPEBKFVR4GQ&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_35&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPEBKFVR4GQ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e909]: "Price: Not Available"
+          - generic [ref=e911]:
+            - link "SAIRAM COMPUTER EliteDesk Mini PC Intel Core i7 (9th Gen)/32GB RAM/1024GB NVMe SSD [FAT] - Windows 11 Pro, Intel H310, Core i7 (9th Gen) Octa-Core Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e912] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-mini-pc-intel-core-i7-9th-gen-32gb-ram-1024gb-nvme-ssd-fat-windows-11-pro-h310-gen-octa-core-processor-32-gb-ddr4-1024/p/itm2840bc537d6bc?pid=MPCHGDPFHFNJBWUT&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_36&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFHFNJBWUT.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e915]:
+                - img "SAIRAM COMPUTER EliteDesk Mini PC Intel Core i7 (9th Gen)/32GB RAM/1024GB NVMe SSD [FAT] - Windows 11 Pro, Intel H310, Core i7 (9th Gen) Octa-Core Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e918]
+            - link "SAIRAM COMPUTER EliteDesk Mini PC Intel Core i7 (9th Ge..." [ref=e920] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-mini-pc-intel-core-i7-9th-gen-32gb-ram-1024gb-nvme-ssd-fat-windows-11-pro-h310-gen-octa-core-processor-32-gb-ddr4-1024/p/itm2840bc537d6bc?pid=MPCHGDPFHFNJBWUT&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_36&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFHFNJBWUT.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e921]: Black
+            - 'link "Price: Not Available" [ref=e922] [cursor=pointer]':
+              - /url: /sairam-computer-elitedesk-mini-pc-intel-core-i7-9th-gen-32gb-ram-1024gb-nvme-ssd-fat-windows-11-pro-h310-gen-octa-core-processor-32-gb-ddr4-1024/p/itm2840bc537d6bc?pid=MPCHGDPFHFNJBWUT&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_36&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPFHFNJBWUT.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e924]: "Price: Not Available"
+        - generic [ref=e926]:
+          - generic [ref=e928]:
+            - link "SAIRAM COMPUTER ELITEDESK TINY PC Core i7-9700 [8 Cores, 8 Threads]/32GB RAM/1TB SSD [MYF] - Windows 11 Pro, Intel H310, Intel Core i7-9700, 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e929] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-tiny-pc-core-i7-9700-8-cores-8-threads-32gb-ram-1tb-ssd-myf-windows-11-pro-intel-h310-i7-9700-32-gb-ddr4-1024-nvme-mini/p/itm9319c70612d7f?pid=MPCHGGG5HXUSYTUJ&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_37&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGGG5HXUSYTUJ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e932]:
+                - img "SAIRAM COMPUTER ELITEDESK TINY PC Core i7-9700 [8 Cores, 8 Threads]/32GB RAM/1TB SSD [MYF] - Windows 11 Pro, Intel H310, Intel Core i7-9700, 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e935]
+            - link "SAIRAM COMPUTER ELITEDESK TINY PC Core i7-9700 [8 Cores..." [ref=e937] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-tiny-pc-core-i7-9700-8-cores-8-threads-32gb-ram-1tb-ssd-myf-windows-11-pro-intel-h310-i7-9700-32-gb-ddr4-1024-nvme-mini/p/itm9319c70612d7f?pid=MPCHGGG5HXUSYTUJ&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_37&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGGG5HXUSYTUJ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e938]: Black
+            - 'link "Price: Not Available" [ref=e939] [cursor=pointer]':
+              - /url: /sairam-computer-elitedesk-tiny-pc-core-i7-9700-8-cores-8-threads-32gb-ram-1tb-ssd-myf-windows-11-pro-intel-h310-i7-9700-32-gb-ddr4-1024-nvme-mini/p/itm9319c70612d7f?pid=MPCHGGG5HXUSYTUJ&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_37&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGGG5HXUSYTUJ.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e941]: "Price: Not Available"
+          - generic [ref=e943]:
+            - link "SAIRAM COMPUTER Core i7-9700 [12M Cache, Up to 4.70 GHz]/32GB RAM/1TB SSD ELITEDESK [FBX] - Windows 11 Pro, Intel H310, Intel® Core™ i7-9700 Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e944] [cursor=pointer]:
+              - /url: /sairam-computer-core-i7-9700-12m-cache-up-4-70-ghz-32gb-ram-1tb-ssd-elitedesk-fbx-windows-11-pro-intel-h310-intel-core-processor-32-gb-ddr4-1024-nvme-mini-pc/p/itm6aa0e72928d56?pid=MPCHGDPEGGSKFYAE&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_38&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPEGGSKFYAE.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e947]:
+                - img "SAIRAM COMPUTER Core i7-9700 [12M Cache, Up to 4.70 GHz]/32GB RAM/1TB SSD ELITEDESK [FBX] - Windows 11 Pro, Intel H310, Intel® Core™ i7-9700 Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e950]
+            - link "SAIRAM COMPUTER Core i7-9700 [12M Cache, Up to 4.70 GHz..." [ref=e952] [cursor=pointer]:
+              - /url: /sairam-computer-core-i7-9700-12m-cache-up-4-70-ghz-32gb-ram-1tb-ssd-elitedesk-fbx-windows-11-pro-intel-h310-intel-core-processor-32-gb-ddr4-1024-nvme-mini-pc/p/itm6aa0e72928d56?pid=MPCHGDPEGGSKFYAE&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_38&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPEGGSKFYAE.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e953]: Black
+            - 'link "Price: Not Available" [ref=e954] [cursor=pointer]':
+              - /url: /sairam-computer-core-i7-9700-12m-cache-up-4-70-ghz-32gb-ram-1tb-ssd-elitedesk-fbx-windows-11-pro-intel-h310-intel-core-processor-32-gb-ddr4-1024-nvme-mini-pc/p/itm6aa0e72928d56?pid=MPCHGDPEGGSKFYAE&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_38&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPEGGSKFYAE.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e956]: "Price: Not Available"
+          - generic [ref=e958]:
+            - link "SAIRAM COMPUTER ELITEDESK MINI PC Intel Core i7 (9th Gen)/32GB RAM/1TB NVMe SSD [DEQ] - Windows 11 Pro, Intel H310, Core i7 (9th Generation) Octa-Core, 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e959] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-mini-pc-intel-core-i7-9th-gen-32gb-ram-1tb-nvme-ssd-deq-windows-11-pro-h310-generation-octa-core-32-gb-ddr4-1024/p/itmeea871685b74e?pid=MPCHGDPER24XW6KA&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_39&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPER24XW6KA.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e962]:
+                - img "SAIRAM COMPUTER ELITEDESK MINI PC Intel Core i7 (9th Gen)/32GB RAM/1TB NVMe SSD [DEQ] - Windows 11 Pro, Intel H310, Core i7 (9th Generation) Octa-Core, 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e965]
+            - link "SAIRAM COMPUTER ELITEDESK MINI PC Intel Core i7 (9th Ge..." [ref=e967] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-mini-pc-intel-core-i7-9th-gen-32gb-ram-1tb-nvme-ssd-deq-windows-11-pro-h310-generation-octa-core-32-gb-ddr4-1024/p/itmeea871685b74e?pid=MPCHGDPER24XW6KA&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_39&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPER24XW6KA.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e968]: Black
+            - 'link "Price: Not Available" [ref=e969] [cursor=pointer]':
+              - /url: /sairam-computer-elitedesk-mini-pc-intel-core-i7-9th-gen-32gb-ram-1tb-nvme-ssd-deq-windows-11-pro-h310-generation-octa-core-32-gb-ddr4-1024/p/itmeea871685b74e?pid=MPCHGDPER24XW6KA&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_39&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPER24XW6KA.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e971]: "Price: Not Available"
+          - generic [ref=e973]:
+            - link "SAIRAM COMPUTER EliteDesk Core i7-9700 [12MB Cache, 3.00 GHz]/32GB RAM/1024GB SSD [CIA] - Windows 11 Pro, Intel H310, Core i7 - 9700 [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC Currently unavailable" [ref=e974] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-core-i7-9700-12mb-cache-3-00-ghz-32gb-ram-1024gb-ssd-cia-windows-11-pro-intel-h310-i7-9700-up-4-70-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm43593ee437e23?pid=MPCHGDPEADKGGZQT&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_40&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPEADKGGZQT.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e977]:
+                - img "SAIRAM COMPUTER EliteDesk Core i7-9700 [12MB Cache, 3.00 GHz]/32GB RAM/1024GB SSD [CIA] - Windows 11 Pro, Intel H310, Core i7 - 9700 [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC"
+              - generic: Currently unavailable
+              - img [ref=e980]
+            - link "SAIRAM COMPUTER EliteDesk Core i7-9700 [12MB Cache, 3.0..." [ref=e982] [cursor=pointer]:
+              - /url: /sairam-computer-elitedesk-core-i7-9700-12mb-cache-3-00-ghz-32gb-ram-1024gb-ssd-cia-windows-11-pro-intel-h310-i7-9700-up-4-70-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm43593ee437e23?pid=MPCHGDPEADKGGZQT&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_40&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPEADKGGZQT.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+            - generic [ref=e983]: Black
+            - 'link "Price: Not Available" [ref=e984] [cursor=pointer]':
+              - /url: /sairam-computer-elitedesk-core-i7-9700-12mb-cache-3-00-ghz-32gb-ram-1024gb-ssd-cia-windows-11-pro-intel-h310-i7-9700-up-4-70-ghz-32-gb-ddr4-1024-nvme-mini-pc/p/itm43593ee437e23?pid=MPCHGDPEADKGGZQT&q=Mac+mini&store=6bo%2Fnl4&srno=s_1_40&otracker=search&otracker1=search&fm=organic&iid=09204668-e2a5-4baf-8d4c-2ff53682cc4e.MPCHGDPEADKGGZQT.SEARCH&ppt=browse&ppn=browse&ssid=cmxxp406yo0000001785130450951&qH=bc991c74a6c35147&ov_redirect=true&ov_redirect=true
+              - generic [ref=e986]: "Price: Not Available"
+        - generic [ref=e989]:
+          - generic [ref=e990]: Page 1 of 3
+          - navigation [ref=e991]:
+            - link "1" [ref=e992] [cursor=pointer]:
+              - /url: /search?q=Mac+mini&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off&page=1
+            - link "2" [ref=e993] [cursor=pointer]:
+              - /url: /search?q=Mac+mini&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off&page=2
+            - link "3" [ref=e994] [cursor=pointer]:
+              - /url: /search?q=Mac+mini&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off&page=3
+            - link "Next" [ref=e995] [cursor=pointer]:
+              - /url: /search?q=Mac+mini&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off&page=2
+        - generic [ref=e997]:
+          - text: Did you find what you were looking for?
+          - generic [ref=e998]:
+            - generic [ref=e999] [cursor=pointer]: "Yes"
+            - generic [ref=e1000] [cursor=pointer]: "No"
+    - generic [ref=e1002]:
+      - generic [ref=e1003]: Reviews for Popular Desktop PCs
+      - generic [ref=e1004]:
+        - generic [ref=e1005]:
+          - generic [ref=e1007]:
+            - img "DELL Refurbished Core i3 7th Generation Tiny PC - Windows 10, Intel®, Core i3 7th Generation, 8 GB DDR4, 256 GB SSD Mini PC"
+          - generic [ref=e1008]:
+            - link "1. DELL Refurbished Core i3 7t... 3.6 181 Ratings&26 Reviews ₹13,600 38% off" [ref=e1009] [cursor=pointer]:
+              - /url: /dell-refurbished-core-i3-7th-generation-tiny-pc-windows-10-intel-generation-8-gb-ddr4-256-ssd-mini/p/itm96775787ea864?pid=MPCH9HVPHYPH3G5F&marketplace=FLIPKART&ov_redirect=true
+              - generic [ref=e1011]: 1. DELL Refurbished Core i3 7t...
+              - generic [ref=e1012]:
+                - generic [ref=e1013]:
+                  - text: "3.6"
+                  - img [ref=e1014]
+                - generic [ref=e1015]:
+                  - text: 181 Ratings
+                  - generic [ref=e1016]: "&26 Reviews"
+              - generic [ref=e1018]:
+                - generic [ref=e1019]: ₹13,600
+                - generic [ref=e1020]: 38% off
+            - list [ref=e1021]:
+              - listitem [ref=e1022]: Windows 10
+              - listitem [ref=e1023]: 3.4 GHz Speed
+              - listitem [ref=e1024]: Cache Memory 3 MB
+        - generic [ref=e1025]:
+          - generic [ref=e1026]: Most Helpful Review
+          - generic [ref=e1028]:
+            - generic [ref=e1029]:
+              - generic [ref=e1030]:
+                - text: "5"
+                - img [ref=e1031]
+              - paragraph [ref=e1032]: Terrific
+            - generic [ref=e1035]:
+              - generic [ref=e1036]:
+                - text: Brilliant mini pc for the price. I had my reservations but I am happy with the purchase. The unit is old but is maintained in good condition.
+                - text: It came with a...
+              - generic [ref=e1037] [cursor=pointer]: Read full review
+            - generic [ref=e1039]:
+              - paragraph [ref=e1040]: Jyoti Sahoo
+              - img [ref=e1041]
+              - paragraph [ref=e1045]: Certified Buyer
+              - paragraph [ref=e1046]: May, 2025
+        - generic [ref=e1047]:
+          - generic [ref=e1048]: Recent Review
+          - generic [ref=e1050]:
+            - generic [ref=e1051]:
+              - generic [ref=e1052]:
+                - text: "1"
+                - img [ref=e1053]
+              - paragraph [ref=e1054]: Don't waste your money
+            - generic [ref=e1058]: It doesn't work even a week
+            - generic [ref=e1060]:
+              - paragraph [ref=e1061]: Sunil kumar Yalama
+              - img [ref=e1062]
+              - paragraph [ref=e1066]: Certified Buyer
+              - paragraph [ref=e1067]: 4 months ago
+      - generic [ref=e1068]:
+        - generic [ref=e1069]:
+          - generic [ref=e1071]:
+            - img "Apple Mac Mini (MGNT3HN/A) M1 Chip (8 GB RAM/integrated 8-core GPU Graphics/512 GB SSD Capacity/Mac OS Big Sur) Microtower"
+          - generic [ref=e1072]:
+            - link "2. Apple Mac Mini (MGNT3HN/A) ... 4.7 97 Ratings&8 Reviews ₹84,900" [ref=e1073] [cursor=pointer]:
+              - /url: /apple-mac-mini-mgnt3hn-a-m1-chip-8-gb-ram-integrated-8-core-gpu-graphics-512-ssd-capacity-mac-os-big-sur-microtower/p/itme7675cf277b41?pid=CPUFXESGGTTGEWZA&marketplace=FLIPKART&ov_redirect=true
+              - generic [ref=e1075]: 2. Apple Mac Mini (MGNT3HN/A) ...
+              - generic [ref=e1076]:
+                - generic [ref=e1077]:
+                  - text: "4.7"
+                  - img [ref=e1078]
+                - generic [ref=e1079]:
+                  - text: 97 Ratings
+                  - generic [ref=e1080]: "&8 Reviews"
+              - generic [ref=e1083]: ₹84,900
+            - list [ref=e1084]:
+              - listitem [ref=e1085]: "Processor Type: Apple 3.6 GHz"
+              - listitem [ref=e1086]: integrated 8-core GPU Graphics
+              - listitem [ref=e1087]: Octa Core Microtower
+        - generic [ref=e1088]:
+          - generic [ref=e1089]: Most Helpful Review
+          - generic [ref=e1091]:
+            - generic [ref=e1092]:
+              - generic [ref=e1093]:
+                - text: "5"
+                - img [ref=e1094]
+              - paragraph [ref=e1095]: Fabulous!
+            - generic [ref=e1099]: Fast. Feel the power of M1
+            - generic [ref=e1101]:
+              - paragraph [ref=e1102]: Kamlesh bisht
+              - img [ref=e1103]
+              - paragraph [ref=e1107]: Certified Buyer
+              - paragraph [ref=e1108]: Apr, 2021
+        - generic [ref=e1109]:
+          - generic [ref=e1110]: Recent Review
+          - generic [ref=e1112]:
+            - generic [ref=e1113]:
+              - generic [ref=e1114]:
+                - text: "5"
+                - img [ref=e1115]
+              - paragraph [ref=e1116]: Terrific
+            - generic [ref=e1120]: Am outstanding computer of the new generation
+            - generic [ref=e1122]:
+              - paragraph [ref=e1123]: Vijay Kanta
+              - img [ref=e1124]
+              - paragraph [ref=e1128]: Certified Buyer
+              - paragraph [ref=e1129]: Oct, 2022
+      - generic [ref=e1130]:
+        - generic [ref=e1131]:
+          - generic [ref=e1133]:
+            - img "CompuTek ™ | DELL-Optiplex 7050 Mini (Renewed) - Windows 10, Intel, i5 Quad Core, 6th Generation ,Intel HD Graphics, 8 GB DDR4 RAM, 500 GB SSD(M.2 NVMe) Mini PC"
+          - generic [ref=e1134]:
+            - link "3. CompuTek ™ | DELL-Optiplex ... 3.7 7 Ratings&2 Reviews ₹18,450 26% off" [ref=e1135] [cursor=pointer]:
+              - /url: /computek-dell-optiplex-7050-mini-renewed-windows-10-intel-i5-quad-core-6th-generation-intel-hd-graphics-8-gb-ddr4-ram-500-ssd-m-2-nvme-pc/p/itm97f53e5ffb775?pid=MPCGYFNTG7J4RPNZ&marketplace=FLIPKART&ov_redirect=true
+              - generic [ref=e1137]: 3. CompuTek ™ | DELL-Optiplex ...
+              - generic [ref=e1138]:
+                - generic [ref=e1139]:
+                  - text: "3.7"
+                  - img [ref=e1140]
+                - generic [ref=e1141]:
+                  - text: 7 Ratings
+                  - generic [ref=e1142]: "&2 Reviews"
+              - generic [ref=e1144]:
+                - generic [ref=e1145]: ₹18,450
+                - generic [ref=e1146]: 26% off
+            - list [ref=e1147]:
+              - listitem [ref=e1148]: Windows 10
+              - listitem [ref=e1149]: 2.2 GHz Speed
+              - listitem [ref=e1150]: Cache Memory 6 MB
+        - generic [ref=e1151]:
+          - generic [ref=e1152]: Most Helpful Review
+          - generic [ref=e1154]:
+            - generic [ref=e1155]:
+              - generic [ref=e1156]:
+                - text: "5"
+                - img [ref=e1157]
+              - paragraph [ref=e1158]: Excellent
+            - generic [ref=e1161]:
+              - generic [ref=e1162]: I bought a mini PC Dell optiplex i5 6th gen win 10 and SSD 512 GB and 8gb Ram. When I got it, it had an i5 processor but the generation came out to be 7th ge...
+              - generic [ref=e1163] [cursor=pointer]: Read full review
+            - generic [ref=e1165]:
+              - paragraph [ref=e1166]: Shivam Shakya
+              - img [ref=e1167]
+              - paragraph [ref=e1171]: Certified Buyer
+              - paragraph [ref=e1172]: Apr, 2025
+        - generic [ref=e1173]:
+          - generic [ref=e1174]: Recent Review
+          - generic [ref=e1176]:
+            - generic [ref=e1177]:
+              - generic [ref=e1178]:
+                - text: "5"
+                - img [ref=e1179]
+              - paragraph [ref=e1180]: Excellent
+            - generic [ref=e1183]:
+              - generic [ref=e1184]: I bought a mini PC Dell optiplex i5 6th gen win 10 and SSD 512 GB and 8gb Ram. When I got it, it had an i5 processor but the generation came out to be 7th ge...
+              - generic [ref=e1185] [cursor=pointer]: Read full review
+            - generic [ref=e1187]:
+              - paragraph [ref=e1188]: Shivam Shakya
+              - img [ref=e1189]
+              - paragraph [ref=e1193]: Certified Buyer
+              - paragraph [ref=e1194]: Apr, 2025
+  - contentinfo [ref=e1195]:
+    - generic [ref=e1197]:
+      - generic [ref=e1198]:
+        - generic [ref=e1199]:
+          - generic [ref=e1200]: ABOUT
+          - link "Contact Us" [ref=e1201] [cursor=pointer]:
+            - /url: /helpcentre?otracker=footer_navlinks
+          - link "About Us" [ref=e1202] [cursor=pointer]:
+            - /url: https://corporate.flipkart.net/corporate-home
+          - link "Careers" [ref=e1203] [cursor=pointer]:
+            - /url: https://www.flipkartcareers.com/?otracker=footer_navlinks
+          - link "Flipkart Stories" [ref=e1204] [cursor=pointer]:
+            - /url: http://stories.flipkart.com/?otracker=footer_navlinks
+          - link "Press" [ref=e1205] [cursor=pointer]:
+            - /url: http://stories.flipkart.com/category/top-stories/news/
+          - link "Corporate Information" [ref=e1206] [cursor=pointer]:
+            - /url: /corporate-information
+        - generic [ref=e1207]:
+          - generic [ref=e1208]: GROUP COMPANIES
+          - link "Myntra" [ref=e1209] [cursor=pointer]:
+            - /url: https://www.myntra.com/
+          - link "Cleartrip" [ref=e1210] [cursor=pointer]:
+            - /url: https://www.cleartrip.com/
+          - link "Shopsy" [ref=e1211] [cursor=pointer]:
+            - /url: https://www.shopsy.in/
+        - generic [ref=e1212]:
+          - generic [ref=e1213]: HELP
+          - link "Payments" [ref=e1214] [cursor=pointer]:
+            - /url: /pages/payments
+          - link "Shipping" [ref=e1215] [cursor=pointer]:
+            - /url: /pages/shipping
+          - link "Cancellation & Returns" [ref=e1216] [cursor=pointer]:
+            - /url: /helpcentre?catalog=55c9c6edb000002e002c1701&view=CATALOG
+          - link "FAQ" [ref=e1217] [cursor=pointer]:
+            - /url: /helpcentre?catalog=55c9c8e2b0000023002c1702&view=CATALOG
+        - generic [ref=e1218]:
+          - generic [ref=e1219]: CONSUMER POLICY
+          - link "Cancellation & Returns" [ref=e1220] [cursor=pointer]:
+            - /url: /pages/returnpolicy?otracker=footer_navlinks
+          - link "Terms Of Use" [ref=e1221] [cursor=pointer]:
+            - /url: /pages/terms?otracker=footer_navlinks
+          - link "Security" [ref=e1222] [cursor=pointer]:
+            - /url: /pages/paymentsecurity?otracker=footer_navlinks
+          - link "Privacy" [ref=e1223] [cursor=pointer]:
+            - /url: /pages/privacypolicy?otracker=footer_navlinks
+          - link "Sitemap" [ref=e1224] [cursor=pointer]:
+            - /url: /sitemap?otracker=footer_navlinks
+          - link "Grievance Redressal" [ref=e1225] [cursor=pointer]:
+            - /url: /pages/grievance-redressal-mechanism?otracker=footer_navlinks
+          - link "EPR Compliance" [ref=e1226] [cursor=pointer]:
+            - /url: /pages/ewaste-compliance-tnc?otracker=footer_navlinks
+          - link "FSSAI Food Safety Connect App" [ref=e1227] [cursor=pointer]:
+            - /url: https://fssai.gov.in/cms/food-safety-connect.php
+        - generic [ref=e1229]:
+          - generic [ref=e1230]: "Mail Us:"
+          - generic [ref=e1233]:
+            - paragraph [ref=e1234]: Flipkart Internet Private Limited,
+            - paragraph [ref=e1235]: Buildings Alyssa, Begonia &
+            - paragraph [ref=e1236]: Clove Embassy Tech Village,
+            - paragraph [ref=e1237]: Outer Ring Road, Devarabeesanahalli Village,
+            - paragraph [ref=e1238]: Bengaluru, 560103,
+            - paragraph [ref=e1239]: Karnataka, India
+          - generic [ref=e1240]: Social
+          - generic [ref=e1241]:
+            - link [ref=e1243] [cursor=pointer]:
+              - /url: https://www.facebook.com/flipkart
+              - img [ref=e1244]
+            - link [ref=e1246] [cursor=pointer]:
+              - /url: https://www.twitter.com/flipkart
+              - img [ref=e1247]
+            - link [ref=e1249] [cursor=pointer]:
+              - /url: https://www.youtube.com/flipkart
+              - img [ref=e1250]
+            - link [ref=e1252] [cursor=pointer]:
+              - /url: https://www.instagram.com/flipkart
+              - img [ref=e1253]
+        - generic [ref=e1255]:
+          - generic [ref=e1256]: "Registered Office Address:"
+          - generic [ref=e1259]:
+            - paragraph [ref=e1260]: Flipkart Internet Private Limited,
+            - paragraph [ref=e1261]: Buildings Alyssa, Begonia &
+            - paragraph [ref=e1262]: Clove Embassy Tech Village,
+            - paragraph [ref=e1263]: Outer Ring Road, Devarabeesanahalli Village,
+            - paragraph [ref=e1264]: Bengaluru, 560103,
+            - paragraph [ref=e1265]: Karnataka, India
+            - paragraph [ref=e1266]: "CIN : U51109KA2012PTC066107"
+            - paragraph [ref=e1267]:
+              - text: "Telephone:"
+              - link "044-45614700" [ref=e1268] [cursor=pointer]:
+                - /url: tel:044-45614700
+              - text: /
+              - link "044-67415800" [ref=e1269] [cursor=pointer]:
+                - /url: tel:044-67415800
+      - generic [ref=e1271]:
+        - generic [ref=e1272]:
+          - img [ref=e1273]
+          - link "Become a Seller" [ref=e1274] [cursor=pointer]:
+            - /url: https://seller.flipkart.com/?utm_source=fkwebsite&utm_medium=websitedirect
+        - generic [ref=e1275]:
+          - img [ref=e1276]
+          - text: Advertise
+        - generic [ref=e1277]:
+          - img [ref=e1278]
+          - link "Gift Cards" [ref=e1279] [cursor=pointer]:
+            - /url: /the-gift-card-store?otracker=footer_navlinks
+        - generic [ref=e1280]:
+          - img [ref=e1281]
+          - link "Help Center" [ref=e1282] [cursor=pointer]:
+            - /url: /helpcentre?otracker=footer_navlinks
+        - generic [ref=e1283]: © 2007-2026 Flipkart.com
+        - img [ref=e1284]
+```
+
+# Test source
+
+```ts
+  1  | import {test, expect,type Locator} from '@playwright/test'
+  2  | 
+  3  | const URL = "https://www.flipkart.com/search"
+  4  | 
+  5  | test.describe('Flipkart task',()=>{
+  6  | 
+  7  |     test.beforeEach(async({page})=>{
+  8  |         console.log('Before Each test Block')
+  9  |         await page.goto(URL)
+  10 |     })
+  11 | 
+  12 |     
+  13 | test('Flipkart Task: TC1 @smoke @regression',async({page})=>{
+  14 | console.log('TC1')
+  15 | await page.locator('[name="q"]').fill('Mac mini')
+  16 | await page.locator('svg').first().click()
+  17 | 
+  18 | 
+  19 | 
+> 20 | await page.locator('.pIpigb').waitFor({state:'visible'})
+     |                               ^ Error: locator.waitFor: Error: strict mode violation: locator('.pIpigb') resolved to 40 elements:
+  21 | const SearchTitle: Locator[] = await page.locator('.pIpigb').all()
+  22 | console.log("Total Search Titles: ",SearchTitle.length)
+  23 | 
+  24 | for(const title of SearchTitle){
+  25 | console.log(await title.getAttribute('title'))
+  26 | }
+  27 | 
+  28 | 
+  29 | 
+  30 | 
+  31 | })
+  32 | 
+  33 | 
+  34 | 
+  35 | 
+  36 | })   
+```

@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Java + Selenium Interview Cheatsheet</title>
+<style>
+:root{
+  --bg:#0d1117; --panel:#161b22; --panel2:#1c2333; --border:#2a313f;
+  --text:#c9d1d9; --muted:#8b949e; --accent:#58a6ff; --accent2:#79c0ff;
+  --green:#7ee787; --orange:#ffa657; --pink:#ff7b72; --purple:#d2a8ff; --yellow:#e3b341;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; font-family:'Segoe UI',Roboto,Arial,sans-serif; background:var(--bg); color:var(--text);
+  display:flex; min-height:100vh;
+}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-thumb{background:#30363d;border-radius:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+
+nav#sidebar{
+  width:270px; background:var(--panel); border-right:1px solid var(--border);
+  position:fixed; top:0; left:0; height:100vh; overflow-y:auto; padding:18px 12px; z-index:10;
+}
+nav#sidebar h2{color:var(--accent2); font-size:16px; margin:0 0 14px 4px;}
+nav#sidebar a{
+  display:block; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px;
+  font-size:13px; margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+nav#sidebar a:hover, nav#sidebar a.active{background:var(--panel2); color:var(--accent2);}
+nav#sidebar .cat{color:var(--yellow); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.5px; margin:14px 4px 4px; padding-top:6px; border-top:1px solid var(--border);}
+nav#sidebar .cat:first-of-type{border-top:none; margin-top:0;}
+
+main{margin-left:270px; padding:28px 40px 100px; max-width:980px; width:100%;}
+h1.title{color:var(--accent2); font-size:30px; margin-bottom:4px;}
+p.subtitle{color:var(--muted); margin-top:0; margin-bottom:30px;}
+
+section{margin-bottom:48px; scroll-margin-top:20px;}
+section > h2{
+  color:#fff; background:linear-gradient(90deg,var(--panel2),transparent); padding:10px 14px;
+  border-left:4px solid var(--accent); font-size:22px; border-radius:4px;
+}
+h3{color:var(--accent2); font-size:18px; margin-top:28px; border-bottom:1px solid var(--border); padding-bottom:6px;}
+h4{color:var(--orange); font-size:15px; margin-bottom:6px;}
+
+.card{
+  background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:16px 18px; margin-bottom:16px;
+}
+p{line-height:1.6;}
+ul,ol{line-height:1.7; padding-left:22px;}
+li{margin-bottom:4px;}
+code{background:#22272e; color:var(--pink); padding:1px 6px; border-radius:4px; font-family:'Consolas','Monaco',monospace; font-size:13px;}
+pre{
+  background:#0a0e14; border:1px solid var(--border); border-radius:8px; padding:14px 16px; overflow-x:auto;
+  font-family:'Consolas','Monaco',monospace; font-size:13px; line-height:1.55; margin:10px 0;
+}
+pre code{background:none; padding:0; color:#adbac7;}
+.kw{color:var(--purple);} .str{color:var(--green);} .cm{color:#6e7681;font-style:italic;} .fn{color:var(--accent2);} .num{color:var(--orange);}
+
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:13.5px;}
+th,td{border:1px solid var(--border); padding:8px 12px; text-align:left; vertical-align:top;}
+th{background:var(--panel2); color:var(--accent2);}
+tr:nth-child(even){background:#12161d;}
+
+.answer-box{
+  background:#0f1720; border:1px solid #1f2f3f; border-left:4px solid var(--green);
+  border-radius:6px; padding:12px 16px; margin-top:10px;
+}
+.answer-box .label{color:var(--green); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; display:block;}
+.qbox{
+  background:var(--panel2); border-radius:6px; padding:10px 14px; margin-bottom:2px; font-weight:600; color:var(--yellow);
+}
+.tag{display:inline-block; background:var(--panel2); color:var(--accent2); border:1px solid var(--border); border-radius:12px; padding:2px 10px; font-size:11px; margin-right:6px;}
+.note{background:#241c0f; border-left:4px solid var(--yellow); padding:10px 14px; border-radius:6px; margin:12px 0; font-size:13.5px;}
+.toc-badge{float:right; color:var(--muted); font-size:12px; font-weight:400;}
+a.backtop{color:var(--muted); font-size:12px; text-decoration:none;}
+a.backtop:hover{color:var(--accent2);}
+</style>
+</head>
+<body>
+
+<nav id="sidebar">
+<h2>☕ Java+Selenium Prep</h2>
+<div class="cat">Core Java</div>
+<a href="#oops">OOPs Concepts</a>
+<a href="#collections">Collections Framework</a>
+<a href="#exceptions">Exception Handling</a>
+<div class="cat">Automation</div>
+<a href="#selenium">Selenium WebDriver</a>
+<a href="#maven">Maven</a>
+<a href="#testng">TestNG</a>
+<a href="#api">API Testing</a>
+<div class="cat">Database</div>
+<a href="#sql">SQL</a>
+<div class="cat">Practice</div>
+<a href="#coding">Coding Questions</a>
+</nav>
+
+<main>
+<h1 class="title">Java + Selenium Interview Cheatsheet</h1>
+<p class="subtitle">Concepts, code, and interviewer-ready spoken answers — OOPs · Collections · Exceptions · Selenium · Maven · TestNG · API · SQL · Coding</p>
+<section id="oops">
+<h2>1. OOPs Concepts</h2>
+
+<h3>1.1 The Four Pillars</h3>
+<div class="card">
+<table>
+<tr><th>Pillar</th><th>What it means</th><th>Java example</th></tr>
+<tr><td>Encapsulation</td><td>Binding data and methods together, hiding internal state</td><td>private fields + public getters/setters</td></tr>
+<tr><td>Inheritance</td><td>One class acquires properties of another</td><td><code>class Car extends Vehicle</code></td></tr>
+<tr><td>Polymorphism</td><td>One interface, many implementations</td><td>Method overloading &amp; overriding</td></tr>
+<tr><td>Abstraction</td><td>Hiding implementation, exposing only behavior</td><td>abstract class / interface</td></tr>
+</table>
+</div>
+
+<div class="qbox">Q: Can you explain the four OOPs pillars in your own words?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+I'd explain it with a real-world analogy. Encapsulation is like a capsule medicine — the ingredients are hidden inside, you only interact with the outer shell (the public methods). In Java I achieve this by keeping fields private and exposing controlled access through getters/setters.
+<br><br>Inheritance is reusing behavior — a Car "is-a" Vehicle, so it inherits common fields like speed and fuel from the Vehicle class instead of rewriting them.
+<br><br>Polymorphism means the same method name behaves differently depending on context — compile-time (overloading, same method name different parameters) and runtime (overriding, subclass changes parent's behavior). In my Selenium framework I use runtime polymorphism heavily — e.g., a common <code>BasePage</code> reference pointing to different page objects.
+<br><br>Abstraction is about hiding "how" and exposing only "what" — like a <code>WebDriver</code> interface where I don't care how ChromeDriver implements <code>findElement()</code>, I just call it.
+</div>
+
+<h3>1.2 Class &amp; Object</h3>
+<pre><code><span class="kw">class</span> Vehicle {
+    <span class="kw">private</span> String brand;
+    Vehicle(String brand){ <span class="kw">this</span>.brand = brand; }
+    <span class="kw">void</span> display(){ System.out.println(brand); }
+}
+Vehicle v = <span class="kw">new</span> Vehicle(<span class="str">"Toyota"</span>); <span class="cm">// object creation</span>
+</code></pre>
+
+<h3>1.3 Inheritance — Types</h3>
+<div class="card">
+<ul>
+<li><b>Single</b> — B extends A</li>
+<li><b>Multilevel</b> — C extends B extends A</li>
+<li><b>Hierarchical</b> — B and C both extend A</li>
+<li><b>Multiple (not via classes)</b> — Java doesn't support multiple inheritance with classes (diamond problem), but achieves it via <b>interfaces</b></li>
+</ul>
+</div>
+<div class="qbox">Q: Why doesn't Java support multiple inheritance with classes?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+To avoid the <b>diamond problem</b> — if two parent classes have a method with the same signature, the compiler wouldn't know which one the child should inherit. Java sidesteps this by allowing a class to <i>implement multiple interfaces</i> instead. Since Java 8, interfaces can have default methods, so ambiguity can still occur there — in that case, Java forces the implementing class to explicitly override the method to resolve the conflict.
+</div>
+
+<h3>1.4 Polymorphism — Overloading vs Overriding</h3>
+<table>
+<tr><th>Overloading</th><th>Overriding</th></tr>
+<tr><td>Same method name, different parameters</td><td>Same method name &amp; signature in subclass</td></tr>
+<tr><td>Compile-time (static binding)</td><td>Runtime (dynamic binding)</td></tr>
+<tr><td>Same class</td><td>Parent-child classes</td></tr>
+<tr><td>Return type can differ</td><td>Return type must be same/covariant</td></tr>
+</table>
+<pre><code><span class="cm">// Overloading</span>
+<span class="kw">void</span> add(<span class="kw">int</span> a, <span class="kw">int</span> b){}
+<span class="kw">void</span> add(<span class="kw">double</span> a, <span class="kw">double</span> b){}
+
+<span class="cm">// Overriding</span>
+<span class="kw">class</span> Animal { <span class="kw">void</span> sound(){ System.out.println(<span class="str">"generic sound"</span>); } }
+<span class="kw">class</span> Dog <span class="kw">extends</span> Animal {
+    <span class="fn">@Override</span>
+    <span class="kw">void</span> sound(){ System.out.println(<span class="str">"Bark"</span>); }
+}
+</code></pre>
+
+<h3>1.5 Abstraction: Abstract Class vs Interface</h3>
+<table>
+<tr><th>Abstract Class</th><th>Interface</th></tr>
+<tr><td>Can have both abstract and concrete methods</td><td>Before Java 8: only abstract; now allows default/static methods</td></tr>
+<tr><td>Can have constructors, instance variables</td><td>Only <code>public static final</code> variables (constants)</td></tr>
+<tr><td>Single inheritance only</td><td>A class can implement multiple interfaces</td></tr>
+<tr><td>Use when classes share common code</td><td>Use to define a contract/capability</td></tr>
+</table>
+<div class="qbox">Q: When would you use an abstract class over an interface?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+I go with an abstract class when I want to share common code across related classes — for example, in my Selenium framework, a <code>BasePage</code> abstract class holds common methods like <code>waitForElement()</code> or <code>clickElement()</code> that every page object reuses. I go with an interface when I only want to define a contract — like an <code>APIClient</code> interface with <code>get()</code>, <code>post()</code> methods, without caring how each implementation works internally.
+</div>
+
+<h3>1.6 Constructors</h3>
+<ul>
+<li><b>Default constructor</b> — no-arg, auto-provided by compiler if none defined</li>
+<li><b>Parameterized constructor</b> — accepts arguments to initialize fields</li>
+<li><b>Constructor overloading</b> — multiple constructors, different parameter lists</li>
+<li><b>Constructor chaining</b> — <code>this()</code> to call another constructor in same class, <code>super()</code> to call parent's constructor</li>
+</ul>
+<div class="note">A constructor is never inherited, has no return type, and its name must exactly match the class name.</div>
+
+<h3>1.7 <code>this</code> vs <code>super</code></h3>
+<table>
+<tr><th>this</th><th>super</th></tr>
+<tr><td>Refers to current object instance</td><td>Refers to immediate parent class</td></tr>
+<tr><td><code>this()</code> calls another constructor in same class</td><td><code>super()</code> calls parent's constructor</td></tr>
+<tr><td>Used to resolve field/parameter name clash</td><td>Used to access parent's overridden method/field</td></tr>
+</table>
+
+<h3>1.8 Static vs Instance</h3>
+<ul>
+<li><b>static</b> members belong to the class, shared across all objects, loaded once at class loading</li>
+<li><b>instance</b> members belong to each object separately, created fresh per <code>new</code></li>
+<li>Static methods cannot use <code>this</code>/<code>super</code>, cannot directly call non-static methods</li>
+</ul>
+
+<h3>1.9 Method Overriding Rules &amp; final/finally/finalize</h3>
+<table>
+<tr><th>final</th><th>finally</th><th>finalize()</th></tr>
+<tr><td>Keyword — constant var / non-overridable method / non-inheritable class</td><td>Block that always executes after try-catch</td><td>Method called by GC before object destruction (deprecated in modern Java)</td></tr>
+</table>
+
+<h3>1.10 Access Modifiers</h3>
+<table>
+<tr><th>Modifier</th><th>Same class</th><th>Same package</th><th>Subclass (diff package)</th><th>World</th></tr>
+<tr><td>private</td><td>✔</td><td>✘</td><td>✘</td><td>✘</td></tr>
+<tr><td>default</td><td>✔</td><td>✔</td><td>✘</td><td>✘</td></tr>
+<tr><td>protected</td><td>✔</td><td>✔</td><td>✔</td><td>✘</td></tr>
+<tr><td>public</td><td>✔</td><td>✔</td><td>✔</td><td>✔</td></tr>
+</table>
+
+<h3>1.11 Composition vs Inheritance</h3>
+<div class="qbox">Q: What's the difference between "is-a" and "has-a" relationships?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+Inheritance models an "is-a" relationship — a <code>Car</code> is a <code>Vehicle</code>. Composition models a "has-a" relationship — a <code>Car</code> has an <code>Engine</code>. I generally prefer composition over inheritance where possible because it's more flexible — you can swap the Engine implementation at runtime without rewriting the class hierarchy, whereas inheritance is a rigid compile-time relationship. In my framework, my <code>TestBase</code> class "has-a" WebDriver instance rather than extending some driver class.
+</div>
+
+<h3>1.12 Interfaces (Java 8+) &amp; Functional Interfaces</h3>
+<ul>
+<li><b>default methods</b> — give interfaces a body without breaking implementing classes</li>
+<li><b>static methods</b> — utility methods callable via interface name</li>
+<li><b>Functional Interface</b> — exactly one abstract method (e.g. <code>Runnable</code>, <code>Comparator</code>), enables lambda expressions, marked with <code>@FunctionalInterface</code></li>
+</ul>
+<pre><code><span class="fn">@FunctionalInterface</span>
+<span class="kw">interface</span> Calculator { <span class="kw">int</span> operate(<span class="kw">int</span> a, <span class="kw">int</span> b); }
+
+Calculator add = (a, b) -> a + b; <span class="cm">// lambda</span>
+</code></pre>
+</section>
+<section id="collections">
+<h2>2. Collections Framework</h2>
+
+<h3>2.1 Hierarchy Overview</h3>
+<div class="card">
+<p><code>Collection</code> interface → <code>List</code>, <code>Set</code>, <code>Queue</code> &nbsp;|&nbsp; <code>Map</code> is separate (not a Collection)</p>
+<ul>
+<li><b>List</b> — ordered, allows duplicates → <code>ArrayList</code>, <code>LinkedList</code>, <code>Vector</code></li>
+<li><b>Set</b> — no duplicates → <code>HashSet</code>, <code>LinkedHashSet</code>, <code>TreeSet</code></li>
+<li><b>Queue</b> — FIFO processing → <code>PriorityQueue</code>, <code>ArrayDeque</code></li>
+<li><b>Map</b> — key-value pairs → <code>HashMap</code>, <code>LinkedHashMap</code>, <code>TreeMap</code>, <code>Hashtable</code></li>
+</ul>
+</div>
+
+<h3>2.2 ArrayList vs LinkedList</h3>
+<table>
+<tr><th>ArrayList</th><th>LinkedList</th></tr>
+<tr><td>Backed by dynamic array</td><td>Backed by doubly linked list</td></tr>
+<tr><td>Fast random access — O(1) get</td><td>Slow random access — O(n)</td></tr>
+<tr><td>Slow insert/delete in middle — O(n) shift</td><td>Fast insert/delete — O(1) once positioned</td></tr>
+<tr><td>Better for read-heavy operations</td><td>Better for frequent insert/delete</td></tr>
+</table>
+<div class="qbox">Q: Which do you use in your automation framework and why?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+I mostly use <code>ArrayList</code> — for example, storing a list of WebElements from <code>findElements()</code>, or reading test data rows. Since I mostly iterate and read, not frequently insert into the middle, ArrayList's O(1) random access fits better. I'd reach for LinkedList only if I were building something like a queue of test steps where I insert/remove from both ends frequently.
+</div>
+
+<h3>2.3 HashMap vs LinkedHashMap vs TreeMap</h3>
+<table>
+<tr><th></th><th>HashMap</th><th>LinkedHashMap</th><th>TreeMap</th></tr>
+<tr><td>Order</td><td>No guaranteed order</td><td>Insertion order preserved</td><td>Sorted by key (natural/comparator)</td></tr>
+<tr><td>Null keys</td><td>One null key allowed</td><td>One null key allowed</td><td>No null key (NPE)</td></tr>
+<tr><td>Performance</td><td>O(1) avg</td><td>O(1) avg (slight overhead)</td><td>O(log n)</td></tr>
+<tr><td>Backed by</td><td>Hash table (array of buckets)</td><td>Hash table + linked list</td><td>Red-Black tree</td></tr>
+</table>
+
+<h3>2.4 HashMap Internal Working</h3>
+<div class="qbox">Q: How does HashMap work internally?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+Internally a HashMap is an array of "buckets". When I put a key-value pair, Java calls <code>hashCode()</code> on the key, then applies its own hash-spreading function to reduce collisions, and uses <code>index = hash &amp; (capacity-1)</code> to decide the bucket. If two keys land in the same bucket (a collision), they're stored as a linked list — and since Java 8, if a bucket has 8+ nodes, it converts to a Red-Black tree for faster lookup — O(log n) instead of O(n). When I call <code>get()</code>, it hashes the key again, jumps to the bucket, then uses <code>equals()</code> to find the exact match. Default capacity is 16, and it resizes (doubles) once it crosses the load factor, typically 0.75.
+</div>
+
+<h3>2.5 HashSet vs TreeSet vs LinkedHashSet</h3>
+<ul>
+<li><b>HashSet</b> — backed by HashMap internally, no order, O(1)</li>
+<li><b>LinkedHashSet</b> — maintains insertion order</li>
+<li><b>TreeSet</b> — sorted order, backed by TreeMap, O(log n)</li>
+</ul>
+
+<h3>2.6 Comparable vs Comparator</h3>
+<table>
+<tr><th>Comparable</th><th>Comparator</th></tr>
+<tr><td><code>compareTo()</code> method, in the class itself</td><td><code>compare()</code> method, separate class/lambda</td></tr>
+<tr><td>Defines a single "natural" ordering</td><td>Defines multiple custom orderings</td></tr>
+<tr><td><code>java.lang</code> package</td><td><code>java.util</code> package</td></tr>
+</table>
+<pre><code><span class="kw">class</span> Employee <span class="kw">implements</span> Comparable&lt;Employee&gt; {
+    <span class="kw">int</span> age;
+    <span class="fn">public int</span> compareTo(Employee e){ <span class="kw">return</span> <span class="kw">this</span>.age - e.age; }
+}
+<span class="cm">// Comparator with lambda</span>
+List&lt;Employee&gt; list = ...;
+list.sort((e1, e2) -> e1.age - e2.age);
+Collections.sort(list, Comparator.comparing(e -> e.age));
+</code></pre>
+<div class="qbox">Q: When would you choose Comparator over Comparable?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+Comparable is used when a class has one obvious natural ordering — like sorting Employees by ID always. But if I need to sort the same object differently in different contexts — say sort by age in one test and by salary in another — I use Comparator, because I can define as many comparator implementations as I need without touching the original class.
+</div>
+
+<h3>2.7 Iterator vs ListIterator vs Enhanced for-loop</h3>
+<ul>
+<li><b>Iterator</b> — forward only, works on all Collections, supports <code>remove()</code></li>
+<li><b>ListIterator</b> — bidirectional, only for List, supports <code>add()</code>, <code>set()</code>, <code>remove()</code></li>
+<li><b>Enhanced for-loop</b> — cleanest syntax, but no safe way to modify collection while iterating (throws <code>ConcurrentModificationException</code>)</li>
+</ul>
+
+<h3>2.8 fail-fast vs fail-safe Iterators</h3>
+<table>
+<tr><th>Fail-Fast</th><th>Fail-Safe</th></tr>
+<tr><td>Throws <code>ConcurrentModificationException</code> if collection is modified during iteration</td><td>Operates on a cloned copy, no exception</td></tr>
+<tr><td>ArrayList, HashMap iterators</td><td>CopyOnWriteArrayList, ConcurrentHashMap</td></tr>
+<tr><td>Uses a modCount internally to detect changes</td><td>No modCount check</td></tr>
+</table>
+
+<h3>2.9 Generics</h3>
+<pre><code><span class="kw">class</span> Box&lt;T&gt; {
+    <span class="kw">private</span> T value;
+    <span class="kw">void</span> set(T value){ <span class="kw">this</span>.value = value; }
+    T get(){ <span class="kw">return</span> value; }
+}
+Box&lt;String&gt; b = <span class="kw">new</span> Box&lt;&gt;();
+</code></pre>
+<div class="qbox">Q: Why use Generics?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+Generics give compile-time type safety and remove the need for explicit casting. Before generics, a List stored Objects, so you'd get a <code>ClassCastException</code> at runtime if wrong data was retrieved. With <code>List&lt;String&gt;</code>, the compiler itself blocks adding an Integer, catching bugs early instead of at runtime — which matters a lot in test automation since I want failures caught during compilation, not mid-test-run.
+</div>
+
+<h3>2.10 Java 8 Streams (used heavily in Collections)</h3>
+<pre><code>List&lt;String&gt; names = Arrays.asList(<span class="str">"Ravi"</span>,<span class="str">"Anu"</span>,<span class="str">"Zoe"</span>);
+List&lt;String&gt; sorted = names.stream()
+        .filter(n -> n.length() > <span class="num">3</span>)
+        .sorted()
+        .collect(Collectors.toList());
+</code></pre>
+<ul>
+<li><b>map()</b> — transform each element</li>
+<li><b>filter()</b> — select matching elements</li>
+<li><b>collect()</b> — terminal operation, gathers results</li>
+<li><b>reduce()</b> — combine elements into single value</li>
+</ul>
+</section>
+<section id="exceptions">
+<h2>3. Exception Handling</h2>
+
+<h3>3.1 Exception Hierarchy</h3>
+<div class="card">
+<p><code>Throwable</code></p>
+<ul>
+<li><b>Error</b> — serious JVM-level problems (OutOfMemoryError, StackOverflowError) — not meant to be caught</li>
+<li><b>Exception</b>
+  <ul>
+    <li><b>Checked</b> — checked at compile time (IOException, SQLException)</li>
+    <li><b>Unchecked / RuntimeException</b> — checked at runtime (NullPointerException, ArrayIndexOutOfBoundsException, ArithmeticException)</li>
+  </ul>
+</li>
+</ul>
+</div>
+
+<h3>3.2 Checked vs Unchecked</h3>
+<table>
+<tr><th>Checked</th><th>Unchecked</th></tr>
+<tr><td>Must be handled (try-catch or throws) at compile time</td><td>Not enforced by compiler</td></tr>
+<tr><td>Represents recoverable conditions</td><td>Usually programming errors</td></tr>
+<tr><td>e.g. IOException, InterruptedException</td><td>e.g. NullPointerException, ClassCastException</td></tr>
+</table>
+<div class="qbox">Q: Give an example of checked vs unchecked exception from your Selenium framework.</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+A checked exception I regularly handle is <code>IOException</code> — for example when reading a properties file or Excel sheet using Apache POI, the compiler forces me to either catch it or declare <code>throws IOException</code>. An unchecked one would be <code>NoSuchElementException</code> from Selenium itself, or a <code>NullPointerException</code> if a WebElement wasn't initialized — these aren't forced by the compiler, so I add explicit checks and waits to prevent them proactively.
+</div>
+
+<h3>3.3 try-catch-finally</h3>
+<pre><code><span class="kw">try</span> {
+    driver.findElement(By.id(<span class="str">"submit"</span>)).click();
+} <span class="kw">catch</span> (NoSuchElementException e) {
+    System.out.println(<span class="str">"Element not found: "</span> + e.getMessage());
+} <span class="kw">finally</span> {
+    System.out.println(<span class="str">"Cleanup runs always"</span>);
+}
+</code></pre>
+<ul>
+<li><code>finally</code> executes whether or not an exception occurs — used for resource cleanup (closing driver, DB connection)</li>
+<li>Multiple <code>catch</code> blocks allowed, ordered from most specific to most general</li>
+<li>Java 7+ supports <b>multi-catch</b>: <code>catch (IOException | SQLException e)</code></li>
+<li><b>try-with-resources</b> auto-closes resources implementing <code>AutoCloseable</code></li>
+</ul>
+
+<h3>3.4 throw vs throws</h3>
+<table>
+<tr><th>throw</th><th>throws</th></tr>
+<tr><td>Used to actually throw an exception instance</td><td>Used in method signature to declare possible exceptions</td></tr>
+<tr><td><code>throw new RuntimeException("msg")</code></td><td><code>void readFile() throws IOException</code></td></tr>
+<tr><td>Only one exception object per throw</td><td>Can declare multiple, comma-separated</td></tr>
+</table>
+
+<h3>3.5 Custom Exceptions</h3>
+<pre><code><span class="kw">class</span> InvalidLoginException <span class="kw">extends</span> Exception {
+    <span class="kw">public</span> InvalidLoginException(String message) {
+        <span class="kw">super</span>(message);
+    }
+}
+<span class="cm">// usage</span>
+<span class="kw">if</span> (!isValid) {
+    <span class="kw">throw new</span> InvalidLoginException(<span class="str">"Invalid credentials supplied"</span>);
+}
+</code></pre>
+<div class="qbox">Q: Why and where have you used custom exceptions in your framework?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+I created custom exceptions like <code>FrameworkException</code> or <code>ElementNotInteractableCustomException</code> to give more meaningful, framework-specific error messages instead of generic ones. For example, when a config key is missing from my properties file, instead of letting a cryptic NullPointerException bubble up, I throw a custom <code>ConfigNotFoundException</code> with a clear message pointing to exactly which key is missing — that makes debugging failed test runs in CI much faster for the team.
+</div>
+
+<h3>3.6 Common Selenium Exceptions</h3>
+<table>
+<tr><th>Exception</th><th>When it occurs</th></tr>
+<tr><td>NoSuchElementException</td><td>Locator doesn't match any element in DOM</td></tr>
+<tr><td>ElementNotInteractableException</td><td>Element present but not visible/enabled</td></tr>
+<tr><td>StaleElementReferenceException</td><td>Element reference is outdated (DOM refreshed/re-rendered)</td></tr>
+<tr><td>TimeoutException</td><td>Explicit/Fluent wait condition not met in time</td></tr>
+<tr><td>NoSuchWindowException / NoAlertPresentException</td><td>Switching to window/alert that doesn't exist</td></tr>
+</table>
+<div class="qbox">Q: How do you handle StaleElementReferenceException in your framework?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+It usually happens after a page refresh, AJAX update, or navigation, when the previously located WebElement no longer maps to a node in the current DOM. I handle it by re-locating the element rather than reusing the stale reference — I've wrapped this in a retry utility method that catches <code>StaleElementReferenceException</code>, re-finds the element by its locator, and retries the action once or twice before failing the test, instead of letting the whole test crash on a transient DOM change.
+</div>
+
+<h3>3.7 Exception Chaining</h3>
+<pre><code><span class="kw">try</span> {
+    ...
+} <span class="kw">catch</span> (SQLException e) {
+    <span class="kw">throw new</span> RuntimeException(<span class="str">"DB layer failed"</span>, e); <span class="cm">// cause preserved</span>
+}
+</code></pre>
+</section>
+<section id="selenium">
+<h2>4. Selenium WebDriver</h2>
+
+<h3>4.1 Architecture</h3>
+<div class="card">
+<p>Selenium client library (Java bindings) → JSON Wire Protocol / <b>W3C WebDriver Protocol</b> → Browser Driver (chromedriver/geckodriver) → Browser</p>
+</div>
+<div class="qbox">Q: Explain the Selenium WebDriver architecture.</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+When I write <code>driver.get("url")</code> in Java, the language binding converts that into an HTTP request following the W3C WebDriver protocol — basically a JSON payload. This is sent to the browser-specific driver, like chromedriver, which runs as a separate server process. Chromedriver then translates that request into native browser calls via the browser's own automation API and returns the result back as an HTTP response. Since Selenium 4, everything strictly follows the W3C standard, whereas earlier versions used the older JSON Wire Protocol.
+</div>
+
+<h3>4.2 Locators</h3>
+<table>
+<tr><th>Locator</th><th>Example</th></tr>
+<tr><td>id</td><td><code>driver.findElement(By.id("uname"))</code></td></tr>
+<tr><td>name</td><td><code>By.name("username")</code></td></tr>
+<tr><td>className</td><td><code>By.className("btn-primary")</code></td></tr>
+<tr><td>tagName</td><td><code>By.tagName("input")</code></td></tr>
+<tr><td>linkText / partialLinkText</td><td><code>By.linkText("Sign In")</code></td></tr>
+<tr><td>CSS Selector</td><td><code>By.cssSelector("div.card > input#email")</code></td></tr>
+<tr><td>XPath</td><td><code>By.xpath("//input[@type='submit']")</code></td></tr>
+</table>
+
+<h3>4.3 XPath Types &amp; Axes</h3>
+<ul>
+<li><b>Absolute XPath</b>: <code>/html/body/div/form/input</code> — fragile, breaks with DOM changes</li>
+<li><b>Relative XPath</b>: <code>//input[@id='email']</code> — preferred, resilient</li>
+<li><b>Functions</b>: <code>contains()</code>, <code>starts-with()</code>, <code>text()</code>, <code>normalize-space()</code></li>
+<li><b>Axes</b>: <code>parent::</code>, <code>following-sibling::</code>, <code>preceding-sibling::</code>, <code>ancestor::</code>, <code>descendant::</code></li>
+</ul>
+<pre><code>//input[contains(@id,<span class="str">'user'</span>)]
+//div[@class=<span class="str">'card'</span>]//following-sibling::button
+//label[text()=<span class="str">'Email'</span>]/following-sibling::input
+</code></pre>
+<div class="qbox">Q: CSS Selector or XPath — which do you prefer and why?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+I prefer CSS selectors when possible because they're generally faster since the browser engine natively parses CSS, whereas XPath needs an additional engine, especially on older IE-type browsers. But I switch to XPath when I need to traverse upward in the DOM — like locating a parent from a child, or matching partial text — since CSS can't traverse to a parent or match on visible text. So my rule of thumb: CSS for straightforward, front-facing attributes; XPath for text-based or parent-relative logic.
+</div>
+
+<h3>4.4 Waits</h3>
+<table>
+<tr><th>Wait Type</th><th>Behavior</th></tr>
+<tr><td>Implicit Wait</td><td>Global wait applied to all <code>findElement</code> calls; polls DOM up to timeout</td></tr>
+<tr><td>Explicit Wait (<code>WebDriverWait</code>)</td><td>Waits for a specific condition on a specific element</td></tr>
+<tr><td>Fluent Wait</td><td>Explicit wait + configurable polling frequency + ignore specific exceptions</td></tr>
+</table>
+<pre><code>WebDriverWait wait = <span class="kw">new</span> WebDriverWait(driver, Duration.ofSeconds(<span class="num">10</span>));
+wait.until(ExpectedConditions.elementToBeClickable(By.id(<span class="str">"submit"</span>))).click();
+
+FluentWait&lt;WebDriver&gt; fwait = <span class="kw">new</span> FluentWait&lt;&gt;(driver)
+    .withTimeout(Duration.ofSeconds(<span class="num">20</span>))
+    .pollingEvery(Duration.ofSeconds(<span class="num">2</span>))
+    .ignoring(NoSuchElementException.<span class="kw">class</span>);
+</code></pre>
+<div class="qbox">Q: Why shouldn't you mix implicit and explicit waits?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+Mixing them can cause unpredictable wait times because both waits poll the DOM independently, and their timers can stack — for example if implicit wait is 10 seconds and an explicit wait condition also needs to poll, in some driver versions the effective wait becomes the sum of both, causing tests to hang far longer than expected. In my framework I standardized on explicit waits only, keeping implicit wait at 0, so the wait behavior stays predictable and I control each wait condition precisely per element.
+</div>
+
+<h3>4.5 Actions Class</h3>
+<pre><code>Actions actions = <span class="kw">new</span> Actions(driver);
+actions.moveToElement(menu).click(subMenu).build().perform(); <span class="cm">// hover + click</span>
+actions.dragAndDrop(source, target).perform();
+actions.keyDown(Keys.CONTROL).sendKeys(<span class="str">"a"</span>).keyUp(Keys.CONTROL).perform(); <span class="cm">// Ctrl+A</span>
+actions.doubleClick(element).perform();
+actions.contextClick(element).perform(); <span class="cm">// right-click</span>
+</code></pre>
+
+<h3>4.6 Handling Frames, Windows, Alerts</h3>
+<pre><code><span class="cm">// Frames</span>
+driver.switchTo().frame(<span class="str">"frameName"</span>);
+driver.switchTo().defaultContent();
+
+<span class="cm">// Multiple Windows/Tabs</span>
+String parent = driver.getWindowHandle();
+<span class="kw">for</span> (String handle : driver.getWindowHandles()) {
+    driver.switchTo().window(handle);
+}
+driver.switchTo().window(parent);
+
+<span class="cm">// Alerts</span>
+Alert alert = driver.switchTo().alert();
+alert.accept(); alert.dismiss(); alert.sendKeys(<span class="str">"text"</span>);
+</code></pre>
+
+<h3>4.7 Page Object Model (POM) &amp; Page Factory</h3>
+<div class="qbox">Q: What is the Page Object Model and why do you use it?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+POM is a design pattern where each web page is represented as a class — the page's locators are stored as fields and its user actions as methods. The main benefit is separation of concerns: my test scripts describe "what to do" (business flow), while the page classes handle "how to do it" (locators, low-level Selenium calls). So if a locator changes because of a UI update, I fix it in exactly one place — the page class — instead of every test that touches that element. I typically pair it with <code>PageFactory</code> and <code>@FindBy</code> annotations for cleaner element initialization, and lately I've also used it alongside a fluent-style method chaining approach.
+</div>
+<pre><code><span class="kw">public class</span> LoginPage {
+    WebDriver driver;
+    <span class="fn">@FindBy</span>(id = <span class="str">"username"</span>) WebElement username;
+    <span class="fn">@FindBy</span>(id = <span class="str">"password"</span>) WebElement password;
+    <span class="fn">@FindBy</span>(id = <span class="str">"loginBtn"</span>) WebElement loginBtn;
+
+    <span class="kw">public</span> LoginPage(WebDriver driver){
+        <span class="kw">this</span>.driver = driver;
+        PageFactory.initElements(driver, <span class="kw">this</span>);
+    }
+    <span class="kw">public void</span> login(String user, String pass){
+        username.sendKeys(user);
+        password.sendKeys(pass);
+        loginBtn.click();
+    }
+}
+</code></pre>
+
+<h3>4.8 Selenium Grid</h3>
+<div class="qbox">Q: What is Selenium Grid and how have you used it?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+Selenium Grid lets me run tests on multiple machines/browsers in parallel using a Hub-Node architecture — the Hub receives test requests and routes them to available Nodes matching the desired browser/OS capability. In my project we used a Grid setup (self-hosted, and separately BrowserStack as a cloud grid) to cut regression suite execution time significantly by distributing tests across parallel nodes, combined with TestNG's parallel execution attribute.
+</div>
+
+<h3>4.9 Selenium 4 Highlights</h3>
+<ul>
+<li>Fully W3C standardized protocol (no more JSON Wire Protocol translation layer)</li>
+<li>Relative Locators — <code>above()</code>, <code>below()</code>, <code>toLeftOf()</code>, <code>toRightOf()</code>, <code>near()</code></li>
+<li>New Chrome DevTools Protocol (CDP) integration — network interception, console logs, geolocation</li>
+<li>Native support for multi-tab/window handling improvements</li>
+<li>Improved Grid UI and Docker support</li>
+</ul>
+<pre><code>WebElement password = driver.findElement(RelativeLocator.with(By.tagName(<span class="str">"input"</span>)).below(username));
+</code></pre>
+
+<h3>4.10 Synchronization Issues &amp; Flaky Tests</h3>
+<div class="qbox">Q: How do you deal with flaky tests in your suite?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+Most flakiness in my experience traces back to synchronization — the test running faster than the application's UI response. I address this with explicit waits tied to specific conditions rather than hard <code>Thread.sleep()</code>. Where flakiness is due to environment issues, I've added a controlled retry mechanism using TestNG's <code>IRetryAnalyzer</code>, but only as a safety net — not a substitute for fixing the root cause. I also track flaky tests separately in reporting so they don't silently mask real failures.
+</div>
+
+<h3>4.11 Headless Execution &amp; Cross-browser</h3>
+<pre><code>ChromeOptions options = <span class="kw">new</span> ChromeOptions();
+options.addArguments(<span class="str">"--headless=new"</span>);
+WebDriver driver = <span class="kw">new</span> ChromeDriver(options);
+</code></pre>
+</section>
+<section id="maven">
+<h2>5. Maven Framework</h2>
+
+<h3>5.1 What is Maven &amp; Why</h3>
+<div class="qbox">Q: Why do you use Maven in your automation framework?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+Maven is a build automation and dependency management tool. Instead of manually downloading Selenium, TestNG, or Apache POI jars and configuring classpaths, I just declare them as dependencies in <code>pom.xml</code>, and Maven downloads them from the central repository along with their transitive dependencies. It also standardizes the project structure, manages the build lifecycle, and lets me trigger test execution, generate reports, and integrate with Jenkins — all through simple <code>mvn</code> commands, which is essential for CI/CD pipelines.
+</div>
+
+<h3>5.2 pom.xml Structure</h3>
+<pre><code>&lt;project&gt;
+  &lt;groupId&gt;com.company.qa&lt;/groupId&gt;
+  &lt;artifactId&gt;automation-framework&lt;/artifactId&gt;
+  &lt;version&gt;1.0.0&lt;/version&gt;
+  &lt;packaging&gt;jar&lt;/packaging&gt;
+
+  &lt;properties&gt;
+    &lt;maven.compiler.source&gt;17&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;17&lt;/maven.compiler.target&gt;
+  &lt;/properties&gt;
+
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
+      &lt;artifactId&gt;selenium-java&lt;/artifactId&gt;
+      &lt;version&gt;4.21.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.testng&lt;/groupId&gt;
+      &lt;artifactId&gt;testng&lt;/artifactId&gt;
+      &lt;version&gt;7.10.2&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.2.5&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;suiteXmlFiles&gt;
+            &lt;suiteXmlFile&gt;testng.xml&lt;/suiteXmlFile&gt;
+          &lt;/suiteXmlFiles&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</code></pre>
+<ul>
+<li><b>groupId</b> — organization/project namespace</li>
+<li><b>artifactId</b> — project's actual name</li>
+<li><b>version</b> — release version (SNAPSHOT = under development)</li>
+<li><b>dependencies</b> — external libraries needed</li>
+<li><b>build/plugins</b> — extend Maven's default behavior (e.g. Surefire runs tests)</li>
+</ul>
+
+<h3>5.3 Maven Build Lifecycle</h3>
+<table>
+<tr><th>Phase</th><th>What happens</th></tr>
+<tr><td>validate</td><td>Checks project structure is correct</td></tr>
+<tr><td>compile</td><td>Compiles source code</td></tr>
+<tr><td>test</td><td>Runs unit/automation tests via Surefire plugin</td></tr>
+<tr><td>package</td><td>Packages compiled code into JAR/WAR</td></tr>
+<tr><td>verify</td><td>Runs checks on integration test results</td></tr>
+<tr><td>install</td><td>Installs package into local repo (<code>~/.m2</code>)</td></tr>
+<tr><td>deploy</td><td>Copies package to remote repository</td></tr>
+</table>
+<div class="note">Each phase runs all previous phases in order — e.g. <code>mvn install</code> triggers validate → compile → test → package → verify → install.</div>
+
+<h3>5.4 Common Commands</h3>
+<table>
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td><code>mvn clean</code></td><td>Deletes <code>target</code> directory</td></tr>
+<tr><td><code>mvn test</code></td><td>Runs tests</td></tr>
+<tr><td><code>mvn install</code></td><td>Builds and installs to local repo</td></tr>
+<tr><td><code>mvn clean test -DsuiteXmlFile=smoke.xml</code></td><td>Clean + run specific suite</td></tr>
+<tr><td><code>mvn test -Dgroups=regression</code></td><td>Run specific TestNG group</td></tr>
+<tr><td><code>mvn dependency:tree</code></td><td>View all resolved dependencies</td></tr>
+</table>
+
+<h3>5.5 Maven Surefire Plugin</h3>
+<div class="qbox">Q: What is the role of the Surefire plugin?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+Surefire is the plugin that actually triggers test execution during the <code>test</code> phase of Maven's lifecycle. Without configuring it, Maven wouldn't know to run my TestNG suite. I configure it to point to my <code>testng.xml</code>, and it's also where I can control things like parallel thread count or which test groups to include/exclude directly from the command line using system properties.
+</div>
+
+<h3>5.6 Dependency Scope</h3>
+<table>
+<tr><th>Scope</th><th>Meaning</th></tr>
+<tr><td>compile (default)</td><td>Available in all phases, packaged in output</td></tr>
+<tr><td>test</td><td>Only available during test compilation/execution (e.g. TestNG)</td></tr>
+<tr><td>provided</td><td>Needed to compile, provided by runtime environment (e.g. servlet-api)</td></tr>
+<tr><td>runtime</td><td>Not needed for compilation but needed at runtime</td></tr>
+</table>
+</section>
+<section id="testng">
+<h2>6. TestNG</h2>
+
+<h3>6.1 Why TestNG over JUnit</h3>
+<div class="qbox">Q: Why did you choose TestNG over JUnit?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+TestNG gives more powerful features out of the box that suit UI automation better — like native support for test prioritization, grouping tests (smoke/regression), parallel execution at method/class/suite level, data-driven testing via <code>@DataProvider</code>, and flexible dependency management with <code>dependsOnMethods</code>. JUnit 5 has since caught up with some of these, but at the time our framework was built, TestNG's XML-based suite configuration and reporting fit our CI pipeline better, so we standardized on it.
+</div>
+
+<h3>6.2 Annotations &amp; Execution Order</h3>
+<table>
+<tr><th>Annotation</th><th>Runs</th></tr>
+<tr><td>@BeforeSuite / @AfterSuite</td><td>Once before/after entire suite</td></tr>
+<tr><td>@BeforeTest / @AfterTest</td><td>Once before/after a &lt;test&gt; tag in XML</td></tr>
+<tr><td>@BeforeClass / @AfterClass</td><td>Once before/after all methods in a class</td></tr>
+<tr><td>@BeforeMethod / @AfterMethod</td><td>Before/after each @Test method</td></tr>
+<tr><td>@Test</td><td>The actual test method</td></tr>
+</table>
+<div class="card">
+<b>Order:</b> BeforeSuite → BeforeTest → BeforeClass → BeforeMethod → <b>Test</b> → AfterMethod → AfterClass → AfterTest → AfterSuite
+</div>
+
+<h3>6.3 TestNG Assertions</h3>
+<pre><code>Assert.assertEquals(actual, expected, <span class="str">"mismatch message"</span>);
+Assert.assertTrue(isDisplayed);
+Assert.assertNotNull(element);
+
+<span class="cm">// Soft Assert - collects failures, doesn't stop execution</span>
+SoftAssert softAssert = <span class="kw">new</span> SoftAssert();
+softAssert.assertEquals(actualTitle, expectedTitle);
+softAssert.assertTrue(isLoggedIn);
+softAssert.assertAll(); <span class="cm">// must call at end to report failures</span>
+</code></pre>
+<div class="qbox">Q: Difference between hard assert and soft assert?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+A hard assert (<code>Assert.assertEquals</code>) stops test execution immediately on failure, throwing an <code>AssertionError</code>. A soft assert collects all failures but keeps executing the rest of the test, and only reports them when I explicitly call <code>assertAll()</code>. I use soft asserts when validating multiple independent fields on a page — like verifying five different labels — so I get one full failure report instead of the test stopping at the first mismatch, which saves debugging time.
+</div>
+
+<h3>6.4 DataProvider (Data-Driven Testing)</h3>
+<pre><code><span class="fn">@DataProvider</span>(name = <span class="str">"loginData"</span>)
+<span class="kw">public</span> Object[][] getData(){
+    <span class="kw">return new</span> Object[][] {
+        {<span class="str">"user1"</span>, <span class="str">"pass1"</span>},
+        {<span class="str">"user2"</span>, <span class="str">"pass2"</span>}
+    };
+}
+
+<span class="fn">@Test</span>(dataProvider = <span class="str">"loginData"</span>)
+<span class="kw">public void</span> testLogin(String user, String pass){ ... }
+</code></pre>
+
+<h3>6.5 testng.xml Configuration</h3>
+<pre><code>&lt;suite name=<span class="str">"RegressionSuite"</span> parallel=<span class="str">"classes"</span> thread-count=<span class="str">"4"</span>&gt;
+  &lt;test name=<span class="str">"SmokeTests"</span>&gt;
+    &lt;groups&gt;
+      &lt;run&gt;
+        &lt;include name=<span class="str">"smoke"</span>/&gt;
+      &lt;/run&gt;
+    &lt;/groups&gt;
+    &lt;classes&gt;
+      &lt;class name=<span class="str">"tests.LoginTest"</span>/&gt;
+    &lt;/classes&gt;
+  &lt;/test&gt;
+&lt;/suite&gt;
+</code></pre>
+<div class="qbox">Q: How do you achieve parallel execution in TestNG?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+I set the <code>parallel</code> attribute on the <code>&lt;suite&gt;</code> tag in testng.xml — options are <code>methods</code>, <code>classes</code>, <code>tests</code>, or <code>instances</code> — along with a <code>thread-count</code>. In my framework I use <code>parallel="classes"</code> since each class maps to one browser session, and I pair it with a <code>ThreadLocal&lt;WebDriver&gt;</code> in my base class so each thread gets its own independent driver instance — that's crucial, because sharing a single static driver across threads causes tests to interfere with each other.
+</div>
+
+<h3>6.6 Groups, Priority, Dependencies</h3>
+<pre><code><span class="fn">@Test</span>(groups = {<span class="str">"smoke"</span>}, priority = <span class="num">1</span>)
+<span class="kw">public void</span> loginTest(){ ... }
+
+<span class="fn">@Test</span>(dependsOnMethods = {<span class="str">"loginTest"</span>})
+<span class="kw">public void</span> dashboardTest(){ ... }
+</code></pre>
+<ul>
+<li><b>priority</b> — lower value runs first (default 0)</li>
+<li><b>dependsOnMethods</b> — skips dependent test if the parent fails</li>
+<li><b>groups</b> — logical tagging (smoke, regression, sanity) to selectively run subsets</li>
+</ul>
+
+<h3>6.7 Listeners</h3>
+<div class="qbox">Q: What are TestNG Listeners and how have you used them?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+Listeners let me hook into the test lifecycle without touching individual test methods. I've implemented <code>ITestListener</code> to automatically capture a screenshot and attach it to the report whenever <code>onTestFailure()</code> fires — that way I don't need to add screenshot code inside every single test. I've also used <code>IRetryAnalyzer</code> combined with a listener to automatically retry a failed test a set number of times before marking it a genuine failure, which helps filter out transient environment flakiness from real bugs.
+</div>
+<pre><code><span class="kw">public class</span> TestListener <span class="kw">implements</span> ITestListener {
+    <span class="fn">@Override</span>
+    <span class="kw">public void</span> onTestFailure(ITestResult result){
+        <span class="cm">// capture screenshot logic here</span>
+    }
+}
+</code></pre>
+
+<h3>6.8 Exception handling in TestNG</h3>
+<pre><code><span class="fn">@Test</span>(expectedExceptions = ArithmeticException.<span class="kw">class</span>)
+<span class="kw">public void</span> testDivideByZero(){
+    <span class="kw">int</span> x = <span class="num">10</span>/<span class="num">0</span>;
+}
+</code></pre>
+</section>
+<section id="api">
+<h2>7. API Testing</h2>
+
+<h3>7.1 REST Basics</h3>
+<table>
+<tr><th>HTTP Method</th><th>Purpose</th></tr>
+<tr><td>GET</td><td>Retrieve a resource</td></tr>
+<tr><td>POST</td><td>Create a new resource</td></tr>
+<tr><td>PUT</td><td>Update/replace entire resource</td></tr>
+<tr><td>PATCH</td><td>Partially update a resource</td></tr>
+<tr><td>DELETE</td><td>Remove a resource</td></tr>
+</table>
+
+<h3>7.2 Common Status Codes</h3>
+<table>
+<tr><th>Code</th><th>Meaning</th></tr>
+<tr><td>200 OK</td><td>Success</td></tr>
+<tr><td>201 Created</td><td>Resource created (POST success)</td></tr>
+<tr><td>204 No Content</td><td>Success, no body returned</td></tr>
+<tr><td>400 Bad Request</td><td>Malformed request from client</td></tr>
+<tr><td>401 Unauthorized</td><td>Missing/invalid authentication</td></tr>
+<tr><td>403 Forbidden</td><td>Authenticated but no permission</td></tr>
+<tr><td>404 Not Found</td><td>Resource doesn't exist</td></tr>
+<tr><td>500 Internal Server Error</td><td>Server-side failure</td></tr>
+</table>
+
+<h3>7.3 REST Assured</h3>
+<pre><code>given()
+    .baseUri(<span class="str">"https://api.example.com"</span>)
+    .header(<span class="str">"Content-Type"</span>, <span class="str">"application/json"</span>)
+    .body(<span class="str">"{ \"name\": \"Ravi\" }"</span>)
+.when()
+    .post(<span class="str">"/users"</span>)
+.then()
+    .statusCode(<span class="num">201</span>)
+    .body(<span class="str">"name"</span>, equalTo(<span class="str">"Ravi"</span>));
+</code></pre>
+<div class="qbox">Q: Walk me through how you'd validate a POST API response.</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+I use REST Assured's given-when-then BDD style. In <code>given()</code>, I set up the base URI, headers, and request body/payload — usually built from a POJO serialized to JSON. In <code>when()</code>, I specify the HTTP method and endpoint. In <code>then()</code>, I validate the response — status code, response time, and specific fields in the JSON body using JsonPath expressions like <code>body("data.id", notNullValue())</code>. For complex responses I deserialize into a POJO using Jackson/Gson and assert on the object directly rather than raw JsonPath strings, which is cleaner for larger payloads.
+</div>
+
+<h3>7.4 Authentication Types</h3>
+<ul>
+<li><b>Basic Auth</b> — username:password Base64 encoded in header</li>
+<li><b>Bearer Token / OAuth2</b> — token passed in <code>Authorization: Bearer &lt;token&gt;</code></li>
+<li><b>API Key</b> — passed as header or query param</li>
+</ul>
+<pre><code>given().auth().oauth2(<span class="str">"token_value"</span>)...
+given().header(<span class="str">"Authorization"</span>, <span class="str">"Bearer "</span> + token)...
+</code></pre>
+
+<h3>7.5 Serialization / Deserialization (POJO)</h3>
+<pre><code><span class="kw">class</span> User {
+    <span class="kw">private</span> String name;
+    <span class="kw">private</span> <span class="kw">int</span> age;
+    <span class="cm">// getters/setters</span>
+}
+User user = <span class="kw">new</span> User(<span class="str">"Ravi"</span>, <span class="num">30</span>);
+given().body(user)...  <span class="cm">// serialization: POJO -> JSON</span>
+
+User response = given().when().get(<span class="str">"/user/1"</span>)
+    .then().extract().as(User.<span class="kw">class</span>); <span class="cm">// deserialization: JSON -> POJO</span>
+</code></pre>
+
+<h3>7.6 API vs UI Testing</h3>
+<div class="qbox">Q: Why is API testing preferred earlier in the pipeline compared to UI testing?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+API tests are faster and far more stable since they skip rendering, JavaScript execution, and browser quirks — they hit the business logic layer directly. This means I can validate backend behavior, edge cases and error handling much earlier and faster than UI tests, which is exactly the shift-left principle in the testing pyramid: many fast API/unit tests at the base, fewer slower UI tests at the top. In my projects, I use API calls not just for testing endpoints directly but also to set up test data or verify backend state after a UI action, instead of relying purely on UI-based verification.
+</div>
+
+<h3>7.7 Request/Response Chaining &amp; Extraction</h3>
+<pre><code>String token = given().body(loginPayload).when().post(<span class="str">"/login"</span>)
+    .then().extract().path(<span class="str">"token"</span>);
+
+given().header(<span class="str">"Authorization"</span>,<span class="str">"Bearer "</span>+token)
+    .when().get(<span class="str">"/profile"</span>)
+    .then().statusCode(<span class="num">200</span>);
+</code></pre>
+</section>
+<section id="sql">
+<h2>8. SQL</h2>
+
+<h3>8.1 Why SQL matters for a QA</h3>
+<div class="qbox">Q: Where do you use SQL in your day-to-day testing?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+After a UI action — say submitting a claim in DuckCreek — I often need to verify the backend state directly in the database rather than trusting only the UI confirmation message, since UI can sometimes show success even if the underlying record wasn't persisted correctly. I write SQL queries in my JDBC utility class to fetch the relevant record and assert specific column values match what was submitted, which gives me end-to-end confidence that the data actually persisted correctly.
+</div>
+
+<h3>8.2 Joins</h3>
+<table>
+<tr><th>Join</th><th>Returns</th></tr>
+<tr><td>INNER JOIN</td><td>Only matching rows in both tables</td></tr>
+<tr><td>LEFT JOIN</td><td>All rows from left + matched rows from right (NULL if no match)</td></tr>
+<tr><td>RIGHT JOIN</td><td>All rows from right + matched from left</td></tr>
+<tr><td>FULL OUTER JOIN</td><td>All rows from both, NULL where no match</td></tr>
+<tr><td>SELF JOIN</td><td>Table joined with itself</td></tr>
+</table>
+<pre><code><span class="kw">SELECT</span> e.name, d.dept_name
+<span class="kw">FROM</span> Employee e
+<span class="kw">INNER JOIN</span> Department d <span class="kw">ON</span> e.dept_id = d.id;
+</code></pre>
+
+<h3>8.3 Core Commands (DDL / DML / DQL / DCL / TCL)</h3>
+<table>
+<tr><th>Category</th><th>Commands</th></tr>
+<tr><td>DDL</td><td>CREATE, ALTER, DROP, TRUNCATE</td></tr>
+<tr><td>DML</td><td>INSERT, UPDATE, DELETE</td></tr>
+<tr><td>DQL</td><td>SELECT</td></tr>
+<tr><td>DCL</td><td>GRANT, REVOKE</td></tr>
+<tr><td>TCL</td><td>COMMIT, ROLLBACK, SAVEPOINT</td></tr>
+</table>
+
+<h3>8.4 WHERE vs HAVING</h3>
+<div class="qbox">Q: Difference between WHERE and HAVING?</div>
+<div class="answer-box"><span class="label">Interview Answer</span>
+<code>WHERE</code> filters individual rows before any grouping happens, and can't be used with aggregate functions like <code>COUNT()</code> or <code>SUM()</code>. <code>HAVING</code> filters after <code>GROUP BY</code> has aggregated the rows, so it's used specifically to filter on aggregate results — for example, finding departments having more than 5 employees.
+</div>
+<pre><code><span class="kw">SELECT</span> dept_id, COUNT(*) <span class="kw">as</span> cnt
+<span class="kw">FROM</span> Employee
+<span class="kw">WHERE</span> status = <span class="str">'ACTIVE'</span>
+<span class="kw">GROUP BY</span> dept_id
+<span class="kw">HAVING</span> COUNT(*) &gt; <span class="num">5</span>;
+</code></pre>
+
+<h3>8.5 Keys</h3>
+<ul>
+<li><b>Primary Key</b> — uniquely identifies a row, no NULLs, one per table</li>
+<li><b>Foreign Key</b> — references primary key of another table, enforces referential integrity</li>
+<li><b>Unique Key</b> — ensures uniqueness, allows one NULL</li>
+<li><b>Composite Key</b> — primary key made of multiple columns</li>
+</ul>
+
+<h3>8.6 Normalization</h3>
+<table>
+<tr><th>Form</th><th>Rule</th></tr>
+<tr><td>1NF</td><td>Atomic values, no repeating groups</td></tr>
+<tr><td>2NF</td><td>1NF + no partial dependency on composite key</td></tr>
+<tr><td>3NF</td><td>2NF + no transitive dependency</td></tr>
+</table>
+
+<h3>8.7 Common Functions</h3>
+<pre><code><span class="kw">SELECT</span> DISTINCT city <span class="kw">FROM</span> Customers;
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> Employee <span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>;
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> Employee <span class="kw">LIMIT</span> <span class="num">10</span> <span class="kw">OFFSET</span> <span class="num">5</span>;
+<span class="kw">SELECT</span> name <span class="kw">FROM</span> Employee <span class="kw">WHERE</span> salary <span class="kw">BETWEEN</span> <span class="num">30000</span> <span class="kw">AND</span> <span class="num">50000</span>;
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> Employee <span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="str">'A%'</span>;
+</code></pre>
+
+<h3>8.8 Second Highest Salary (classic interview query)</h3>
+<pre><code><span class="kw">SELECT</span> MAX(salary) <span class="kw">FROM</span> Employee
+<span class="kw">WHERE</span> salary &lt; (<span class="kw">SELECT</span> MAX(salary) <span class="kw">FROM</span> Employee);
+
+<span class="cm">-- Using LIMIT/OFFSET (MySQL)</span>
+<span class="kw">SELECT</span> DISTINCT salary <span class="kw">FROM</span> Employee <span class="kw">ORDER BY</span> salary <span class="kw">DESC LIMIT</span> <span class="num">1 OFFSET</span> <span class="num">1</span>;
+
+<span class="cm">-- Using DENSE_RANK (window function)</span>
+<span class="kw">SELECT</span> salary <span class="kw">FROM</span> (
+  <span class="kw">SELECT</span> salary, DENSE_RANK() <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">as</span> rnk
+  <span class="kw">FROM</span> Employee
+) t <span class="kw">WHERE</span> rnk = <span class="num">2</span>;
+</code></pre>
+
+<h3>8.9 JDBC in Automation</h3>
+<pre><code>Connection con = DriverManager.getConnection(url, user, password);
+Statement stmt = con.createStatement();
+ResultSet rs = stmt.executeQuery(<span class="str">"SELECT status FROM Claims WHERE claim_id='123'"</span>);
+<span class="kw">if</span> (rs.next()) {
+    Assert.assertEquals(rs.getString(<span class="str">"status"</span>), <span class="str">"APPROVED"</span>);
+}
+con.close();
+</code></pre>
+</section>
+<section id="coding">
+<h2>9. Coding Questions</h2>
+
+<h3>9.1 Reverse a String</h3>
+<pre><code><span class="kw">public static</span> String reverse(String str){
+    <span class="kw">return new</span> StringBuilder(str).reverse().toString();
+}
+<span class="cm">// Manual approach (without built-in)</span>
+<span class="kw">public static</span> String reverseManual(String str){
+    <span class="kw">char</span>[] chars = str.toCharArray();
+    <span class="kw">int</span> left = <span class="num">0</span>, right = chars.length - <span class="num">1</span>;
+    <span class="kw">while</span> (left &lt; right) {
+        <span class="kw">char</span> temp = chars[left];
+        chars[left++] = chars[right];
+        chars[right--] = temp;
+    }
+    <span class="kw">return new</span> String(chars);
+}
+</code></pre>
+<div class="answer-box"><span class="label">Interview Answer</span>
+The simplest way is <code>StringBuilder.reverse()</code>, but interviewers often want the manual logic to test understanding — I use a two-pointer approach, swapping characters from both ends toward the middle, giving O(n) time and O(1) extra space (excluding the output array).
+</div>
+
+<h3>9.2 Check Palindrome</h3>
+<pre><code><span class="kw">public static boolean</span> isPalindrome(String str){
+    <span class="kw">int</span> left = <span class="num">0</span>, right = str.length() - <span class="num">1</span>;
+    <span class="kw">while</span> (left &lt; right) {
+        <span class="kw">if</span> (str.charAt(left++) != str.charAt(right--)) <span class="kw">return false</span>;
+    }
+    <span class="kw">return true</span>;
+}
+</code></pre>
+
+<h3>9.3 Find Duplicate Characters in a String</h3>
+<pre><code><span class="kw">public static void</span> findDuplicates(String str){
+    Map&lt;Character, Integer&gt; map = <span class="kw">new</span> HashMap&lt;&gt;();
+    <span class="kw">for</span> (<span class="kw">char</span> c : str.toCharArray()) {
+        map.put(c, map.getOrDefault(c, <span class="num">0</span>) + <span class="num">1</span>);
+    }
+    <span class="kw">for</span> (Map.Entry&lt;Character, Integer&gt; entry : map.entrySet()) {
+        <span class="kw">if</span> (entry.getValue() &gt; <span class="num">1</span>)
+            System.out.println(entry.getKey() + <span class="str">" -> "</span> + entry.getValue());
+    }
+}
+</code></pre>
+<div class="answer-box"><span class="label">Interview Answer</span>
+I use a HashMap to count character frequency in a single O(n) pass — key is the character, value is the count. At the end I iterate the map and print entries with count &gt; 1. This is more efficient than a nested loop approach which would be O(n²).
+</div>
+
+<h3>9.4 Remove Duplicates from an Array/List</h3>
+<pre><code><span class="kw">int</span>[] arr = {<span class="num">1</span>,<span class="num">2</span>,<span class="num">2</span>,<span class="num">3</span>,<span class="num">4</span>,<span class="num">4</span>};
+Set&lt;Integer&gt; set = <span class="kw">new</span> LinkedHashSet&lt;&gt;(); <span class="cm">// preserves order</span>
+<span class="kw">for</span> (<span class="kw">int</span> n : arr) set.add(n);
+System.out.println(set); <span class="cm">// [1, 2, 3, 4]</span>
+</code></pre>
+
+<h3>9.5 Find Second Largest Number in Array</h3>
+<pre><code><span class="kw">public static int</span> secondLargest(<span class="kw">int</span>[] arr){
+    <span class="kw">int</span> first = Integer.MIN_VALUE, second = Integer.MIN_VALUE;
+    <span class="kw">for</span> (<span class="kw">int</span> n : arr) {
+        <span class="kw">if</span> (n &gt; first) { second = first; first = n; }
+        <span class="kw">else if</span> (n &gt; second &amp;&amp; n != first) { second = n; }
+    }
+    <span class="kw">return</span> second;
+}
+</code></pre>
+<div class="answer-box"><span class="label">Interview Answer</span>
+I do it in a single pass, tracking two variables — <code>first</code> and <code>second</code> — instead of sorting the array, which would cost O(n log n). This way it's O(n) time and O(1) space. Whenever I find a number bigger than <code>first</code>, the old <code>first</code> becomes the new <code>second</code>.
+</div>
+
+<h3>9.6 Check if a Number is Prime</h3>
+<pre><code><span class="kw">public static boolean</span> isPrime(<span class="kw">int</span> n){
+    <span class="kw">if</span> (n &lt;= <span class="num">1</span>) <span class="kw">return false</span>;
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">2</span>; i &lt;= Math.sqrt(n); i++) {
+        <span class="kw">if</span> (n % i == <span class="num">0</span>) <span class="kw">return false</span>;
+    }
+    <span class="kw">return true</span>;
+}
+</code></pre>
+
+<h3>9.7 Fibonacci Series</h3>
+<pre><code><span class="cm">// Iterative</span>
+<span class="kw">public static void</span> fibonacci(<span class="kw">int</span> n){
+    <span class="kw">int</span> a = <span class="num">0</span>, b = <span class="num">1</span>;
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+        System.out.print(a + <span class="str">" "</span>);
+        <span class="kw">int</span> next = a + b; a = b; b = next;
+    }
+}
+<span class="cm">// Recursive</span>
+<span class="kw">public static int</span> fib(<span class="kw">int</span> n){
+    <span class="kw">if</span> (n &lt;= <span class="num">1</span>) <span class="kw">return</span> n;
+    <span class="kw">return</span> fib(n-<span class="num">1</span>) + fib(n-<span class="num">2</span>);
+}
+</code></pre>
+<div class="answer-box"><span class="label">Interview Answer</span>
+I usually show the iterative version first since it's O(n) time and O(1) space, and mention that a naive recursive version is O(2ⁿ) due to repeated subproblem calculations — I'd only use recursion with memoization if the interviewer specifically asks for the recursive approach.
+</div>
+
+<h3>9.8 Swap Two Numbers Without a Third Variable</h3>
+<pre><code>a = a + b;
+b = a - b;
+a = a - b;
+<span class="cm">// or using XOR</span>
+a = a ^ b; b = a ^ b; a = a ^ b;
+</code></pre>
+
+<h3>9.9 Count Word Occurrences in a Sentence</h3>
+<pre><code><span class="kw">public static void</span> wordCount(String sentence){
+    String[] words = sentence.toLowerCase().split(<span class="str">"\\s+"</span>);
+    Map&lt;String, Integer&gt; freq = <span class="kw">new</span> HashMap&lt;&gt;();
+    <span class="kw">for</span> (String w : words) freq.put(w, freq.getOrDefault(w, <span class="num">0</span>) + <span class="num">1</span>);
+    freq.forEach((k,v) -&gt; System.out.println(k + <span class="str">": "</span> + v));
+}
+</code></pre>
+
+<h3>9.10 Sort an Array without built-in sort (Bubble Sort)</h3>
+<pre><code><span class="kw">public static void</span> bubbleSort(<span class="kw">int</span>[] arr){
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; arr.length - <span class="num">1</span>; i++) {
+        <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j &lt; arr.length - <span class="num">1</span> - i; j++) {
+            <span class="kw">if</span> (arr[j] &gt; arr[j+<span class="num">1</span>]) {
+                <span class="kw">int</span> temp = arr[j]; arr[j] = arr[j+<span class="num">1</span>]; arr[j+<span class="num">1</span>] = temp;
+            }
+        }
+    }
+}
+</code></pre>
+
+<h3>9.11 Find Missing Number in Array (1 to N)</h3>
+<pre><code><span class="kw">public static int</span> findMissing(<span class="kw">int</span>[] arr, <span class="kw">int</span> n){
+    <span class="kw">int</span> expectedSum = n * (n+<span class="num">1</span>) / <span class="num">2</span>;
+    <span class="kw">int</span> actualSum = <span class="num">0</span>;
+    <span class="kw">for</span> (<span class="kw">int</span> num : arr) actualSum += num;
+    <span class="kw">return</span> expectedSum - actualSum;
+}
+</code></pre>
+
+<h3>9.12 Singleton Design Pattern (WebDriver instance)</h3>
+<pre><code><span class="kw">public class</span> DriverManager {
+    <span class="kw">private static</span> WebDriver driver;
+    <span class="kw">private</span> DriverManager(){}
+    <span class="kw">public static</span> WebDriver getDriver(){
+        <span class="kw">if</span> (driver == <span class="kw">null</span>) {
+            driver = <span class="kw">new</span> ChromeDriver();
+        }
+        <span class="kw">return</span> driver;
+    }
+}
+</code></pre>
+<div class="answer-box"><span class="label">Interview Answer</span>
+Singleton ensures only one instance of a class exists across the JVM. I use it for WebDriver management — the private constructor blocks external instantiation, and <code>getDriver()</code> lazily creates the driver only once. In a multi-threaded parallel run, I upgrade this to a <code>ThreadLocal&lt;WebDriver&gt;</code> instead, so each thread still gets exactly one driver instance, but scoped per-thread rather than truly global — otherwise parallel tests would collide on a shared browser session.
+</div>
+
+<h3>9.13 Multi-threading Basics (relevant to parallel execution)</h3>
+<pre><code><span class="kw">public class</span> DriverManager {
+    <span class="kw">private static</span> ThreadLocal&lt;WebDriver&gt; driver = <span class="kw">new</span> ThreadLocal&lt;&gt;();
+    <span class="kw">public static void</span> setDriver(WebDriver d){ driver.set(d); }
+    <span class="kw">public static</span> WebDriver getDriver(){ <span class="kw">return</span> driver.get(); }
+    <span class="kw">public static void</span> unload(){ driver.remove(); }
+}
+</code></pre>
+<div class="answer-box"><span class="label">Interview Answer</span>
+<code>ThreadLocal</code> gives each thread its own isolated copy of a variable — so when TestNG runs classes in parallel, each thread calls <code>setDriver()</code> in its own <code>@BeforeMethod</code>, and since the variable is thread-scoped, thread A can never accidentally read thread B's driver instance. I always call <code>unload()</code> or <code>driver.remove()</code> in <code>@AfterMethod</code> to avoid memory leaks, since ThreadLocal values persist until explicitly cleared or the thread dies.
+</div>
+
+<h3>9.14 Anagram Check</h3>
+<pre><code><span class="kw">public static boolean</span> isAnagram(String a, String b){
+    <span class="kw">char</span>[] c1 = a.toCharArray(), c2 = b.toCharArray();
+    Arrays.sort(c1); Arrays.sort(c2);
+    <span class="kw">return</span> Arrays.equals(c1, c2);
+}
+</code></pre>
+
+<h3>9.15 Factorial (Recursion)</h3>
+<pre><code><span class="kw">public static long</span> factorial(<span class="kw">int</span> n){
+    <span class="kw">if</span> (n == <span class="num">0</span>) <span class="kw">return</span> <span class="num">1</span>;
+    <span class="kw">return</span> n * factorial(n - <span class="num">1</span>);
+}
+</code></pre>
+</section>
+
+<p style="text-align:center;color:#8b949e;margin-top:60px;font-size:12px;">Java + Selenium Interview Cheatsheet — built for interview prep · Good luck! 🚀</p>
+</main>
+
+<script>
+const links = document.querySelectorAll('#sidebar a');
+const sections = document.querySelectorAll('section');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - 90) current = sec.getAttribute('id');
+  });
+  links.forEach(a => {
+    a.classList.remove('active');
+    if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

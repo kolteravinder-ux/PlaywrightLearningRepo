@@ -1,0 +1,93 @@
+Before Each test Block
+TC1
+Total Search Titles:  40
+Total Search Product Price:  40
+Title 1: Apple Mac Mini (MGNT3HN/A) M1 Chip (8 GB RAM/integrated 8-core GPU Graphics/512 GB SSD Capacity/Mac OS Big Sur) Microtower
+Price 1: ₹84,900
+Cheapest Price: ₹84,900
+Title 2: Apple MQH63HN/A M2 Ultra chip (64 GB RAM/Integrated 60 core GPU Graphics/1 TB SSD Capacity/macOS Ventura) Mini Tower
+Price 2: ₹4,19,900
+Cheapest Price: ₹4,19,900
+Title 3: Apple MCYT4HN/A|MCYT4HN/A M4 Chip (24 GB RAM/10-core GPU Graphics/512 GB SSD Capacity/macOS Sequoia) Mini Tower
+Price 3: ₹1,42,900
+Cheapest Price: ₹1,42,900
+Title 4: Apple Mac Mini (MXNF2HN/A) Core i3 (8 GB RAM/Intel UHD Graphics 630 Graphics/256 GB SSD Capacity/Mac OS Catalina) Mini Tower
+Price 4: ₹74,900
+Cheapest Price: ₹74,900
+Title 5: DELL Wyse 7040 Small Form Factor Mini PC(Renewed) - Windows 11, Intel, Core i5-6th Generation, 600 MB Graphics Card, 8 GB DDR-4/PC-4, 256 GB SSD M.2/SATA Mini PC
+Price 5: ₹18,150
+Title 6: Apple MacBook Air M3 - (24 GB/512 GB SSD/macOS Sequoia) MC8M4HN/A
+Price 6: ₹1,54,900
+Cheapest Price: ₹1,54,900
+Title 7: DELL Refurbished Core i3 7th Generation Tiny PC - Windows 10, Intel®, Core i3 7th Generation, 8 GB DDR4, 256 GB SSD Mini PC
+Price 7: ₹13,600
+Title 8: Vbh DFGFHTY PRO (12 MB RAM/DSRE Graphics/12 GB Hard Disk/64 GB SSD Capacity/Mac OS Big Sur/12 GB Graphics Memory) Mini Tower
+Price 8: ₹46,999
+Title 9: Ybh BGTY PRO (12 MB RAM/BGH67 Graphics/12 GB Hard Disk/64 GB SSD Capacity/Mac OS Big Sur/12 GB Graphics Memory) Mini Tower
+Price 9: ₹46,999
+Title 10: Ybh BVGTY PRO (12 MB RAM/BVG65 Graphics/12 GB Hard Disk/64 GB SSD Capacity/Mac OS Big Sur/12 GB Graphics Memory) Mini Tower
+Price 10: ₹46,999
+Title 11: YHB CBVDF PRO (12 MB RAM/VFGRT45 Graphics/12 GB Hard Disk/64 GB SSD Capacity/Mac OS Big Sur/12 GB Graphics Memory) Mini Tower
+Price 11: ₹46,999
+Title 12: DELL wyse_7040 - Windows 10, Intel UHD Graphics 530, DELL (Refurbished) Wyse 7040 Mini-PC High Performance Processor Type i5-6th, 620 MB Graphics Card, 8 GB DDR4, 256 GB ssd with 6 month warranty with 5G Dongle Mini PC
+Price 12: ₹18,999
+Title 13: CompuTek ™ | DELL-Optiplex 7050 Mini (Renewed) - Windows 10, Intel, i5 Quad Core, 6th Generation ,Intel HD Graphics, 8 GB DDR4 RAM, 500 GB SSD(M.2 NVMe) Mini PC
+Price 13: ₹18,450
+Title 14: DELL (REFURBISHED) WYSE_7040 - Windows 10, 530, I5-6TH 6500 4 CORE, 512 MB Graphics Card, 8 GB DDR4, 256 GB SSD Mini PC
+Price 14: ₹17,500
+Cheapest Price: ₹17,500
+Title 15: Qiwa X98Q Mini Pc Box with Amlogic S905W2 Quad core Processor - 4K UHD Video, - Android v4.4 (KitKat), NITEL, AMLOGIC S905W2, 2 GB DDR3, 16 GB 10 Mini PC
+Price 15: ₹3,999
+Title 16: SAIRAM COMPUTER EliteDesk Core i7 (9th Gen) [12M Cache, 3.00 GHz]/32GB RAM/1024GB SSD [MCA] - Windows 11 Pro, Intel H310, Core i7 (9th Generation) Processor [8 Cores, 8 Threads], 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 16: Price: Not Available
+Title 17: SAIRAM COMPUTER EliteDesk Core i7 (9th Gen) [12MB Cache, 3.00 GHz]/32GB RAM/1TB SSD [MCT] - Windows 11 Pro, Intel H310, Core™ i7-9700 [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 17: Price: Not Available
+Title 18: SAIRAM COMPUTER Core i7-9700 [8 Cores, 8 Threads]/32GB RAM/1024GB SSD EliteDesk Tiny PC [DKA] - Windows 11 Pro, Intel H310, Core i7 (9th Generation) Processor [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 18: Price: Not Available
+Title 19: SAIRAM COMPUTER Intel Core i7-9700 Processor/32GB RAM/1024GB NVMe SSD EliteDesk Mini PC [LJZ] - Windows 11 Pro, Intel H310, Core i7 (9th Gen) [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 19: Price: Not Available
+Title 20: Nayajaisa Len Thinkcentre M700 Tiny i3 6th 8-512 - Windows 10, MSO|HD Graphics|USB, Ethernet,VGA|PAN India Warranty, LGA 1151, 8 GB DDR4, 512 GB SSD Mini PC
+Price 20: Price: Not Available
+Title 21: NCS EliteDesk Mini PC Intel Core i7 (9th Gen)/32GB RAM/1024GB NVMe SSD [DVZ] - Windows 11 Pro, Intel H310, Core i7-9700 Processor [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 21: Price: Not Available
+Title 22: NCS Intel Core i7 (9th Gen)/32GB RAM/1TB NVMe SSD EliteDesk Mini PC [MWM] - Windows 11 Pro, Intel H310, Core™ i7 (9th Generation) Octa-Core Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 22: Price: Not Available
+Title 23: NCS EliteDesk Mini PC Intel Core i7 (9th Gen)/32GB RAM/1TB NVMe SSD [DVY] - Windows 11 Pro, Intel H310, Intel Core i7 - 9700 Processor [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 23: Price: Not Available
+Title 24: NCS ELITEDESK Core i7 (9th Gen) [12M Cache, 3.00 GHz]/32GB RAM/1024GB NVMe SSD [MWW] - Windows 11 Pro, Intel H310, Intel Core i7 (9th Generation) Octa-Core, 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 24: Price: Not Available
+Title 25: NCS ELITEDESK MINI PC Intel Core i7 (9th Gen) Processor/32GB RAM/1TB NVMe SSD [CWU] - Windows 11 Pro, Intel H310, Core i7 - 9700 Octa-Core Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 25: Price: Not Available
+Title 26: NCS Intel Core i7 (9th Gen)/32GB RAM/1TB NVMe SSD ELITEDESK MINI PC [MUO] - Windows 11 Pro, Intel H310, Intel® Core™ i7 - 9700 Processor [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 26: Price: Not Available
+Title 27: NCS EliteDesk Mini PC Core i7-9700 [8 Cores, 8 Threads]/32GB RAM/1024GB SSD [LTV] - Windows 11 Pro, Intel H310, Core i7 (9th Gen) Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 27: Price: Not Available
+Title 28: NCS ELITEDESK MINI PC Intel Core i7-9700 Processor/32GB RAM/1024GB NVMe SSD [JCJ] - Windows 11 Pro, Intel H310, Intel® Core™ i7 (9th Gen) Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 28: Price: Not Available
+Title 29: NCS ELITEDESK MINI PC Intel Core i7-9700 Processor/32GB RAM/1024GB NVMe SSD [LTN] - Windows 11 Pro, Intel H310, Core i7-9700, 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 29: Price: Not Available
+Title 30: SAIRAM COMPUTER Core i7 (9th Gen) [12MB Cache, 3.00GHz]/32GB RAM/1024GB NVMe SSD ELITEDESK [MDR] - Windows 11 Pro, Intel H310, Core™ i7 (9th Gen) Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 30: Price: Not Available
+Title 31: NCS ELITEDESK Core i7-9700 [12MB Cache, Up to 4.70 GHz]/32GB RAM/1024GB SSD [MXC] - Windows 11 Pro, Intel H310, Intel Core i7-9700 [8 Cores, 8 Threads, Upto 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 31: Price: Not Available
+Title 32: SAIRAM COMPUTER EliteDesk Core i7-9700 [12M Cache, Up to 4.70 GHz]/32GB RAM/1TB SSD [MCP] - Windows 11 Pro, Intel H310, Core i7-9700 Processor [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 32: Price: Not Available
+Title 33: SAIRAM COMPUTER Core i7-9700 [12MB Cache, Up to 4.70 GHz]/32GB RAM/1TB SSD EliteDesk [GAY] - Windows 11 Pro, Intel H310, Core i7 - 9700 [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 33: Price: Not Available
+Title 34: SAIRAM COMPUTER Core i7-9700 [12M Cache, Up to 4.70 GHz]/32GB RAM/1024GB SSD ELITEDESK [IPN] - Windows 11 Pro, Intel H310, Core™ i7-9700 [8 Cores, 8 Threads], 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 34: Price: Not Available
+Title 35: SAIRAM COMPUTER EliteDesk Core i7-9700 [12M Cache, Up to 4.70 GHz]/32GB RAM/1TB SSD [BLR] - Windows 11 Pro, Intel H310, Core i7-9700 Processor [8 Cores, 8 Threads, 3.00 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 35: Price: Not Available
+Title 36: SAIRAM COMPUTER EliteDesk Mini PC Intel Core i7 (9th Gen)/32GB RAM/1024GB NVMe SSD [FAT] - Windows 11 Pro, Intel H310, Core i7 (9th Gen) Octa-Core Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 36: Price: Not Available
+Title 37: SAIRAM COMPUTER ELITEDESK TINY PC Core i7-9700 [8 Cores, 8 Threads]/32GB RAM/1TB SSD [MYF] - Windows 11 Pro, Intel H310, Intel Core i7-9700, 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 37: Price: Not Available
+Title 38: SAIRAM COMPUTER Core i7-9700 [12M Cache, Up to 4.70 GHz]/32GB RAM/1TB SSD ELITEDESK [FBX] - Windows 11 Pro, Intel H310, Intel® Core™ i7-9700 Processor, 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 38: Price: Not Available
+Title 39: SAIRAM COMPUTER ELITEDESK MINI PC Intel Core i7 (9th Gen)/32GB RAM/1TB NVMe SSD [DEQ] - Windows 11 Pro, Intel H310, Core i7 (9th Generation) Octa-Core, 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 39: Price: Not Available
+Title 40: SAIRAM COMPUTER EliteDesk Core i7-9700 [12MB Cache, 3.00 GHz]/32GB RAM/1024GB SSD [CIA] - Windows 11 Pro, Intel H310, Core i7 - 9700 [12MB Cache, Up to 4.70 GHz], 32 GB DDR4, 1024 GB NVMe SSD Mini PC
+Price 40: Price: Not Available
+Cheapest Price:  ₹3,999
+Cheapest Price:  3999
+Cheapest Product Title:  DELL (REFURBISHED) WYSE_7040 - Windows 10, 530, I5-6TH 6500 4 CORE, 512 MB Graphics Card, 8 GB DDR4, 256 GB SSD Mini PC

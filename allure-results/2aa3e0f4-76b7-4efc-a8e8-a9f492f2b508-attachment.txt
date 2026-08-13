@@ -1,0 +1,9 @@
+Before Each test Block
+State Class: sm_state sm_state_INMP
+State Class: sm_state sm_state_INOR
+State Class: sm_state sm_state_INMZ
+State Class: sm_state sm_state_INSK
+After Spliting: sm_state_INSK
+After Spliting More : INSK
+Actual State Abb- Sikkim
+Sikkim

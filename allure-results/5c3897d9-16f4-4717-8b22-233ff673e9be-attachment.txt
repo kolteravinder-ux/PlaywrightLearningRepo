@@ -1,0 +1,74 @@
+Before Each test Block
+TC1
+Total Search Titles:  40
+Total Search Product Price:  40
+Title 1: Shields Premium Pant Style | Pack of 2 | Adult Diapers - M
+Price 1: ₹1,081
+Title 2: Zanskar Advanced Pain Healing (Pack of 2) Cream
+Price 2: ₹629
+Title 3: Zanskar Advanced Pain Healing Cream
+Price 3: ₹395
+Title 4: Manmohan Jadu Malam (Pack of 5)
+Price 4: ₹123
+Title 5: Selsun Suspension Anti Dandruff Shampoo Liquid
+Price 5: ₹387
+Title 6: Lakshmi Krishna Natural Henna Hair Dye , Non-ammonia black dye, 50g
+Price 6: ₹327
+Title 7: Humicure Hanging Absorber Packets Moisture Absorber
+Price 7: ₹290
+Title 8: Dish TV Genuine Universal dish tv Remote Controller
+Price 8: ₹198
+Title 9: Ayuzera by Wellwith Himalayan Sea Buckthorn Pulp Concentrate Herbal Juice
+Price 9: ₹764
+Title 10: Mi Original Mi X Pro, X series, Mi 5A Voice Remote Control with Google for Android (Bluetooth Remote) For Device Mi Android TV, Mi tv, Xiaomi Redmi Mi Smart Tv, MI Smart TV 4A Remote Controller
+Price 10: ₹280
+Title 11: Ayuzera by Wellwith Sea Buckthorn Concentrate Juice Super Antioxidant Omega 7
+Price 11: ₹764
+Title 12: OMRON compressor ne- c106 Nebulizer
+Price 12: ₹1,224
+Title 13: Emolene Propylene Glycol (hydronourisher for dry skin) Cream
+Price 13: ₹351
+Title 14: Niconi Gluta-Kojic Instant Tan Removal & Tan Vanish With Glutathione, For All Type Skin
+Price 14: ₹1,396
+Title 15: OneTouch Select Plus Simple Glucometer (FREE 10 strips + lancing device + 10 lancets) Glucometer
+Price 15: ₹906
+Title 16: Kapiva Artho Sure Juice – 1L | Ayurvedic Joint Pain Relief for Arthritis & Knee Pain
+Price 16: ₹809
+Title 17: Tedibar Moisturising Baby Bathing Bar | 100% Soap Free | Skin Friendly pH - By Torrent
+Price 17: ₹389
+Title 18: OMRON HEM 7140T1 Bluetooth Blood Pressure Monitor with Cuff Wrapping Guide Omron HEM 7140T1 Bluetooth Blood Pressure Monitor Bp Monitor
+Price 18: ₹1,869
+Title 19: ganpati traders Joint Pain Relief Rubber Hot Water Bottle/Bag Non-Electric 2 L Hot Water Bag (Multicolor) Non-Electrical 2 L Hot Water Bag (Multicolor)3 NON-ELECTRIC 2 L Hot Water Bag
+Price 19: ₹142
+Title 20: airtech Strong metal Black tripod stand with ring light for phography and video Ring Flash
+Price 20: ₹656
+Title 21: OMRON Karada Scan HBF-375 Body Fat Analyzer
+Price 21: ₹8,568
+Title 22: Fitelo Bluetooth Smart Scale | Body Fat BMI Analyzer | Tracks 25 Metrics | App Sync Weighing Scale
+Price 22: ₹998
+Title 23: mushroomex Mushroom Powder
+Price 23: ₹332
+Title 24: NIBAR Screen Cleaner Gel for Computers, Laptops, Mobiles, Gaming
+Price 24: ₹142
+Title 25: AGEasy (Max Group) Nebulizer Portable Nebulization Machine with Mouth Piece, Child & Adult Mask,
+Price 25: ₹999
+Title 26: Alps Goodness Rosemary Water for Hair Growth, Hair Spray to Promote Regrowth & Reduce Hairfall
+Price 26: ₹359
+Title 27: AGEasy (Max Group) Massage Gun, 8 Speed, 4 Massage Heads, Rechargable USB Type - C Massager
+Price 27: ₹1,019
+Title 28: Greenchef Carlo Ace Single Pot Electric Rice Cooker with Steaming Feature
+Price 28: ₹1,599
+Title 29: Smart Weigh Personal Body Weighing Scale with LCD Screen weigh scale Anti-Skid Glass Machine Weighing Scale
+Price 29: ₹408
+Title 30: Flipkart SmartBuy Tempered Glass Guard for DJI Mini 3 Fly More Combo DJI RC, Drones with Camera for Adults 4K
+Price 30: ₹144
+Title 31: LORSHEL Japanese Instant Pain Relief Soothing Massage Gel - Herbal Massage Gel, Premi... Gel
+Price 31: ₹212
+Title 32: Noise Icon 2 1.8'' Display with Bluetooth Calling, Women's Edition, AI Voice Assistant Smartwatch
+Price 32: ₹1,299
+Title 33: Ghar Soaps Detan Magic Combo - Magic Soap & Magic Facewash
+Price 33: ₹359
+Title 34: Control D 50 Sugar strips 50 Glucometer Strips
+Price 34: ₹498
+Title 35: Control D Portable Nebulizer
+Price 35: ₹898

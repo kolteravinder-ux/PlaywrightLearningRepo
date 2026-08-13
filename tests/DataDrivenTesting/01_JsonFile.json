@@ -1,0 +1,11 @@
+{
+"name":"Ravi",
+"age": 20,
+"city":"Bangalore",
+"skills":["Java","Python","Selenium"],
+"address": {
+    "street": "MG Road",
+    "zip": 560001
+  }
+  
+}

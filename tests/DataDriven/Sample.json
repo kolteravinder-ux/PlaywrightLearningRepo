@@ -1,0 +1,14 @@
+{
+  "id": 1001,
+  "name": "Aarav Sharma",
+  "email": "aarav.sharma@example.com",
+  "is_active": true,
+  "balance": 2450.50,
+  "roles": ["User", "Moderator"],
+  "address": {
+    "city": "Pune",
+    "state": "Maharashtra",
+    "pincode": "412308"
+  },
+  "phone_number": null
+}
