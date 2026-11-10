@@ -33,3 +33,10 @@ placeholder("Dice",()=>{
 //output
 // Hello Order placed
 // Arrow=> Am also function without name.
+
+
+let stat=['Pass','Fail','Pending','Skip']
+
+for(let st of stat){
+console.log(st);
+}

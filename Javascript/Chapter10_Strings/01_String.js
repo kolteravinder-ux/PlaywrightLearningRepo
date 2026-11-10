@@ -1,5 +1,5 @@
-let name ="world" // double quote
-let msg=`Hello ${name}! 2+2=>${2+2}`
+let nam ="world" // double quote
+let msg=`Hello ${nam}! 2+2=>${2+2}`
 console.log(msg)
 //multile line string
 
